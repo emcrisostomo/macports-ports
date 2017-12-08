@@ -48,3 +48,7 @@ build {
 destroot {
     xinstall ${distpath}/${distfiles} ${destroot}${prefix}/bin/ecs-cli
 }
+
+livecheck.type  regex
+livecheck.url   https://github.com/aws/amazon-ecs-cli/tags
+livecheck.regex archive/v(\[^"\]+).tar.gz
