@@ -71,8 +71,6 @@ post-patch {
 build.cmd           ./make
 build.target        build
 
-patchfiles          build.sh.diff
-
 destroot {
     copy {*}[glob ${worksrcpath}/bin/*] ${destroot}${prefix}/bin/
 
