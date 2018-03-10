@@ -28,6 +28,8 @@ checksums               rmd160  419fefb665764a319a93b27d4c8b838a90c79081 \
                         sha256  fe74369fc30a32ec7a086b1013acd0eacd674e7570eb1acc520a66180c9e9719 \
                         size    11590180
 
+patchfiles              patch-mouse-ncurses.diff
+
 depends_build-append    port:pkgconfig
 
 depends_lib             port:gettext \
