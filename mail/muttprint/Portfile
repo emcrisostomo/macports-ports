@@ -37,6 +37,10 @@ depends_lib         port:dialog \
 # see https://trac.macports.org/ticket/56075
 patchfiles          muttprintperl5.26fix.patch
 
+# fix script to work with perl 5.26
+# see https://trac.macports.org/ticket/56075
+patchfiles          muttprintperl5.26fix.patch
+
 use_configure       no
 
 destroot {
