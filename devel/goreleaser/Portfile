@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/goreleaser/goreleaser 0.180.0 v
+go.setup            github.com/goreleaser/goreleaser 0.180.3 v
 revision            0
 
 homepage            https://goreleaser.com
@@ -14,14 +14,14 @@ long_description    {*}${description}. GoReleaser builds Go binaries for \
                     several platforms, and can create GitHub releases as well.
 
 categories          devel
+installs_libs       no
+license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
-license             MIT
-installs_libs       no
 
-checksums           rmd160  065229cbd5b593cf97fc4c6977b85094510381d6 \
-                    sha256  e60faaa55ec47e59614a7af9d9e05d2bbbe755d330ffe982f2e118863550f1e6 \
-                    size    611088
+checksums           rmd160  4ac20983ff461f09590129f750f097b0d21621c0 \
+                    sha256  8cfd8e09638a5ad4a8d3e3bdb61a05244e8190546f2c97b1cee2190a6b94cca8 \
+                    size    611804
 
 github.tarball_from archive
 

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/dolthub/dolt 0.28.5 v
+go.setup            github.com/dolthub/dolt 0.30.1 v
 revision            0
 
 description         Dolt is Git for Data - It's like Git and MySQL had a baby!
@@ -21,9 +21,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 license             Apache-2
 installs_libs       no
 
-checksums           rmd160  6882774039c49e1d77aee83fb949b512628f79c6 \
-                    sha256  9e50c3964466bbcf5b78a48104be446027348e2eb9affd40f6dfe6386bc67b42 \
-                    size    3856196
+checksums           rmd160  75c30f125d338fcf257b0b9a6daec036b09b409b \
+                    sha256  366c0720a3db080659a102ffe210c4dcba8039e39c9eb6b64d9d30c0a8300cd7 \
+                    size    3862606
 
 build.env-delete    GO111MODULE=off GOPROXY=off
 
