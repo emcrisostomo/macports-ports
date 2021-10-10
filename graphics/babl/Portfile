@@ -6,11 +6,11 @@ PortGroup           meson 1.0
 
 name                babl
 conflicts           babl-devel
-version             0.1.82
+version             0.1.88
 license             LGPL-3+
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          graphics
-maintainers         {devans @dbevans} openmaintainer
+maintainers         {devans @dbevans} {mascguy @mascguy} openmaintainer
 platforms           darwin
 
 description         Babl is a library for dynamically handling pixel formats and managing \
@@ -22,9 +22,9 @@ master_sites        gimp:${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  4d1a990773217d2a2536c773f6621fa511dd5598 \
-                    sha256  c62d93d4ad6774cb8e3231bbbc7f2e61e551e7242d78640d757505ee1a9fadc5 \
-                    size    299348
+checksums           rmd160  848aca23f6a4200de1c8086fc1e3a07288534da3 \
+                    sha256  4f0d7f4aaa0bb2e725f349adf7b351a957d9fb26d555d9895a7af816b4167039 \
+                    size    299972
 
 configure.args-append \
                     -Dwith-docs=false
@@ -48,7 +48,7 @@ compiler.blacklist-append *gcc-3.* *gcc-4.*
 # babl-0.1.72/extensions/sse-half.c:49:24: error: invalid conversion between vector type '__v4sf' (vector of 4 'float' values) and integer type 'int' of different size
 #       __v4sf out_val = (__v4sf)_mm_cvtph_ps(in_val);
 #                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compiler.blacklist-append {clang > 700 < 800}
+compiler.blacklist-append {clang < 900}
 
 if {![info exists universal_possible]} {
     set universal_possible [expr {${os.universal_supported} && [llength ${configure.universal_archs}] >= 2}]
