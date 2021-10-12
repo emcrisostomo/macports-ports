@@ -3,15 +3,19 @@
 PortSystem          1.0
 PortGroup           muniversal 1.0
 
-set short_v         1.0
-name                openssl[string map {. {}} $short_v]
-version             ${short_v}.2u
-revision            2
+set major_v         3
+name                openssl$major_v
+version             ${major_v}.0.0
+revision            0
+
+# Please revbump these ports when updating OpenSSL.
+#  - freeradius (#43461)
+#  - openssh (#54990)
 
 categories          devel security
 platforms           darwin
-license             OpenSSL SSLeay
-maintainers         nomaintainer
+license             Apache-2
+maintainers         {larryv @larryv} {cal @neverpanic} openmaintainer
 
 description         OpenSSL SSL/TLS cryptography library
 long_description    The OpenSSL Project is a collaborative effort to \
@@ -37,25 +41,31 @@ master_sites        ${homepage}/source \
                     ftp://ftp.linux.hr/pub/openssl/source/ \
                     ftp://guest.kuria.katowice.pl/pub/openssl/source/
 
-checksums           rmd160  b8e7e5df9582e29fdd00bd03d47e980a39ba11ab \
-                    sha256  ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16 \
-                    size    5355412
+checksums           rmd160  a31de80cc0ab6b37bc92fa6e0c16fb94e95a599e \
+                    sha256  59eedfcb46c25214c9bd37ed6078297b4df01d012267fe9e9eee31f61bc70536 \
+                    size    14978663
 
-patchfiles          install-headers-HFS+.patch \
-                    parallel-building.patch \
-                    remove-duplicate-bn_print-doc.patch \
-                    darwin64-arm64-cc.patch
+if {${os.platform} eq "darwin" && ${os.major} < 11} {
+    # Having the stdlib set to libc++ on 10.6 causes a dependency on a
+    # macports-clang compiler to be added, which would be a dep cycle.
+    configure.cxx_stdlib
+}
 
-set my_name         openssl-${short_v}
+#   https://github.com/openssl/openssl/commit/96ac8f13f4d0ee96baf5724d9f96c44c34b8606c
+#   https://github.com/openssl/openssl/commit/2f3b120401533db82e99ed28de5fc8aab1b76b33
+#   Patches updated to fix 10.4 build
+#   To be seen if needed with 3.0.0, and if dodes needs updating.
+#patchfiles-append   patch-pre-Sierra.diff
+
+set my_name         openssl-${major_v}
 set my_prefix       ${prefix}/libexec/${name}
 
 configure.ccache    no
 configure.perl      /usr/bin/perl
 configure.cmd       ./Configure
 configure.pre_args  --prefix=${my_prefix}
-configure.args     -L${prefix}/lib \
-                    no-krb5 \
-                  --openssldir=${my_prefix}/etc/openssl \
+configure.args      -L${prefix}/lib \
+                    --openssldir=${my_prefix}/etc/openssl \
                     shared \
                     zlib
 
@@ -77,15 +87,23 @@ platform darwin {
     # Don't use i386 assembly on Tiger (#38015, #43303).
     if {${os.major} <= 8} {
         append merger_configure_args(i386) { no-asm}
+        # https://trac.macports.org/ticket/58992
+        configure.args-append no-async
     }
     # Don't use x86-64 assembly on Tiger or Leopard.
     if {${os.major} <= 9} {
         append merger_configure_args(x86_64) { no-asm}
+        # OpenSSL requires Perl 5.10.0, while Leopard ships Perl 5.8.8
+        depends_build-append    port:perl5
+        configure.perl          ${prefix}/bin/perl5
     }
 }
 # Don't pass --host to configure.
 array set merger_host {ppc {} i386 {} ppc64 {} x86_64 {} arm64 {}}
 
+if {![info exists universal_possible]} {
+    set universal_possible [expr {${os.universal_supported} && [llength ${configure.universal_archs}] >= 2}]
+}
 if {(!${universal_possible} || ![variant_isset universal])
         && [info exists merger_configure_args(${configure.build_arch})]} {
     configure.args-append $merger_configure_args(${configure.build_arch})
@@ -115,19 +133,18 @@ post-destroot {
         ln -s ${my_prefix}/lib/${l} ${destroot}/${prefix}/lib/${my_name}/${l}
     }
     foreach b [glob -tails -directory ${destroot}${my_prefix}/bin *] {
-        ln -s ${my_prefix}/bin/${b} ${destroot}/${prefix}/bin/${b}-${short_v}
+        ln -s ${my_prefix}/bin/${b} ${destroot}/${prefix}/bin/${b}-${major_v}
     }
     # shared/man dir seems to still end up in ${prefix} and not libexec...
     move ${destroot}${prefix}/share/man ${destroot}/${my_prefix}/share/
 }
 
-destroot.destdir    INSTALL_PREFIX=${destroot}
-destroot.target     install_sw
+destroot.args       MANDIR=${prefix}/share/man MANSUFFIX=ssl
 
 variant rfc3779 description {enable RFC 3779: X.509 Extensions for IP Addresses and AS Identifiers} {
     configure.args-append   enable-rfc3779
 }
 
 livecheck.type      regex
-livecheck.url       https://www.openssl.org/source/old/1.0.2/
-livecheck.regex     openssl-(1.0.\[0-9.\]+\[a-z\]?)\\.tar\\.gz
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     openssl-(\[0-9.\]+\[a-z\]?)\\.tar\\.gz
