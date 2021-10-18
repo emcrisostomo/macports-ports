@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/vrothberg/vgrep 2.5.2 v
+go.setup            github.com/vrothberg/vgrep 2.5.3 v
 github.tarball_from archive
 revision            0
 epoch               1
@@ -25,15 +25,22 @@ license             GPL-3
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  2063c82e2cd2c27e48b40f6052a266745cccd5ac \
-                    sha256  8e1fdd9185f39077dea9fa9274c7b8e0347bde8ae39d49efde5d9dbc11a1af55 \
-                    size    1571753
+checksums           rmd160  668e0ce29059c70fa486fe93aa66828083fb86f8 \
+                    sha256  d2fa1c1ac7e196d591b834cccff1cb457d20e66d03558e7f7b3b966bef3ab86c \
+                    size    1571893
+
+depends_build-append \
+                    port:go-md2man
 
 # Do not need go.vendors as source archive already includes vendored
 # dependencies.
 build.cmd           make
-build.target        release
+build.target        release docs
 
 destroot {
-    xinstall -m 755 ${worksrcpath}/build/${name} ${destroot}${prefix}/bin/
+    xinstall -m 0755 ${worksrcpath}/build/${name} ${destroot}${prefix}/bin/
+
+    xinstall -d ${destroot}${prefix}/share/man/man1
+    xinstall -m 0644 ${worksrcpath}/docs/${name}.1 \
+        ${destroot}${prefix}/share/man/man1/
 }
