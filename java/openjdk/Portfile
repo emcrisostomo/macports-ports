@@ -115,20 +115,11 @@ subport openjdk8 {
     }
 }
 
+# Remove after 2022-10-19
 subport openjdk8-graalvm {
     version      21.0.0.2
-    revision     1
-
-    description  GraalVM Community Edition based on OpenJDK 8
-    long_description ${long_description_graalvm}
-
-    master_sites https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${version}/
-    distname     graalvm-ce-java8-darwin-amd64-${version}
-    worksrcdir   graalvm-ce-java8-${version}
-
-    checksums    rmd160  2fc5f23a1558b5e125ef91ad137270fe4f2b4d0c \
-                 sha256  25a653a44b3ad63479d7ae35d921c8d39282ff1849243f1afc0ffddd443e9079 \
-                 size    349277690
+    revision     2
+    replaced_by  openjdk11-graalvm
 }
 
 subport openjdk8-openj9 {
@@ -243,7 +234,7 @@ subport openjdk11 {
 }
 
 subport openjdk11-graalvm {
-    version      21.2.0
+    version      21.3.0
     revision     0
 
     description  GraalVM Community Edition based on OpenJDK 11
@@ -253,9 +244,9 @@ subport openjdk11-graalvm {
     distname     graalvm-ce-java11-darwin-amd64-${version}
     worksrcdir   graalvm-ce-java11-${version}
 
-    checksums    rmd160  7a1f0185f67022ad7f9ba5540a438580edd10792 \
-                 sha256  f62cdc44a031731aa221426724a55eb09c79d6b2e9275ae3ca7003da5884ca36 \
-                 size    399511612
+    checksums    rmd160  a3d4159e7a9fc118a6595b4aa36225530e9147b9 \
+                 sha256  6c2bf7f6e5fab901e8a2284a0dbec6ce214bde65aa80cfeb90bfef8eabb5f862 \
+                 size    403386940
 }
 
 subport openjdk11-openj9 {
@@ -481,20 +472,11 @@ subport openjdk16 {
     replaced_by  openjdk17
 }
 
+# Remove after 2022-10-19
 subport openjdk16-graalvm {
     version      21.2.0
-    revision     0
-
-    description  GraalVM Community Edition based on OpenJDK 16
-    long_description ${long_description_graalvm}
-
-    master_sites https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${version}/
-    distname     graalvm-ce-java16-darwin-amd64-${version}
-    worksrcdir   graalvm-ce-java16-${version}
-
-    checksums    rmd160  7dbae81c0113456544e08bda942f67c4ad13cd3b \
-                 sha256  833412a6e26c26ae3de37bd42e889f60d7a7651122c6d52741ed0d7f56a0460f \
-                 size    403397792
+    revision     1
+    replaced_by  openjdk17-graalvm
 }
 
 subport openjdk16-openj9 {
@@ -547,15 +529,30 @@ subport openjdk17 {
         system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
     }
 
-    if {${configure.build_arch} eq "x86_64"} {
-        depends_run-append port:openjdk17-temurin
-    } elseif {${configure.build_arch} eq "arm64"} {
-        depends_run-append port:openjdk17-zulu
-    }
+    depends_run-append port:openjdk17-temurin
+}
+
+subport openjdk17-graalvm {
+    version      21.3.0
+    revision     0
+
+    description  GraalVM Community Edition based on OpenJDK 17
+    long_description ${long_description_graalvm}
+
+    master_sites https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${version}/
+    distname     graalvm-ce-java17-darwin-amd64-${version}
+    worksrcdir   graalvm-ce-java17-${version}
+
+    checksums    rmd160  bdbe63ef185db265df38fae5666d0ea64d38d539 \
+                 sha256  60236506920cc84a07ea7602f4514d05da2c07c7176e0634652f8a9c5ad677aa \
+                 size    415089299
 }
 
 subport openjdk17-temurin {
     # https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+
+    # Java 17 is the first Temurin release with arm64 support
+    supported_archs  x86_64 arm64
 
     version      17
     revision     0
@@ -567,12 +564,19 @@ subport openjdk17-temurin {
 
     master_sites https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${version}%2B${build}/
 
-    distname     OpenJDK17-jdk_x64_mac_hotspot_${version}_${build}
-    worksrcdir   jdk-${version}+${build}
+    if {${configure.build_arch} eq "x86_64"} {
+        distname     OpenJDK17-jdk_x64_mac_hotspot_${version}_${build}
+        checksums    rmd160  0d79be9e1e6cf50d939e839a53ba15c2f9209a77 \
+                     sha256  e9de8b1b62780fe99270a5b30f0645d7a91eded60438bcf836a05fa7b93c182f \
+                     size    192417649
+    } elseif {${configure.build_arch} eq "arm64"} {
+        distname     OpenJDK17-jdk_aarch64_mac_hotspot_${version}_${build}
+        checksums    rmd160  b879101e8175b93c30dcb33f8bc25440c8227853 \
+                     sha256  910bb88543211c63298e5b49f7144ac4463f1d903926e94a89bfbf10163bbba1 \
+                     size    182381849
+    }
 
-    checksums    rmd160  0d79be9e1e6cf50d939e839a53ba15c2f9209a77 \
-                 sha256  e9de8b1b62780fe99270a5b30f0645d7a91eded60438bcf836a05fa7b93c182f \
-                 size    192417649
+    worksrcdir   jdk-${version}+${build}
 }
 
 subport openjdk17-zulu {
@@ -605,16 +609,25 @@ subport openjdk17-zulu {
 
 if {${os.platform} eq "darwin"} {
     # https://trac.macports.org/wiki/PortfileRecipes#compare-osx-darwin-version
-    if {[string match *-zulu ${subport}] && ${os.major} < 17} {
-        known_fail yes
-        pre-fetch {
-            ui_error "${name} ${version} is only supported on Mac OS X 10.13 High Sierra or later."
-            return -code error
-        }
-    } elseif {${os.major} < 14} {
+    if {[string match *-openj9 ${subport}] && ${os.major} < 14} {
+        # See https://www.ibm.com/support/pages/semeru-runtimes-support
         known_fail yes
         pre-fetch {
             ui_error "${name} ${version} is only supported on Mac OS X 10.10 Yosemite or later."
+            return -code error
+        }
+    } elseif {[string match *-temurin ${subport}] && ${os.major} < 16} {
+        # See https://adoptium.net/supported_platforms.html
+        known_fail yes
+        pre-fetch {
+            ui_error "${name} ${version} is only supported on Mac OS X 10.12 Sierra or later."
+            return -code error
+        }
+    } elseif {[string match *-zulu ${subport}] && ${os.major} < 18} {
+        # See https://www.azul.com/downloads/?os=macos&package=jdk
+        known_fail yes
+        pre-fetch {
+            ui_error "${name} ${version} is only supported on Mac OS X 10.14 Mojave or later."
             return -code error
         }
     }
