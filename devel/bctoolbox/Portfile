@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 PortGroup           github 1.0
 
-github.setup        BelledonneCommunications bctoolbox 5.0.35
+github.setup        BelledonneCommunications bctoolbox 5.0.37
 github.tarball_from archive
-revision            0
+revision            1
 
 categories          devel multimedia
 platforms           darwin
@@ -19,9 +19,18 @@ description         \
     like belle-sip, mediastreamer2 and liblinphone.
 long_description    {*}${description}
 
-checksums           rmd160 81bb579227cf291798728ae4b2e7d2d74710607f \
-                    sha256 1c471d7aabc0045a7db667dd885fa3381436c53184509a3f51d408280af47792 \
-                    size 179866
+checksums           rmd160 5835979bcf7039acbf6803a3927cb86029ee2e97 \
+                    sha256 d7b4100a870f8aea96efbf37a6e9a1ee14bdf4acc9b159cdfbc0fd621943f2ef \
+                    size 179861
+
+if {${os.major} <= 10} {
+    known_fail      yes
+    pre-fetch {
+        ui_error "${name} requires the AVFoundation framework"
+        ui_error "AVFoundation available from macOS 10.7 and later"
+        return -code error "incompatible OS X version"
+    }
+}
 
 depends_build-append \
                     port:bcunit
@@ -42,6 +51,12 @@ configure.args-append \
 post-destroot {
     ln -s ${frameworks_dir}/bctoolbox.framework \
         ${destroot}${prefix}/lib/bctoolbox.framework
+}
+
+pre-activate {
+    # Hack to remove links created outside of destroot in the 5.0.32 update
+    # https://github.com/macports/macports-ports/commit/ae793fa003a2644cb4f83c5b1423a508286d2a7b
+    delete ${prefix}/lib/bctoolbox.framework
 }
 
 github.livecheck.regex  {([0-9.]+)}
