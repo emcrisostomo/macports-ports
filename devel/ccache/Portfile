@@ -33,6 +33,13 @@ homepage            https://ccache.dev
 github.tarball_from releases
 use_xz              yes
 
+platform darwin powerpc {
+    patchfiles-append  patch-ccache-powerpc-darwin.diff
+}
+platform darwin 8 {
+    patchfiles-append  patch-ccache-no-posix-tiger.diff
+}
+
 compiler.c_standard 1999
 
 compiler.cxx_standard \
@@ -43,16 +50,20 @@ compiler.blacklist-append  {clang < 700}
 # error: static_assert failed "unique_ptr constructed with null function pointer deleter"
 compiler.blacklist-append  {clang < 900}
 
-depends_build-append \
-                    port:asciidoc \
-                    port:asciidoctor
-
 depends_lib-append  port:hiredis \
                     port:zstd
 
 # Do not use ccache to build this port unless MacPorts tells it to.
 configure.args-append -DUSE_CCACHE=NO
 
-build.target-append doc
+configure.args-append -DENABLE_DOCUMENTATION=OFF
+
+variant doc description {Enable documentation} {
+    configure.args-replace -DENABLE_DOCUMENTATION=OFF -DENABLE_DOCUMENTATION=ON
+    depends_build-append \
+                    port:asciidoctor
+}
+
+default_variants +doc
 
 test.run            yes

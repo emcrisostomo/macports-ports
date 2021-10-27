@@ -24,12 +24,16 @@ checksums               rmd160  bed04c418c2ff52166157112e5f90cf2b6aecafc \
 
 compiler.thread_local_storage yes
 
-configure.args-append   --mandir=${prefix}/share/man --enable-as-needed
+configure.args-append   --disable-silent-rules \
+                        --enable-as-needed \
+                        --mandir=${prefix}/share/man
 
 depends_build-append    port:bison \
                         port:flex \
                         port:gawk \
                         port:pkgconfig
+
+configure.cppflags-replace -I${prefix}/include -isystem${prefix}/include
 
 variant unixodbc conflicts iodbc description {build odbc driver against unixODBC} {
     depends_lib-append  port:unixODBC
@@ -40,4 +44,3 @@ variant iodbc conflicts unixodbc description {build odbc driver against iODBC} {
     depends_lib-append  port:libiodbc
     configure.args-append   --with-iodbc=${prefix}
 }
-
