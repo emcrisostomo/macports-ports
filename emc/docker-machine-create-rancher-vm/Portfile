@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        emcrisostomo docker-machine-create-rancher-vm 1.0.5
+github.setup        emcrisostomo docker-machine-create-rancher-vm 1.0.6
 
 categories          emc
 platforms           darwin
@@ -14,9 +14,9 @@ maintainers         {@emcrisostomo gmail.com:enrico.m.crisostomo} \
 description         A shell script to create RancherOS virtual machines using docker-machine
 long_description    ${description}
 
-checksums           rmd160  0bd06b31176374cfb26cc29b90eacb7bd9da2860 \
-                    sha256  f7b795198c29f69b787cd1dc3137d2321b10ac818161c36d2c93481a93ae7603 \
-                    size    29935
+checksums           rmd160  396c2481e880626b9aaad9a0ccbd851d45ab725c \
+                    sha256  cde2a9ffecad39e69115764165f40428958eb57b4ae4210b6254c834e8c2f7a1 \
+                    size    29917
 
 use_autoreconf      yes
 
