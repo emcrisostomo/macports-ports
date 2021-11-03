@@ -6,6 +6,9 @@ PortGroup               active_variants 1.1
 
 name                    VLC2
 
+# TODO: Remove, if/when this port is fixed
+known_fail          yes
+
 categories              multimedia devel
 maintainers             {gmail.com:rjvbertin @RJVB} openmaintainer
 
@@ -80,7 +83,7 @@ if {(${subport} eq ${name}) || (${subport} eq "lib${name}")} {
 
     depends_build       port:pkgconfig
 
-    depends_lib-append  port:ffmpeg \
+    depends_lib-append  path:lib/libavcodec.dylib:ffmpeg \
                         port:a52dec \
                         port:avahi \
                         port:bzip2 \
