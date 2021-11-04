@@ -50,8 +50,15 @@ homepage            https://opencv.org
 # So for now, revert to 4.5.0 for older MacOS releases, until we can
 # determine a formal fix.
 if {${os.major} > 12} {
+    set opencv_latest yes
+} else {
+    set opencv_latest no
+}
+
+if {${opencv_latest}} {
     github.setup    opencv opencv 4.5.4
     revision        0
+    epoch           1
 
     checksums-append \
                     ${distname}${extract.suffix} \
@@ -438,7 +445,7 @@ if {${name} eq ${subport}} {
         distfiles-append \
                     ${github.project}_contrib-${version}${extract.suffix}:${github.project}_contrib
 
-        if {${os.major} > 12} {
+        if {${opencv_latest}} {
             checksums-append \
                     ${github.project}_contrib-${version}${extract.suffix} \
                     rmd160  ed7fabd08db3e57db41ae7844fa01fe99ea02b28 \

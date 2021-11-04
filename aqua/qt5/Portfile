@@ -27,6 +27,9 @@ if { ${subport} eq "${name}-qtwebkit-examples" } {
     set middle_name opensource
 }
 
+# https://trac.macports.org/ticket/63154
+use_xcode           yes
+
 set just_want_qt5_variables yes
 PortGroup qt5 1.0
 
@@ -55,6 +58,9 @@ foreach {qt_test_name qt_test_info} [array get available_qt_versions] {
         conflicts-append [lindex ${qt_test_info} 0]
     }
 }
+
+# MacPorts LLVM/Clang version to use when required.
+set llvm_version 11
 
 ############################################################################### Modules Not Considered
 #
@@ -563,7 +569,7 @@ array set modules {
             8894728
         }
         ""
-        "port:clang-11"
+        "port:clang-${llvm_version}"
         "qtbase qtdeclarative"
         {"Qt Designer" "Qt Help" "Qt UI Tools"}
         ""
@@ -1619,7 +1625,7 @@ foreach {module module_info} [array get modules] {
 
                 # qdoc now uses libclang for parsing C/C++ code
                 # see https://wiki.qt.io/New_Features_in_Qt_5.11
-                configure.env-append LLVM_INSTALL_DIR=${prefix}/libexec/llvm-11
+                configure.env-append LLVM_INSTALL_DIR=${prefix}/libexec/llvm-${llvm_version}
             }
 
             # special case
