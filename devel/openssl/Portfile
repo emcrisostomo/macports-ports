@@ -11,7 +11,7 @@ revision            4
 categories          devel security
 platforms           darwin
 license             MIT
-maintainers         nomaintainer
+maintainers         {larryv @larryv} {cal @neverpanic}
 
 description         Shim port installing symbolic links in primary prefix pointing to \
                     the [openssl::depends_portname] installation.
@@ -24,6 +24,7 @@ use_configure       no
 build               {}
 
 openssl::set_openssl_dependency
+openssl.configure
 
 # https://trac.macports.org/ticket/63616
 compiler.cxx_standard
