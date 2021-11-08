@@ -40,17 +40,13 @@ subport kubectl-1.22 {
 }
 
 subport kubectl-1.21 {
-    set source_build    yes
-    supported_archs     x86_64 arm64
-
     set patchNumber     6
-    revision            0
+    revision            1
 
-    # because source_build is yes, this is the checksum of the kubernetes
-    # source tarball
-    checksums           rmd160  e0f44df7b92c8dd62168a4906cea92efef381f5d \
-                        sha256  47f6751bb8b4265797a07e3c39d7c5e7d5ff56837a633b09372fe7438af9f7e6 \
-                        size    36137598
+    # Use pre-built version to resolve https://trac.macports.org/ticket/63503
+    checksums           rmd160  bbe0e2a20e1afc1edf6e359aeab3d905cab6ba67 \
+                        sha256  ad412fe92c090f196727b32d2ed0173ac863bacc2e1b40d87fb5cbc340517846 \
+                        size    52826816
 }
 
 subport kubectl-1.20 {

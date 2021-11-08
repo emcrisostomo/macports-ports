@@ -2,7 +2,6 @@
 
 PortSystem          1.0
 PortGroup           github 1.0
-PortGroup           compiler_blacklist_versions 1.0
 
 name                libcaca
 categories          graphics
@@ -24,7 +23,7 @@ if {${name} eq ${subport}} {
     checksums       rmd160  f1221e7364baf700e7839a6f18d33266b79b1473 \
                     sha256  0241d42af3c46949768b956f2e96e8fe2fbc73c66fde3b0280cf1ab70da9e2c3 \
                     size    729687
-    revision        0
+    revision        1
 
     long_description ${long_description} ${subport} \
 provides the release version.
@@ -39,7 +38,7 @@ subport libcaca-devel {
     checksums       rmd160  f1221e7364baf700e7839a6f18d33266b79b1473 \
                     sha256  0241d42af3c46949768b956f2e96e8fe2fbc73c66fde3b0280cf1ab70da9e2c3 \
                     size    729687
-    revision        0
+    revision        1
 
     conflicts       libcaca
     long_description ${long_description} ${subport} \
@@ -55,25 +54,17 @@ depends_build       port:pkgconfig
 depends_lib         port:ncurses port:zlib
 
 # temporary patch to fix use of implcitily declared function
+patchfiles-append   patch-libcaca-common-image.diff
 
-patchfiles-append patch-fix-implicit-function.diff
-patch.pre_args -p1
+platform darwin 8 {
+    # https://trac.macports.org/ticket/63758
+    patchfiles-append patch-libcaca-tiger.diff
+}
 
 use_autoconf         yes
 # these dependencies are removed by use_autoconf, so add them after
 depends_build-append port:libtool port:autoconf port:automake
 autoconf.cmd         ./bootstrap
-
-# Fix link errors on 10.8 and 10.9:
-#   Undefined symbols for architecture x86_64:
-#     "__caca_alloc2d", referenced from:
-#         _load_image in img2txt-common-image.o
-#   Undefined symbols for architecture x86_64:
-#     "__caca_alloc2d", referenced from:
-#         _load_image in cacaview-common-image.o
-#   ld: symbol(s) not found for architecture x86_64
-compiler.blacklist-append \
-                    {clang < 900}
 
 # require C++11 for CppUnit API
 compiler.cxx_standard   2011
