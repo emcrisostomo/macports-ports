@@ -14,7 +14,7 @@ options openssl.depends_type
 default openssl.depends_type lib
 
 options openssl.configure
-default openssl.configure {pkgconfig}
+default openssl.configure {pkgconfig build_flags}
 
 # cache variables storing current configuration state
 default openssl_cache_branch_nodot ""
@@ -75,6 +75,7 @@ proc openssl::set_openssl_dependency {} {
     }
     set openssl_cache_depends      [option openssl.depends_type]
     set openssl_cache_branch_nodot [openssl::branch_nodot]
+    set openssl_cache_configure    ""
     depends_[option openssl.depends_type]-append port:openssl[openssl::branch_nodot]
 }
 port::register_callback openssl::set_openssl_dependency
@@ -161,6 +162,7 @@ port::register_callback openssl::configure_build
 proc openssl::branch_proc {option action args} {
     if {$action ne "set"} return
     openssl::set_openssl_dependency
+    openssl::configure_build
 }
 option_proc openssl.branch openssl::branch_proc
 

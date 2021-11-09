@@ -7,7 +7,7 @@ PortGroup           muniversal 1.0
 set major_v         3
 name                openssl$major_v
 version             ${major_v}.0.0
-revision            2
+revision            4
 
 # Please revbump these ports when updating OpenSSL.
 #  - freeradius (#43461)
@@ -79,8 +79,9 @@ set my_prefix       ${prefix}/libexec/${name}
 #    vmovdqa64 %ymm0,%ymm17
 #    ^
 #-----------------------------------------------------------------------------------------
-compiler.blacklist-append \
-                    {clang < 1001}
+if {${os.platform} eq "darwin" && ${os.major} < 19} {
+    patchfiles-append patch-disable-avx512.diff
+}
 
 configure.ccache    no
 configure.perl      /usr/bin/perl
@@ -165,6 +166,30 @@ destroot.args       MANDIR=${prefix}/share/man MANSUFFIX=ssl
 variant rfc3779 description {enable RFC 3779: X.509 Extensions for IP Addresses and AS Identifiers} {
     configure.args-append   enable-rfc3779
 }
+
+variant fips description {enable FIPS} {
+    configure.args-append   enable-fips
+}
+
+variant legacy description {enable legacy providers by default} {
+    # See https://trac.macports.org/ticket/63857 for context
+    post-destroot {
+        set     cnf [open ${destroot}${my_prefix}/etc/openssl/openssl.cnf a]
+        puts  ${cnf} ""
+        puts  ${cnf} "# MacPorts additions to enable legacy providers by default"
+        puts  ${cnf} "\[openssl_init\]"
+        puts  ${cnf} "providers = provider_sect"
+        puts  ${cnf} "\[provider_sect\]"
+        puts  ${cnf} "default = default_sect"
+        puts  ${cnf} "legacy = legacy_sect"
+        puts  ${cnf} "\[default_sect\]"
+        puts  ${cnf} "activate = 1"
+        puts  ${cnf} "\[legacy_sect\]"
+        puts  ${cnf} "activate = 1"
+        close ${cnf}
+    }
+}
+default_variants-append +legacy
 
 livecheck.type      regex
 livecheck.url       [lindex ${master_sites} 0]
