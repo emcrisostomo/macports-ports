@@ -6,7 +6,7 @@ name                qt6
 
 categories          aqua
 platforms           macosx
-maintainers         openmaintainer
+maintainers         nomaintainer
 
 # for OpenSSLException, see source and header files in src/network/ssl of qtbase
 license             {LGPL-3 GPL-3 OpenSSLException}
@@ -26,7 +26,8 @@ set branch          [join [lrange [split ${version} .] 0 1] .]
 set qt_major        [lindex [split ${version} .] 0]
 
 # see https://www.qt.io/blog/qt-6.0-released
-#compiler.cxx_standard 17
+compiler.c_standard 2011
+compiler.cxx_standard 2017
 
 # Save off the actual macports prefix for use late
 set mp_prefix       ${prefix}
@@ -45,6 +46,9 @@ foreach {qt_test_name qt_test_info} [array get available_qt_versions] {
         conflicts-append [lindex ${qt_test_info} 0]
     }
 }
+
+# MacPorts LLVM/Clang version to use when required.
+set llvm_version 11
 
 ############################################################################### Modules Not Considered
 #
@@ -124,7 +128,7 @@ array set modules {
         ""
         ""
         "qtbase qtdeclarative"
-        {"Qt5 Compatabilty"}
+        {"Qt5 Compatibility"}
         ""
         "variant overrides: "
         "revision 0"
@@ -136,18 +140,19 @@ array set modules {
             2c5f07b5c3ea27d3fc1a46686ea3fb6724f94dddf1fb007de3eb0bdb87429079
             46641424
         }
+        "port:cmake port:ninja port:pkgconfig"
+        "port:assimp port:brotli path:bin/dbus-daemon:dbus port:double-conversion port:freetype          \
+            path:lib/pkgconfig/glib-2.0.pc:glib2 path:lib/pkgconfig/harfbuzz.pc:harfbuzz                 \
+            port:hunspell port:icu port:jasper path:include/turbojpeg.h:libjpeg-turbo port:libb2         \
+            port:libiconv port:libpng port:md4c port:nodejs16 path:lib/pkgconfig/libpcre2-posix.pc:pcre2 \
+            port:tiff port:webp port:zlib path:lib/pkgconfig/libzstd.pc:zstd"
+
         ""
-        "port:cmake port:Ninja port:nodejs16 port:pkgconfig path:lib/pkgconfig/glib-2.0.pc:glib2                \
-        path:lib/pkgconfig/harfbuzz.pc:harfbuzz port:harfbuzz port:assimp port:brotli                           \
-        path:bin/dbus-daemon:dbus port:dbus port:double-conversion port:freetype port:glib2 port:hunspell       \
-        port:icu port:jasper path:include/turbojpeg.h:libjpeg-turbo port:libjpeg-turbo port:libb2 port:libpng   \
-        port:tiff port:md4c path:lib/pkgconfig/libpcre2-posix.pc:pcre2 port:pcre2 port:webp port:webp           \
-        port:zlib path:lib/pkgconfig/libzstd.pc:zstd port:zstd port:libiconv"
-        ""
-        {"Qt Core" "Qt GUI" "Qt Network" "Qt SQL" "Qt Test" "Qt Widgets" "Qt Concurrent" "Qt D-Bus" "Qt OpenGL" "Qt Platform Headers" "Qt Print Support" "Qt XML"}
+        {"Qt Core" "Qt GUI" "Qt Network" "Qt SQL" "Qt Test" "Qt Widgets" "Qt Concurrent" "Qt D-Bus" \
+         "Qt OpenGL" "Qt Platform Headers" "Qt Print Support" "Qt XML"}
         ""
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: "
     }
     qtconnectivity {
@@ -307,7 +312,7 @@ array set modules {
             8668512
         }
         ""
-        "port:clang-11"
+        "port:clang-${llvm_version}"
         "qtbase qtdeclarative"
         {"Qt Designer" "Qt Help" "Qt UI Tools"}
         ""
@@ -757,7 +762,6 @@ foreach {module module_info} [array get modules] {
                 -system-pcre        \
                 -no-openssl         \
                 -no-libproxy        \
-                -system-pcre        \
                 -glib               \
                 -no-gtk
 

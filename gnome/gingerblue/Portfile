@@ -1,3 +1,5 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
 PortSystem          1.0
 
 name                gingerblue
@@ -10,8 +12,13 @@ platforms           darwin
 license             GPL-3+
 maintainers         {gnome.org:ole @oleaamot} \
                     openmaintainer
-description         GNOME Gingerblue
-long_description    Locate Internet Radio Stations
+description         GNOME Gingerblue is Free Music Software for GTK+/GNOME.
+long_description    {*}${description} \
+                    It supports immediate audio recording in compressed \
+                    Ogg encoded audio files stored in the ~/Music/ \
+                    directory with XSPF 1.0 playlist from the line input \
+                    on a computer or remote audio cards through \
+                    USB connection through PipeWire with GStreamer.
 homepage            https://www.gingerblue.org/
 master_sites        gnome:sources/${name}/${branch}/
 
@@ -32,6 +39,7 @@ depends_build       port:autoconf \
                     port:gtk-doc \
                     port:intltool \
                     port:itstool \
+                    port:p5.28-xml-sax-expat \
                     port:pkgconfig \
                     port:yelp-tools
 
