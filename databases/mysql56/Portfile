@@ -12,13 +12,11 @@ set name_mysql      ${name}
 version             5.6.51
 # Set revision_client and revision_server to 0 on
 # version bump.
-set revision_client 2
+set revision_client 3
 set revision_server 1
 set version_branch  [join [lrange [split ${version} .] 0 1] .]
 categories          databases
 platforms           darwin
-# https://downloads.mysql.com/docs/licenses/mysqld-5.6-gpl-en.pdf
-license             {GPL-2 OpenSSLException}
 maintainers         nomaintainer
 homepage            https://www.mysql.com/
 
@@ -32,7 +30,8 @@ if {$subport eq $name} {
     openssl.branch      1.1
 
     revision            ${revision_client}
-    license             GPL-2
+    # https://downloads.mysql.com/docs/licenses/mysqld-5.6-gpl-en.pdf
+    license             {GPL-2 OpenSSLException}
     description         Multithreaded SQL database server
     long_description    MySQL is an open-source, multi-threaded SQL database.
 
@@ -66,6 +65,7 @@ if {$subport eq $name} {
                         size    32411131
 
     depends_lib-append  port:ncurses \
+                        port:libevent \
                         port:tcp_wrappers \
                         port:zlib
 
@@ -129,6 +129,9 @@ if {$subport eq $name} {
                         -DENABLE_GCOV:BOOL=OFF \
                         -DENABLE_DTRACE:BOOL=OFF \
                         -DWITH_LIBWRAP:BOOL=ON \
+                        -DWITH_LIBEVENT=system \
+                        -DLIBEVENT_INCLUDE_PATH:PATH="${prefix}/include" \
+                        -DLIBEVENT_LIB_PATHS:PATH="${prefix}/lib" \
                         -DWITH_INNODB_MEMCACHED=1 \
                         -DWITH_PARTITION_STORAGE_ENGINE=1
     configure.cppflags-delete \
