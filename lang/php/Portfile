@@ -146,27 +146,27 @@ switch ${subport_branch} {
     }
     7.3 {
         epoch           2
-        version         7.3.32
+        version         7.3.33
         use_xz          yes
-        checksums       rmd160  060c77961e7ecddfe4bf2c7b15d3f41554d1da76 \
-                        sha256  94effa250b80f031e77fbd98b6950c441157a2a8f9e076ee68e02f5b0b7a3fd9 \
-                        size    12142436
+        checksums       rmd160  b35e975ea04ab1a86a95d17a4f8048d295ab1475 \
+                        sha256  166eaccde933381da9516a2b70ad0f447d7cec4b603d07b9a916032b215b90cc \
+                        size    12143820
     }
     7.4 {
         epoch           2
-        version         7.4.25
+        version         7.4.26
         use_xz          yes
-        checksums       rmd160  53d6d40db7e78d98ea037e08780d68e81675bbe4 \
-                        sha256  12a758f1d7fee544387a28d3cf73226f47e3a52fb3049f07fcc37d156d393c0a \
-                        size    10376304
+        checksums       rmd160  3072fb3ed288d7c2be259df3866fb38878d0a606 \
+                        sha256  e305b3aafdc85fa73a81c53d3ce30578bc94d1633ec376add193a1e85e0f0ef8 \
+                        size    10420236
     }
     8.0 {
         epoch           2
-        version         8.0.12
+        version         8.0.13
         use_xz          yes
-        checksums       rmd160  098d8c323e93a37ae6c110c809dbe91e0d059acd \
-                        sha256  a501017b3b0fd3023223ea25d98e87369b782f8a82310c4033d7ea6a989fea0a \
-                        size    10713980
+        checksums       rmd160  7e5038022c46d5085725627410f887d09ce1f36a \
+                        sha256  cd976805ec2e9198417651027dfe16854ba2c2c388151ab9d4d268513d52ed52 \
+                        size    10854284
     }
     8.1 {
         # When this becomes a stable version, remove the overrides for homepage,
@@ -430,9 +430,9 @@ subport ${php} {
         7.0.33              {revision 4}
         7.1.33              {revision 2}
         7.2.34              {revision 3}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -581,9 +581,9 @@ subport ${php}-apache2handler {
         7.0.33              {revision 1}
         7.1.33              {revision 1}
         7.2.34              {revision 2}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -647,9 +647,9 @@ subport ${php}-cgi {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 2}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -689,9 +689,9 @@ subport ${php}-fpm {
         7.0.33              {revision 1}
         7.1.33              {revision 1}
         7.2.34              {revision 2}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -760,9 +760,9 @@ subport ${php}-calendar {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -782,9 +782,9 @@ subport ${php}-curl {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -820,9 +820,9 @@ subport ${php}-dba {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -854,9 +854,9 @@ subport ${php}-enchant {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -905,9 +905,9 @@ subport ${php}-exif {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -928,9 +928,9 @@ subport ${php}-ftp {
         7.0.33              {revision 2}
         7.1.33              {revision 1}
         7.2.34              {revision 1}
-        7.3.32              {revision 1}
-        7.4.25              {revision 1}
-        8.0.12              {revision 1}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -964,9 +964,9 @@ subport ${php}-gd {
         7.0.33              {revision 1}
         7.1.33              {revision 1}
         7.2.34              {revision 1}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1028,9 +1028,9 @@ subport ${php}-gettext {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1056,9 +1056,9 @@ subport ${php}-gmp {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1089,9 +1089,9 @@ subport ${php}-iconv {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1117,9 +1117,9 @@ subport ${php}-imap {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1156,9 +1156,9 @@ subport ${php}-intl {
         7.0.33              {revision 2}
         7.1.33              {revision 1}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1201,9 +1201,9 @@ subport ${php}-ipc {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1225,9 +1225,9 @@ subport ${php}-ldap {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1263,9 +1263,9 @@ subport ${php}-mbstring {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1350,9 +1350,9 @@ subport ${php}-mysql {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1507,9 +1507,9 @@ subport ${php}-odbc {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1569,9 +1569,9 @@ if {[vercmp ${branch} 5.5] >= 0} {
             7.0.33              {revision 1}
             7.1.33              {revision 1}
             7.2.34              {revision 0}
-            7.3.32              {revision 0}
-            7.4.25              {revision 0}
-            8.0.12              {revision 0}
+            7.3.33              {revision 0}
+            7.4.26              {revision 0}
+            8.0.13              {revision 0}
             8.1.0RC6            {revision 0}
         }
 
@@ -1619,9 +1619,9 @@ subport ${php}-openssl {
         7.0.33              {revision 2}
         7.1.33              {revision 1}
         7.2.34              {revision 1}
-        7.3.32              {revision 1}
-        7.4.25              {revision 1}
-        8.0.12              {revision 1}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1676,9 +1676,9 @@ subport ${php}-oracle {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1716,9 +1716,9 @@ subport ${php}-pcntl {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1747,9 +1747,9 @@ subport ${php}-posix {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1772,9 +1772,9 @@ subport ${php}-postgresql {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1902,9 +1902,9 @@ subport ${php}-pspell {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1930,9 +1930,9 @@ subport ${php}-snmp {
         7.0.33              {revision 1}
         7.1.33              {revision 1}
         7.2.34              {revision 1}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1958,9 +1958,9 @@ subport ${php}-soap {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -1989,9 +1989,9 @@ subport ${php}-sockets {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -2007,9 +2007,9 @@ if {[vercmp ${branch} 7.2] >= 0} {
 subport ${php}-sodium {
     switch -- ${version} {
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -2044,9 +2044,9 @@ subport ${php}-sqlite {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -2094,9 +2094,9 @@ subport ${php}-tidy {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
@@ -2127,7 +2127,7 @@ subport ${php}-wddx {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
+        7.3.33              {revision 0}
     }
 
     categories-append       textproc
@@ -2155,8 +2155,8 @@ subport ${php}-xmlrpc {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
     }
 
     categories-append       textproc
@@ -2197,9 +2197,9 @@ subport ${php}-xsl {
         7.0.33              {revision 0}
         7.1.33              {revision 0}
         7.2.34              {revision 0}
-        7.3.32              {revision 0}
-        7.4.25              {revision 0}
-        8.0.12              {revision 0}
+        7.3.33              {revision 0}
+        7.4.26              {revision 0}
+        8.0.13              {revision 0}
         8.1.0RC6            {revision 0}
     }
 
