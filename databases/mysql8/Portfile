@@ -16,7 +16,7 @@ maintainers             {gmail.com:herby.gillot @herbygillot} \
                         openmaintainer
 
 # Set revision_client and revision_server to 0 on version bump.
-set revision_client     3
+set revision_client     4
 set revision_server     0
 
 set name_mysql          ${name}
@@ -73,6 +73,7 @@ if {$subport eq $name} {
 
     depends_lib-append  port:cyrus-sasl2 \
                         port:icu \
+                        port:libedit \
                         port:libevent \
                         port:zlib \
                         port:zstd
@@ -100,7 +101,6 @@ if {$subport eq $name} {
 
         configure.args-append \
             -DWITH_DEBUG:BOOL=ON \
-            -DWITH_DTRACE:BOOL= ON \
             -DINSTALL_MYSQLTESTDIR:PATH="share/${name_mysql}/mysql-test" \
             -DWITH_UNIT_TESTS=ON
     } else {
@@ -108,7 +108,6 @@ if {$subport eq $name} {
 
         configure.args-append \
             -DWITH_DEBUG=OFF \
-            -DWITH_DTRACE:BOOL=OFF \
             -DWITH_UNIT_TESTS=OFF
     }
 
@@ -132,12 +131,12 @@ if {$subport eq $name} {
     configure.args-append \
         -DFORCE_UNSUPPORTED_COMPILER=ON \
         -DDOWNLOAD_BOOST=0 \
-        -DENABLE_DOWNLOADS:BOOL=OFF \
         -DINSTALL_LAYOUT:STRING=MACPORTS \
         -DMYSQL_DATADIR:PATH="${prefix}/var/db/${name_mysql}" \
         -DMYSQL_UNIX_ADDR:PATH="${prefix}/var/run/${name_mysql}/mysqld.sock" \
         -DSYSCONFDIR:PATH="${prefix}/etc/${name_mysql}" \
         -DWITH_BOOST:PATH="${worksrcpath}/../${boost_distname}" \
+        -DWITH_EDITLINE=system \
         -DWITH_ICU:PATH="${prefix}" \
         -DWITH_INNODB_MEMCACHED=1 \
         -DWITH_LIBEVENT=system \
@@ -153,6 +152,9 @@ if {$subport eq $name} {
         -DWITH_ROUTER:BOOL=OFF
 #       -DROUTER_INSTALL_LIBDIR="lib/${name_mysql}" \
 #       -DROUTER_INSTALL_PLUGINDIR="lib/${name_mysql}/mysqlrouter"
+
+    # setns() is a Linux system call
+    configure.checks.implicit_function_declaration.whitelist-append setns
 
     patch.pre_args  -p1
     patchfiles      patch-cmake-install_macros-protobuf-path.cmake.diff \
