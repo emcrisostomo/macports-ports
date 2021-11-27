@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/cosmtrek/air 1.27.5 v
+go.setup            github.com/cosmtrek/air 1.27.7 v
 github.tarball_from archive
 revision            0
 
@@ -47,9 +47,9 @@ destroot {
 }
 
 checksums           ${distname}${extract.suffix} \
-                        rmd160  c20707b7ac4b15e014e83bfdd7e6b7ce8aab8e9f \
-                        sha256  8d7ad28a5639c3091aae6e2afa0ee5599bb03cca5e78d18bf7646598b00273dc \
-                        size    205216
+                        rmd160  c521153c655a7d995542c7cc3626aac4240a840a \
+                        sha256  cb33352596ebf82b2c780bb05b6e6ef0afcb0937c022fd358c2d0cdcf5fac9a2 \
+                        size    205309
 
 go.vendors          gopkg.in/yaml.v2 \
                         lock    v2.3.0 \
