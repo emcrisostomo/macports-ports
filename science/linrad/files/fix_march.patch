@@ -1,0 +1,42 @@
+Index: configure.in
+===================================================================
+--- configure.in	(revision 996)
++++ configure.in	(working copy)
+@@ -29,6 +29,10 @@
+   exit
+   CPU="CPU_ARM"
+ fi
++if test "$MACHINE" = "arm64"; then
++  # Apple ARM64 architecture
++  CPU="CPU_ARM"
++fi
+ AC_SUBST(CPU)
+ if test "$CPU" = "CPU_INTEL"; then
+   ASMLIB32='fftasm.ol getiq.ol fft2mmxa.ol fft2mmxb.ol fft2mmxc.ol simdasm.ol hware.ol split.ol'
+@@ -111,24 +115,8 @@
+   fi
+ fi
+ AC_SUBST(DARWIN)
+-M32="-m32"
+-M64="-m64"
+-# Check that we have -m32 and -m64
+-if test "$BITS" = "32"; then
+-  ${CC} -m32 csplit.c -c -o x.ol 2> x.x
+-  chmod 777 x.x
+-  Y=`cat x.x`
+-  if test "$Y" != ""; then
+-    M32=""
+-  fi
+-else
+-  ${CC} -m64 csplit.c -c -o x.ol 2> x.x
+-  chmod 777 x.x
+-  Y=`cat x.x`
+-  if test "$Y" != ""; then
+-    M64=""
+-  fi
+-fi
++M32=""
++M64=""
+ AC_SUBST(M32)
+ AC_SUBST(M64)
+ ${CC} lxsys.c -DHAVE_PARPORT=1 -c -o x.ol 2> x.x
