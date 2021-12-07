@@ -11,7 +11,7 @@ legacysupport.newest_darwin_requires_legacy     15
 # keep in mind that you also need to update cargo.crates at the end of this file
 name                rust
 version             1.57.0
-revision            0
+revision            1
 
 if { ${subport} eq ${name} } {
     PortGroup       openssl         1.0
@@ -407,7 +407,7 @@ subport rust-src {
 # which is broken before 10.8
 # See: https://github.com/rust-lang/cargo/issues/4813
 # See: https://github.com/mozilla/releases-comm-central/commit/5cd3595203de78a6f47324f53f0cf616f4e383ea
-if {${subport} ne "${ccwrap}" } {
+if {${subport} ne "${ccwrap}" && ${subport} ne "rust-src"} {
     PortGroup           cargo_fetch 1.0
 
     dist_subdir         $name
@@ -418,31 +418,22 @@ if {${subport} ne "${ccwrap}" } {
     }
 
     if { ${os.platform} eq "darwin" && ${os.major} < 12 } {
-        # I don't need whole libcxx
-        # anyway, it is an easy way to get some missed symbols from compiler-rt
-        legacysupport.use_mp_libcxx yes
-
         # well, let me build a small library which contains only needed symbols
         set scalpel_dylib ${workpath}/scalpel.dylib
+
         pre-build {
-            set export_list_file ${workpath}/scalpel.export_list
-            # set scalpel_dylib ${workpath}/scalpel.dylib
-            set export_list [open ${export_list_file} w]
-
             # Since https://github.com/rust-lang/rust/commit/8a6ff90a3a41e6ace18aeb089ea0a0eb3726dd08
-            puts ${export_list} "___muloti4"
+            set scalpel_sources "${filespath}/llvm-13-builtins/muloti4.c"
 
-            close ${export_list}
-
-            system "${configure.cc} -dynamiclib -exported_symbols_list ${export_list_file} -o ${scalpel_dylib} ${prefix}/lib/libcxx/libc++.a"
+            # let's build the scalpel
+            system "${configure.cc} ${configure.cflags} [get_canonical_archflags cc] -dynamiclib -o ${scalpel_dylib} ${scalpel_sources}"
 
             build.env-append \
                         DYLD_FORCE_FLAT_NAMESPACE=1 \
                         DYLD_INSERT_LIBRARIES=${scalpel_dylib}
-
         }
 
-        # inside destroot it also calls cargo / rustc
+        # inside destroot it also calls prebuilt cargo
         destroot.env-append \
                         DYLD_FORCE_FLAT_NAMESPACE=1 \
                         DYLD_INSERT_LIBRARIES=${scalpel_dylib}
