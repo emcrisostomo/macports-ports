@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/makeworld-the-better-one/amfora 1.8.0 v
+go.setup            github.com/makeworld-the-better-one/amfora 1.9.1 v
+github.tarball_from archive
 revision            0
 
 description         A fancy terminal browser for the Gemini protocol.
@@ -13,16 +14,15 @@ long_description    {*}${description} Amfora aims to be the best looking \
                     terminal.
 
 categories          net
+installs_libs       no
+license             GPL-3.0
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
-license             GPL-3.0
-installs_libs       no
 
-checksums           rmd160  38cb22bd799e7ed322379c82c6b2fece7055e794 \
-                    sha256  2cf95009ee9b70e46f92ea6346d4f615df2c163b27182ec0e62bf67fb9f9544c \
-                    size    2323219
+checksums           rmd160  8c4b4ca9c894f8eeeb5c4acc081fd5673f840240 \
+                    sha256  f10811cee8a4e45cac13a1f6ff883b576e2daca2871ac6844ad5046b17269c16 \
+                    size    2334340
 
-github.tarball_from archive
 
 # Allow Go to download deps at runtime.
 build.env-delete    GO111MODULE=off GOPROXY=off
