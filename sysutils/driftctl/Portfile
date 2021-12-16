@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/cloudskiff/driftctl 0.17.0 v
+go.setup            github.com/cloudskiff/driftctl 0.18.1 v
 github.tarball_from archive
 revision            0
 
@@ -20,9 +20,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  0a9cc0cc64bf5da30e177ae79d5c3479f211d975 \
-                    sha256  e50c84cf26b29cf0738fc960fc3afd34a0f784714c2abbc26259a34ed6ed854e \
-                    size    13669849
+checksums           rmd160  b4b9c0d24d7dc1af758d146c44bfb621fb6b373f \
+                    sha256  6a75838f31ec24d9b53e075d2edc21c5944f45a534588b809f5121a4c8bfb21f \
+                    size    14416448
 
 # Allow fetching dependencies at build time
 build.env-delete    GOPROXY=off GO111MODULE=off
