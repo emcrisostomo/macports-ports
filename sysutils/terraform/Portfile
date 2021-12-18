@@ -18,10 +18,10 @@ maintainers             {emcrisostomo @emcrisostomo} \
 set latestVersion       terraform-1.1
 
 subport terraform-1.1 {
-    set patchNumber     0
-    checksums           rmd160  e016636dad69f4bf72ae21f93180f8d78d2426d1 \
-                        sha256  6fb2af160879d807291980642efa93cc9a97ddf662b17cc3753065c974a5296d \
-                        size    20089311
+    set patchNumber     2
+    checksums           rmd160  57a38ab90afaea7694d9b52dc6947e54526815ff \
+                        sha256  214da2e97f95389ba7557b8fcb11fe05a23d877e0fd67cd97fcbc160560078f1 \
+                        size    20098558
 }
 
 subport terraform-1.0 {
@@ -72,7 +72,7 @@ if {${subport} eq ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.1.0
+    version             1.1.2
     revision            0
 
 } elseif {${subport} eq "terraform_select"} {
