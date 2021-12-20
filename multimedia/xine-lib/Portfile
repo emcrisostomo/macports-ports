@@ -4,7 +4,7 @@ PortSystem          1.0
 
 name                xine-lib
 version             1.2.11
-revision            0
+revision            1
 checksums           rmd160  025b1bd5b46e98d8676293359f6e4237df7d7e39 \
                     sha256  ef51b21d10dda1045fa7d711bd9171cfdaf0a5a2874233bcf16ffdf28ec07005 \
                     size    5282204
@@ -22,7 +22,8 @@ homepage            https://sourceforge.net/projects/xine/
 master_sites        sourceforge:project/xine/xine-lib/${version}
 use_xz              yes
 
-depends_build       port:libtool \
+depends_build       port:automake \
+                    port:libtool \
                     port:optipng \
                     port:xmlto \
                     port:pkgconfig
@@ -64,9 +65,17 @@ depends_lib         port:a52dec \
                     port:xorg-libXvMC \
                     port:xorg-xcb-util
 
-patchfiles-append   attributes.patch \
+patchfiles-append   XineOpenGLView.patch \
                     implicit.patch \
                     libcaca0.99.beta20.patch
+
+post-patch {
+    # Use newer config.guess and config.sub to support Apple Silicon.
+    set automake_dirs [glob -directory ${prefix}/share automake-*]
+    set automake_dir [lindex [lsort -command vercmp $automake_dirs] end]
+    copy -force ${automake_dir}/config.guess ${automake_dir}/config.sub \
+        ${worksrcpath}
+}
 
 # bad register name `%rax'
 universal_variant   no
