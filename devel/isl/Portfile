@@ -4,12 +4,13 @@ PortSystem          1.0
 PortGroup           muniversal 1.0
 
 name                isl
-conflicts           isl-devel
 
-# for library name change, be sure to revbump cross-compilers
+# for library name changes, cross-compilers do *not* show up in traditional dependency searches
+# (e.g. port file all | sort -u | xargs grep -E ':isl( |$)' | cut -d / -f 13 | sort -u)
 # see https://lists.macports.org/pipermail/macports-dev/2019-May/040678.html
 epoch               3
 version             0.22.1
+revision            0
 
 categories          devel math
 platforms           darwin
@@ -29,11 +30,11 @@ long_description    isl is a library for manipulating sets and \
                     reduction, transitive closures on maps (which may \
                     encode infinite graphs), dependence analysis and \
                     bounds on piecewise step-polynomials.
-homepage            http://isl.gforge.inria.fr
+homepage            https://libisl.sourceforge.io
 
 depends_lib         port:gmp
 
-master_sites        http://isl.gforge.inria.fr
+master_sites        sourceforge:libisl
 use_bzip2           yes
 
 checksums           rmd160  5af6e784123a710b2ab588420dc1b5693e8212d9 \
@@ -56,6 +57,7 @@ if {${subport} eq ${name}} {
 subport isl14 {
     epoch           0
     version         0.14.1
+    revision        0
 
     conflicts-delete isl-devel
 
@@ -76,6 +78,7 @@ subport isl14 {
 subport isl18 {
     epoch           0
     version         0.18
+    revision        0
 
     conflicts-delete isl-devel
 
