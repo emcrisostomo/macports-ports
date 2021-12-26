@@ -51,7 +51,7 @@ depends_build       port:pkgconfig
 depends_lib         port:bzip2 \
                     port:db48 \
                     port:expat \
-                    port:gettext \
+                    port:gettext-runtime \
                     port:libedit \
                     port:libffi \
                     port:ncurses \
@@ -78,7 +78,7 @@ subport ${name}-bootstrap {
     depends_build-replace   port:pkgconfig port:pkgconfig-bootstrap
     depends_lib-replace     port:ncurses port:ncurses-bootstrap
     depends_lib-delete      port:db48 \
-                            port:gettext \
+                            port:gettext-runtime \
                             port:libedit \
                             port:sqlite3
     # no need to be 'port select'able
