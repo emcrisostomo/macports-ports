@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                py-pikepdf
-version             4.2.0
+version             4.3.1
 revision            0
 categories-append   graphics
 license             MPL-2
@@ -19,9 +19,9 @@ homepage            https://github.com/pikepdf/pikepdf
 
 python.versions     37 38 39 310
 
-checksums           rmd160  ac4dbf15572c536b8ddf21eca01a3bfa5dcef8d6 \
-                    sha256  9a91564193f2c01a55aef4c3b97764b2cb59443034b62a95620b12eb265c647e \
-                    size    2347171
+checksums           rmd160  8ea7a547ba0aae25bcfd1afc09b6a0b9d4632c66 \
+                    sha256  8836e6060534c7245c8d736e93600667b928c767a012a73bb567f56bbe3d985c \
+                    size    2358025
 
 if {${name} ne ${subport}} {
     depends_build-append \

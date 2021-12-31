@@ -7,7 +7,7 @@ PortGroup           compiler_blacklist_versions 1.0
 
 name                ruby30
 version             3.0.3
-revision            0
+revision            1
 
 categories          lang ruby
 maintainers         {kimuraw @kimuraw} openmaintainer
@@ -152,7 +152,7 @@ variant relative description "Enable relative loading of libraries to allow for 
         configure.args-append  --enable-load-relative
 }
 
-# legacy systems suport
+# legacy systems support
 platform darwin {
 
     if {${os.major} < 11} {

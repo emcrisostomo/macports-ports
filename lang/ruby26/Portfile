@@ -6,7 +6,7 @@ PortGroup           openssl 1.0
 
 name                ruby26
 version             2.6.9
-revision            0
+revision            1
 
 categories          lang ruby
 maintainers         {kimuraw @kimuraw} openmaintainer
@@ -164,7 +164,7 @@ variant relative description "Enable relative loading of libraries to allow for 
         configure.args-append  --enable-load-relative
 }
 
-# legacy systems suport
+# legacy systems support
 platform darwin {
 
     # Build requires 10.8 SDK when targeting 10.7
