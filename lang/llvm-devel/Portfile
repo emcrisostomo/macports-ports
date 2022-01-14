@@ -112,15 +112,22 @@ configure.args-append   -DPython3_EXECUTABLE=${pythonfullpath}
 platform darwin {
     configure.cxx_stdlib libc++
     depends_lib-append port:libcxx
-    pre-fetch {
-        if {${os.major} < 11} {
-           supported_archs i386 x86_64
+    if {${os.major} < 11} {
+        #supported_archs i386 x86_64
+        pre-fetch {
             if {![file exists /usr/lib/libc++.dylib]} {
                 ui_error "$name requires a C++11 runtime, which your configuration does not allow"
                 error "unsupported configuration"
             }
         }
     }
+    # Currently fails on i386:
+    # llvm/tools/llvm-objcopy/MachO/MachOWriter.cpp:569:21: error: no matching function for call to 'min'
+    #                std::min(HashReadEnd - CurrHashReadPosition,
+    #                ^~~~~~~~
+    # /opt/local/libexec/llvm-11/bin/../include/c++/v1/algorithm:2560:1: note: candidate template ignored: deduced conflicting types for parameter '_Tp' ('int' vs. 'long')
+    # min(const _Tp& __a, const _Tp& __b)
+    supported_archs arm64 x86_64
 }
 
 patch.pre_args  -p1
@@ -240,7 +247,7 @@ if { ${subport} eq "clang-${llvm_version}" } {
                         that can be built using the Clang frontend as a \
                         library to parse C/C++ code.
 
-    depends_run-append  port:clang_select
+    depends_run-append  port:clang_select port:cctools
     select.group        clang
     select.file         ${filespath}/mp-${subport}
 
@@ -288,7 +295,9 @@ if { ${subport} eq "flang-${llvm_version}" } {
     }
 }
 
-if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "mlir-${llvm_version}" || ${subport} eq "flang-${llvm_version}" } {
+if { ${subport} eq "clang-${llvm_version}" ||
+     ${subport} eq "mlir-${llvm_version}" ||
+     ${subport} eq "flang-${llvm_version}" } {
     # temporarily restrict to newer systems until older systems can be rigorously vetted
     if {${os.platform} eq "darwin" && ${os.major} <= 10} {
         depends_build
@@ -297,7 +306,7 @@ if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "mlir-${llvm_version
         archive_sites
         known_fail yes
         pre-fetch {
-            ui_error "${subport} is not supported on this os version at present."
+            ui_error "${subport} is not supported on Darwin ${os.major} at present."
             return -code error {unsupported platform}
         }
     }
@@ -349,6 +358,12 @@ if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "flang-${llvm_versio
         configure.args-append    -DCLANG_ENABLE_CLANGD=OFF \
                                  -DLLVM_ENABLE_BACKTRACES=OFF
     }
+
+    if {${os.major} <= 12} {
+        # Make sure iOS support is disabled ...
+        configure.args-append    -DCOMPILER_RT_ENABLE_IOS=OFF
+    }
+
 }
 
 if {${subport} eq "lldb-${llvm_version}"} {
@@ -551,6 +566,9 @@ if {${subport} eq "clang-${llvm_version}"} {
     }
 }
 
-livecheck.type      regex
-livecheck.url       https://github.com/llvm/llvm-project/tags
-livecheck.regex     llvmorg-(${llvm_version}.\[\\d.\]+).tar.gz
+# For releases
+#livecheck.type      regex
+#livecheck.url       https://github.com/llvm/llvm-project/tags
+#livecheck.regex     llvmorg-(${llvm_version}.\[\\d.\]+).tar.gz
+# For devel versions
+livecheck.type      none

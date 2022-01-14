@@ -8,12 +8,12 @@ PortGroup       github                      1.0
 # NOTE:   Update py-protobuf3 version's number to match
 # NOTE: For a minor or major version number change, also
 # NOTE:   Revbump et, protobuf-c, mosh and py-onnx
-github.setup    protocolbuffers protobuf 3.19.1 v
+github.setup    protocolbuffers protobuf 3.19.3 v
 revision        0
 
-checksums       rmd160  63ad5c3026742a013c70009cd0e477f3d13ce000 \
-                sha256  645192532f28254152b51c01868efdf9b766b1dbe49c77cccd6efcdb2d7c7bc2 \
-                size    4801630
+checksums       rmd160  d6e31c2fc1a500414f29cc233176d8296cbbd5fa \
+                sha256  f0cc6ae9119d4891d72bc72d44ae73308d6e2319e2ce96c10c22d2508c55c922 \
+                size    4803232
 
 name            protobuf3-cpp
 categories      devel
