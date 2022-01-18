@@ -14,11 +14,10 @@ if {${subport} ne "gmic" && ${subport} ne "gmic-clib"} {
 }
 
 name                gmic
-version             3.0.0
-revision            1
+version             3.0.1
+revision            0
 license             CeCILL
 categories          science graphics
-platforms           darwin
 maintainers         {mps @Schamschula} openmaintainer
 
 description         G'MIC is an interpreter of image processing macros
@@ -40,9 +39,9 @@ conflicts_build     opencv
 
 distfiles           ${name}_${version}${extract.suffix}
 
-checksums           rmd160  0f533924d0be5b936fad01b73aa9add2d3c4f61a \
-                    sha256  3f056bb9e6dbf0674af4c8dce59f4198172187662f7fbb36cc63ebc8c1b71120 \
-                    size    10225122
+checksums           rmd160  81977505d1bbc126548a3a0ce509a05badc8edaf \
+                    sha256  6cc20a20e3ab53ce485ccf6e044a30141b3d62cf7743b83bb04906ff29453035 \
+                    size    10457923
 
 depends_lib         port:curl \
                     path:lib/libavcodec.dylib:ffmpeg \
@@ -55,10 +54,6 @@ depends_lib         port:curl \
                     port:openexr \
                     port:tiff \
                     port:zlib
-
-patchfiles          patch-CMakeLists.txt.diff \
-                    patch-cmake-FindCImg.cmake.diff \
-                    patch-src-Makefile.diff
 
 compiler.cxx_standard           2011
 
@@ -81,9 +76,18 @@ subport ${name}-gimp {
 
 subport ${name}-clib {
     description-append          (C library).
+
+    patchfiles                  patch-src-Makefile.diff
+}
+
+if {${subport} ne "${name}-clib"} {
+    patchfiles                  patch-CMakeLists.txt.diff \
+                                patch-cmake-FindCImg.cmake.diff
 }
 
 if {${subport} eq ${name}} {
+    revision                    1
+
     description-append          (C++ library and stand-alone binary).
 
     depends_build-append        port:pkgconfig
@@ -99,6 +103,8 @@ if {${subport} eq ${name}} {
     post-extract {
         copy ${filespath}/FindHEIF.cmake ${worksrcpath}/cmake/
     }
+
+    patchfiles-append           patch-src-gmic_stdlib.gmic.diff
 
     configure.args-append       -DCUSTOM_CFLAGS=ON \
                                 -DENABLE_OPENMP=OFF \
