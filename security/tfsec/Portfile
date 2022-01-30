@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/tfsec/tfsec 0.63.1 v
+go.setup            github.com/tfsec/tfsec 1.0.1 v
 github.tarball_from archive
 revision            0
 
@@ -18,9 +18,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  76994d813f020cc12bcc88a5f018cef3e2e18274 \
-                    sha256  11f4d680b9163e23ce021cd15d2016a220e97401c68a3216820ee101d68aae44 \
-                    size    10751429
+checksums           rmd160  069839cd5b90aee5367e195bf8ffb787a1c28314 \
+                    sha256  4d367fe7ab503933f7e4d73af18f9663fb7e7b0e9798338c633b67aeb8e9126e \
+                    size    10726032
 
 build.env-append    TRAVIS_TAG=${version}
 build.cmd           make
