@@ -4,6 +4,7 @@ PortSystem      1.0
 
 PortGroup       github 1.0
 PortGroup       cmake 1.1
+PortGroup       compiler_blacklist_versions 1.0
 
 github.setup    ihhub fheroes2 0.9.12
 
@@ -37,6 +38,8 @@ compiler.cxx_standard \
                 2011
 compiler.thread_local_storage \
                 yes
+compiler.blacklist-append \
+                {clang < 900}
 
 post-destroot {
     copy ${destroot}${prefix}/share/doc/fheroes2/demo/download_demo_version.sh ${destroot}${prefix}/bin/fheroes2-install-demo
