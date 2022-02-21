@@ -154,27 +154,27 @@ switch ${subport_branch} {
     }
     7.4 {
         epoch           2
-        version         7.4.27
+        version         7.4.28
         use_xz          yes
-        checksums       rmd160  381c64cae7ebe5ede7f23724f9d62019d8d505c4 \
-                        sha256  3f8b937310f155822752229c2c2feb8cc2621e25a728e7b94d0d74c128c43d0c \
-                        size    10419380
+        checksums       rmd160  4499993b1d3d90d503ddc86440ad6c2593001137 \
+                        sha256  9cc3b6f6217b60582f78566b3814532c4b71d517876c25013ae51811e65d8fce \
+                        size    10418352
     }
     8.0 {
         epoch           2
-        version         8.0.15
+        version         8.0.16
         use_xz          yes
-        checksums       rmd160  6a16dd4e065102e16d3658a7bfa667a8c04dd4e9 \
-                        sha256  5f33544061d37d805a2a9ce791f081ef08a7155bd7ba2362e69bba2d06b0f8b2 \
-                        size    10764936
+        checksums       rmd160  512981cd0599b06cf53c966f9d36ce25fc9c918f \
+                        sha256  f27a2f25259e8c51e42dfd74e24a546ee521438ad7d9f6c6e794aa91f38bab0a \
+                        size    10864076
     }
     8.1 {
         epoch           2
-        version         8.1.2
+        version         8.1.3
         use_xz          yes
-        checksums       rmd160  97f3144a822d8ddf014d6367e6db90d486752621 \
-                        sha256  6b448242fd360c1a9f265b7263abf3da25d28f2b2b0f5465533b69be51a391dd \
-                        size    11681132
+        checksums       rmd160  01e8fc6382bba6a055d384716fced27086480ad4 \
+                        sha256  5d65a11071b47669c17452fb336c290b67c101efb745c1dbe7525b5caf546ec6 \
+                        size    11751576
     }
     8.2 {
         # When this becomes a stable version, remove the overrides for homepage,
@@ -421,9 +421,9 @@ subport ${php} {
         7.1.33              {revision 3}
         7.2.34              {revision 4}
         7.3.33              {revision 1}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     depends_run             port:php_select
@@ -576,9 +576,9 @@ subport ${php}-apache2handler {
         7.1.33              {revision 1}
         7.2.34              {revision 2}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     description             ${php} Apache 2 Handler SAPI
@@ -642,9 +642,9 @@ subport ${php}-cgi {
         7.1.33              {revision 0}
         7.2.34              {revision 2}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     description             ${php} CGI SAPI
@@ -684,9 +684,9 @@ subport ${php}-fpm {
         7.1.33              {revision 1}
         7.2.34              {revision 2}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     description             ${php} FPM SAPI
@@ -755,9 +755,9 @@ subport ${php}-calendar {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     description             a PHP extension for converting between different \
@@ -777,9 +777,9 @@ subport ${php}-curl {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       net www
@@ -815,9 +815,9 @@ subport ${php}-dba {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       databases
@@ -849,9 +849,9 @@ subport ${php}-enchant {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       textproc devel
@@ -900,9 +900,9 @@ subport ${php}-exif {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       graphics
@@ -923,9 +923,9 @@ subport ${php}-ftp {
         7.1.33              {revision 1}
         7.2.34              {revision 1}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       net
@@ -959,9 +959,9 @@ subport ${php}-gd {
         7.1.33              {revision 1}
         7.2.34              {revision 1}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       graphics
@@ -1023,9 +1023,9 @@ subport ${php}-gettext {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       devel
@@ -1051,9 +1051,9 @@ subport ${php}-gmp {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       devel math
@@ -1084,9 +1084,9 @@ subport ${php}-iconv {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       textproc
@@ -1112,9 +1112,9 @@ subport ${php}-imap {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       mail
@@ -1151,9 +1151,9 @@ subport ${php}-intl {
         7.1.33              {revision 1}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       devel
@@ -1196,9 +1196,9 @@ subport ${php}-ipc {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          shmop sysvmsg sysvsem sysvshm
@@ -1220,9 +1220,9 @@ subport ${php}-ldap {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       databases
@@ -1258,9 +1258,9 @@ subport ${php}-mbstring {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       textproc
@@ -1345,9 +1345,9 @@ subport ${php}-mysql {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          mysqli pdo_mysql
@@ -1502,9 +1502,9 @@ subport ${php}-odbc {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          odbc pdo_odbc
@@ -1564,9 +1564,9 @@ if {[vercmp ${branch} 5.5] >= 0} {
             7.1.33              {revision 1}
             7.2.34              {revision 0}
             7.3.33              {revision 0}
-            7.4.27              {revision 0}
-            8.0.15              {revision 0}
-            8.1.2               {revision 0}
+            7.4.28              {revision 0}
+            8.0.16              {revision 0}
+            8.1.3               {revision 0}
         }
 
         php.extensions.zend opcache
@@ -1611,9 +1611,9 @@ subport ${php}-openssl {
         7.1.33              {revision 1}
         7.2.34              {revision 1}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       devel security
@@ -1666,9 +1666,9 @@ subport ${php}-oracle {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          oci8 pdo_oci
@@ -1706,9 +1706,9 @@ subport ${php}-pcntl {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       sysutils
@@ -1737,9 +1737,9 @@ subport ${php}-posix {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       sysutils
@@ -1762,9 +1762,9 @@ subport ${php}-postgresql {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          pgsql pdo_pgsql
@@ -1892,9 +1892,9 @@ subport ${php}-pspell {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       textproc
@@ -1920,9 +1920,9 @@ subport ${php}-snmp {
         7.1.33              {revision 1}
         7.2.34              {revision 1}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       sysutils
@@ -1948,9 +1948,9 @@ subport ${php}-soap {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       net
@@ -1979,9 +1979,9 @@ subport ${php}-sockets {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       net
@@ -1997,9 +1997,9 @@ subport ${php}-sodium {
     switch -- ${version} {
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          sodium
@@ -2034,9 +2034,9 @@ subport ${php}-sqlite {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     php.extensions          sqlite sqlite3 pdo_sqlite
@@ -2084,9 +2084,9 @@ subport ${php}-tidy {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       www
@@ -2145,7 +2145,7 @@ subport ${php}-xmlrpc {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
+        7.4.28              {revision 0}
     }
 
     categories-append       textproc
@@ -2187,9 +2187,9 @@ subport ${php}-xsl {
         7.1.33              {revision 0}
         7.2.34              {revision 0}
         7.3.33              {revision 0}
-        7.4.27              {revision 0}
-        8.0.15              {revision 0}
-        8.1.2               {revision 0}
+        7.4.28              {revision 0}
+        8.0.16              {revision 0}
+        8.1.3               {revision 0}
     }
 
     categories-append       textproc
