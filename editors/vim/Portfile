@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 
 set vim_version     8.2
-set vim_patchlevel  2683
+set vim_patchlevel  4324
 github.setup        vim vim ${vim_version}.${vim_patchlevel} v
 revision            0
 
@@ -20,9 +20,9 @@ long_description    Vim is an advanced text editor that seeks to provide the\
 
 homepage            https://www.vim.org/
 
-checksums           rmd160  117ecc6a7932b76ecfe53948172f5056b6ffb028 \
-                    sha256  15f869b640a50d0a3552c2b120536892bd5626c6c1bc25d8bb24af24f81e9b66 \
-                    size    15459857
+checksums           rmd160  ca008ee7734fd1753bbc7e91a2d498a5177ae642 \
+                    sha256  a2b842f258fda87446504df911c27fa4ea54084e5112722d419a8b63b2bd8027 \
+                    size    15981311
 
 depends_lib         port:ncurses \
                     port:gettext \
@@ -107,50 +107,31 @@ variant perl description {Enable Perl scripting} {
     depends_lib-append      path:bin/perl:perl5
 }
 
-variant python27 description {Enable Python scripting} {
-    configure.args-append   --enable-pythoninterp --with-python-command=${prefix}/bin/python2.7
-    patchfiles-append       patch-python.diff
-    depends_lib-append      port:python27
+set pythons_suffixes {27 36 37 38 39 310}
 
-    use_autoconf yes
-    # Overwriting autoconf.cmd above removes dependency, add it again
-    depends_build-append port:autoconf
+set pythons_ports {}
+foreach s ${pythons_suffixes} {
+    lappend pythons_ports python${s}
 }
-variant python36 conflicts python37 python38 python39 description {Enable Python scripting} {
-    configure.args-append   --enable-python3interp --with-python3-command=${prefix}/bin/python3.6
-    patchfiles-append       patch-python3.diff
-    depends_lib-append      port:python36
 
-    use_autoconf yes
-    # Overwriting autoconf.cmd above removes dependency, add it again
-    depends_build-append port:autoconf
-}
-variant python37 conflicts python36 python38 python39 description {Enable Python scripting} {
-    configure.args-append   --enable-python3interp --with-python3-command=${prefix}/bin/python3.7
-    patchfiles-append       patch-python3.diff
-    depends_lib-append      port:python37
-
-    use_autoconf yes
-    # Overwriting autoconf.cmd above removes dependency, add it again
-    depends_build-append port:autoconf
-}
-variant python38 conflicts python36 python37 python39 description {Enable Python scripting} {
-    configure.args-append   --enable-python3interp --with-python3-command=${prefix}/bin/python3.8
-    patchfiles-append       patch-python3.diff
-    depends_lib-append      port:python38
-
-    use_autoconf yes
-    # Overwriting autoconf.cmd above removes dependency, add it again
-    depends_build-append port:autoconf
-}
-variant python39 conflicts python36 python37 python38 description {Enable Python scripting} {
-    configure.args-append   --enable-python3interp --with-python3-command=${prefix}/bin/python3.9
-    patchfiles-append       patch-python3.diff
-    depends_lib-append      port:python39
-
-    use_autoconf yes
-    # Overwriting autoconf.cmd above removes dependency, add it again
-    depends_build-append port:autoconf
+foreach s ${pythons_suffixes} {
+    set p python${s}
+    set v [string index ${s} 0].[string range ${s} 1 end]
+    set i [lsearch -exact ${pythons_ports} ${p}]
+    set c [lreplace ${pythons_ports} ${i} ${i}]
+    variant ${p} description "Enable Python scripting" conflicts {*}${c} "
+        if {${s} < 300} {
+            configure.args-append   --enable-pythoninterp --with-python-command=${prefix}/bin/python${v}
+            patchfiles-append       patch-python.diff
+        } else {
+            configure.args-append   --enable-python3interp --with-python3-command=${prefix}/bin/python${v}
+            patchfiles-append       patch-python3.diff
+        }
+        depends_lib-append      port:${p}
+        use_autoconf yes
+        # overwriting autoconf.cmd above removes dependency, add it again
+        depends_build-append port:autoconf
+    "
 }
 
 variant ruby requires ruby18 description {Compatibility variant, requires +ruby18} {}
