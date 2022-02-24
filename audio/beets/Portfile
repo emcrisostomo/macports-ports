@@ -39,13 +39,13 @@ if {$subport eq $name} {
 subport ${name}-devel {
     conflicts       $name
 
-    github.setup    beetbox beets 51e478ed1d1f818775abfd8b9fd086da10a30c2b
-    version         20220130
+    github.setup    beetbox beets 5f45e9e10894ea94d35a885d25c4c4ffffcfaa91
+    version         20220216
     revision        0
 
-    checksums       rmd160  0f24f7193b386866859d98d83cc7ad104dc5f6d5 \
-                    sha256  2ea8de44f74545e45f09931257246b29a1c1f9fa74ac9a54e4ac35b9c0ff3cf7 \
-                    size    1687868
+    checksums       rmd160  559c85a7ba388c633ccec0f830d638214bddef64 \
+                    sha256  58d6f1d01818926857a54be19370dd8bc0c7eb80b2aa3178d1d97c39a9e92e5e \
+                    size    1687910
 
     depends_build-append \
                     port:py${python.version}-sphinx
@@ -232,8 +232,8 @@ subport ${name}-barcode {
 
 subport ${name}-beetcamp {
     python.rootname beetcamp
-    version         0.11.0
-    revision        1
+    version         0.12.0
+    revision        0
 
     license         GPL-2
 
@@ -243,9 +243,9 @@ subport ${name}-beetcamp {
 
     homepage        https://github.com/snejus/beetcamp
 
-    checksums       rmd160  1e1c7e767cd959008f07e5d6189f6616a9f9945c \
-                    sha256  0171236fdc389d86c78671663b765d59824a3dfd6ca316e360a5b5244e7301bf \
-                    size    30755
+    checksums       rmd160  132486984e4ca0536a11cefaa04f9362fa41a81d \
+                    sha256  7a810f337f1e9a34135026d9140fce13442d82a18d967553c5a8cd281185ce2b \
+                    size    32657
 
     depends_lib-append \
                     port:py${python.version}-cached-property \
