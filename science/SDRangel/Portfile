@@ -17,14 +17,19 @@ description           SDRangel is an Open Source Qt5 / OpenGL 3.0+ SDR \
     and signal analyzer frontend to various hardware.
 long_description    ${description}
 
-github.setup          f4exb sdrangel 6.18.1 v
-checksums             rmd160  7a43df757f1a3047f678bb4f4818f5b28b81824e \
-                      sha256  e8251e13f379b380ff77484b3c7d3fb18b38d566f7ee2db5f88b5e0f2b316321 \
-                      size    59395093
-revision              1
+github.setup          f4exb sdrangel 6.19.1 v
+checksums             rmd160  6f269fe5b33347a3c4c82ab6c4f5d8d6caa4bb55 \
+                      sha256  2ebe2bccaf7b7d021d93b1371b2995f52cc113d7b6bd119feb13e61780a30a5e \
+                      size    68131665
+revision              0
 
 # check just the version 6 branch for now
 github.livecheck.regex (6\[0-9.]*)
+
+# not linked directly to openssl
+license_noconflict-append \
+    openssl \
+    openssl11
 
 compiler.c_standard   2011
 # error: call to 'abs' is ambiguous
@@ -45,10 +50,10 @@ patchfiles-append     disable-remotetx.patch
 patchfiles-append     revert_cm256cc.patch
 
 # disable because macOS < 10.12 since it has a too old Qt version
-if {${os.platform} eq "darwin" && ${os.major} <= 15} {
+if {${os.platform} eq "darwin" && ${os.major} <= 16} {
     known_fail yes
     pre-fetch {
-        ui_error "${name} @${version} requires Mac OS X 10.12 or later"
+        ui_error "${name} @${version} requires Mac OS X 10.13 or later"
         return -code error "Unsupported Mac OS X version"
     }
 }
@@ -77,7 +82,8 @@ qt5.depends_component \
     qtwebsockets \
     qtlocation \
     qtcharts \
-    qtspeech
+    qtspeech \
+    qtwebengine
 
 configure.args-append \
     -DBUILD_GUI=OFF \
