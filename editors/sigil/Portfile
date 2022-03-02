@@ -6,8 +6,8 @@ PortGroup               conflicts_build 1.0
 PortGroup               github 1.0
 PortGroup               qt5 1.0
 
-github.setup            Sigil-Ebook Sigil 1.8.0
-revision                0
+github.setup            Sigil-Ebook Sigil 1.9.0
+revision                1
 name                    sigil
 platforms               darwin
 categories              editors
@@ -19,9 +19,9 @@ description             Sigil, the ePub editor
 long_description        Sigil is a multi-platform WYSIWYG ebook editor. It is \
                         designed to edit books in ePub format
 
-checksums               rmd160  f7cbcd9bfb1c9e4d1cbd490c4407302e25356a2a \
-                        sha256  c877faff17a307ed816ca718f22f9a12213e405e0048bce70de27adda74c8edb \
-                        size    21223015
+checksums               rmd160  053b1d0fd0de76d8a8740fab8aa06d3b390d59eb \
+                        sha256  7269aefa2cc5debc314a6d0eed83b86f6ac743f9bb9995a9cb1814e317c0c893 \
+                        size    23221272
 
 qt5.depends_component   qttools qtwebengine
 qt5.min_version         5.12
@@ -67,15 +67,16 @@ proc python-depends {python_branch} {
 }
 
 variant python39 conflicts python38 description {Use Python 3.9 during build} {
-    post-patch {
-        reinplace {s|PythonInterp 3\.8|PythonInterp 3.9|g} ${worksrcpath}/CMakeLists.txt
-        reinplace {s|PythonLibs 3\.8|PythonLibs 3.9|g} ${worksrcpath}/CMakeLists.txt
-    }
     set python_branch 3.9
     python-depends ${python_branch}
 }
 
 variant python38 conflicts python39 description {Use Python 3.8 during build} {
+    post-patch {
+        reinplace {s|Python3 3\.9 COMPONENTS Interpreter Development|Python3 3.8 COMPONENTS Interpreter Development|g} ${worksrcpath}/CMakeLists.txt
+        reinplace {s|PythonInterp 3\.9|PythonInterp 3.8|g} ${worksrcpath}/CMakeLists.txt
+        reinplace {s|PythonLibs 3\.9|PythonLibs 3.8|g} ${worksrcpath}/CMakeLists.txt
+    }
     set python_branch 3.8
     python-depends ${python_branch}
 }
