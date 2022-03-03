@@ -3,49 +3,61 @@
 PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           select 1.0
+PortGroup           github 1.0
 
-name                py-awscli
-version             1.22.60
+name                py-awscli2
+github.setup        aws aws-cli 2.4.21
 revision            0
 
 categories          python devel
-supported_archs     noarch
+platforms           darwin
 license             Apache-2
-maintainers         {judaew @judaew} openmaintainer
+maintainers         {gmail.com:davidgilman1 @dgilman} openmaintainer
 
 description         Universal Command Line Environment for Amazon Web Services.
 long_description    {*}${description}
 
 homepage            https://aws.amazon.com/cli/
 
-checksums           rmd160  0bc0921d368ee03571976e44b392820208fdbfdf \
-                    sha256  4477d2236518b9f1b48f511a73311512cb10d307fab50205bc79fb98be408cd6 \
-                    size    1561347
+checksums           rmd160  05334ad34cea05884eff7c758076e80785dddf2e \
+                    sha256  e34b68a65733f86f487af93248d9b37b002410595056e4e6c58557cc77b971a5 \
+                    size    10243310
 
-python.versions     37 38 39 310
+# This is what Amazon currently supports and there
+# are hard errors with later Pythons right now.
+python.versions     37 38
 
 if {${name} ne ${subport}} {
-    conflicts           py${python.version}-awscli2
+    conflicts           py${python.version}-awscli
 
     depends_build-append \
                         port:py${python.version}-setuptools
 
     depends_lib-append \
-                        port:py${python.version}-botocore \
+                        port:py${python.version}-awscrt \
                         port:py${python.version}-colorama \
+                        port:py${python.version}-cryptography \
+                        port:py${python.version}-dateutil \
+                        port:py${python.version}-distro \
                         port:py${python.version}-docutils \
-                        port:py${python.version}-rsa \
-                        port:py${python.version}-s3transfer \
-                        port:py${python.version}-yaml
+                        port:py${python.version}-jmespath \
+                        port:py${python.version}-prompt_toolkit \
+                        port:py${python.version}-ruamel-yaml \
+                        port:py${python.version}-ruamel-yaml-clib \
+                        port:py${python.version}-urllib3 \
+                        port:py${python.version}-wcwidth
 
     depends_run-append  port:awscli_select
 
     select.group        awscli
-    select.file         ${worksrcpath}/py${python.version}-awscli
+    select.file         ${worksrcpath}/py${python.version}-awscli2
 
     post-extract {
-        copy -force ${filespath}/awscli ${worksrcpath}/py${python.version}-awscli
+        copy -force ${filespath}/awscli2 ${worksrcpath}/py${python.version}-awscli2
     }
+
+    patch.pre_args      -p1
+    patchfiles          patch-requirements.diff
 
     post-patch {
         reinplace \
@@ -54,13 +66,16 @@ if {${name} ne ${subport}} {
     }
 
     post-destroot {
+        move ${worksrcpath}/scripts/gen-ac-index ${worksrcpath}
+        system -W ${worksrcpath} "${prefix}/bin/python${python.branch} ./gen-ac-index --include-builtin-index --index-location ${destroot}${python.pkgd}/awscli/data/ac.index"
+
         delete ${destroot}${prefix}/bin/aws.cmd-${python.branch}
 
         set bash_compl_path ${prefix}/share/bash-completion/completions
         xinstall -d ${destroot}${bash_compl_path}
         xinstall -m 0644 ${worksrcpath}/bin/aws_bash_completer \
             ${destroot}${bash_compl_path}/aws-${python.branch}
- 
+
         set zsh_compl_path ${prefix}/share/zsh/site-functions
         xinstall -d ${destroot}${zsh_compl_path}
         xinstall -m 0644 ${worksrcpath}/bin/aws_zsh_completer.sh \
@@ -74,18 +89,6 @@ To make the Python ${python.branch} version of AWS CLI the one that is run when\
 you execute the commands without a version suffix, e.g. 'aws', run:
 
 port select --set ${select.group} [file tail ${select.file}]
-
----
-
-If you use a plugin in your ~/.aws/config, it must be installed. For example,
-Wasabi for S3 uses the awscli_plugin_endpoint plugin. Just install it:
-
-port install py${python.version}-awscli_plugin_endpoint
-
-If your plugin is not in MacPorts, you can install it using the
-py${python.version}-pip port, for example:
-
-pip-${python.branch} install --user <plugin-name>
 "
 
     livecheck.type      none
