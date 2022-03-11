@@ -3,7 +3,7 @@
 PortSystem              1.0
 
 name                    MacOSX.sdk
-version                 10.10
+version                 10.13
 revision                0
 categories              devel
 platforms               macosx
@@ -28,6 +28,86 @@ default xar_pbzx        yes
 
 options xar_payload
 default xar_payload     {}
+
+subport MacOSX10.13.sdk {
+#   SDK                   Size  Date        File                                                Notes
+#   10.13-17A360     186889025  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.dmg
+#   10.13-17A360     181553114  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.dmg
+#   10.13-17A360    5370295544  2019-11-01  Xcode_9.xip
+#   10.13-17A360     187403942  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.0.1.dmg
+#   10.13-17A360     182087050  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.0.1.dmg
+#   10.13-17A360    5442843891  2019-11-01  Xcode_9.0.1.xip
+#   10.13.1-17B41    187514526  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.1.dmg
+#   10.13.1-17B41    182201735  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.1.dmg
+#   10.13.1-17B41   5442909430  2019-11-01  Xcode_9.1.xip
+#   10.13.2-17C76    187629224  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.2.dmg
+#   10.13.2-17C76    182316425  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.2.dmg
+#   10.13.2-17C76   5478692088  2019-11-01  Xcode_9.2.xip
+#   10.13.4-17E189   192491483  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.3.dmg    newest smallest
+#   10.13.4-17E189  5235094775  2019-11-01  Xcode_9.3.xip
+#   10.13.4-17E189  5235160313  2019-11-01  Xcode_9.3.1.xip
+#   10.13.4-17E189   192565208  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.4.dmg
+#   10.13.4-17E189  5271139574  2019-11-01  Xcode_9.4.xip
+#   10.13.4-17E189   192548827  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.4.1.dmg
+#   10.13.4-17E189  5271270648  2019-11-01  Xcode_9.4.1.xip
+    set macos_name      {macOS High Sierra}
+    version             10.13.4-17E189
+    revision            0
+    checksums           rmd160  29c5a9ad27bf3ccf4ca1aceda973654071b89235 \
+                        sha256  bb99dd83b359b6e85e870f231ee31ee0681b1b7477787b4ddf5b8f0da5ea987d \
+                        size    192491483
+    distname            Command_Line_Tools_macOS_10.13_for_Xcode_9.3
+    xar_file            Command Line Tools (macOS High Sierra version 10.13).pkg
+    xar_payload         CLTools_SDK_macOS1013.pkg/Payload
+    extract_paths       Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+
+    homepage            https://developer.apple.com/library/archive/releasenotes/General/RN-macOSSDK-10.13/
+}
+
+subport MacOSX10.12.sdk {
+#   SDK                   Size  Date        File                                                Notes
+#   10.12-16A300    4415370488  2019-11-08  Xcode_8.xip
+#   10.12.1-16B2649 4446762222  2019-11-08  Xcode_8.1.xip
+#   10.12.2-16C58    154679192  2019-11-08  Command_Line_Tools_macOS_10.11_for_Xcode_8.2.dmg
+#   10.12.2-16C58    154863510  2019-11-08  Command_Line_Tools_macOS_10.12_for_Xcode_8.2.dmg
+#   10.12.2-16C58   4526912760  2019-11-08  Xcode_8.2.xip
+#   10.12.2-16C58   4527043832  2019-11-08  Xcode_8.2.1.xip
+#   10.12.4-16E185   166119977  2019-11-08  Command_Line_Tools_macOS_10.12_for_Xcode_8.3.dmg    newest smallest
+#   10.12.4-16E185  4505613560  2019-11-08  Xcode_8.3.xip
+#   10.12.4-16E185  4495662305  2017-04-06  Xcode_8.3.1.xip                                     removed in 2019
+#   10.12.4-16E185   166128165  2019-11-08  Command_Line_Tools_macOS_10.12_for_Xcode_8.3.2.dmg
+#   10.12.4-16E185  4494079225  2019-11-08  Xcode_8.3.2.xip
+#   10.12.4-16E185  4522587381  2019-11-08  Xcode_8.3.3.xip
+    set macos_name      {macOS Sierra}
+    version             10.12.4-16E185
+    revision            0
+    checksums           rmd160  f11bd2fc98b7b7ab81779da94673f7649df1eeed \
+                        sha256  80f34f206562a10dc8dc14269ab744c16a58134f2bcd26933234fe06ca594683 \
+                        size    166119977
+    distname            Command_Line_Tools_macOS_10.12_for_Xcode_8.3
+    xar_file            Command Line Tools (macOS Sierra version 10.12).pkg
+    xar_payload         CLTools_SDK_OSX1012.pkg/Payload
+    extract_paths       Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+}
+
+subport MacOSX10.11.sdk {
+#   SDK                   Size  Date        File                                                Notes
+#   10.11-15A278    3731744540  2019-11-13  Xcode_7.dmg
+#   10.11-15A278    3733068903  2019-11-13  Xcode_7.0.1.dmg
+#   10.11-15A278    4474328556  2019-11-13  Xcode_7.1.dmg
+#   10.11-15A278    4474204264  2019-11-13  Xcode_7.1.1.dmg
+#   10.11.2-15C43   4591512140  2019-11-13  Xcode_7.2.dmg
+#   10.11.2-15C43   4591829253  2019-11-13  Xcode_7.2.1.dmg
+#   10.11.4-15E60   5047652942  2019-11-13  Xcode_7.3.dmg                                       newest smallest
+#   10.11.4-15E60   5050193754  2019-11-13  Xcode_7.3.1.dmg
+    set macos_name      {OS X El Capitan}
+    version             10.11.4-15E60
+    revision            0
+    checksums           rmd160  c15f1f966be258a60cbabdc95cc0085b007fa7df \
+                        sha256  5db90607c1f4f7222b40664c160b033be37433d29ed639f335b5d01545e3bb9c \
+                        size    5047652942
+    distname            Xcode_7.3
+}
 
 subport MacOSX10.10.sdk {
 #   SDK                   Size  Date        File                                                Notes
