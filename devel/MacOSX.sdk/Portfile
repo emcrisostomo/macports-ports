@@ -17,19 +17,40 @@ switch ${os.arch} {
     arm64 -
     i386 -
     default {
-            version     10.14
+        if {${build_arch} eq "i386"} {
+            version     10.13
             revision    0
+        } else {
+            version     10.15
+            revision    0
+        }
     }
 }
 
 homepage                https://developer.apple.com/macos/
-default master_sites    {https://download.developer.apple.com/Developer_Tools/${master_sites.mirror_subdir}}
-default master_sites.mirror_subdir \
-                        {${distname}}
-extract.suffix          .dmg
+
+options cdn_path
+default cdn_path        {}
+
+default distname        {[expr {${cdn_path} eq {} ? "${name}-${version}" : [file rootname [file tail ${cdn_path}]]}]}
+
+default dist_subdir     {[expr {${cdn_path} eq {} ? ${name} : "${name}/${version}"}]}
 
 options extract_paths
-default extract_paths   {"Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${sdk_major}.sdk"}
+default extract_paths   {[expr {${cdn_path} eq {}
+                            ? "Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${sdk_major}.sdk"
+                            : "Library/Developer/CommandLineTools/SDKs/MacOSX${sdk_major}.sdk"
+                        }]}
+
+default extract.suffix  {[expr {${cdn_path} eq {} ? ".dmg" : [file extension ${cdn_path}]}]}
+
+default master_sites    {[expr {${cdn_path} eq {}
+                            ? "https://download.developer.apple.com/Developer_Tools/${master_sites.mirror_subdir}"
+                            : "https://swcdn.apple.com/content/downloads/${master_sites.mirror_subdir}"
+                        }]}
+
+default master_sites.mirror_subdir \
+                        {[expr {${cdn_path} eq {} ? ${distname} : [file dirname ${cdn_path}]}]}
 
 options xar_file
 default xar_file        {}
@@ -40,11 +61,50 @@ default xar_pbzx        yes
 options xar_payload
 default xar_payload     {}
 
+subport MacOSX10.15.sdk {
+#   SDK                   Size  Date        File                                                                                        Notes
+#   10.15-19A547      43286143  2019-09-05  45/28/061-26566-A_R7LP2VO5QF/svs27at6zihaghh3wj0av4y3wdcriu4n2j/CLTools_macOS1015_SDK.pkg
+#   10.15-19A547     230422479  2019-10-01  Command_Line_Tools_for_Xcode_11.dmg
+#   10.15-19A547    7612937462  2019-10-01  Xcode_11.xip
+#   10.15-19A547    7675842712  2019-10-07  Xcode_11.1.xip
+#   10.15.1-19B81    230414314  2019-11-07  Command_Line_Tools_for_Xcode_11.2.dmg
+#   10.15.1-19B81   7821856919  2019-10-31  Xcode_11.2.xip
+#   10.15.1-19B89   7821856908  2019-11-12  Xcode_11.2.1.xip
+#   10.15.1-19B90    230414303  2019-12-10  Command_Line_Tools_for_Xcode_11.3.dmg
+#   10.15.1-19B90   7845187734  2019-12-10  Xcode_11.3.xip
+#   10.15.1-19B90    230414298  2020-01-13  Command_Line_Tools_for_Xcode_11.3.1.dmg
+#   10.15.1-19B90   7843352719  2020-01-13  Xcode_11.3.1.xip
+#   10.15.4-19E258   260497052  2020-03-24  Command_Line_Tools_for_Xcode_11.4.dmg
+#   10.15.4-19E258  8111919274  2020-03-24  Xcode_11.4.xip
+#   10.15.4-19E258   260365974  2020-04-15  Command_Line_Tools_for_Xcode_11.4.1.dmg
+#   10.15.4-19E258  8108773540  2020-04-16  Xcode_11.4.1.xip
+#   10.15.4-19E258   260431508  2020-05-20  Command_Line_Tools_for_Xcode_11.5.dmg
+#   10.15.4-19E258  8124240037  2020-05-20  Xcode_11.5.xip
+#   10.15.6-19G68   8148095139  2020-07-15  Xcode_11.6.xip
+#   10.15.6-19G68   8150585507  2020-09-01  Xcode_11.7.xip
+#   10.15.6-19G68    440575587  2020-09-17  Command_Line_Tools_for_Xcode_12.dmg
+#   10.15.6-19G68  11209653545  2020-09-17  Xcode_12.xip
+#   10.15.6-19G68     43292373  2021-01-08  46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSLMOS_SDK.pkg
+#   10.15.6-19G68     43293884  2021-04-20  50/51/071-29699-A_YC8SX0OHH3/7479xojqghsvgtnt3dxjpnxuz9sjpmbmds/CLTools_macOSLMOS_SDK.pkg
+#   10.15.6-19G68     43136357  2021-06-08  02/62/071-54303-A_EU2CL1YVT7/943i95dpeyi2ghlnj2mgyq3t202t5gf18b/CLTools_macOSLMOS_SDK.pkg   newest smallest
+
+    set macos_name      {macOS Catalina}
+    version             10.15.6-19G68
+    revision            0
+    checksums           rmd160  ea57f9c48b800380cbdf7fd3b1611667b52504a8 \
+                        sha256  d459ae8498deb77f290f7f3adc99a98fb488441818a90042091ee7bb78c817c3 \
+                        size    43293884
+    cdn_path            02/62/071-54303-A_EU2CL1YVT7/943i95dpeyi2ghlnj2mgyq3t202t5gf18b/CLTools_macOSLMOS_SDK.pkg
+
+    homepage            https://developer.apple.com/documentation/macos-release-notes/macos-catalina-10_15-release-notes
+}
+
 subport MacOSX10.14.sdk {
-#   SDK                   Size  Date        File                                                Notes
+#   SDK                   Size  Date        File                                                                                        Notes
 #   10.14-18A384     195780760  2019-10-23  Command_Line_Tools_macOS_10.13_for_Xcode_10.dmg
 #   10.14-18A384     192475091  2019-10-23  Command_Line_Tools_macOS_10.14_for_Xcode_10.dmg
 #   10.14-18A384    5876954359  2019-10-23  Xcode_10.xip
+#   10.14.1-18B71     25605433  2018-10-19  50/15/041-91747-A_WICZE7RNVZ/rayjnqf847xflt3tan8o8agod67eq88cav/CLTools_SDK_macOS1014.pkg
 #   10.14.1-18B71    195846261  2019-10-23  Command_Line_Tools_macOS_10.13_for_Xcode_10.1.dmg
 #   10.14.1-18B71    192997780  2019-10-23  Command_Line_Tools_macOS_10.14_for_Xcode_10.1.dmg
 #   10.14.1-18B71   6047806709  2019-10-23  Xcode_10.1.xip
@@ -52,6 +112,7 @@ subport MacOSX10.14.sdk {
 #   10.14.4-18E219  6055736566  2019-10-23  Xcode_10.2.xip
 #   10.14.4-18E219   203813456  2019-10-23  Command_Line_Tools_macOS_10.14_for_Xcode_10.2.1.dmg
 #   10.14.4-18E219  6055671032  2019-10-23  Xcode_10.2.1.xip
+#   10.14.5-18F132    31929696  2019-09-05  45/28/061-26566-A_R7LP2VO5QF/svs27at6zihaghh3wj0av4y3wdcriu4n2j/CLTools_macOS1014_SDK.pkg
 #   10.14.5-18F132   230422479  2019-10-01  Command_Line_Tools_for_Xcode_11.dmg
 #   10.14.5-18F132   230414314  2019-11-07  Command_Line_Tools_for_Xcode_11.2.dmg
 #   10.14.5-18F132   230414303  2019-12-10  Command_Line_Tools_for_Xcode_11.3.dmg
@@ -59,17 +120,17 @@ subport MacOSX10.14.sdk {
 #   10.14.5-18F132   260497052  2020-03-24  Command_Line_Tools_for_Xcode_11.4.dmg
 #   10.14.5-18F132   260365974  2020-04-15  Command_Line_Tools_for_Xcode_11.4.1.dmg
 #   10.14.5-18F132   260431508  2020-05-20  Command_Line_Tools_for_Xcode_11.5.dmg
-#   10.14.6-18G74    203944529  2019-10-23  Command_Line_Tools_macOS_10.14_for_Xcode_10.3.dmg   newest smallest
+#   10.14.6-18G74     25703733  2019-07-13  41/57/061-26573-A_JMOA8GZGDR/lj8yrtu8dgs40fw9k8f5fkoviwkp0og6vs/CLTools_SDK_macOS1014.pkg   newest smallest
+#   10.14.6-18G74    203944529  2019-10-23  Command_Line_Tools_macOS_10.14_for_Xcode_10.3.dmg
 #   10.14.6-18G74   6044005625  2019-10-23  Xcode_10.3.xip
+
     set macos_name      {macOS Mojave}
     version             10.14.6-18G74
-    revision            0
-    checksums           rmd160  3ba4d6d7763e930013dc7de4d2debfc4363bc498 \
-                        sha256  1c656111f47cd403d3e0b0ca3fa3dfefaddf88e205d0f3793c8191b66beb4e7d \
-                        size    203944529
-    distname            Command_Line_Tools_macOS_10.14_for_Xcode_10.3
-    xar_file            Command Line Tools (macOS Mojave version 10.14).pkg
-    xar_payload         CLTools_SDK_macOS1014.pkg/Payload
+    revision            1
+    checksums           rmd160  6bf687a426624b83a5694220e5294e697fb73426 \
+                        sha256  3b65c623e29ad74a3cd4f4eaf8e7fa6fc4b887b07bdf7b83f9217caa5fd67f51 \
+                        size    25703733
+    cdn_path            41/57/061-26573-A_JMOA8GZGDR/lj8yrtu8dgs40fw9k8f5fkoviwkp0og6vs/CLTools_SDK_macOS1014.pkg
     extract_paths       Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
     homepage            https://developer.apple.com/documentation/macos-release-notes/macos-mojave-10_14-release-notes
@@ -86,6 +147,7 @@ subport MacOSX10.13.sdk {
 #   10.13.1-17B41    187514526  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.1.dmg
 #   10.13.1-17B41    182201735  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.1.dmg
 #   10.13.1-17B41   5442909430  2019-11-01  Xcode_9.1.xip
+#   10.13.2-17C76     28071275  2017-11-17  33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/CLTools_SDK_macOS1013.pkg
 #   10.13.2-17C76    187629224  2019-11-01  Command_Line_Tools_macOS_10.12_for_Xcode_9.2.dmg
 #   10.13.2-17C76    182316425  2019-11-01  Command_Line_Tools_macOS_10.13_for_Xcode_9.2.dmg
 #   10.13.2-17C76   5478692088  2019-11-01  Xcode_9.2.xip
@@ -114,6 +176,7 @@ subport MacOSX10.12.sdk {
 #   SDK                   Size  Date        File                                                Notes
 #   10.12-16A300    4415370488  2019-11-08  Xcode_8.xip
 #   10.12.1-16B2649 4446762222  2019-11-08  Xcode_8.1.xip
+#   10.12.2-16C58     27030882  2016-12-05  22/62/041-88607/wg8avdk0jo75k9a13gentz9stwqgrqmcv6/CLTools_SDK_OSX1012.pkg
 #   10.12.2-16C58    154679192  2019-11-08  Command_Line_Tools_macOS_10.11_for_Xcode_8.2.dmg
 #   10.12.2-16C58    154863510  2019-11-08  Command_Line_Tools_macOS_10.12_for_Xcode_8.2.dmg
 #   10.12.2-16C58   4526912760  2019-11-08  Xcode_8.2.xip
@@ -287,7 +350,7 @@ subport MacOSX10.6.sdk {
 
 pre-fetch {
     foreach distfile ${distfiles} {
-        if {![file isfile ${distpath}/${distfile}]} {
+        if {${cdn_path} eq {} && ![file isfile ${distpath}/${distfile}]} {
             ui_error "This port cannot download the needed files automatically."
             ui_error "Please log in to your Apple Developer account at:"
             ui_error ""
@@ -362,9 +425,15 @@ if {${subport} eq ${name}} {
 
     set distfile        [lindex ${extract.only} 0]
     set ext             [file extension ${distfile}]
-    if {${ext} eq ".xip"} {
-        xar_file        ${distfile}
-        xar_payload     Content
+    switch ${ext} {
+        .pkg {
+            xar_file    ${distfile}
+            xar_payload Payload
+        }
+        .xip {
+            xar_file    ${distfile}
+            xar_payload Content
+        }
     }
     if {${xar_file} ne ""} {
         # /usr/bin/xar does not support -O / --to-stdout
@@ -443,7 +512,7 @@ if {${subport} eq ${name}} {
 
     if {[vercmp ${sdk_version} 11.0] >= 0} {
         supported_archs arm64 x86_64
-    } elseif {[vercmp ${sdk_version} 10.15] >= 0} {
+    } elseif {[vercmp ${sdk_version} 10.14] >= 0} {
         supported_archs x86_64
     } elseif {[vercmp ${sdk_version} 10.7] >= 0} {
         supported_archs i386 x86_64
