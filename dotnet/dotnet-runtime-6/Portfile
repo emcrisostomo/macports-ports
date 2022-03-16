@@ -2,15 +2,14 @@
 
 PortSystem          1.0
 
-name                aspnetcore-runtime-devel
-version             7.0.0-preview.1.22109.13
+name                dotnet-runtime-6
+version             6.0.3
 revision            0
 categories          dotnet
 license             MIT
 maintainers         {@tsabirgaliev gmail.com:tair.sabirgaliev} openmaintainer
 
-description         ASP.NET Core is a cross-platform .NET framework for building modern \
-                    cloud-based web applications on Windows, Mac, or Linux.
+description         .NET is a cross-platform runtime for cloud, mobile, desktop, and IoT apps.
 
 long_description    .NET is a free, cross-platform, open source developer platform \
                     for building many different types of applications. \
@@ -21,12 +20,12 @@ long_description    .NET is a free, cross-platform, open source developer platfo
 homepage            https://dotnet.microsoft.com/
 platforms           darwin
 supported_archs     x86_64
-distname            aspnetcore-runtime-${version}-osx-x64
-master_sites        https://dotnetcli.azureedge.net/dotnet/aspnetcore/Runtime/${version}/
+distname            dotnet-runtime-${version}-osx-x64
+master_sites        https://dotnetcli.azureedge.net/dotnet/Runtime/${version}/
 
-checksums           rmd160  a71ead97cb8a18af5fdd628e2417e6539f7bd422 \
-                    sha256  90cf2f9bbd50e9bc96299fa9f9947a48b9711908c9b37e6869de84b5001a86e3 \
-                    size    39610253
+checksums           rmd160  f441ab8fb2762ea542de7684ad2ddac2b4a7c9a6 \
+                    sha256  7852d49ed7b6fa054efce7eade625cc56aae5265bc4f7e6f5c065da119269f44 \
+                    size    30077032
 
 worksrcdir          ${name}-${version}
 extract.mkdir       yes
@@ -39,7 +38,7 @@ build {}
 
 destroot {
     set dotnet_home ${prefix}/share/dotnet
-    set runtime_dir /shared/Microsoft.AspNetCore.App
+    set runtime_dir /shared/Microsoft.NETCore.App
     xinstall -d ${destroot}${dotnet_home}${runtime_dir}
 
     move ${worksrcpath}${runtime_dir}/${version} ${destroot}${dotnet_home}${runtime_dir}

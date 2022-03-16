@@ -2,12 +2,12 @@
 
 PortSystem          1.0
 
-name                dotnet-sdk-2.1
-version             2.1.818
+name                dotnet-sdk-6
+version             6.0.201
 revision            0
 categories          dotnet devel
 license             MIT
-maintainers         {@tsabirgaliev} openmaintainer
+maintainers         {@tsabirgaliev gmail.com:tair.sabirgaliev} openmaintainer
 
 description         Core functionality needed to create .NET Core projects, that is \
                     shared between Visual Studio and CLI
@@ -20,12 +20,13 @@ long_description    .NET is a free, cross-platform, open source developer platfo
 
 homepage            https://dotnet.microsoft.com/
 platforms           darwin
+supported_archs     x86_64
 distname            dotnet-sdk-${version}-osx-x64
 master_sites        https://dotnetcli.azureedge.net/dotnet/Sdk/${version}/
 
-checksums           rmd160  f013b7b489627ad0df00a0afe4496d06e7d03e80 \
-                    sha256  eceea62b5ae716fa149ceabfd9de66f89fd91f48e701be3ea498d7f3cbc8a988 \
-                    size    167336021
+checksums           rmd160  ae29a6c2837fa25aad25dc90584a3e0aae1fc867 \
+                    sha256  c003f389cdaa1576956d49309515c596a980f4aff00f7d2b3bede70dfc2fb173 \
+                    size    174761436
 
 worksrcdir          ${name}-${version}
 extract.mkdir       yes
@@ -33,8 +34,8 @@ extract.mkdir       yes
 use_configure       no
 
 depends_run         port:dotnet-cli \
-                    port:dotnet-runtime-2.1 \
-                    port:aspnetcore-runtime-2.1
+                    port:dotnet-runtime-6 \
+                    port:aspnetcore-runtime-6
 
 build {}
 
