@@ -110,52 +110,52 @@ subport py36-gdbm {
 }
 subport py37-gdbm {
     maintainers     {jmr @jmroot}
-    version         3.7.12
+    version         3.7.13
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
     use_xz			yes
-    checksums       md5 352ea082224121a8b7bc4d6d06e5de39 \
-                    rmd160 585bc667eb2995727dd97a392b073adbf84b3a40 \
-                    sha256 f77bf7fb47839f213e5cbf7827281078ea90de7e72b44f10d7ef385ea8c43210
+    checksums       md5 10822726f75fd7efe05a94fbd6ac2258 \
+                    rmd160 211d194c4a7f417c1900dce248fa04b75bd3c1a4 \
+                    sha256 99f106275df8899c3e8cb9d7c01ce686c202ef275953301427194693de5bef84
     set setup_py "setup-py3k.py"
     set extract_files "Modules/_gdbmmodule.c Modules/clinic/_gdbmmodule.c.h"
     livecheck.regex {Python (3\.7\.[0-9]+)}
 }
 subport py38-gdbm {
     maintainers     nomaintainer
-    version         3.8.12
+    version         3.8.13
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
     use_xz			yes
-    checksums       rmd160  3453c1e5cacbc2cb506c8a98b2310fda9ade3ea8 \
-                    sha256  b1d3a76420375343b5e8a22fceb1ac65b77193e9ed27146524f0a9db058728ea \
-                    size    18443568
+    checksums       md5 c4b7100dcaace9d33ab1fda9a3a038d6 \
+                    rmd160 d5742f8b2e3d60cb2a867816a35fc23a29a4cfd3 \
+                    sha256 6f309077012040aa39fe8f0c61db8c0fa1c45136763299d375c9e5756f09cf57
     set setup_py "setup-py3k.py"
     set extract_files "Modules/_gdbmmodule.c Modules/clinic/_gdbmmodule.c.h"
     livecheck.regex {Python (3\.8\.[0-9]+)}
 }
 subport py39-gdbm {
     maintainers     {jmr @jmroot}
-    version         3.9.10
+    version         3.9.11
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
     use_xz			yes
-    checksums       md5 e754c4b2276750fd5b4785a1b443683a \
-                    rmd160 5372b97d8143c69723510c0262b0cadcc947283b \
-                    sha256 0a8fbfb5287ebc3a13e9baf3d54e08fa06778ffeccf6311aef821bb3a6586cc8
+    checksums       md5 3c8dde3ebd6da005e969b83b5f0c1886 \
+                    rmd160 4d9a4c0a727fe7819a44fed6ddf3ffa6dacfb549 \
+                    sha256 66767a35309d724f370df9e503c172b4ee444f49d62b98bc4eca725123e26c49
     set setup_py "setup-py3k.py"
     set extract_files "Modules/_gdbmmodule.c Modules/clinic/_gdbmmodule.c.h"
     livecheck.regex {Python (3\.9\.[0-9]+)}
 }
 subport py310-gdbm {
     maintainers     {jmr @jmroot}
-    version         3.10.2
+    version         3.10.3
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
     use_xz			yes
-    checksums       md5 14e8c22458ed7779a1957b26cde01db9 \
-                    rmd160 d8c2ffc5efaef168fb2cccd43e8651c8c6aa9e0e \
-                    sha256 17de3ac7da9f2519aa9d64378c603a73a0e9ad58dffa8812e45160c086de64c7
+    checksums       md5 21e0b70d70fdd4756aafc4caa55cc17e \
+                    rmd160 f124ae3999408e3f4eda355d4faffca9ec70e2fc \
+                    sha256 596c72de998dc39205bc4f70ef0dbf7edec740a306d09b49a9bd0a77806730dc
     set setup_py "setup-py3k.py"
     set extract_files "Modules/_gdbmmodule.c Modules/clinic/_gdbmmodule.c.h"
     livecheck.regex {Python (3\.10\.[0-9]+)}

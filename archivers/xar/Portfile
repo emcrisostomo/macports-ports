@@ -2,28 +2,27 @@
 
 PortSystem          1.0
 PortGroup           clang_dependency 1.0
+PortGroup           github 1.0
 PortGroup           openssl 1.0
 
-name                xar
-set apple_version   482
+set apple_version   483
+github.setup        apple-oss-distributions xar ${apple_version} xar-
 version             1.8.0.${apple_version}
-revision            0
+revision            3
 
 categories          archivers sysutils
 license             BSD
 description         xar is the eXtensible ARchiver
 long_description    {*}${description}
 maintainers         {mps @Schamschula} openmaintainer
-homepage            https://opensource.apple.com/
-master_sites        https://github.com/apple-oss-distributions/xar/archive/
 
 distname            ${name}-${apple_version}
 
-worksrcdir          ${name}-${distname}/xar
+worksrcdir          ${distname}/xar
 
-checksums           rmd160  66bb553e4f964a8e8872406fb8219fc8bbffa20c \
-                    sha256  03ae7f6201d2586be03681feb06e32a2ddee08fe59c4002759c354c86964f62d \
-                    size    220908
+checksums           rmd160  886b36aac7d0f6dc3a16eefb1f272033bbd0f1b4 \
+                    sha256  0f2eb5457a05e4691a1d9d8cb8bc40389633bcdf9cc3a2ff454855f4a5aec28a \
+                    size    221543
 
 depends_build       port:pkgconfig \
                     port:automake
@@ -51,6 +50,9 @@ patchfiles-append   patch-stdout.diff
 # see: https://trac.macports.org/ticket/64826
 patchfiles-append   patch-include-xar.h.in.diff
 
+# see: https://trac.macports.org/ticket/64837
+patchfiles-append   patch-src-xar_internal.h.diff
+
 configure.cflags-append -std=c99
 
 post-patch {
@@ -59,5 +61,3 @@ post-patch {
 }
 
 use_autoconf        yes
-
-livecheck.version   ${apple_version}
