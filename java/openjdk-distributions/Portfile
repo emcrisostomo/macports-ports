@@ -593,59 +593,6 @@ subport openjdk17-graalvm {
                  size    429797450
 }
 
-subport openjdk17-openj9 {
-    # https://developer.ibm.com/languages/java/semeru-runtimes/downloads?os=macOS
-    supported_archs  x86_64
-
-    version      17.0.2
-    revision     0
-
-    set build    8
-    set openj9_version 0.30.0
-
-    homepage     https://developer.ibm.com/languages/java/semeru-runtimes/
-
-    description  Open Java Development Kit 17 (IBM Semeru) with Eclipse OpenJ9 VM
-    long_description ${long_description_ibm_semeru}
-
-    master_sites https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-${version}+${build}_openj9-${openj9_version}/
-    distname     ibm-semeru-open-jdk_x64_mac_${version}_${build}_openj9-${openj9_version}
-    worksrcdir   jdk-${version}+${build}
-
-    checksums    rmd160  501fdff9007a1333496e86dd49275d4dc5d11735 \
-                 sha256  fbbc233c187b6cbc9c62a850617fc9a7764686ed2686c9c106ca98f9f1d24e59 \
-                 size    207963045
-}
-
-subport openjdk17-oracle {
-    # https://jdk.java.net/17/
-
-    supported_archs  x86_64 arm64
-
-    version      17.0.2
-    set build    8
-    revision     0
-
-    description  Oracle OpenJDK 17
-    long_description ${long_description_oracle}
-
-    master_sites https://download.java.net/java/GA/jdk${version}/dfd4a8d0985749f896bed50d7138ee7f/${build}/GPL/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     openjdk-${version}_macos-x64_bin
-        checksums    rmd160  3c89d3464a2c5e5e62af2153101d19f6023f1410 \
-                     sha256  b85c4aaf7b141825ad3a0ea34b965e45c15d5963677e9b27235aa05f65c6df06 \
-                     size    184480668
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     openjdk-${version}_macos-aarch64_bin
-        checksums    rmd160  79b88f39a4321cafe5b652b1c9fe6a92966b0de8 \
-                     sha256  602d7de72526368bb3f80d95c4427696ea639d2e0cc40455f53ff0bbb18c27c8 \
-                     size    182209404
-    }
-
-    worksrcdir   jdk-${version}.jdk
-}
-
 subport openjdk17-sap {
     # https://sap.github.io/SapMachine/latest/17
     supported_archs  x86_64 arm64
@@ -766,8 +713,6 @@ if {[string match *-graalvm ${subport}]} {
     homepage     https://sapmachine.io/
 } elseif {[string match *-temurin ${subport}]} {
     homepage     https://adoptium.net
-} elseif {[string match *-oracle ${subport}]} {
-    homepage     https://jdk.java.net
 } elseif {[string match *-corretto ${subport}]} {
     homepage     https://aws.amazon.com/corretto/
 }

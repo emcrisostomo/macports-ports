@@ -19,7 +19,7 @@ conflicts           ffmpeg
 # Please increase the revision of mpv whenever ffmpeg's version is updated.
 epoch               0
 version             5.0
-revision            0
+revision            2
 license             LGPL-2.1+
 categories          multimedia
 maintainers         {devans @dbevans} {jeremyhu @jeremyhu} {mascguy @mascguy} openmaintainer
@@ -95,6 +95,7 @@ depends_lib         port:lame \
                     port:zlib
 
 patchfiles-append   patch-libavcodec-audiotoolboxenc.c.diff
+patchfiles-append   patch-avutil-builtin-available.diff
 
 # enable auto configure of asm optimizations
 # requires Xcode 3.1 or better on Leopard
@@ -365,11 +366,18 @@ variant gpl2 description {Enable GPL code, license will be GPL-2+} {
 
 variant gpl3 requires gpl2 description {Enable GPL code, license will be GPL-3+} {
     configure.args-append   --enable-version3 \
-                            --enable-libsmbclient
+                            --enable-libsmbclient \
+                            --enable-libaribb24
 
-    depends_lib-append      port:samba3
+    depends_lib-append      port:samba4 \
+                            port:libaribb24
 
     license                 GPL-3+
+}
+
+variant samba3 requires gpl3 description {Use Samba 3, rather than Samba 4, for gpl3 variant} {
+    depends_lib-replace     port:samba4 \
+                            port:samba3
 }
 
 # the build server uses the default variants, and we want distributable binaries
