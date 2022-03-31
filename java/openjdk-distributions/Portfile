@@ -22,9 +22,6 @@ set long_description_ibm_semeru \
     "The IBM Semeru Runtimes are free production-ready open source binaries to run your Java applications built with\
 the OpenJDK class libraries and the Eclipse OpenJ9 JVM."
 
-set long_description_oracle \
-    "Open-source Oracle builds of OpenJDK, the Java Development Kit, an implementation of the Java SE Platform."
-
 set long_description_sap \
     "Sap builds of openjdk for everyone who wish to use OpenJDK to run their applications."
 
@@ -114,30 +111,6 @@ subport openjdk7-zulu {
     configure.cxx_stdlib libstdc++
 }
 
-subport openjdk8 {
-    supported_archs  x86_64 arm64
-
-    version      8u322
-    revision     0
-
-    set meta true
-
-    description  Open Java Development Kit 8 meta port
-    long_description Open Java Development Kit 8 meta port
-
-    distfiles
-    destroot    {
-        file mkdir ${destroot}${prefix}/share/doc
-        system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
-    }
-
-    if {${configure.build_arch} eq "x86_64"} {
-        depends_run-append port:openjdk8-temurin
-    } elseif {${configure.build_arch} eq "arm64"} {
-        depends_run-append port:openjdk8-zulu
-    }
-}
-
 subport openjdk8-corretto {
     # https://github.com/corretto/corretto-8/releases
     supported_archs  x86_64
@@ -215,30 +188,6 @@ subport openjdk8-openj9-large-heap {
     version      8u282
     revision     2
     replaced_by  openjdk8-openj9
-}
-
-subport openjdk11 {
-    supported_archs  x86_64 arm64
-
-    version      11.0.12
-    revision     0
-
-    set meta true
-
-    description  Open Java Development Kit 11 meta port
-    long_description Open Java Development Kit 11 meta port
-
-    distfiles
-    destroot {
-        file mkdir ${destroot}${prefix}/share/doc
-        system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
-    }
-
-    if {${configure.build_arch} eq "x86_64"} {
-        depends_run-append port:openjdk11-temurin
-    } elseif {${configure.build_arch} eq "arm64"} {
-        depends_run-append port:openjdk11-zulu
-    }
 }
 
 subport openjdk11-corretto {
@@ -382,24 +331,6 @@ subport openjdk11-zulu {
     worksrcdir   ${distname}/zulu-11.jdk
 }
 
-subport openjdk13 {
-    version      13.0.10
-    revision     0
-
-    set meta true
-
-    description  Open Java Development Kit 13 meta port
-    long_description Open Java Development Kit 13 meta port
-
-    distfiles
-    destroot {
-        file mkdir ${destroot}${prefix}/share/doc
-        system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
-    }
-
-    depends_run-append port:openjdk13-zulu
-}
-
 subport openjdk13-zulu {
     # https://www.azul.com/downloads/?version=java-13-mts&os=macos&package=jdk
     supported_archs  x86_64 arm64
@@ -427,24 +358,6 @@ subport openjdk13-zulu {
     }
 
     worksrcdir   ${distname}/zulu-13.jdk
-}
-
-subport openjdk15 {
-    version      15.0.6
-    revision     0
-
-    set meta true
-
-    description  Open Java Development Kit 15 meta port
-    long_description Open Java Development Kit 15 meta port
-
-    distfiles
-    destroot {
-        file mkdir ${destroot}${prefix}/share/doc
-        system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
-    }
-
-    depends_run-append port:openjdk15-zulu
 }
 
 subport openjdk15-zulu {
@@ -528,52 +441,6 @@ subport openjdk16-zulu {
     replaced_by  openjdk17-zulu
 }
 
-subport openjdk17 {
-    version      17
-    revision     0
-
-    set meta true
-
-    description  Open Java Development Kit 17 meta port
-    long_description Open Java Development Kit 17 meta port
-
-    distfiles
-    destroot {
-        file mkdir ${destroot}${prefix}/share/doc
-        system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${subport}.txt"
-    }
-
-    depends_run-append port:openjdk17-temurin
-}
-
-subport openjdk17-corretto {
-    # https://github.com/corretto/corretto-17/releases
-    supported_archs  x86_64 arm64
-
-    version      17.0.2.8.1
-    revision     0
-
-    description  Amazon Corretto OpenJDK 17 (Long Term Support)
-    long_description ${long_description_corretto}
-
-    master_sites https://corretto.aws/downloads/resources/${version}/
-
-    distname     amazon-corretto-${version}-macosx-x64
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     amazon-corretto-${version}-macosx-x64
-        checksums    rmd160  8a622fe2c8dd5eba07330804d7b98c3b67b5ee78 \
-                     sha256  eec3acc2d1d303ef23c79ed45a8374002e34c14e34ba0fa931e98cbf6b963345 \
-                     size    187776090
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     amazon-corretto-${version}-macosx-aarch64
-        checksums    rmd160  e5eb0341468193a223ec927abade6f151831da06 \
-                     sha256  b6d3c359bd31a3c1697fe386c927e139bd72572e72cdc12a08b5e1144fe35438 \
-                     size    185518346
-    }
-
-    worksrcdir   amazon-corretto-17.jdk
-}
-
 subport openjdk17-graalvm {
     # https://github.com/graalvm/graalvm-ce-builds/releases
     supported_archs  x86_64
@@ -617,66 +484,6 @@ subport openjdk17-sap {
                      size    177867623
     }
     worksrcdir   sapmachine-jdk-${version}.jdk
-}
-
-subport openjdk17-temurin {
-    # https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
-    supported_archs  x86_64 arm64
-
-    # Java 17 is the first Temurin release with arm64 support
-    supported_archs  x86_64 arm64
-
-    version 17.0.2
-    set build    8
-    revision     0
-
-    description  Eclipse Temurin, based on OpenJDK 17
-    long_description ${long_description_temurin}
-
-    master_sites https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${version}%2B${build}/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     OpenJDK17U-jdk_x64_mac_hotspot_${version}_${build}
-        checksums    rmd160  90939e1b687b025674faf1f45b1274fe2e420109 \
-                     sha256  3630e21a571b7180876bf08f85d0aac0bdbb3267b2ae9bd242f4933b21f9be32 \
-                     size    192611208
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     OpenJDK17U-jdk_aarch64_mac_hotspot_${version}_${build}
-        checksums    rmd160  e4063da6a1139c137af930c8cf5c5988bb75354d \
-                     sha256  157518e999d712b541b883c6c167f8faabbef1d590da9fe7233541b4adb21ea4 \
-                     size    182550014
-    }
-
-    worksrcdir   jdk-${version}+${build}
-}
-
-subport openjdk17-zulu {
-    # https://www.azul.com/downloads/?version=java-17-lts&os=macos&package=jdk
-    supported_archs  x86_64 arm64
-
-    version      17.32.13
-    revision     0
-
-    set openjdk_version 17.0.2
-
-    description  Azul Zulu Community OpenJDK 17 (Long Term Support)
-    long_description ${long_description_zulu}
-
-    master_sites https://cdn.azul.com/zulu/bin/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_x64
-        checksums    rmd160  3eced1f7701de4306f1fa24bc204cc56679afb03 \
-                     sha256  89d04b2d99b05dcb25114178e65f6a1c5ca742e125cab0a63d87e7e42f3fcb80 \
-                     size    193143505
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_aarch64
-        checksums    rmd160  ec8b93727a88ab77a692aac411a7cb63ce0ff709 \
-                     sha256  54247dde248ffbcd3c048675504b1c503b81daf2dc0d64a79e353c48d383c977 \
-                     size    190938303
-    }
-
-    worksrcdir   ${distname}/zulu-17.jdk
 }
 
 if {${os.platform} eq "darwin"} {
@@ -769,7 +576,6 @@ if {!(${subport} in ${obsoleted_ports}) && ![info exists meta]} {
     notes "
     If you have more than one JDK installed you can make ${subport} the default
     by adding the following line to your shell profile:
-
         export JAVA_HOME=${target}/Contents/Home
     "
-}
+}    

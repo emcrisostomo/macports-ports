@@ -1,0 +1,113 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           legacysupport 1.0
+
+# clock_gettime
+legacysupport.newest_darwin_requires_legacy 15
+
+github.setup        vlang v weekly.2022.13
+github.tarball_from archive
+revision            0
+
+name                vlang
+# Remove weekly from version number
+version             [string range ${version} 7 end]
+
+description         Simple, fast, safe, compiled language for developing maintainable software
+long_description    {*}${description}. Compiles itself in <1s with zero library dependencies. This port \
+                    provides weekly builds of Vlang.
+
+license             MIT
+categories          lang
+maintainers         {harens @harens} openmaintainer
+
+# Fix location of temporary directory
+patchfiles          patch-tmp-location.diff
+
+# Install the V compiler as a separate distfile.
+# Based on https://github.com/macports/macports-ports/blob/master/games/minetest/Portfile
+set vc_commit       de63146da0a0f93628f8a65e70267e2c8d4c7ce1
+set main_distfile   ${distfiles}
+set vc_distfile     ${vc_commit}${extract.suffix}
+set vc_mastersite   https://github.com/vlang/vc/archive
+
+distfiles           ${main_distfile}:main \
+                    ${vc_distfile}:vc
+
+master_sites        ${github.master_sites}:main \
+                    ${vc_mastersite}:vc
+
+checksums           ${main_distfile} \
+                    rmd160  22933b810c1445643d18430c99803a0210be2e19 \
+                    sha256  5df66008b01de13d02da9f8f0ed47438e1ce01e82543738a33a7dcc65240aa37 \
+                    size    4078460 \
+                    ${vc_distfile} \
+                    rmd160  2dc5fc11de6b9b265095d26e6cc08f4a5b5c5c73 \
+                    sha256  db89d158a721ef1f37be2865f273e9a017e5f1c69be0ed60830a4c625e73b0b2 \
+                    size    1353099
+
+compiler.c_standard 2011
+use_configure       no
+
+post-patch {
+    # Disable vlang self update feature.
+    set updating_path ${worksrcpath}/cmd/tools
+    copy -force ${filespath}/vup.v ${worksrcpath}/cmd/tools
+
+    # Patch tmp directory, which is required during buildtime and runtime
+    reinplace "s|@@WORKPATH@@|${workpath}|g" ${worksrcpath}/vlib/v/util/util.v
+    reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/vlib/v/util/util.v
+}
+
+# Build process based on https://github.com/vlang/v/blob/master/Makefile
+# Set custom cflags since `-I/opt/local/include/LegacySupport` isn't recognised
+build {
+    set VFLAGS "-cc ${configure.cc} -cflags -Os"
+
+    system -W ${worksrcpath} "${configure.cc} ${configure.cflags} -I ./thirdparty/stdatomic/nix -o v1 ../vc-${vc_commit}/v.c -lm -lpthread ${configure.ldflags}"
+    system -W ${worksrcpath} "./v1 -no-parallel -o v2 ${VFLAGS} cmd/v"
+    system -W ${worksrcpath} "./v2 -o v ${VFLAGS} cmd/v"
+}
+
+destroot {
+    set library_path ${destroot}${prefix}/lib/${name}
+    set examples_path ${destroot}${prefix}/share/examples
+
+    xinstall -d ${examples_path}
+    move ${worksrcpath}/examples ${examples_path}/${name}
+
+    xinstall -d ${library_path}
+    foreach f {cmd thirdparty v v.mod vlib} {
+        move ${worksrcpath}/${f} ${library_path}/${f}
+    }
+
+    ln -s ${prefix}/lib/${name}/v ${destroot}${prefix}/bin
+
+    # Vlang compiles the subcommands in the tools dir on first runtime usage (e.g. v doctor).
+    # Allow running Vlang to those in the _developer group, rather than running sudo each time.
+    # See https://github.com/vlang/v/issues/10324
+
+    # Majority of subcommands only require ${library_path}/cmd/tools to be writable but v self requires
+    # all of ${library_path}
+
+    fs-traverse item ${library_path} {
+        file attributes ${item} -group _developer -permissions g+w
+    }
+
+    # Manually create a tmp directory, and set writable permissions
+    # See https://github.com/vlang/v/issues/7713 and https://github.com/vlang/v/discussions/11796
+    set tmp_dir ${prefix}/var/run/vlang
+    file mkdir ${tmp_dir}
+    file attributes ${tmp_dir} -group _developer -permissions g+w
+}
+
+# Based on various Android ports - don't make files world-writable.
+# e.g. https://github.com/macports/macports-ports/blob/master/java/android/Portfile
+notes "
+The Vlang library and cache directories are group _developer writable. You need to be a member of the
+_developer group to use Vlang. If you are not, run:
+
+sudo dscl . append /Groups/_developer GroupMembership <username>
+"

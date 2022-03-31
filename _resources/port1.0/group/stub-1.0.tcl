@@ -44,8 +44,17 @@ default stub.subport_name ${subport}
 
 platforms           darwin
 license             none
-maintainers         nomaintainer
-homepage
+
+# For maintainers and homepage, don't overwrite if already set
+
+if {![info exists PortInfo(maintainers)]} {
+    maintainers     nomaintainer
+}
+
+if {![info exists PortInfo(homepage)]} {
+    homepage
+}
+
 distfiles
 patchfiles
 supported_archs     noarch
