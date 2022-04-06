@@ -372,35 +372,6 @@ subport openjdk13-zulu {
     worksrcdir   ${distname}/zulu-13.jdk
 }
 
-subport openjdk15-zulu {
-    # https://www.azul.com/downloads/?version=java-15-mts&os=macos&package=jdk
-    supported_archs  x86_64 arm64
-
-    version      15.38.17
-    revision     0
-
-    set openjdk_version 15.0.6
-
-    description  Azul Zulu Community OpenJDK 15 (Medium Term Support)
-    long_description ${long_description_zulu}
-
-    master_sites https://cdn.azul.com/zulu/bin/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_x64
-        checksums    rmd160  3a46d9f2b822667113a3fe400300dcd56466f218 \
-                     sha256  59a2e0fac951fb48ccd11a39d16752bf7e375871d5fe92d3a63f032ddfbe8b44 \
-                     size    202445259
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_aarch64
-        checksums    rmd160  5f413443e65273dc53b059cea7965b2e6f8ed95b \
-                     sha256  3a0b2e6b36af26d996b5ec73418203e462be233da021f41c1834196e3bc2e60d \
-                     size    176748838
-    }
-
-    worksrcdir   ${distname}/zulu-15.jdk
-}
-
 # Remove after 2022-09-14
 subport openjdk16 {
     version      16.0.2
@@ -451,51 +422,6 @@ subport openjdk16-zulu {
     version      16.32.15
     revision     1
     replaced_by  openjdk17-zulu
-}
-
-subport openjdk17-graalvm {
-    # https://github.com/graalvm/graalvm-ce-builds/releases
-    supported_archs  x86_64
-
-    version      22.0.0.2
-    revision     0
-
-    description  GraalVM Community Edition based on OpenJDK 17
-    long_description ${long_description_graalvm}
-
-    master_sites https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${version}/
-    distname     graalvm-ce-java17-darwin-amd64-${version}
-    worksrcdir   graalvm-ce-java17-${version}
-
-    checksums    rmd160  857dd0491c827e52aabe7891d1aaada29f802570 \
-                 sha256  d54af9d1f4d0d351827395a714ed84d2489b023b74a9c13a431cc9d31d1e8f9a \
-                 size    429797450
-}
-
-subport openjdk17-sap {
-    # https://sap.github.io/SapMachine/latest/17
-    supported_archs  x86_64 arm64
-
-    version      17.0.2
-    revision     0
-
-    description  OpenJDK 17 builds (Long Term Support) maintained and supported by SAP
-    long_description ${long_description_sap}
-
-    master_sites https://github.com/SAP/SapMachine/releases/download/sapmachine-${version}/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     sapmachine-jdk-${version}_macos-x64_bin
-        checksums    rmd160  5c2458e509263d50ffdc5a647e2d4f3dd830c8e5 \
-                     sha256  228b9952002dd60e626c46b8ff051e8e25d577d358390cd52dd7e4ea50863cef \
-                     size    180149241
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     sapmachine-jdk-${version}_macos-aarch64_bin
-        checksums    rmd160  0aab18f0e415d024d0461ba5ba3f9e2b00f0f4e5 \
-                     sha256  06c28b5365527db346b5d2e121e5f70baaef0ddde07766c59c17bfc577a0e4c2 \
-                     size    177867623
-    }
-    worksrcdir   sapmachine-jdk-${version}.jdk
 }
 
 if {${os.platform} eq "darwin"} {

@@ -6,11 +6,14 @@ PortGroup           python 1.0
 name                py-mistune
 version             0.8.4
 revision            0
+epoch               1
+
 categories-append   devel textproc
 supported_archs     noarch
 license             BSD
 
-python.versions     27 35 36 37 38 39 310
+python.versions     27 37 38 39 310
+python.pep517       no
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -25,8 +28,7 @@ checksums           rmd160  b63b71998bac291a54fc94f11700aa806bccb92d \
 
 if {${name} ne ${subport}} {
     depends_build-append \
-                        port:py${python.version}-setuptools \
-                        port:py${python.version}-cython
+                        port:py${python.version}-setuptools
 
     livecheck.type      none
 }

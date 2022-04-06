@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-rich
-version             12.0.1
+version             12.2.0
 license             MIT
 supported_archs     noarch
 
@@ -19,9 +19,9 @@ long_description    {*}${description}. The Rich API makes it easy to add color \
 
 homepage            https://rich.readthedocs.io/en/latest/
 
-checksums           rmd160 fa09bca8c84192273c5e7019bb2a844174a7058b \
-                    sha256 3fba9dd15ebe048e2795a02ac19baee79dc12cc50b074ef70f2958cd651b59a9 \
-                    size   206287
+checksums           rmd160 9283a6474320f0e56f4206b18e1b690df5482739 \
+                    sha256 ea74bc9dad9589d8eea3e3fd0b136d8bf6e428888955f215824c2894f0da8b47 \
+                    size   212235
 
 python.versions     37 38 39 310
 
