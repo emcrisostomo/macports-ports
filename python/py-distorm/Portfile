@@ -6,9 +6,10 @@ PortGroup           python 1.0
 
 github.setup        gdabah distorm 3.5 v
 revision            1
-name                py-distnorm
-
+set realname        distorm
+name                py-${realname}
 categories-append   devel
+platforms           darwin
 maintainers         {khindenburg @kurthindenburg} openmaintainer
 license             GPL-3
 
@@ -37,4 +38,6 @@ if {${name} ne ${subport}} {
     test.run            yes
     test.cmd            ${python.bin} python/test_distorm3.py
     test.target
+
+    livecheck.type  none
 }
