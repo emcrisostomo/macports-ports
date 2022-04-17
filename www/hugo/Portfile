@@ -3,12 +3,12 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gohugoio/hugo 0.96.0 v
+go.setup            github.com/gohugoio/hugo 0.97.1 v
 github.tarball_from archive
 revision            0
-checksums           rmd160  56ae86486dda7013fed11c61e20bf0a8dbdce7d7 \
-                    sha256  5dbb132438b4ae3dd8303b34c8b7480674ee77236ac3d36d0edc82a06a0c3219 \
-                    size    27853655
+checksums           rmd160  1239ba00f4ea0b7cc10324a2c1522255fd3d5a25 \
+                    sha256  7f09745962cf6aac1d001537a049e1559dda4342bfcf1bb0778d0b1aea80708d \
+                    size    27871902
 
 categories          www
 license             Apache-2

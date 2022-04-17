@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-rstcheck
-version             3.3.1
-revision            2
+version             4.1.0
+revision            0
 
 categories-append   devel
 supported_archs     noarch
@@ -17,9 +17,9 @@ long_description    ${description}
 
 homepage            https://github.com/myint/rstcheck
 
-checksums           rmd160  95397717b850a92f622293cba2cefed64ec9fed6 \
-                    sha256  92c4f79256a54270e0402ba16a2f92d0b3c15c8f4410cb9c57127067c215741f \
-                    size    13825
+checksums           rmd160  01ced28eca41f5fb6fe91ac33cfbcedc01732968 \
+                    sha256  565efb68a8bbed417a1d7b87dc3f0869b8910f471d9829a9fcb7f009bfc6c219 \
+                    size    22670
 
 python.versions     37 38 39 310
 
