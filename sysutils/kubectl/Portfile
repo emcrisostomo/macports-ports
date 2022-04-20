@@ -41,22 +41,22 @@ subport kubectl-1.22 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     8
+    set patchNumber     9
     revision            0
 
-    checksums           rmd160  491db96a46cd279cf067fe5bd962bc5096c83f6f \
-                        sha256  cbd255986d2d4def1eef2402bd495b8409bf06de75f9e7964046afe98c47d1e1 \
-                        size    36060758
+    checksums           rmd160  02b99fd0355ef69bdf0d49858027294d5baa8ad0 \
+                        sha256  46fb534f79e7076f6b5beb21729917f9284feb977e8aa0599031d80bcbce8a4b \
+                        size    36068589
 }
 
 subport kubectl-1.21 {
-    set patchNumber     11
+    set patchNumber     12
     revision            0
 
     # Use pre-built version to resolve https://trac.macports.org/ticket/63503
-    checksums           rmd160  17311641b0e216d7319623fb900a2c6dc11c06da \
-                        sha256  59bd8955b6ec468eb1a69f313e9821e1655e889e3163359afaff681bb96288d9 \
-                        size    52867696
+    checksums           rmd160  e1d66c8c9ea7c020dd55b316a631ee698de3749f \
+                        sha256  014d92af39ea8d3e57f01581c9ce44ea2b107c55d8cdeb838494014d034a6c17 \
+                        size    52867344
 }
 
 subport kubectl-1.20 {
