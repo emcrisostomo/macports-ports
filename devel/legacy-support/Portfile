@@ -16,7 +16,7 @@ description         Installs wrapper headers to add missing functionality to leg
 long_description    {*}${description}
 
 # Primary release version
-set release_ver     1.0.4
+set release_ver     1.0.6
 
 # Binary compatibility version
 set compat_ver      1.0.0
@@ -25,20 +25,20 @@ subport ${name} {
     conflicts           ${name}-devel
     github.setup        macports macports-legacy-support ${release_ver} v
     revision            0
-    checksums           rmd160  b5d1b0ab3baf42c519bb62055b4721b4de9c3e85 \
-                        sha256  75c0b80f036e559e9aafd51c609b7638cbfdd1a05a05a183e6c0b604e897798e \
-                        size    50744
+    checksums           rmd160  dd0cc654a70aca90c465c625c4f9beb69f93bf24 \
+                        sha256  165068ed58369610a760fa4bb14b80774732e51e84deb85b30d57158ffbf9f13 \
+                        size    54909
 }
 
 subport ${name}-devel {
     conflicts           ${name}
-    github.setup        macports macports-legacy-support 780d2b010b9e3443dcb42c1438b9fe2a5f94a69c
-    version             20220411
+    github.setup        macports macports-legacy-support 55619949e8265723163a3029494d6c66874661b8
+    version             20220421
     revision            0
     livecheck.type      none
-    checksums           rmd160  3a3790d74acd360846f674b95e60bee58ce8d3e6 \
-                        sha256  ec888f527df14440872a1ff03ec950dbcc0c82faf7b98c453d513304f90e8ace \
-                        size    55304
+    checksums           rmd160  dd0cc654a70aca90c465c625c4f9beb69f93bf24 \
+                        sha256  165068ed58369610a760fa4bb14b80774732e51e84deb85b30d57158ffbf9f13 \
+                        size    54909
     set v_split         [split ${release_ver} .]
     set release_ver     [lindex ${v_split} 0].[lindex ${v_split} 1].99
 }
@@ -62,6 +62,19 @@ build.env-append    CXX=${configure.cxx} \
                     SOCOMPATVERSION=${compat_ver}
 
 destroot.env        PREFIX=${prefix}
+
+# install Tiger-specific fixes
+platform darwin 8 {
+    # there is no system copyfile.h, so find local copy
+    configure.cflags-append -isystem${worksrcpath}/tiger_only/include
+    post-destroot {
+        # use Tiger version of copyfile.h
+        delete ${destroot}${prefix}/include/LegacySupport/copyfile.h
+        # Copy all tiger specific 'binaries' and includes
+        tiger_copy ${worksrcpath}/tiger_only/bin      ${destroot}${prefix}/bin/
+        tiger_copy ${worksrcpath}/tiger_only/include  ${destroot}${prefix}/include/LegacySupport/
+    }
+}
 
 if {![info exists universal_possible]} {
     set universal_possible [expr {${os.universal_supported} && [llength ${configure.universal_archs}] >= 2}]
@@ -94,15 +107,6 @@ proc tiger_copy {from to} {
             ui_debug "Copying ${f} to ${to}"
             copy ${f} ${to}
         }
-    }
-}
-
-# install Tiger-specific fixes
-platform darwin 8 {
-    post-destroot {
-        # Copy all tiger specific 'binaries' and includes
-        tiger_copy ${worksrcpath}/tiger_only/bin      ${destroot}${prefix}/bin/
-        tiger_copy ${worksrcpath}/tiger_only/include  ${destroot}${prefix}/include/LegacySupport/
     }
 }
 

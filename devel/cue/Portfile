@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/cue-lang/cue 0.4.2 v
+go.setup            github.com/cue-lang/cue 0.4.3 v
 go.package          cuelang.org/go
 revision            0
 
@@ -37,6 +37,6 @@ github.livecheck.regex  {([0-9.]+)}
 
 destroot {
     xinstall -m 0755 \
-        ${worksrcpath}/dist/${name}_${goos}_${goarch}/${name} \
+        [glob ${worksrcpath}/dist/cue_${goos}*/cue] \
         ${destroot}${prefix}/bin/
 }
