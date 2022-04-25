@@ -278,7 +278,7 @@ subport openjdk11-sap {
     # https://sap.github.io/SapMachine/latest/11
     supported_archs  x86_64
 
-    version      11.0.14.1
+    version      11.0.15
     revision     0
     
     description  OpenJDK 11 builds (Long Term Support) maintained and supported by SAP
@@ -288,9 +288,9 @@ subport openjdk11-sap {
     distname     sapmachine-jdk-${version}_osx-x64_bin
     worksrcdir   sapmachine-jdk-${version}.jdk
     
-    checksums    rmd160  22e2f87e45bb3bec3df2d862398e03a6d0a84f98 \
-                 sha256  497c5d0e697867f44f62a6cf5a8caabe2ceb623dd6c229278a3d5c1d3d11d9fb \
-                 size    186755870
+    checksums    rmd160  a96ee4be77f52adaff3e89faa39a0f669dce07b7 \
+                 sha256  6edc3e6d4a5fcc2782b24d5957fbdfa16f20e5e349d9b28fd536be0d32deb041 \
+                 size    186905185
 
 }
 
@@ -314,35 +314,6 @@ subport openjdk11-temurin {
     checksums    rmd160  256cf096156ca678da017e8768c7f12c841e9c10 \
                  sha256  8c69808f5d9d209b195575e979de0e43cdf5d0f1acec1853a569601fe2c1f743 \
                  size    191413871
-}
-
-subport openjdk11-zulu {
-    # https://www.azul.com/downloads/?version=java-11-lts&os=macos&package=jdk
-    supported_archs  x86_64 arm64
-
-    version      11.56.19
-    revision     0
-
-    set openjdk_version 11.0.15
-
-    description  Azul Zulu Community OpenJDK 11 (Long Term Support)
-    long_description ${long_description_zulu}
-
-    master_sites https://cdn.azul.com/zulu/bin/
-
-    if {${configure.build_arch} eq "x86_64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_x64
-        checksums    rmd160  012f063dd25db637f7ed45d3919c1b3627e9f35d \
-                     sha256  2614e5c5de8e989d4d81759de4c333aa5b867b17ab9ee78754309ba65c7f6f55 \
-                     size    193550721
-    } elseif {${configure.build_arch} eq "arm64"} {
-        distname     zulu${version}-ca-jdk${openjdk_version}-macosx_aarch64
-        checksums    rmd160  8a0f7adca8377f7ace5f5cf05e00fdc90d6d1349 \
-                     sha256  6bb0d2c6e8a29dcd9c577bbb2986352ba12481a9549ac2c0bcfd00ed60e538d2 \
-                     size    191059414
-    }
-
-    worksrcdir   ${distname}/zulu-11.jdk
 }
 
 # Remove after 2022-09-14
