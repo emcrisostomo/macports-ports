@@ -6,7 +6,7 @@ PortGroup                       clang_dependency 1.0
 # Increase the revision of p5-www-curl whenever the version of curl gets updated.
 
 name                            curl
-version                         7.82.0
+version                         7.83.0
 categories                      net www
 platforms                       darwin freebsd
 maintainers                     {ryandesign @ryandesign}
@@ -28,21 +28,20 @@ set curl_distfile               ${distfiles}
 distfiles                       ${curl_distfile}:curl
 
 checksums                       ${curl_distfile} \
-                                rmd160  223c63a2bdc96ca6c389350b10e8d78ae8f35d6f \
-                                sha256  0aaa12d7bd04b0966254f2703ce80dd5c38dbbd76af0297d3d690cdce58a583c \
-                                size    2446764
+                                rmd160  df6bb40b2398929b887fdf9c58bcbe74b2c900e7 \
+                                sha256  bbff0e6b5047e773f3c3b084d80546cc1be4e354c09e419c2d0ef6116253511a \
+                                size    2472560
 
 if {${name} eq ${subport}} {
     PortGroup                   muniversal 1.0
 
-    revision                    1
+    revision                    0
 
     depends_build               port:pkgconfig
 
     depends_lib                 port:brotli \
                                 port:libidn2 \
                                 port:libpsl \
-                                port:nghttp2 \
                                 port:zlib \
                                 port:zstd
 
@@ -59,6 +58,7 @@ if {${name} eq ${subport}} {
                                 --without-librtmp \
                                 --without-libssh2 \
                                 --without-mbedtls \
+                                --without-nghttp2 \
                                 --without-nss \
                                 --without-ssl \
                                 --without-secure-transport \
@@ -67,7 +67,6 @@ if {${name} eq ${subport}} {
                                 --disable-ldaps \
                                 --with-brotli \
                                 --with-libidn2=${prefix} \
-                                --with-nghttp2=${prefix} \
                                 --with-zlib=${prefix} \
                                 --with-zstd \
                                 ac_cv_prog_AWK=/usr/bin/awk
@@ -187,6 +186,22 @@ if {${name} eq ${subport}} {
         configure.args-replace  --without-gssapi --with-gssapi
     }
 
+    variant http2 description {Support HTTP/2 with nghttp2} {
+        depends_lib-append      port:nghttp2
+        configure.args-replace  --without-nghttp2 --with-nghttp2=${prefix}
+    }
+
+    # HTTP/2 support is desirable but nghttp2 requires C++14. Some users
+    # use a bootstrap MacPorts installation to provide a newer curl for
+    # a primary MacPorts installation and requiring those users to build
+    # a C++14 compiler for that is undesirable. Also, newer clangs use
+    # cmake, which uses curl, so it would introduce a dependency cycle.
+    # So enable this variant by default only on systems that have a
+    # suitable compiler in Xcode.
+    if {${os.platform} ne "darwin" || ${os.major} >= 14} {
+        default_variants-append +http2
+    }
+
     variant openldap description {Support performing Lightweight Directory Access Protocol queries with OpenLDAP} {
         depends_lib-append      path:lib/libldap.dylib:openldap
         configure.args-replace  --disable-ldap --enable-ldap
@@ -222,7 +237,7 @@ if {${name} eq ${subport}} {
 }
 
 subport curl-ca-bundle {
-    revision                    1
+    revision                    0
     categories                  net
     license                     {MPL-2 LGPL-2.1+}
     supported_archs             noarch
@@ -278,11 +293,12 @@ subport curl-ca-bundle {
 
     extract.only                ${curl_distfile}
     extract.post_args-append    ${worksrcdir}/Makefile \
-                                ${worksrcdir}/lib/mk-ca-bundle.pl
+                                ${worksrcdir}/scripts/mk-ca-bundle.pl
 
     post-extract {
         system -W ${workpath} "unzip -q -a [shellescape ${distpath}/${certdata_distfile}]"
         move ${workpath}/mozilla-central-${certdata_commit}/${certdata_path} ${worksrcpath}/${certdata_file}
+        file mkdir ${worksrcpath}/lib
     }
 
     patchfiles                  patch-no-autodownload.diff

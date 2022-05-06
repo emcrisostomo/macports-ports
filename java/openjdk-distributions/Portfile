@@ -149,11 +149,11 @@ subport openjdk8-openj9 {
     # https://developer.ibm.com/languages/java/semeru-runtimes/downloads?os=macOS
     supported_archs  x86_64
 
-    version      8u322
+    version      8u332
     revision     0
 
-    set build    06
-    set openj9_version 0.30.0
+    set build    09
+    set openj9_version 0.32.0
 
     homepage     https://developer.ibm.com/languages/java/semeru-runtimes/
 
@@ -164,19 +164,19 @@ subport openjdk8-openj9 {
     distname     ibm-semeru-open-jdk_x64_mac_${version}b${build}_openj9-${openj9_version}
     worksrcdir   jdk${version}-b${build}
 
-    checksums    rmd160  a340dad7c239dbd53ea848ae8844d3046d95e2fd \
-                 sha256  c617b44f13a4fb28d5e31bb1448f2a35600d1f9abeab2e2127da360e08cef3f3 \
-                 size    129140293
+    checksums    rmd160  2311bc6a6bc259adee9c7bba01f0133ce2846f21 \
+                 sha256  f4b1ec4b1ba3eb318642ddcbb0c02d67e6edfc9e37a7c3bfb13630e4806942e2 \
+                 size    128972742
 }
 
 subport openjdk8-temurin {
-    # https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
+    # https://adoptium.net/temurin/releases/
     supported_archs  x86_64
 
-    version      8u322
+    version      8u332
     revision     0
 
-    set build    06
+    set build    09
 
     description  Eclipse Temurin, based on OpenJDK 8
     long_description ${long_description_temurin}
@@ -185,9 +185,9 @@ subport openjdk8-temurin {
     distname     OpenJDK8U-jdk_x64_mac_hotspot_${version}b${build}
     worksrcdir   jdk${version}-b${build}
 
-    checksums    rmd160  335f1bfa3cee50eee7da9d78514dd28e665ae553 \
-                 sha256  96a3124bf0f5ca777954239893cc89ea34c4bc9a9b7c1559aa2c69baa0ee84e3 \
-                 size    108075347
+    checksums    rmd160  20fa5b11b34ee833b62cca7d9d7d6f76b9047759 \
+                 sha256  a75e8182bb8e77a02c7b4d9f93120c64c1988e2c415b3646d4f4496544e87291 \
+                 size    107924497
 }
 
 subport openjdk11-corretto {
@@ -246,13 +246,13 @@ subport openjdk11-graalvm {
 
 subport openjdk11-openj9 {
     # https://developer.ibm.com/languages/java/semeru-runtimes/downloads?os=macOS
-    supported_archs  x86_64
+    supported_archs  x86_64 arm64
 
-    version      11.0.14.1
+    version      11.0.15
     revision     0
 
-    set build    1
-    set openj9_version 0.30.1
+    set build    10
+    set openj9_version 0.32.0
 
     homepage     https://developer.ibm.com/languages/java/semeru-runtimes/
 
@@ -261,18 +261,27 @@ subport openjdk11-openj9 {
 
     master_sites https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-${version}%2B${build}_openj9-${openj9_version}/
     distname     ibm-semeru-open-jdk_x64_mac_${version}_${build}_openj9-${openj9_version}
-    worksrcdir   jdk-${version}+${build}
 
-    checksums    rmd160  d434bc2fdc141267e2b46862494a2aedeac05327 \
-                 sha256  215e1ff6fa821309548253653e74025d6a830180abe6001db7717fde4eb991d9 \
-                 size    203401477
+    if {${configure.build_arch} eq "x86_64"} {
+        distname     ibm-semeru-open-jdk_x64_mac_${version}_${build}_openj9-${openj9_version}
+        checksums    rmd160  2d8d7a2633be194c0975642e9b3ef070c9f55a97 \
+                     sha256  53d18ed227d02ebc73344255a07b6331aa7d990abfd12fce1396376afcfd17cc \
+                     size    203564021
+    } elseif {${configure.build_arch} eq "arm64"} {
+        distname     ibm-semeru-open-jdk_aarch64_mac_${version}_${build}_openj9-${openj9_version}
+        checksums    rmd160  5c09b0cd81b4466b320a7c997c9ba2eaf67933f6 \
+                     sha256  f71a81f3496ad5cda9bb1f2f23dbb47360202dedca126cf8e92437b3f017d11e \
+                     size    180597648
+    }
+
+    worksrcdir   jdk-${version}+${build}
 }
 
 subport openjdk11-sap {
     # https://sap.github.io/SapMachine/latest/11
     supported_archs  x86_64
 
-    version      11.0.15
+    version      11.0.15.0.1
     revision     0
     
     description  OpenJDK 11 builds (Long Term Support) maintained and supported by SAP
@@ -282,9 +291,9 @@ subport openjdk11-sap {
     distname     sapmachine-jdk-${version}_osx-x64_bin
     worksrcdir   sapmachine-jdk-${version}.jdk
     
-    checksums    rmd160  a96ee4be77f52adaff3e89faa39a0f669dce07b7 \
-                 sha256  6edc3e6d4a5fcc2782b24d5957fbdfa16f20e5e349d9b28fd536be0d32deb041 \
-                 size    186905185
+    checksums    rmd160  c5cb8d973381ee35aaab6f11367c1f41bfa7e5af \
+                 sha256  7744b3632fba1c6e8339b9fb74c46728f8109c07070df49d898799832a934abd \
+                 size    186905770
 
 }
 
