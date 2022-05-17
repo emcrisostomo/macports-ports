@@ -12,7 +12,6 @@ version                 7.0.0
 revision                0
 categories              emulators
 license                 GPL-2+
-platforms               darwin
 maintainers             {raimue @raimue} \
                         openmaintainer
 
@@ -127,6 +126,11 @@ configure.args-append   --disable-cocoa \
 # Hypervisor.framework introduced in 10.10
 if {${os.platform} eq "darwin" && ${os.major} < 14} {
     configure.args-replace --enable-hvf --disable-hvf
+}
+
+# pthread_fchdir_np introduced in 10.12
+if {${os.platform} eq "darwin" && ${os.major} < 16} {
+    configure.args-replace --enable-virtfs --disable-virtfs
 }
 
 # libtool: unknown option character `-' in: --mode=compile
@@ -257,7 +261,6 @@ variant ssh description {Support remote block devices over SSH} {
 variant dbus description {Export the VM display through D-Bus} {
     configure.args-replace  --disable-dbus-display --enable-dbus-display
     configure.args-append   --enable-modules
-    depends_lib-append      port:glib2
 }
 
 # Default universal variant does not work

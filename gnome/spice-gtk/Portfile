@@ -6,7 +6,7 @@ PortGroup           meson 1.0
 
 name                spice-gtk
 version             0.39
-revision            0
+revision            1
 checksums           rmd160  488a6513a3f8140336d37ce691e05c698a5dfea5 \
                     sha256  23acbee197eaaec9bce6e6bfd885bd8f79708332639243ff04833020865713cd \
                     size    845528
@@ -16,15 +16,12 @@ platforms           darwin
 license             LGPL-2.1+
 maintainers         nomaintainer
 
-description         VNC viewer widget for GTK
-long_description    gtk-vnc is a VNC viewer widget for GTK. It is built using \
-                    coroutines allowing it to be completely asynchronous  \
-                    while remaining single threaded. It provides a core C  \
-                    library, and bindings for Python (PyGTK). \
-                    \
-                    GTK-VNC supports a number of VNC extensions aimed at  \
-                    improving the user experience, particularly when  \
-                    interacting with virtual machines.
+description         spice-gtk is a GTK+3 SPICE widget.
+long_description    ${description} \
+                    It features glib-based objects for SPICE protocol parsing \
+                    and a gtk widget for embedding the SPICE display into other \
+                    applications such as virt-manager or Boxes. \
+                    Python and Vala bindings are available too.
 
 homepage            https://www.spice-space.org/spice-gtk.html
 master_sites        https://www.spice-space.org/download/gtk/
@@ -60,7 +57,8 @@ depends_lib-append  port:spice-protocol \
                     port:gstreamer1-gst-plugins-base \
                     port:libepoxy \
                     path:lib/pkgconfig/libusb-1.0.pc:libusb \
-                    port:libopus
+                    port:libopus \
+                    path:lib/libssl.dylib:openssl
 
 # for ucontext
 configure.cppflags-append \

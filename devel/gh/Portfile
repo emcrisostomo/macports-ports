@@ -2,8 +2,8 @@
 
 PortSystem          1.0
 
-version             2.9.0
-revision            1
+version             2.10.1
+revision            0
 
 # Github CLI is failing to build on 10.12 and below.
 # So in that case, use the pre-built binary tarball.
@@ -54,9 +54,9 @@ if ${source_build} {
 
     use_parallel_build  no
 
-    checksums       rmd160  5da23010615c0fc49b8d936fee493dbcc1361c53 \
-                    sha256  730b600d33afb67d84af4dca1af80cb1fbff79d302ac4f840fc8e9e4c25fceb7 \
-                    size    705077
+    checksums           rmd160  34eedb3f4c29bcf364592cb93ee6175b35581511 \
+                        sha256  a94ba6a731ad558f7937d0ac46ff8034b56214ec9e24a9ad70296331b1bb12ed \
+                        size    712763
 
     github.tarball_from archive
 
@@ -74,9 +74,9 @@ if ${source_build} {
 
     distname        gh_${version}_macOS_amd64
 
-    checksums       rmd160  d094d3355609a557d598ad1b5b79f78f0fb4c0a2 \
-                    sha256  868355c87793f07b8a189062f5853b2aa7fb0a9cce423d1d0d4326566628460a \
-                    size    7883546
+    checksums       rmd160  0cbd9989d5ef9fa1ceddd8cecce5e41b3f0a714d \
+                    sha256  621ec1d4662439348c5f2448b70826f1e54eb31a426562f5a50dfac1501eee2f \
+                    size    8058074
 
     github.tarball_from releases
 

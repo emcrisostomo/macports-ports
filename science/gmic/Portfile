@@ -16,8 +16,8 @@ if {${subport} eq "gmic-gimp" || ${subport} eq "gmic-qt"} {
 }
 
 name                gmic
-version             3.1.0
-revision            1
+version             3.1.2
+revision            0
 license             CeCILL
 categories          science graphics
 maintainers         {mps @Schamschula} openmaintainer
@@ -41,9 +41,9 @@ conflicts_build     opencv
 
 distfiles           ${name}_${version}${extract.suffix}
 
-checksums           rmd160  2bf9333f63ecb720658e7081babf7d41f4b137a4 \
-                    sha256  f0d5ae484d43e385b028557b20242ceaf277ef76fab441c5a019f6c2aa3c30cf \
-                    size    10512767
+checksums           rmd160  79577d7eeac5e1dd76a15d0cf7471e20695f964a \
+                    sha256  d5070c559c75161a225d74a99c19faf2485a3983139290f998cc6359bb318ba4 \
+                    size    10694085
 
 depends_lib         port:curl \
                     path:lib/libavcodec.dylib:ffmpeg \
@@ -95,6 +95,8 @@ if {${subport} eq ${name}} {
     build.dir                   ${worksrcpath}/src
     build.target                cli
 
+    installs_libs               no
+
     variant opencv4 description {compile with OpenCV support} {
         depends_lib-append      path:lib/opencv4/libopencv_core.dylib:opencv4
     }
@@ -131,7 +133,7 @@ if {${subport} eq ${name}} {
     pre-activate {
         if {![catch {set installed [lindex [registry_active gmic] 0]}]} {
             set _version [lindex $installed 1]
-            if {[vercmp $_version 3.1.0] < 0} {
+            if {[vercmp $_version 3.1.1] < 0} {
                 registry_deactivate_composite gmic "" [list ports_nodepcheck 1]
             }
         }
