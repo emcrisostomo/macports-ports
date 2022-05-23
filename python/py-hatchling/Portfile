@@ -5,18 +5,19 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-hatchling
-version             1.0.0
+version             1.2.0
 revision            0
 categories          python
+supported_archs     noarch
 license             MIT
 maintainers         {mps @Schamschula} openmaintainer
 description         This is the extensible, standards compliant build backend used by Hatch.
 long_description    {*}${description}
 homepage            https://ofek.dev/hatch/latest/
 
-checksums           rmd160  aa252931054887f43c08382f1f633f61bd471b54 \
-                    sha256  d235a5fa8aff89e8d9d6d4033594aa4c3bc00ec5e31d3e80c153bfcf951b4f98 \
-                    size    45190
+checksums           rmd160  a0fabf433f3c4f293846f4612ececd60df7001fd \
+                    sha256  a676dd0d6840ba73ef6c4cd284d1abf41d16e9dd24b29803dd076e205a14b4b5 \
+                    size    45465
 
 python.versions     37 38 39 310
 
