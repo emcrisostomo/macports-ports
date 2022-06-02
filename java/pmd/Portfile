@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           java 1.0
 
-github.setup        pmd pmd 6.45.0 pmd_releases/
+github.setup        pmd pmd 6.46.0 pmd_releases/
 github.tarball_from releases
 revision            0
 
@@ -21,9 +21,9 @@ homepage            https://pmd.github.io
 use_zip             yes
 distname            ${name}-bin-${version}
 checksums           ${distname}${extract.suffix} \
-                    rmd160  f117914c5f7767c69e1c0ba277312d219202fb3b \
-                    sha256  ee23c659011f1458714d43b92e4a251683910adfc6ebbf55e008402c7b4531b8 \
-                    size    43170657
+                    rmd160  7a656f59009df9c215f7c46adebc7fb57f63278b \
+                    sha256  04981da7163141300ec44a4dcc51dca205e7a83c0c39545a09a5d4724602e80a \
+                    size    42991084
 
 java.version        1.8+
 java.fallback       openjdk11
@@ -35,9 +35,9 @@ variant doc description "Include offline documentation" {
     distfiles-append    ${name}-doc-${version}${extract.suffix}:doc
 
     checksums-append    ${name}-doc-${version}${extract.suffix} \
-                        rmd160  ed32b09e522dbdfaee9ff27078481d297900de0a \
-                        sha256  e662a97ddc2a04f9ed97e8091a1f58d18959c9bcaf1a4062650e0ee9e1757cfd \
-                        size    5708365
+                        rmd160  58bae63c663828293a499364d663aba8b73b5eee \
+                        sha256  0c6111bf02a5f7ed5d35b29ac3938333799e294dbfa70f6a5e9513047a544326 \
+                        size    5703838
 }
 
 pre-destroot {

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           github 1.0
 
-github.setup        mstamy2 PyPDF2 1.28.2
+github.setup        mstamy2 PyPDF2 2.0.0
 revision            0
 name                py-pypdf2
 
@@ -21,15 +21,20 @@ long_description    A Pure-Python PDF toolkit. It is capable of \
                     into a single page, and encrypting and \
                     decrypting PDF files.
 
-checksums           rmd160  df9912ba5b71945b0775f402ba089b4ef67485d0 \
-                    sha256  e65f817aec983de38e7d05777bae5c08d3484b445b31471457d1fa2c2e309e76 \
-                    size    4261006
+checksums           rmd160  8da9cfe164e377492dcc998ac46c6aea7ec3577f \
+                    sha256  67ddad010dc6576e63e8c2ca0a574d834540b1264085d19011db355ef92a4544 \
+                    size    4574754
 
 python.versions     37 38 39 310
 
 if {${name} ne ${subport}} {
     depends_build-append \
                     port:py${python.version}-setuptools
+
+    if {${python.version} < 310} {
+        depends_lib-append \
+                    port:py${python.version}-typing_extensions
+    }
 
     post-destroot {
         xinstall -d ${destroot}${prefix}/share/doc/${subport}

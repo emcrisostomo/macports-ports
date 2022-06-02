@@ -14,11 +14,12 @@ PortGroup                   legacysupport 1.1
 name                        glib2-upstream
 conflicts                   glib2 glib2-devel
 set my_name                 glib
-version                     2.72.1
+version                     2.72.2
 revision                    0
-checksums           rmd160  48c867d89c423e6fd3c525e42a9e3ee41ea447a0 \
-                    sha256  c07e57147b254cef92ce80a0378dc0c02a4358e7de4702e9f403069781095fe2 \
-                    size    4890672
+epoch                       1
+checksums                   rmd160  68e3b1f591489667f0dc3f0a683c89ab00929010 \
+                            sha256  78d599a133dba7fe2036dfa8db8fb6131ab9642783fc9578b07a20995252d2de \
+                            size    4891264
 
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  devel
@@ -51,6 +52,17 @@ patchfiles                  libintl.patch \
                             universal.patch \
                             patch-glib2-findfolders-before-SL.diff \
                             patch-declarations.diff
+
+#--------------------------------------------------------------------------------------------------
+# Patch for LOCAL_PEERID build issue on 10.7
+#
+# Ticket:
+# * https://trac.macports.org/ticket/65262
+#
+# Discussion with upstream:
+# * https://gitlab.gnome.org/GNOME/glib/-/merge_requests/2362#note_1468389
+#--------------------------------------------------------------------------------------------------
+patchfiles-append           patch-gio-gsocket.c-peerpid.diff
 
 if {${os.platform} eq "darwin" && ${os.major} < 11} {
     patchfiles-append       patch-gio_gcredentialsprivate.h \

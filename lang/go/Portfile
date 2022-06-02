@@ -17,10 +17,10 @@ epoch               3
 
 # Go 1.18 does not build on macOS 10.12 and older
 if {${os.platform} eq "darwin" && ${os.major} < 17} {
-    version         1.17.10
+    version         1.17.11
     set unsupported_macos true
 } else {
-    version         1.18.2
+    version         1.18.3
     set unsupported_macos false
 }
 
@@ -81,17 +81,17 @@ if {$subport eq "${name}-devel"} {
     if {${unsupported_macos}} {
         # 1.17
         checksums   ${go_src_dist} \
-                    rmd160  b7a893fb09abf0923cbe80b62dcdeeec2049d257 \
-                    sha256  299e55af30f15691b015d8dcf8ecae72412412569e5b2ece20361753a456f2f9 \
-                    size    22196380 \
+                    rmd160  d0984a86406eca5627518d2b3d6c763014fb5f35 \
+                    sha256  ac2649a65944c6a5abe55054000eee3d77196880da36a3555f62e06540e8eb54 \
+                    size    22197784 \
                     ${go_armbin_dist} \
-                    rmd160  b63d1c771de821cc1006318199ec345906bc1d81 \
-                    sha256  32098bea40117ea1ec23e7124cd188db6bdddd0ea41e2ec9bea3ba35a487e39c \
-                    size    130379321 \
+                    rmd160  9683b2483d2df5f66406c5f12805397636daf852 \
+                    sha256  b8e1ab009c2ff8dea462c7a1263d1f3f38e90ab5262e74c76d70e41a4db320be \
+                    size    130409169 \
                     ${go_amdbin_dist} \
-                    rmd160  95066d1c18134ad7ccb009f168a29d88c190eadc \
-                    sha256  84979d5985c70cee6f303050a7e811440aad7f304efdf28665b200f096b01945 \
-                    size    136908820
+                    rmd160  b5c54c743b87804a6caad74507233baa202d4cc8 \
+                    sha256  4f924c534230de8f0e1c7369f611c0310efd21fc2d9438b13bc2703af9dda25a \
+                    size    136946048
 
         notes-append "
             Please note: Go 1.18 does not build on macOS 10.12 and older, so Go ${version} has been installed.
@@ -99,17 +99,17 @@ if {$subport eq "${name}-devel"} {
     } else {
         # 1.18
         checksums   ${go_src_dist} \
-                    rmd160  6cf7230d4549660fd75e51411f495200b8ad447c \
-                    sha256  2c44d03ea2c34092137ab919ba602f2c261a038d08eb468528a3f3a28e5667e2 \
-                    size    22837686 \
+                    rmd160  07b66dbfcf149fc1eb0dbd2b35065542f1dd371b \
+                    sha256  0012386ddcbb5f3350e407c679923811dbd283fcdc421724931614a842ecbc2d \
+                    size    22838104 \
                     ${go_armbin_dist} \
-                    rmd160  9e9981f2659f130321851cbd7ab6bcb46f7df4b1 \
-                    sha256  6c7df9a2405f09aa9bab55c93c9c4ce41d3e58127d626bc1825ba5d0a0045d5c \
-                    size    138130043 \
+                    rmd160  0db4408aa50e57d746062653de6131722be45f19 \
+                    sha256  40ecd383c941cc9f0682e6a6f2a333539d58c7dea15c842434d03afafe2f7242 \
+                    size    138149747 \
                     ${go_amdbin_dist} \
-                    rmd160  4b0099e16247a4fd3fcf4724f93edcbba94d4dff \
-                    sha256  1f5f539ce0baa8b65f196ee219abf73a7d9cf558ba9128cc0fe4833da18b04f2 \
-                    size    143757104
+                    rmd160  0dc730625aca7d8cf676fe6597ee5e867057a4e0 \
+                    sha256  d9dcf8fc35da54c6f259be41954783a9f4984945a855d03a003a7fd6ea4c5ca1 \
+                    size    143762106
     }
 
     livecheck.regex {go([0-9.]+)\.src\.tar\.gz}
