@@ -620,9 +620,11 @@ post-build {
     # fix @rpath for octave-cli
     system "install_name_tool -change @rpath/libgfortran.5.dylib ${prefix}/lib/libgcc/libgfortran.5.dylib ${worksrcpath}/src/.libs/octave-cli"
     system "install_name_tool -change @rpath/libquadmath.0.dylib ${prefix}/lib/libgcc/libquadmath.0.dylib ${worksrcpath}/src/.libs/octave-cli"
-    # fix @rpath for octave-gui
-    system "install_name_tool -change @rpath/libgfortran.5.dylib ${prefix}/lib/libgcc/libgfortran.5.dylib ${worksrcpath}/src/.libs/octave-gui"
-    system "install_name_tool -change @rpath/libquadmath.0.dylib ${prefix}/lib/libgcc/libquadmath.0.dylib ${worksrcpath}/src/.libs/octave-gui"
+    # fix @rpath for octave-gui (may not exist depending on variants)
+    if {[file exists ${worksrcpath}/src/.libs/octave-gui]} {
+        system "install_name_tool -change @rpath/libgfortran.5.dylib ${prefix}/lib/libgcc/libgfortran.5.dylib ${worksrcpath}/src/.libs/octave-gui"
+        system "install_name_tool -change @rpath/libquadmath.0.dylib ${prefix}/lib/libgcc/libquadmath.0.dylib ${worksrcpath}/src/.libs/octave-gui"
+    }
 }
 
 post-destroot {
@@ -655,9 +657,6 @@ post-destroot {
 
 }
 
-if {![info exists universal_possible]} {
-    set universal_possible [expr {${os.universal_supported} && [llength ${configure.universal_archs}] >= 2}]
-}
 # generate default octave_packages file so that it is removed if Octave is uninstalled
 if {!${universal_possible} || ![variant_isset universal]} {
     post-destroot {
