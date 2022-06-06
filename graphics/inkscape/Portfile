@@ -13,7 +13,7 @@ set my_name         inkscape
 set version_date    2022-05-15
 set version_hash    dc2aedaf03
 version             1.2
-revision            1
+revision            2
 epoch               0
 
 categories          graphics gnome
@@ -83,7 +83,7 @@ depends_lib-append  port:desktop-file-utils \
                     port:gspell \
                     port:dbus-glib \
                     port:lcms2 \
-                    port:poppler \
+                    path:lib/pkgconfig/poppler.pc:poppler \
                     port:ImageMagick \
                     port:libcdr-0.1 \
                     port:libvisio-0.1 \
