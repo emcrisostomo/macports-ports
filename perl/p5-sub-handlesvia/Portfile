@@ -4,7 +4,8 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Sub-HandlesVia 0.016 ../../authors/id/T/TO/TOBYINK
+perl5.setup         Sub-HandlesVia 0.021 ../../authors/id/T/TO/TOBYINK
+revision            0
 license             {Artistic-1 GPL}
 maintainers         {devans @dbevans} openmaintainer
 description         Sub::HandlesVia - alternative handles_via implementation
@@ -12,9 +13,9 @@ long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  a3274b7a020372c5446c850fd56985613e15668b \
-                    sha256  69ded44ae54724027401667476c8af268a900af4ea6047ff44f283bc5e2cf9d5 \
-                    size    99771
+checksums           rmd160  b2e1f88e6321304f81e7a44ed1f5e5fa044dc680 \
+                    sha256  cc0f1d7e3ff2697d3dc8df5168806d75b9af27cbf6b6781b972299246c698f07 \
+                    size    118930
 
 if {${perl5.major} != ""} {
     depends_build-append \
