@@ -4,9 +4,9 @@ PortSystem              1.0
 PortGroup               github 1.0
 PortGroup               cmake 1.1
 
-github.setup            neovim neovim b20b28249b1c58698be09c5b9d6785cfb1b12fb3
+github.setup            neovim neovim 9ced05413474a7c8b8a8b2f36a27db29a37dfaf6
 name                    neovim-devel
-version                 20220623
+version                 20220706
 revision                0
 categories              editors
 platforms               darwin
@@ -22,9 +22,9 @@ long_description \
 
 homepage                https://neovim.io
 
-checksums               rmd160  eafc9e0bc9cb9cb1b28aa6716a7e7737ce7ced3f \
-                        sha256  0755f58b1cdd15c675d33ef0fb63051227d1e6234bc876ebf9eba4e1be08ddbd \
-                        size    11084545
+checksums               rmd160  08f410ac37bbec7b0a7b29de1aa2e5c5113ed3a9 \
+                        sha256  21c5fc5834d0447c853b0bfcaf7955cef13efe7a768f35cc9953ffb48a61e69c \
+                        size    11139814
 
 depends_build-append    port:pkgconfig
 

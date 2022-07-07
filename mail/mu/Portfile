@@ -5,10 +5,10 @@ PortGroup           elisp 1.0
 PortGroup           github 1.0
 PortGroup           compiler_blacklist_versions 1.0
 
-github.setup        djcb mu 1.8.1 v
-checksums           rmd160  8400f2256cca65500035893e87d0a791426e62c7 \
-                    sha256  659629e6d6df87bf8241a0f00022fed8cff6d9100455a039b2d1f5d25c1e0200 \
-                    size    727120
+github.setup        djcb mu 1.8.5 v
+checksums           rmd160  5f720d24f204c9c01c72b25c48b291b16f4065c3 \
+                    sha256  d1d8dcf0738aadf657eefada9ea4ad4f4eeec759f0afab666d104ba1e03bc259 \
+                    size    728925
 revision            0
 
 platforms           darwin

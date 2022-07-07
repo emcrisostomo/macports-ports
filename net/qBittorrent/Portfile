@@ -28,8 +28,6 @@ if {${os.platform} ne "darwin" || ${os.major} >= 17} {
                     sha256  55900d4ccd8f6d57355225ea5ad8e14ef7cb1da5fd14c795ad3a2040afe79e81 \
                     size    7736035
 
-    # Workaround xcrun: error: SDK "macosx12" cannot be located
-    configure.sdk_version
     qt5.min_version 5.11
     configure.args-append \
                     CONFIG+=c++17 \
@@ -73,11 +71,19 @@ depends_lib-append \
 boost.depends_type  \
                 build
 
+qt5.depends_build_component \
+                qttools
+
 qt5.depends_component \
                 qttranslations
 
+# Workaround xcrun: error: SDK "macosx12" cannot be located
+configure.sdk_version
+
 configure.args-append \
+                CONFIG-=silent \
                 CONFIG+=nogui \
+                CONFIG+=nowebui \
                 CONFIG+=link_pkgconfig \
                 PKGCONFIG+=libtorrent-rasterbar \
                 PKGCONFIG+=openssl \
@@ -110,5 +116,9 @@ variant gui description {Enable GUI} {
                 qt5.depends_component qtmacextras
 }
 
+variant webui description {Enable WebUI} {
+                configure.args-delete CONFIG+=nowebui
+}
+
 default_variants \
-                +gui
+                +gui +webui

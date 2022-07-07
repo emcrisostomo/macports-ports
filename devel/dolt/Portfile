@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/dolthub/dolt 0.40.11 v
+go.setup            github.com/dolthub/dolt 0.40.14 v
 github.tarball_from archive
 revision            0
 
@@ -23,9 +23,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  088495ee5f0591602a457df9ce7acda4de6fa7c0 \
-                    sha256  b145e7fcc9abb8d4ce71339da2f163c5922ea387de5bb1a98c31f61902fab786 \
-                    size    5797193
+checksums           rmd160  390d68326eb7abe55c8af31d77625a7670cc20e1 \
+                    sha256  f403bf90f0313aae6154a97d3c16fac89a8999c42b0b2ea09020dec599f795cf \
+                    size    6765515
 
 build.env-delete    GO111MODULE=off GOPROXY=off
 
