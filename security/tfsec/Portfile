@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/tfsec/tfsec 1.26.0 v
+go.setup            github.com/tfsec/tfsec 1.26.3 v
 github.tarball_from archive
 revision            0
 
@@ -18,9 +18,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  a4bf96ccda3a28cf2bea7a062b845e8e15a4469e \
-                    sha256  7d6cf04dc132e1c24044953d761aaa579e2c09bd807a2e376d8a79c821fead26 \
-                    size    6551414
+checksums           rmd160  eecdeb8c2c1a3c1a14defe51d5646d79bdc55099 \
+                    sha256  c747e4ad1c2b3fc4637ad42729ecd8dacecf8537b332413771e34731e306070b \
+                    size    6551595
 
 # Allow Go to fetch dependencies at build time
 build.env-delete    GO111MODULE=off GOPROXY=off

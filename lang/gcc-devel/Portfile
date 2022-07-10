@@ -134,7 +134,7 @@ configure.args      --enable-languages=[join ${gcc_configure_langs} ","] \
                     --with-mpc=${prefix} \
                     --with-isl=${prefix} \
                     --with-zstd=${prefix} \
-                    --enable-stage1-checking \
+                    --enable-checking=release \
                     --disable-multilib \
                     --enable-lto \
                     --enable-libstdcxx-time \
@@ -162,10 +162,11 @@ if { ${os.platform} eq "darwin" } {
     # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100340
     # https://trac.macports.org/ticket/62775
     if { ([vercmp ${xcodeversion} 12.5] >= 0 && [vercmp ${xcodeversion} 13] < 0) || \
-         ([vercmp ${cltversion} 12.5] >= 0 && [vercmp ${cltversion} 13] < 0) } \
+         ([vercmp ${cltversion} 12.5] >= 0 && [vercmp ${cltversion} 13] < 0) || \
+         ${os.major} < 11 } \
     {
         # Skip bootstrap comparison entirely
-        configure.args-replace   --with-build-config=bootstrap-debug    --without-build-config
+        configure.args-replace --with-build-config=bootstrap-debug --without-build-config
         post-patch {
             reinplace {s|^do-compare =|do-compare = /usr/bin/true|g} \
                 ${worksrcpath}/Makefile.in \
@@ -215,11 +216,15 @@ variant enable_stdlib_flag description {Enable stdlib command line flag to selec
     # which is then used as the default search location when `-stdlib=libc++`
     # is given. Therefore to have consistency across various OS versions, and to enable
     # modern c++ standards, use a recent macports clang port to provide this.
-    set mp_clang_ver       14
+    if { ${os.platform} eq "darwin" && ${os.major} < 11 } {
+        set mp_clang_ver 11
+    } else {
+        set mp_clang_ver 13
+    }
     if {${subport} eq ${name}} {
         depends_run-append port:clang-${mp_clang_ver}
     }
-    configure.args-append  --with-gxx-libcxx-include-dir="${prefix}/libexec/llvm-${mp_clang_ver}/include/c++/v1"
+    configure.args-append --with-gxx-libcxx-include-dir="${prefix}/libexec/llvm-${mp_clang_ver}/include/c++/v1"
 }
 default_variants-append +enable_stdlib_flag
 
