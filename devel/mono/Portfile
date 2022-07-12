@@ -5,7 +5,7 @@ PortGroup               legacysupport 1.0
 
 name                    mono
 # please update msbuild when updating mono
-version                 6.12.0.122
+version                 6.12.0.179
 revision                0
 epoch                   1
 categories              devel lang mono
@@ -17,16 +17,23 @@ long_description        Mono is an effort to create an open source implementatio
                         Development Framework including a C# compiler.
 
 homepage                https://www.mono-project.com/
-master_sites            https://download.mono-project.com/sources/mono/
+master_sites            https://download.mono-project.com/sources/mono/ \
+                        https://download.mono-project.com/sources/mono/preview/
 use_xz                  yes
 universal_variant       no
 
-checksums               rmd160  44e1409c86e3fae3ea808cfd894ce8587b620a70 \
-                        sha256  29c277660fc5e7513107aee1cbf8c5057c9370a4cdfeda2fc781be6986d89d23 \
-                        size    292266176
+checksums               rmd160  453a657fe64558c55d4b46c76fc2ceb8d83ed321 \
+                        sha256  cbf700a76d96a4980386f39c77ab720bf2fc4331228a23ec842f383b49ed3923 \
+                        size    304388976
+
 
 patchfiles-append       patch-aot-compiler.c.diff \
                         dynamic_lookup-11.patch
+
+# autoreconf is needed just for the arm64 until upstream fixes the tooling
+use_autoconf            yes
+autoconf.cmd            autoreconf -ivf
+
 if {!${configure.ccache}} {
     patchfiles-append   patch-no_ccache.diff
 }
@@ -36,7 +43,10 @@ depends_build           path:bin/cmake:cmake \
                         port:pkgconfig \
                         bin:perl:perl5 \
                         port:cctools \
-                        port:python38
+                        port:python310 \
+                        port:autoconf \
+                        port:automake \
+                        port:libtool
 
 depends_lib             port:zlib \
                         port:libiconv \
@@ -56,7 +66,7 @@ test.target             check
 
 compiler.cxx_standard   2011
 
-configure.python        ${prefix}/bin/python3.8
+configure.python        ${prefix}/bin/python3.10
 
 # avoid conflict with port brotli
 configure.cppflags-delete -I${prefix}/include
