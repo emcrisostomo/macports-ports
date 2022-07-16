@@ -3,28 +3,27 @@
 PortSystem          1.0
 PortGroup           python 1.0
 
-name                py-pyppmd
-version             0.18.3
+name                py-pybcj
+version             0.6.1
 revision            0
 
-platforms           darwin
 license             LGPL-2.1+
 maintainers         {@catap korins.ky:kirill} openmaintainer
 
-description         PPMd compression/decompression library
-long_description    ${description}
+description         bcj filter library
+long_description    {*}${description}
 
-homepage            http://github.com/miurahr/pyppmd
+homepage            https://codeberg.org/miurahr/pybcj
 
-checksums           rmd160  677fd2732995ea0ecf49b0549ed715332b145cca \
-                    sha256  6c74ce28213044e33a595279019e8d71512d5d8188826d106df9083f2b3006c4 \
-                    size    1347969
+checksums           rmd160  9a230e7b9dc80b2d03381fd9dd1777aa078d73df \
+                    sha256  82c948fd899061af8b8763ad1c1b89aae681abd31bbf493b0d6e9ef50b9aaf00 \
+                    size    2112558
 
+python.pep517       yes
 python.versions     38 39 310
 
 if {${name} ne ${subport}} {
     depends_build-append \
-                    port:py${python.version}-pip \
                     port:py${python.version}-setuptools \
                     port:py${python.version}-setuptools_scm
 
@@ -32,11 +31,7 @@ if {${name} ne ${subport}} {
                     port:py${python.version}-coverage \
                     port:py${python.version}-hypothesis \
                     port:py${python.version}-pytest \
-                    port:py${python.version}-pytest-benchmark \
-                    port:py${python.version}-pytest-cov \
-                    port:py${python.version}-pytest-timeout
+                    port:py${python.version}-pytest-cov
 
     test.run        yes
-
-    livecheck.type  none
 }
