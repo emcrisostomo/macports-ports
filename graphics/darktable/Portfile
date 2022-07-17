@@ -13,22 +13,21 @@ github.setup            darktable-org darktable 4.0.0 release-
 name                    darktable
 conflicts               darktable-devel
 set my_name             darktable
-revision                0
+revision                2
+
 categories              graphics
-platforms               darwin
-supported_archs         x86_64
-maintainers             {mcalhoun @MarcusCalhoun-Lopez} {mascguy @mascguy} openmaintainer
 license                 GPL-3+
+maintainers             {mcalhoun @MarcusCalhoun-Lopez} {mascguy @mascguy} openmaintainer
 
 description             Virtual lighttable and darkroom for photographers
-
 long_description        Darktable is a virtual lighttable and darkroom for \
                         photographers: it manages your digital negatives in a \
                         database and lets you view them through a zoomable \
                         lighttable. It also enables you to develop raw images \
                         and enhance them.
-
 homepage                https://www.darktable.org/
+
+supported_archs         x86_64
 
 github.tarball_from     releases
 dist_subdir             ${my_name}
@@ -96,7 +95,6 @@ depends_lib-append      \
                         port:libsecret \
                         path:lib/pkgconfig/libsoup-2.4.pc:libsoup \
                         path:lib/pkgconfig/libusb-1.0.pc:libusb \
-                        port:lua \
                         port:libxml2 \
                         port:openexr \
                         port:openjpeg \
@@ -108,7 +106,9 @@ depends_lib-append      \
                         port:tiff \
                         port:zlib
 
-depends_run             port:adwaita-icon-theme
+depends_run             port:adwaita-icon-theme \
+                        port:tango-icon-theme \
+                        port:exiftool
 
 # sets march optimization to generic
 configure.args-append   -DBINARY_PACKAGE_BUILD=ON
@@ -119,7 +119,23 @@ configure.args-append   -DBUILD_CMSTEST=OFF \
                         -DUSE_KWALLET=OFF \
                         -DUSE_OPENMP=OFF \
                         -DUSE_UNITY=OFF \
+                        -DDONT_USE_INTERNAL_LUA=OFF \
                         -Dperl_BIN=${perl5.bin}
+
+# Feature-wise, the curve and noise tools cause build failures for 10.13 and earlier.
+# See: https://trac.macports.org/ticket/65474
+platform darwin {
+    if {${os.major} >= 18} {
+        set features_curve_noise ON
+    } else {
+        set features_curve_noise OFF
+    }
+
+    ui_debug "Features: curve and noise tools: ${features_curve_noise}"
+    configure.args-append \
+                        -DBUILD_CURVE_TOOLS=${features_curve_noise} \
+                        -DBUILD_NOISE_TOOLS=${features_curve_noise}
+}
 
 post-build {
     set wrap [open "${workpath}/darktable-app" w 0755]
@@ -134,9 +150,18 @@ post-build {
 post-destroot {
     # need to determine why lib is not going where expected, until then...
     move ${destroot}${prefix}/lib/darktable/libdarktable.dylib ${destroot}${prefix}/lib/
+
+    # create symlinks for tools, if enabled
+    if {${features_curve_noise}} {
+        set port_tools_dir ${prefix}/libexec/darktable/tools
+        foreach f [glob ${destroot}${port_tools_dir}/darktable-*] {
+            set fn [file tail ${f}]
+            ln -s ${port_tools_dir}/${fn} ${destroot}${prefix}/bin/${fn}
+        }
+    }
 }
 
-post-activate    {
+post-activate {
     system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
     system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
     system "env XDG_DATA_DIRS=${prefix}/share ${prefix}/bin/update-mime-database -V ${prefix}/share/mime"
