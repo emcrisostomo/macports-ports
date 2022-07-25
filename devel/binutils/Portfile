@@ -23,19 +23,26 @@ homepage            https://www.gnu.org/software/binutils/binutils.html
 master_sites        gnu:binutils
 use_xz              yes
 
-depends_lib-append  port:zlib port:libiconv port:gettext
+depends_build-append \
+                    port:gettext
+
+depends_lib-append \
+                    port:zlib \
+                    port:libiconv \
+                    port:gettext-runtime
 
 patchfiles          dynamic_lookup-11.patch
 
 configure.args      --infodir='${prefix}/share/info' \
                     --mandir='${prefix}/share/man' \
+                    --disable-silent-rules \
                     --disable-werror \
                     --program-prefix=g \
                     --enable-shared \
                     --enable-install-libbfd
 
 # The Makefile runs configure again in subdirectories.
-# It correcty passes along most configure variables (CFLAGS, LDFLAGS, ...),
+# It correctly passes along most configure variables (CFLAGS, LDFLAGS, ...),
 #    but seems to neglect CPPFLAGS.
 build.env-append    CPPFLAGS=-I${prefix}/include
 

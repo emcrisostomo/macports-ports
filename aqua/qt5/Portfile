@@ -1064,9 +1064,6 @@ foreach {module module_info} [array get modules] {
             # see https://trac.macports.org/ticket/63805#comment:13
             patchfiles-append patch-sdk-no-stderr.diff
 
-            # find the Rez program
-            patchfiles-append patch-find_rez.diff
-
             # Backported upstream patch to build with the macOS 12 SDK.
             # https://github.com/qt/qtbase/commit/dece6f5840463ae2ddf927d65eb1b3680e34a547
             patchfiles-append patch-qiosurfacegraphicsbuffer.h.diff
@@ -1074,6 +1071,8 @@ foreach {module module_info} [array get modules] {
             # Backport from 5.15.6
             patchfiles-append patch-cve-2021-38593.diff
 
+            # find the Rez program
+            patchfiles-append patch-find_rez.diff
             post-patch {
                 reinplace \
                     "s|__MACPORTS_Rez__|[exec -ignorestderr xcrun --find Rez]|g" \
@@ -1558,15 +1557,21 @@ foreach {module module_info} [array get modules] {
 
             # special case
             if { ${module} eq "qtdeclarative" } {
-                patchfiles-append  \
-                    patch-src-3rdparty-masm-stubs-wtf-unicode-Unicode.h.diff \
-                    patch-src-3rdparty-masm-yarr-YarrInterpreter.cpp.diff
+                # https://trac.macports.org/ticket/62806
+                # error: typedef redefinition with different types ('char16_t' vs 'unsigned short')
+                patchfiles-append  patch-qtdeclarative-masm.diff
+
                 # attempts to link against installed version, which causes an error when upgrading 5.9.3->5.10.0
                 qt5.frameworkpaths-append ${worksrcpath}/lib
             }
 
             # special case
             if { ${module} eq "qtlocation" } {
+                PortGroup       conflicts_build 1.0
+
+                # do not allow ${prefix}/include/boost to conflict with bundled boost (in bundled mapbox-gl-native)
+                conflicts_build boost
+
                 # qtlocation uses
                 #    Gypsy (https://gypsy.freedesktop.org/wiki/)
                 #    if they can be found

@@ -23,7 +23,7 @@ if { ${subport} eq "${name}-qtwebkit" ||
 }
 
 # https://trac.macports.org/ticket/63154
-if { ${xcodeversion} ne "none" } {
+if { ${xcodeversion} ne "none" || ${os.major} >= 20 } {
     use_xcode       yes
 }
 
@@ -843,17 +843,6 @@ foreach {module module_info} [array get modules] {
             }
         }
 
-        if {${os.platform} eq "darwin" && ${os.major} >= 20 && (${module} eq "qtbase" || "qtbase" in [lindex ${module_info} 3])} {
-            # Fails to find a working compiler and SDK
-            known_fail  yes
-            depends_lib
-            depends_build
-            pre-fetch {
-                ui_error "${subport} currently does not build on macOS 11 or later"
-                return -code error "incompatible OS version"
-            }
-        }
-
         description       Tools and Module(s) for Qt Tool Kit ${qt_major}
 
         set modules_provided_list [lindex ${module_info} 4]
@@ -897,6 +886,10 @@ foreach {module module_info} [array get modules] {
 
             # see https://trac.macports.org/ticket/63805#comment:13
             patchfiles-append patch-sdk-no-stderr.diff
+
+            # Backported upstream patch to build with the macOS 12 SDK.
+            # https://github.com/qt/qtbase/commit/dece6f5840463ae2ddf927d65eb1b3680e34a547
+            patchfiles-append patch-qiosurfacegraphicsbuffer.h.diff
 
             # find the Rez program
             patchfiles-append patch-find_rez.diff
@@ -1386,12 +1379,21 @@ foreach {module module_info} [array get modules] {
 
             # special case
             if { ${module} eq "qtdeclarative" } {
+                # https://trac.macports.org/ticket/62806
+                # error: typedef redefinition with different types ('char16_t' vs 'unsigned short')
+                patchfiles-append  patch-qtdeclarative-masm.diff
+
                 # attempts to link against installed version, which causes an error when upgrading 5.9.3->5.10.0
                 qt5.frameworkpaths-append ${worksrcpath}/lib
             }
 
             # special case
             if { ${module} eq "qtlocation" } {
+                PortGroup       conflicts_build 1.0
+
+                # do not allow ${prefix}/include/boost to conflict with bundled boost (in bundled mapbox-gl-native)
+                conflicts_build boost
+
                 # qtlocation uses
                 #    Gypsy (https://gypsy.freedesktop.org/wiki/)
                 #    if they can be found
