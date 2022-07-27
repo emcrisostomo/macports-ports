@@ -7,7 +7,7 @@ PortGroup           active_variants              1.1
 PortGroup           conflicts_build              1.0
 PortGroup           cltversion                   1.0
 
-epoch               1
+epoch               2
 
 name                gcc11
 
@@ -333,15 +333,6 @@ if { ${subport} ne ${name}} {
         --with-gxx-include-dir=${prefix}/include/${name}/c++/ \
         --with-gxx-include-dir=${prefix}/include/gcc/c++/
 
-    # TODO: Possibly disable bootstrap with appropriate configure flags.
-    #       the problem is that libstdc++'s configure script tests for tls support
-    #       using the running compiler (not gcc for which libstdc++ is being built).
-    #       Thus when we build with clang, we get a mismatch
-    # http://trac.macports.org/ticket/36116
-    #compiler.blacklist-append {clang < 425}
-    #configure.args-append --disable-bootstrap
-    #build.target        all
-
     post-destroot {
 
         # Temporary working dir for dylibs
@@ -357,7 +348,10 @@ if { ${subport} ne ${name}} {
                 continue
             }
 
+            # Move dylib to temp area
             move ${destroot}${prefix}/lib/libgcc/${dylib} ${destroot}${prefix}/lib/libgcc.merged
+
+            # Universal support
             if {[variant_exists universal] && [variant_isset universal]} {
                 foreach archdir [glob ${destroot}${prefix}/lib/libgcc/*/] {
                     set archdir_nodestroot [string map "${destroot}/ /" ${archdir}]
