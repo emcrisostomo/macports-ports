@@ -117,11 +117,11 @@ subport uhd-devel {
     long_description ${description}: Provides the UHD GIT maint or master branch, depending \
                      on which is more advanced, and is typically updated every few days to week.
 
-    github.setup    EttusResearch uhd 46a70d853267c40205a8cfea472056bd1aa7c04e
-    version         20220419-4.2.0.0-[string range ${github.version} 0 7]
-    checksums       rmd160  323ee8c9128013b33ed49edf23470b7ae8932dba \
-                    sha256  354b086ff52eb344715237370f4cbe0988836a075950b5ac5d1962a652e73252 \
-                    size    38112878
+    github.setup    EttusResearch uhd 321295fba49fb66ede365afbd9ef62971cdfbfca
+    version         20220728-4.2.0.1-[string range ${github.version} 0 7]
+    checksums       rmd160  a7cf8009a4f5c0d1233b399a2b8207968d39ac4f \
+                    sha256  d130ee89e65d0963482bc14d486c4a6e77e70bd527f7da10fc098287af53c7ad \
+                    size    38164311
     revision        0
 
     conflicts       uhd uhd-39lts
@@ -255,7 +255,7 @@ default_variants +docs +examples +libusb +manual +test +manpages
 # specify the Python dependencies; these are checked for at configure,
 # then used for building, but not at runtime.
 
-set pythons_versions {2.7 3.5 3.6 3.7 3.8 3.9}
+set pythons_versions {2.7 3.5 3.6 3.7 3.8 3.9 3.10}
 
 set pythons_ports {}
 foreach s ${pythons_versions} {
@@ -270,7 +270,7 @@ foreach v ${pythons_versions} {
     variant ${p} description "Build ${name} using Python ${v}" conflicts {*}${c} ""
 }
 
-set selected_python_no_dot 39
+set selected_python_no_dot 310
 foreach v ${pythons_versions} {
     set s [string map {. {}} ${v}]
     if {[variant_isset python${s}]} {
@@ -307,7 +307,7 @@ if {${selected_python_no_dot} eq ""} {
 
 set PythonVersionNoDot ${selected_python_no_dot}
 
-set PythonVersionWithDot [join [split ${selected_python_no_dot} ""] "."]
+set PythonVersionWithDot [string index ${selected_python_no_dot} 0].[string range ${selected_python_no_dot} 1 end]
 
 set PythonTopDir "${frameworks_dir}/Python.framework/Versions/${PythonVersionWithDot}"
 
