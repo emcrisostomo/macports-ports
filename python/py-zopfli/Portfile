@@ -2,10 +2,11 @@
 
 PortSystem          1.0
 PortGroup           python 1.0
+PortGroup           compiler_wrapper 1.0
 
 name                py-zopfli
 version             0.2.1
-revision            0
+revision            2
 
 license             Apache-2
 maintainers         {@catap korins.ky:kirill} openmaintainer
