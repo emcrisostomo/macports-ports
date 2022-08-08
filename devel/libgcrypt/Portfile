@@ -36,7 +36,7 @@ configure.args  --disable-asm
 configure.cflags-append "-std=gnu89"
 
 # Some versions of gcc fail to build this for i386 including:
-#     gcc-4.0 from Xcode 3.1.6 (5493) -- Note that gcc-4.0 from Xcode 2.5 (5370) works 
+#     gcc-4.0 from Xcode 3.1.6 (5493) -- Note that gcc-4.0 from Xcode 2.5 (5370) works
 #     gcc-4.2 from Xcode 3.1.6 (5577)
 #     gcc-4.2 from Xcode 3.2.6 (5666.3)
 # rijndael.c: In function 'do_aesni_ctr':
@@ -47,6 +47,13 @@ if {${build_arch} eq "i386" || ([variant_isset universal] && [lsearch ${configur
         compiler.blacklist-append gcc-4.0
     }
     compiler.blacklist-append gcc-4.2
+}
+
+platform darwin 10 {
+    # Rosetta misdetects the arch: warning: `-no-install' is ignored for x86_64-apple-darwin10.8.0
+    if {${build_arch} eq "ppc"} {
+        configure.args-append --build=powerpc-apple-darwin${os.major}
+    }
 }
 
 if {[string match "*clang*" ${configure.compiler}]} {
