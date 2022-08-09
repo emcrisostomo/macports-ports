@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-imageio
-version             2.19.5
+version             2.21.1
 revision            0
 categories-append   graphics
 license             BSD
@@ -19,9 +19,9 @@ long_description    ${description}
 
 homepage            https://imageio.github.io/
 
-checksums           rmd160  de9e828ff3e9f9baf176d94759dfb3721230b477 \
-                    sha256  eb3cd70de8be87b72ea85716b7363c700b91144589ee6b5d7b49d42998b7d185 \
-                    size    3428640
+checksums           rmd160  fc7cb05fe97b1c870d8a6e9a3e70a7bf36940d95 \
+                    sha256  5f0278217c1cf99d90ef855dab948f93d9fce0ab7ab388e13a597c706b7ec4e5 \
+                    size    3429194
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-setuptools \
