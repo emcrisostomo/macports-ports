@@ -7,7 +7,7 @@ PortGroup           compiler_blacklist_versions 1.0
 PortGroup           conflicts_build 1.0
 
 github.setup        fmtlib fmt 9.0.0
-name                libfmt
+name                libfmt9
 revision            0
 checksums           rmd160  50450633f1f3cabeb485b86bacebfc3f395bc059 \
                     sha256  9a1e0e9e843a356d65c7604e2c8bf9402b50fe294c355de0095ebd42fb9bd2c5 \
@@ -26,6 +26,34 @@ homepage            https://fmt.dev
 github.tarball_from archive
 
 conflicts_build     gtest
+
+#------------------------------------------------------------------------------
+# Path-Related Variables - START
+#------------------------------------------------------------------------------
+
+# The "install name," meaning, the subdirectory name for this port.
+# Should correspond to the major version.
+set port_install_name \
+                    ${subport}
+
+# Define all of our base paths up-front
+set port_install_include \
+                    ${prefix}/include/${port_install_name}
+set port_install_lib \
+                    ${prefix}/lib/${port_install_name}
+
+# Populate CMake options currently available
+cmake.install_rpath \
+                    ${port_install_lib}
+
+configure.args-append \
+                    -DCMAKE_INSTALL_INCLUDEDIR=${port_install_include} \
+                    -DCMAKE_INSTALL_LIBDIR=${port_install_lib} \
+                    -DCMAKE_INSTALL_NAME_DIR=${port_install_lib}
+
+#------------------------------------------------------------------------------
+# Path-Related Variables - END
+#------------------------------------------------------------------------------
 
 # tests, at least, fail if set to "MacPorts"
 cmake.build_type    Release

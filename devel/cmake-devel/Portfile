@@ -36,11 +36,11 @@ homepage            https://cmake.org
 platforms           darwin freebsd
 gitlab.instance     https://gitlab.kitware.com
 
-gitlab.setup        cmake   cmake 5ead1d0a257e352c35ac63b78f4884058b17b8f9
-version             20220728-3.24.0-rc5-[string range ${gitlab.version} 0 7]
-checksums           rmd160  39f32cb29e5296f51aea24e660ff05cd81722cec \
-                    sha256  8eebcab0fb04ec4ccfb0c130d187bd653cdfd0ef4d7a263724b94689bced808b \
-                    size    7957084
+gitlab.setup        cmake   cmake 4be24f031a4829db75b85062cc67125035d8831e
+version             20220804-3.24.0-[string range ${gitlab.version} 0 7]
+checksums           rmd160  8bc02c4569a909a44275112df8628b748ad5b4e6 \
+                    sha256  9f1d2eb2950f479dd062af769c460a561712dfccde6cbba48103f8e4fd5cc54e \
+                    size    7959352
 revision            0
 
 # switched from "3.23.0" to "date-ver-hash"
@@ -231,13 +231,6 @@ set subport_docs \
 subport ${subport_gui} {
     PortGroup qt5 1.0
 
-    # TODO: This subport is still a work-in-progress, and not yet functional
-    known_fail yes
-    pre-fetch {
-        ui_error "${subport} is not yet functional"
-        return -code error "subport not functional"
-    }
-
     description \
         CMake QT-based GUI
     long_description \
@@ -258,17 +251,16 @@ subport ${subport_gui} {
         remove_parent_contents \
             ${subport} \
             ${name}
+
+        # FIXME: Remove help files; disable generation instead?
+        foreach d [glob ${destroot}${prefix}/share/cmake*] {
+            ui_info "${subport}: deleting dir: ${d}"
+            delete ${d}
+        }
     }
 }
 
 subport ${subport_docs} {
-    # TODO: This subport is still a work-in-progress, and not yet functional
-    known_fail yes
-    pre-fetch {
-        ui_error "${subport} is not yet functional"
-        return -code error "subport not functional"
-    }
-
     description \
         CMake Documentation
     long_description \
@@ -359,6 +351,12 @@ subport ${subport_docs} {
         remove_parent_contents \
             ${subport} \
             ${name}
+
+        # FIXME: Remove help files; disable generation instead?
+        foreach d [glob ${destroot}${prefix}/share/cmake*] {
+            ui_info "${subport}: deleting dir: ${d}"
+            delete ${d}
+        }
     }
 }
 
