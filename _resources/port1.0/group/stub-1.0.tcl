@@ -17,8 +17,9 @@
 #   long_description    my_long_description
 #
 # Optional Declarations:
-#   * maintainers - defaults to 'none'
-#   * homepage    - default is empty
+#   * license     - default: none
+#   * maintainers - default: nomaintainer
+#   * homepage    - default: empty
 #
 # Options:
 #   * stub.subport_name - override subport name, for README location
@@ -37,11 +38,6 @@ namespace eval stub {}
 options stub.subport_name
 default stub.subport_name ${subport}
 
-platforms           darwin
-license             none
-
-# For maintainers and homepage, don't overwrite if already set
-
 if {![info exists PortInfo(maintainers)]} {
     maintainers     nomaintainer
 }
@@ -50,9 +46,15 @@ if {![info exists PortInfo(homepage)]} {
     homepage
 }
 
+if {![info exists PortInfo(license)] || ${PortInfo(license)} eq "unknown"} {
+    license         none
+}
+
+supported_archs     noarch
+installs_libs       no
+
 distfiles
 patchfiles
-supported_archs     noarch
 use_configure       no
 
 build {}
