@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                hatch
-version             1.4.0
+version             1.4.2
 revision            0
 categories-append   devel
 license             MIT
@@ -14,9 +14,9 @@ long_description    {*}${description}
 supported_archs     noarch
 homepage            https://github.com/ofek/hatch
 
-checksums           rmd160  d74b48b23b16b555d493331169b5cd12b7d1199c \
-                    sha256  a1b06523cf66c759828f21145d8619044049b9ef660accef42d47612e7b7fda2 \
-                    size    184283
+checksums           rmd160  d02e27b250adb0245b0d40aa97d65e99352f1dbb \
+                    sha256  f207d55206036b80faf023f63df69caf340a03ce82073db91dee10f49b038956 \
+                    size    1462449
 
 variant python37 conflicts python38 python39 python310 description {Use Python 3.7} {}
 variant python38 conflicts python37 python39 python310 description {Use Python 3.8} {}
