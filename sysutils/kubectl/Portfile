@@ -29,34 +29,34 @@ subport kubectl-1.24 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     3
+    set patchNumber     4
     revision            0
-    checksums           rmd160  5dd91f3ea52183cf2b8b57f0196201d207aa46ed \
-                        sha256  38331986b729a2ceaa87a42388c6de7852ad073267276238a6d6c6272e4769a6 \
-                        size    37961140
+    checksums           rmd160  0e1e6910fde1e10d679b9996dab537e687d2e48d \
+                        sha256  16e7112d8efa46c0a36976b001efe335eea4b9e1dd721824c9c2c064ae7f6bbe \
+                        size    37973948
 }
 
 subport kubectl-1.23 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     8
+    set patchNumber     10
     revision            0
-    checksums           rmd160  2961d5d44dbc64fc2f4ba1c17f26ef0aebd25a20 \
-                        sha256  3dc855efff30ea7c51dcf38277da339e8aa18cdf78b2bbd09433f141d7169dc3 \
-                        size    38218282
+    checksums           rmd160  c118c76ef07560d4ab90720a43703ef909ceee9d \
+                        sha256  0199f4c948f1f686d850eee97a4d49e7ae3614aff4eff7794f499c065d721267 \
+                        size    38229682
 }
 
 subport kubectl-1.22 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     11
+    set patchNumber     13
     revision            0
 
-    checksums           rmd160  c83a89e4136ed433e8a316ebe9f19f6e25c4c385 \
-                        sha256  3babe1f1faa40df2e58dd8c97786db492d177e704e9141dd98fc98b8ca4fce2e \
-                        size    36087526
+    checksums           rmd160  087570adf7c8dc5a4cb00bcb59bea71785cd3a12 \
+                        sha256  6418fcdd6215002412c2eab92347b171664679dc432b65c39f38a1db51482bcb \
+                        size    36093191
 }
 
 subport kubectl-1.21 {
