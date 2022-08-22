@@ -23,8 +23,6 @@
 #
 # PG Options:
 #   * stub.subport_name - override subport name, for README location
-#   * stub.noarch       - designate as noarch; default: false
-#   * stub.libs         - whether subport, and/or deps, install libs; default: true
 #
 #===================================================================================================
 
@@ -33,15 +31,7 @@ namespace eval stub {}
 options stub.subport_name
 default stub.subport_name ${subport}
 
-# Designate whether stub is noarch
-options stub.noarch
-default stub.noarch false
-
-# Designate whether stub, and/or deps, install libs
-options stub.libs
-default stub.libs true
-
-proc stub::destroot {} {
+proc stub::post_destroot {} {
     global destroot prefix
 
     set subport_name [option stub.subport_name]
@@ -65,24 +55,15 @@ proc stub::setup_stub {} {
         license         Permissive
     }
 
-    set stub_noarch [option stub.noarch]
-    ui_debug "stub.noarch: ${stub_noarch}"
-    if { ${stub_noarch} } {
-        supported_archs noarch
-    }
-
-    set stub_libs [option stub.libs]
-    ui_debug "stub.libs: ${stub_libs}"
-    installs_libs ${stub_libs}
-
     distfiles
     patchfiles
     use_configure       no
     build {}
-}
+    destroot {}
 
-destroot {
-    stub::destroot
+    post-destroot {
+        stub::post_destroot
+    }
 }
 
 # callback after port is parsed
