@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-boto3
-version             1.24.56
+version             1.24.66
 revision            0
 
 supported_archs     noarch
@@ -20,9 +20,9 @@ long_description    Boto3 is the Amazon Web Services (AWS) Software \
 
 homepage            https://github.com/boto/boto3
 
-checksums           rmd160  aca1fdd0a0fe7477f8367142069819ac82366169 \
-                    sha256  9fab8acec76008797be4671d514f39f1163ba044c0a0bce8d5afe8b52cbd5550 \
-                    size    104035
+checksums           rmd160  ac26fe3e507ef2cd0b04ecf576055e6e2412506f \
+                    sha256  60003d2b83268a303cf61b78a0b59ebe2abe87e2f21308b55a99f25fd9bca4db \
+                    size    104014
 
 python.versions     37 38 39 310
 
