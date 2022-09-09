@@ -57,7 +57,7 @@ if {${os.major} > 12} {
 
 if {${opencv_latest}} {
     github.setup    opencv opencv 4.6.0
-    revision        2
+    revision        3
     epoch           1
 
     checksums-append \
@@ -71,7 +71,7 @@ if {${opencv_latest}} {
     livecheck.regex {/archive/([0-9.]+)[a-z]?\.[tz]}
 } else {
     github.setup    opencv opencv 4.5.0
-    revision        8
+    revision        9
 
     checksums-append \
                     ${distname}${extract.suffix} \
@@ -139,6 +139,7 @@ depends_lib-append  \
                     port:libpng \
                     path:include/turbojpeg.h:libjpeg-turbo \
                     port:openjpeg \
+                    port:libquirc \
                     port:tiff \
                     port:webp \
                     port:openexr \
@@ -283,6 +284,7 @@ configure.args-append \
                     -DWITH_IMGCODEC_PFM:BOOL=ON \
                     -DWITH_QUIRC:BOOL=OFF \
                     \
+                    -DHAVE_QUIRC:BOOL=ON \
                     -DHAVE_COCOA:BOOL=ON \
                     \
                     -DBUILD_opencv_aruco:BOOL=ON \
@@ -477,7 +479,8 @@ if {${name} eq ${subport}} {
         configure.args-append \
                     -DBUILD_PROTOBUF:BOOL=OFF \
                     -DWITH_PROTOBUF:BOOL=ON \
-                    -DWITH_TESSERACT:BOOL=OFF
+                    -DWITH_TESSERACT:BOOL=OFF \
+                    -DWITH_OGRE:BOOL=OFF
 
         # Regenerate protobuf files, if stale
         configure.args-append \
@@ -503,6 +506,10 @@ if {${name} eq ${subport}} {
             delete ${worksrcpath}/${github.project}_contrib
             ln -s ${workpath}/${github.project}_contrib-${version} ${worksrcpath}/${github.project}_contrib
         }
+
+        # Allow enabling/disabling Ogre, via CMake flag 'WITH_OGRE'
+        patchfiles-append \
+                    patch-contrib-ovis-ogre.diff
 
         configure.args-append \
                     -DOPENCV_EXTRA_MODULES_PATH=${worksrcpath}/${github.project}_contrib/modules
