@@ -30,6 +30,9 @@ checksums           rmd160  2b4a2136cc34b1d27a8c7bdb3747f87904648cab \
                     size    11799264
 
 patchfiles          patch-sqvm-header-fix.diff
+if {${os.arch} ne "i386"} {
+  patchfiles-append dragscroll.patch
+}
 
 depends_build-append \
                     port:pkgconfig
@@ -125,4 +128,14 @@ if {[variant_isset wxgtk28] || [variant_isset wxgtk30]} {
 
 if {![variant_isset wxwidgets30] && ![variant_isset wxwidgets28] && ![variant_isset wxgtk30] && ![variant_isset wxgtk28]} {
     default_variants +wxgtk30
+}
+
+platform darwin arm {
+    post-patch {
+        # Use newer config.guess and config.sub to support Apple Silicon.
+        set automake_dirs [glob -directory ${prefix}/share automake-*]
+        set automake_dir [lindex [lsort -command vercmp $automake_dirs] end]
+        copy -force ${automake_dir}/config.guess ${automake_dir}/config.sub \
+            ${worksrcpath}
+    }
 }
