@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cargo 1.0
 
-github.setup        railwayapp nixpacks 0.5.4 v
+github.setup        railwayapp nixpacks 0.5.6 v
 github.tarball_from archive
 
 categories          devel
@@ -15,9 +15,9 @@ long_description    Nixpacks takes a source directory and produces an OCI compli
 homepage            https://nixpacks.com/
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  39d9ad482a9e44605c57c09ebd4747fa34c6d125 \
-                    sha256  cff429afb7fa749b91f5f18f213d44da9fb4f77218b00715932f4a928ca58f8a \
-                    size    30464048
+                    rmd160  1f0b008dfab6f2a199a779546daf3546b5e7e9d8 \
+                    sha256  52dc8173ca1c78c1fe0cc7fe7120effd21b0572bc9e5d42964272265c346dbd9 \
+                    size    30464185
 
 destroot {
   xinstall -m 755 ${worksrcpath}/target/[cargo.rust_platform]/release/nixpacks ${destroot}${prefix}/bin/
