@@ -167,6 +167,7 @@ if {${name} eq ${subport}} {
                     port:bash \
                     port:bzip2 \
                     port:cctools \
+                    port:gsed \
                     port:gzip \
                     port:hadrian \
                     port:happy \
@@ -191,20 +192,16 @@ if {${name} eq ${subport}} {
                     happy \
                     HsColour
 
-    post-patch {
-        # bootstrap build/destroot from cabal-prebuilt and ghc-prebuilt
+    post-extract {
         xinstall -d ${workpath}/bin
-        ln -s       ${haskell_cabal.bin} \
-                    ${workpath}/bin/cabal
-        ln -s       ${prefix}/bin/ghc-prebuilt \
-                    ${workpath}/bin/ghc
-        # the versions of ghc and ghc-pkg must match
-        ln -s       ${prefix}/bin/ghc-pkg-prebuilt \
-                    ${workpath}/bin/ghc-pkg
         ln -s       ${python3_bin} \
                     ${workpath}/bin/python3
         ln -s       ${prefix}/bin/sphinx-build-${python3_branch} \
                     ${workpath}/bin/sphinx-build
+        # avoid this cabal/sed error in macOS 10 and earlier:
+        # checking for version of sphinx-build... sed: illegal option -- r
+        ln -s       ${prefix}/bin/gsed \
+                    ${workpath}/bin/sed
     }
 
     post-patch {
@@ -228,19 +225,14 @@ if {${name} eq ${subport}} {
         }
     }
 
-    post-patch {
-        haskell_cabal.env-replace \
-                    "PATH=${haskell_cabal.cabal_root}/bin:$env(PATH)" \
+    haskell_cabal.env \
+                    "CABAL_CONFIG=${haskell_cabal.cabal_root}/config" \
+                    "GHC=${haskell_cabal.cabal_root}/bin/ghc" \
                     "PATH=${workpath}/bin:${haskell_cabal.cabal_root}/bin:$env(PATH)"
-        foreach phase {configure build destroot test} {
-            ${phase}.env \
-                    {*}${haskell_cabal.env}
-        }
-    }
 
     pre-configure {
         system -W ${worksrcpath} \
-                    "./boot"
+            "env ${haskell_cabal.env} ./boot"
     }
 
     use_autoconf    yes
@@ -254,7 +246,7 @@ if {${name} eq ${subport}} {
 
     post-build {
         system -W ${build.dir} \
-                    "${build.cmd} docs [haskell_cabal.build_getjobsarg]"
+            "env ${haskell_cabal.env} ${build.cmd} docs [haskell_cabal.build_getjobsarg]"
     }
 
     pre-destroot {
@@ -378,7 +370,7 @@ subport ghc-prebuilt {
 subport hadrian {
     # find ${worksrcpath} -type f -exec egrep -E -o '"pkg-name":"shake","pkg-version":"[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"' {} ';'
     version         0.19.6
-    revision        0
+    revision        1
 
     distname        ${name}-${ghc_version}
     distfiles       [lindex ${ghc_source_checksums} 0]

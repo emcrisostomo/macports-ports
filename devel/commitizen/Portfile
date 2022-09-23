@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                commitizen
-version             2.32.5
+version             2.34.0
 revision            0
 categories-prepend  devel
 license             MIT
@@ -24,9 +24,9 @@ long_description    Commitizen is a tool designed for teams. Its main purpose is
 
 homepage            https://${name}-tools.github.io/${name}/
 
-checksums           rmd160  60e4fd5e95e4814f630accedc3950a802547ea5c \
-                    sha256  051ed762b94b97897921322aa5cd1848211aa974bd277c1c9cee852675c90f42 \
-                    size    35112
+checksums           rmd160  6258cf929dc52b6cbbc31905976228e364568b09 \
+                    sha256  03a27229fa22ae745aee12e6156a8bf0ec40bbad74906f150c6ee523e661c479 \
+                    size    35868
 
 depends_build-append \
     port:py${python.version}-setuptools
