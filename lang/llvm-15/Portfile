@@ -50,7 +50,7 @@ compiler.blacklist      *gcc* {clang < 1001} macports-clang-3.*
 # work/build/include/c++/v1/optional:224:5: error: destructor cannot be marked constexpr
 #     _LIBCPP_CONSTEXPR_AFTER_CXX17 ~__optional_destruct_base()
 compiler.blacklist-append {clang < 1204} {macports-clang-[5-9].0} {macports-clang-1[0-2]}
-compiler.fallback       clang macports-clang-14 macports-clang-13
+compiler.fallback       clang macports-clang-13 macports-clang-14
 
 # We can't use Ninja with our custom destrooting plan for llvm
 #cmake.generator         Ninja
@@ -163,6 +163,15 @@ if {${os.platform} eq "darwin" && ${os.major} < 16} {
     # Avoid attempts to use 'clonefile'
     # llvm/lib/Support/Unix/Path.inc:1476:10: error: use of undeclared identifier 'clonefile'
     patchfiles-append  0031-Avoid-Use-Of-Clonefile.patch
+}
+
+if {${os.platform} eq "darwin" && ${os.major} < 14} {
+    # Revert use of pthread/qos.h that is only available on macOS10.10 and newer
+    # https://trac.macports.org/ticket/65626#comment:5
+    # Created by reverting the commit
+    # https://github.com/llvm/llvm-project/commit/9902a0945d22cd5757b16ebe85fe07059723aa09
+    # > git revert 9902a0945d22cd5757b16ebe85fe07059723aa09
+    patchfiles-append  0110-Avoid-Pthread-QOS.patch
 }
 
 post-patch {
@@ -284,11 +293,8 @@ if { ${subport} eq "flang-${llvm_version}" } {
     }
 }
 
-# Currently does not build on mac OS10.9 (Darwin 13) and older, due to issues
-# relating to lack of <pthread/qos.h>. For more details, and a possible future fix see
-# https://trac.macports.org/ticket/65626
-# Until then, restrict to 10.10 and newer.
-if {${os.platform} eq "darwin" && ${os.major} < 14} {
+# Restrict to 10.7 and newer
+if {${os.platform} eq "darwin" && ${os.major} < 11} {
     depends_build
     depends_lib
     depends_run
