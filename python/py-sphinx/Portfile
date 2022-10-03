@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-sphinx
-version             5.1.1
+version             5.2.3
 categories-append   textproc devel
 license             BSD
 maintainers         {jmr @jmroot} openmaintainer
@@ -22,9 +22,9 @@ supported_archs     noarch
 homepage            https://www.sphinx-doc.org/
 python.rootname     Sphinx
 
-checksums           md5 08103629c90d868d72d4fa89897fef7d \
-                    rmd160 63bb33f4c4069f2e22927cf4c008e78f46afef26 \
-                    sha256 ba3224a4e206e1fbdecf98a4fae4992ef9b24b85ebf7b584bb340156eaf08d89
+checksums           md5 327ae7af29b3f08f059b52a4b9ed98cb \
+                    rmd160 ff4beb3241943a2bf06d1b00d65f24b962b770d0 \
+                    sha256 5b10cb1022dac8c035f75767799c39217a05fc0fe2d6fe5597560d38e44f0363
 
 python.versions     27 35 36 37 38 39 310
 
@@ -40,8 +40,9 @@ if {$subport ne $name} {
                     port:py${python.version}-snowballstemmer \
                     port:sphinx_select
     if {${python.version} > 35} {
-        patchfiles-append   setup.py.patch
+        patchfiles-append   pyproject.toml.patch
         python.pep517   yes
+        python.pep517_backend   flit
         if {${python.version} <= 39} {
             depends_lib-append  port:py${python.version}-importlib-metadata
         }

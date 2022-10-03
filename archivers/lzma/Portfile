@@ -4,6 +4,9 @@ PortSystem      1.0
 PortGroup       legacysupport 1.1
 PortGroup       makefile 1.0
 
+# utimensat
+legacysupport.newest_darwin_requires_legacy 16
+
 name            lzma
 version         22.01
 revision        0
@@ -20,7 +23,7 @@ long_description \
     ratio and very fast decompression.
 
 homepage        https://www.7-zip.org/sdk.html
-master_sites    https://www.7-zip.org//a/
+master_sites    https://www.7-zip.org/a/
 
 use_7z          yes
 distname        lzma[strsed ${version} {/\.//}]
@@ -30,6 +33,14 @@ checksums       rmd160  beb1e2c42719e4156935dc573df018146406e353 \
                 size    1261282
 
 extract.mkdir   yes
+
+post-extract {
+    fs-traverse item [list ${worksrcpath}] {
+        if {[file isdirectory ${item}]} {
+            file attributes ${item} -permissions ag+rx
+        }
+    }
+}
 
 patchfiles      patch-7zip_gcc_mak.diff \
                 patch-lzma.1
@@ -77,4 +88,4 @@ The LZMA SDK program is installed as \"lzma_alone\", to avoid conflict with LZMA
 "
 
 livecheck.type  regex
-livecheck.regex {(\d+(?:\.\d+)*):}
+livecheck.regex {>(\d+(?:\.\d+)*)</td>}

@@ -15,15 +15,24 @@ maintainers         {mjrc.nl:macports @mjrc} openmaintainer
 
 
 # *NOTE* Remember to update `latestVersion` on a version upgrade.
-set latestVersion       terragrunt-0.38
+set latestVersion       terragrunt-0.39
+
+subport terragrunt-0.39 {
+    set dependsOn       1.2
+    set patchNumber     0
+
+    checksums           rmd160  81e57db97a55878ef29033898c736e1e4ab6c278 \
+                        sha256  a47b0a984d2ba22cb345250ea37ff95e22a90b5e5333b0b47e2acbe8693a9ae5 \
+                        size    2307589
+}
 
 subport terragrunt-0.38 {
     set dependsOn       1.2
-    set patchNumber     9
+    set patchNumber     12
 
-    checksums           rmd160  293b4ed0252fa62b5b32a4cc6f84a8977f6ea96d \
-                        sha256  978fc09f6b439a3860476f547df4ddedd8fcb45a2a922b7eabc95752f778616b \
-                        size    2306674
+    checksums           rmd160  89ffa2c0cf99dbd3aa82294eebe9e2530a56e769 \
+                        sha256  bcb7e5396948c65895d87780bfcc257ca1e9cb44c9e37fdb1c1d18e892fafeda \
+                        size    2307124
 }
 
 subport terragrunt-0.37 {

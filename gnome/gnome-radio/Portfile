@@ -6,8 +6,8 @@ PortGroup           debug 1.0
 PortGroup           app 1.0
 
 name                gnome-radio
-version             46.0
-revision            1
+version             48.0
+revision            0
 
 categories          gnome
 license             GPL-3+
@@ -22,9 +22,9 @@ set branch          [lindex [split ${version} .] 0]
 master_sites        gnome:sources/${name}/${branch}/
 use_xz              yes
 
-checksums           rmd160  3904f53b8c6861a890a6b5ae7efabf7c2306daff \
-                    sha256  86d775d3b465e97cdc65111231b96f3ddd7ebc81987f4b259de02309bd679c37 \
-                    size    438224
+checksums           rmd160  5524afe9e21f86d3eb458ed7c62f11a48ee06a61 \
+                    sha256  e64b37d983e8111a62cf5a3a5732fca25fa80a8f3b4a615581dbb6da5454daef \
+                    size    448772
 
 depends_build-append \
                     port:pkgconfig \
