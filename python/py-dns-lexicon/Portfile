@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-dns-lexicon
-version             3.11.4
+version             3.11.6
 epoch               1
 revision            0
 categories-append   net
@@ -17,11 +17,13 @@ description         Manipulate DNS records on various DNS providers in a \
 long_description    {*}${description}
 homepage            https://github.com/AnalogJ/lexicon
 
+distname            dns_lexicon-${version}
+
 python.versions     37 38 39 310
 
-checksums           rmd160  3ddb0575067e5fcc831db67e1bf58dd4a9821fd9 \
-                    sha256  eca3688a458bc59b9539591b90f6835cb0f90eccda56379b09d40345708fa3c6 \
-                    size    152784
+checksums           rmd160  dbd02d0f601667f53f6cc958399efd02a677c748 \
+                    sha256  f94f542fbf3ff7561f1f5e94127f7202abc276d66745241a6ba53a1c9e92886b \
+                    size    152733
 
 if {${name} ne ${subport}} {
     depends_lib-append \

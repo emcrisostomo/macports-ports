@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         MCE 1.879 ../../authors/id/M/MA/MARIOROY
+perl5.setup         MCE 1.881 ../../authors/id/M/MA/MARIOROY
 revision            0
 maintainers         {devans @dbevans} openmaintainer
 license             {Artistic-1 GPL}
@@ -14,9 +14,9 @@ long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  d90f49d4aa569c88ea424729bd963a883218974c \
-                    sha256  9c4cf39838b5c113448799af451b3d64b54e0de39d635536d7e85e8bdc5888dc \
-                    size    224587
+checksums           rmd160  94059ad17f0d69cecb604813e6dcc737c4d8467c \
+                    sha256  ca616f380fe72affd154589e2e77734161437f0d93c9eeb1c59a14baf5a6917d \
+                    size    225337
 
 if {${perl5.major} != ""} {
     depends_lib-append \
