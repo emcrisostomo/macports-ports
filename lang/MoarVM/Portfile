@@ -10,7 +10,7 @@ legacysupport.newest_darwin_requires_legacy 10
 
 name                MoarVM
 version             2022.07
-revision            0
+revision            1
 categories          lang devel
 license             Artistic-2 MIT BSD ISC public-domain
 maintainers         {mojca @mojca} openmaintainer
@@ -38,6 +38,10 @@ depends_lib         port:dyncall \
 patchfiles          patch-Configure.diff \
                     patch-dyncall.diff \
                     patch-syncsocket.diff
+
+# Building nqp on PPC results in malloc errors (though build still succeeds):
+# malloc: *** error for object: incorrect checksum for freed object - object was probably modified after being freed.
+legacysupport.redirect_bins MoarVM
 
 # https://trac.macports.org/ticket/53950
 compiler.blacklist  cc gcc-* apple-gcc-* llvm-gcc-*
