@@ -2,18 +2,20 @@
 
 PortSystem          1.0
 PortGroup           cmake 1.1
-PortGroup           compiler_blacklist_versions 1.0
 PortGroup           github 1.0
+PortGroup           legacysupport 1.1
+legacysupport.newest_darwin_requires_legacy 18
+legacysupport.use_mp_libcxx yes
 
 # src/third_party/blake3/CMakeLists.txt checks CMAKE_SIZEOF_VOID_P
 PortGroup           muniversal 1.0
 
-github.setup        ccache ccache 4.6.3 v
+github.setup        ccache ccache 4.7.1 v
 revision            0
 
-checksums           rmd160  80cad9c9b8776df0ab830f17c0d3dbe07b3a9589 \
-                    sha256  1e3a251bb112632553b8255a78661fe526c3a16598496d51128c32b218fd8b22 \
-                    size    531184
+checksums           rmd160  84e19d813426c5f73933f80c1bb8f6913501f3a3 \
+                    sha256  04ccc746524cb7fb914ccdfc66e7c54504204afee0e270ac75e8f66196521b6d \
+                    size    545788
 
 categories          devel
 platforms           darwin freebsd
@@ -43,12 +45,11 @@ platform darwin 8 {
 compiler.c_standard 1999
 
 compiler.cxx_standard \
-                    2014
+                    2017
 
-# CMake Error at CMakeLists.txt:31: The compiler you are using is too old, sorry.
-compiler.blacklist-append  {clang < 700}
-# error: static_assert failed "unique_ptr constructed with null function pointer deleter"
-compiler.blacklist-append  {clang < 900}
+depends_build-append \
+                    bin:perl:perl \
+                    port:pkgconfig
 
 depends_lib-append  port:hiredis \
                     port:zstd
