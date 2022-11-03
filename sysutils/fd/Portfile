@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        sharkdp fd 8.5.0 v
+github.setup        sharkdp fd 8.5.2 v
 github.tarball_from archive
 revision            0
 
@@ -23,9 +23,9 @@ maintainers         {saagarjha.com:saagar @saagarjha} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  2da1887c1db965c6aaef5f7be83619bbd7d4207f \
-                    sha256  b719d87da077e35a7588541ba99acbd01e53aa3242b40e26c487d047b959247b \
-                    size    113671
+                    rmd160  2e55c5471275c2f596bd8caefdcb9eee4521ddbe \
+                    sha256  bc66842481d2121f58e7b178b449b5d387078fabcf712355e8db10f9a7af2cd7 \
+                    size    114140
 
 pre-build {
     file mkdir ${worksrcpath}/shell_completions
