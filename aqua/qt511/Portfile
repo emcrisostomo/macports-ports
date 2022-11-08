@@ -167,7 +167,7 @@ array set modules {
         {"Qt Core" "Qt GUI" "Qt Network" "Qt SQL" "Qt Test" "Qt Widgets" "Qt Concurrent" "Qt D-Bus" "Qt OpenGL" "Qt Platform Headers" "Qt Print Support" "Qt XML"}
         ""
         "variant overrides: "
-        "revision 8"
+        "revision 9"
         "License: "
     }
     qtcanvas3d {
@@ -297,12 +297,12 @@ array set modules {
             2197304
         }
         ""
-        "path:lib/pkgconfig/jasper.pc:jasper port:libmng port:tiff port:webp"
+        "port:jasper port:libmng port:tiff port:webp"
         "qtbase"
         {"Qt Image Formats"}
         ""
         "variant overrides: "
-        "revision 1"
+        "revision 2"
         "License: "
     }
     qtlocation {
@@ -317,7 +317,7 @@ array set modules {
         {"Qt Location" "Qt Positioning"}
         ""
         "variant overrides: "
-        "revision 4"
+        "revision 5"
         "License: "
     }
     qtmacextras {
@@ -632,7 +632,7 @@ array set modules {
         {"Qt WebKit" "Qt WebKit Widgets"}
         "community support only (use Qt WebEngine)"
         "variant overrides: "
-        "revision 4"
+        "revision 5"
         "License: "
     }
     qtwebkit-examples {
