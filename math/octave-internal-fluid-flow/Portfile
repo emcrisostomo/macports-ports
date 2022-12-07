@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           octave 1.0
 
-version             0.3.0
-revision            0
+version             0.3.1
+revision            1
 github.setup        aumpierre-unb Internal-Fluid-Flow-for-GNU-Octave ${version} v
 octave.setup        internal-fluid-flow ${version}
 license             GPL-3
@@ -15,6 +15,9 @@ long_description    {*}${description}
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  58290de07d7f226d9b1a2088ef5a14507a649e4a \
-                    sha256  9332698535d8c2c1225d8feeafc422c83b016dd005f0dec34bc8ad30f2f6b9f3 \
-                    size    158061
+# Stealth update!
+dist_subdir   ${name}/${version}_1
+
+checksums           rmd160  e88ac215983b83067b17f38dd09caa429d795730 \
+                    sha256  47ef560573e1f84ac272175b081e3595db720a4b19dfc1a0a0862cf398d55427 \
+                    size    157953
