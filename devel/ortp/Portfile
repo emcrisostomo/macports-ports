@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 PortGroup           github 1.0
 
-github.setup        BelledonneCommunications ortp 5.2.0
+github.setup        BelledonneCommunications ortp 5.2.6
 github.tarball_from archive
 revision            0
 
@@ -18,9 +18,9 @@ long_description    \
     available for most unix clones (primilarly Linux and HP-UX), and \
     Microsoft Windows.
 
-checksums           rmd160 5d724c51510194ef79193ad0bdeae0646582ed5a \
-                    sha256 32a0accf5c19df17ef27bd77473fe636f4ecc8eafcaf710e3b49a582776e78ac \
-                    size 245521
+checksums           rmd160 ac01fe81125d7394a3c3609582c835c5e5190f72 \
+                    sha256 17cb4b03262c10926d65228331b30a1cfe1d28980fdc919fd79dadc4fbee2de1 \
+                    size 245192
 
 depends_lib         port:bctoolbox
 

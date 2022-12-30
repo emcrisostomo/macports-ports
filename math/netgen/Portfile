@@ -9,7 +9,7 @@ PortGroup               compiler_blacklist_versions 1.0
 PortGroup               legacysupport 1.1
 
 github.setup            NGSolve netgen 6.2.2204 v
-revision                1
+revision                2
 platforms               darwin
 categories              math
 license                 LGPL-2
@@ -49,6 +49,8 @@ patchfiles-append       patch-no-external.diff \
                         patch-link-agains-ffmpeg.diff \
                         patch-cmake-version.diff \
                         patch-MacPorts-rpath.diff \
+                        patch-MacPorts-togl.diff \
+                        patch-ensure_gui_defines.diff \
                         patch-propagate_c_compiler.diff
 
 depends_lib-append      port:zlib \
@@ -73,12 +75,7 @@ if {${os.platform} eq "darwin" && ${os.major} <= 15} {
     patchfiles-append   patch-sized-deallocation.diff
 }
 
-post-patch {
-    # use MacPorts Togl
-    reinplace {/add_subdirectory.Togl/s/^/#/g} ${worksrcpath}/ng/CMakeLists.txt
-}
-
-set pythonversions      {3.7 3.8 3.9}
+set pythonversions      {3.7 3.8 3.9 3.10 3.11}
 set any_python          no
 foreach pdv ${pythonversions} {
     set pv [join [lrange [split ${pdv} .] 0 1] ""]
@@ -95,7 +92,7 @@ foreach pdv ${pythonversions} {
     }
 }
 if {!${any_python}} {
-    default_variants    +python39
+    default_variants    +python310
 }
 foreach pdv ${pythonversions} {
     set pv [join [lrange [split ${pdv} .] 0 1] ""]

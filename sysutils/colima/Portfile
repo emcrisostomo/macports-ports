@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/abiosoft/colima 0.5.0 v
+go.setup            github.com/abiosoft/colima 0.5.2 v
 github.tarball_from archive
 revision            0
 
@@ -17,18 +17,19 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  c4cae4642fb9dd26d2c4e3d582eccbba9e4ad66e \
-                    sha256  5e507a00631a3ef195cc90cae51b99f26076586f370e466cb526e64d715209a4 \
-                    size    614662
+checksums           rmd160  1bd18716d5d85e84f84038e85e7174fbebd481a5 \
+                    sha256  8f51bf1cb9f826c9ac45100f05d68ba8560cdd8f0a156f61d89c8269bc766939 \
+                    size    636854
 
 depends_run         port:lima
 
 build.env-delete    GO111MODULE=off GOPROXY=off
 
 build.pre_args-append \
-    -ldflags \
-    \"-X ${go.package}/config.appVersion=${github.tag_prefix}${version} \
-      -X ${go.package}/config.revision= \"
+    -ldflags \" \
+        -X ${go.package}/config.appVersion=${github.tag_prefix}${version} \
+        -X ${go.package}/config.revision= \
+    \"
 
 build.args          ./cmd/${name}
 

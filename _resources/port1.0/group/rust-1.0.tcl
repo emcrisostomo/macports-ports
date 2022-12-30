@@ -181,7 +181,16 @@ proc rust.add_bootstrap_components {architectures {components {rust-std rustc ca
         if { ${build_vendor} ne "transition" } {
             foreach component ${components} {
                 set binTag          ${rustc_version}-[option triplet.cpu.${arch}]-${build_vendor}-[option triplet.os]${build_major}
-                distfiles-append    ${component}-${binTag}${extract.suffix}:${build_vendor}_vendor
+                # bootstrap binaries not currently available for Tiger
+                # https://trac.macports.org/ticket/65184
+                if {$build_major != 8} {
+                    distfiles-append    ${component}-${binTag}${extract.suffix}:${build_vendor}_vendor
+                }
+                # mirroring workaround for Snow Leopard i386 files
+                if {[variant_exists mirror_i386] && [variant_isset mirror_i386]} {
+                    set extrabintag     ${version_m1}+0-[option triplet.cpu.i386]-macports-[option triplet.os]10
+                    distfiles-append    ${component}-${extrabintag}${extract.suffix}:macports_vendor
+                }
             }
         } else {
             depends_extract-delete          port:rust-bootstrap-transition
