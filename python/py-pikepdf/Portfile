@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
+PortGroup           github 1.0
 PortGroup           python 1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                py-pikepdf
-version             6.2.6
+github.setup        pikepdf pikepdf 6.2.8.post1 v
 revision            0
 categories-append   graphics
 license             MPL-2
@@ -18,9 +19,9 @@ homepage            https://github.com/pikepdf/pikepdf
 
 python.versions     37 38 39 310 311
 
-checksums           rmd160  33efa86536b1b8161ba1df7c90a86072acec1bb3 \
-                    sha256  ac0ef9a15d125157955f5001d3eaf7dc62f37863d2172e12434b9efad4b89bf0 \
-                    size    2914975
+checksums           rmd160  c3f78fc60a98d8e2fec9e931523401b9d1fbe415 \
+                    sha256  d4d6008224204290202aba4a017fe91b1554d67b56554a9e6a1ef472a6e6c691 \
+                    size    2906053
 
 if {${name} ne ${subport}} {
     depends_build-append \
