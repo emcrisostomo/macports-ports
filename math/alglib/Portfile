@@ -5,7 +5,7 @@ PortGroup               cmake 1.1
 
 name                    alglib
 version                 3.20.0
-revision                0
+revision                1
 categories              math
 license                 GPL-2+
 maintainers             {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
@@ -31,3 +31,6 @@ post-extract {
 
 configure.args-append   -DALGLIB_VERSION=${version} \
                         -DALGLIB_VERSION_MAJOR=[lindex [split ${version} .] 0]
+
+test.run                yes
+test.args-append        DYLD_LIBRARY_PATH=${cmake.build_dir}

@@ -4,10 +4,11 @@ PortSystem              1.0
 PortGroup               cmake          1.1
 PortGroup               mpi            1.0
 PortGroup               linear_algebra 1.0
-PortGroup               muniversal     1.0
+PortGroup               muniversal     1.1
 
 name                    gmsh
-version                 4.11.0
+version                 4.11.1
+revision                1
 categories              science
 license                 GPL-2+
 maintainers             {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
@@ -23,9 +24,9 @@ master_sites            https://gmsh.info/src/
 distname                gmsh-${version}-source
 extract.suffix          .tgz
 
-checksums               rmd160  84b0466f8cc3d489745931d85c4dd54d287f97b4 \
-                        sha256  3cf2f24455ee09252c99e64d4e6462956e68f0ff1f37baca0b78c809d6cc557a \
-                        size    17982424
+checksums               rmd160  676354515129cc42a536b7917a78a8cb3b9a0b11 \
+                        sha256  c5fe1b7cbd403888a814929f2fd0f5d69e27600222a18c786db5b76e8005b365 \
+                        size    17985611
 
 compiler.cxx_standard   2011
 compiler.c_standard     1999
@@ -34,6 +35,7 @@ mpi.setup
 veclibfort              no
 
 depends_lib-append      port:alglib \
+                        port:eigen3 \
                         path:lib/libfltk.dylib:fltk \
                         port:gmp \
                         port:mathex \
@@ -116,26 +118,29 @@ if {[variant_isset openmp]} {
     compiler.openmp_version 2.5
 }
 
-variant python37 conflicts python38 python39 python310 description {Use Python 3.7} {}
-variant python38 conflicts python37 python39 python310 description {Use Python 3.8} {}
-variant python39 conflicts python37 python38 python310 description {Use Python 3.9} {}
-variant python310 conflicts python37 python38 python39 description {Use Python 3.10} {}
+variant python37 conflicts python38 python39 python310 python311 description {Use Python 3.7} {}
+variant python38 conflicts python37 python39 python310 python311 description {Use Python 3.8} {}
+variant python39 conflicts python37 python38 python310 python311 description {Use Python 3.9} {}
+variant python310 conflicts python37 python38 python39 python311 description {Use Python 3.10} {}
+variant python311 conflicts python37 python38 python39 python310 description {Use Python 3.11} {}
 
-foreach pv {310 39 38 37} {
+foreach pv {311 310 39 38 37} {
     if {[variant_isset python${pv}]} {
         set python.version ${pv}
         set python.branch [string index ${python.version} 0].[string range ${python.version} 1 end]
+
+        depends_lib-append  port:py${python.version}-wheel
+
+        post-destroot {
+            system  -W ${cmake.build_dir} "${prefix}/bin/python${python.branch} ${worksrcpath}/utils/pypi/sdktowheel.py ${destroot}${prefix} ${os.platform}"
+            xinstall -d -m 0755 ${destroot}${frameworks_dir}/Python.framework/Versions/${python.branch}/lib/python${python.branch}
+            move    ${destroot}${prefix}/lib/gmsh.py \
+                    ${destroot}${frameworks_dir}/Python.framework/Versions/${python.branch}/lib/python${python.branch}
+            system  -W ${destroot}${frameworks_dir}/Python.framework/Versions/${python.branch}/lib/python${python.branch} \
+                    "${frameworks_dir}/Python.framework/Versions/${python.branch}/bin/python3 -m compileall ."
+        }
         break
     }
 }
 
-if {[variant_isset python37] || [variant_isset python38] \
-    || [variant_isset python39] || [variant_isset python310]} {
-    set python.prefix   ${frameworks_dir}/Python.framework/Versions/${python.branch}/
-
-    depends_lib-append  port:py${python.version}-wheel
-
-    post-destroot {
-        system -W ${cmake.build_dir} "${prefix}/bin/python${python.branch} ${worksrcpath}/utils/pypi/sdktowheel.py ${destroot}${prefix} ${os.platform}"
-    }
-}
+test.run                yes
