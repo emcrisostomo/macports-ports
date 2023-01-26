@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           boost 1.0
 
 name                libreoffice
-version             7.4.4.1
+version             7.5.0.2
 revision            0
 categories          office aqua
 license             {LGPL-3 MPL-1.1}
@@ -49,17 +49,17 @@ distfiles           ${main_distfile}:main \
                     nss-3.86-with-nspr-4.35.tar.gz:nss
 
 checksums           ${name}-${version}.tar.xz \
-                    rmd160  cabe7c6ac3056807ea3579ecd72c1bce6d47cd6f \
-                    sha256  2c51d60eb6b1e27782a312aec57768ea29fbb0156362fc04f5134e2cfe5439f1 \
-                    size    264326444 \
+                    rmd160  69ecbec3865efa01e173d1ad5ae4437e480b27fb \
+                    sha256  75587fa9052f171ab20fbd7a089bffaa066562cac8fe5de7a6d1f222c0dc1fce \
+                    size    266001548 \
                     ${name}-dictionaries-${version}.tar.xz \
-                    rmd160  a875988adbce33043b2cfebfde500db3304d9e9b \
-                    sha256  17d1f19fb7a3f3a11fdc910b287ee02f83afa66e380b7dddd288b41c3b969148 \
-                    size    51498204 \
+                    rmd160  c1b845c7812e620c64c7bf2340d1f6382c3ece70 \
+                    sha256  02703dc25b80835fe772613b1b2f5d5cdc2bba85ad59550d0dacb3882849b2ed \
+                    size    51804112 \
                     ${name}-translations-${version}.tar.xz \
-                    rmd160  b7a04cd2189ebca44c484b1182d55c7b0e07a7ae \
-                    sha256  47efe5cfb98325c063b597e8bfe3f44888827cb1deec3968b5fbb857756c8b8c \
-                    size    199655572 \
+                    rmd160  5805dcfbce1b3acbab288bb6bfafe5a25c8dc2c8 \
+                    sha256  11ce8d48a5151e649fe20425557239e011599962d06e32a11dcbe004fb9c7aa8 \
+                    size    203888364 \
                     dtoa-20180411.tgz \
                     rmd160  8d1bba737d8b58c3fb09533f35af2a03e05d9849 \
                     sha256  0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4 \
