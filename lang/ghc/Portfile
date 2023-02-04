@@ -323,7 +323,6 @@ subport ghc-prebuilt {
     revision        0
     supported_archs arm64 x86_64
 
-    worksrcdir      ${ghc_distname}
     distfiles       ${ghc_distname}${extract.suffix}
 
     gpg_verify.use_gpg_verification \
@@ -345,6 +344,9 @@ subport ghc-prebuilt {
     }
 
     extract.only    ${ghc_distname}${extract.suffix}
+if {[exists extract.rename]} {
+    extract.rename  yes
+}
 
     # Build requires C11
     compiler.c_standard 2011
@@ -353,7 +355,6 @@ subport ghc-prebuilt {
     compiler.blacklist-append {clang < 700}
 
     distname        ${name}-${ghc_version}
-    worksrcdir      ${distname}
 
     build           {}
 
@@ -396,8 +397,9 @@ subport hadrian {
     distfiles       [lindex ${ghc_source_checksums} 0]
     checksums       {*}${ghc_source_checksums}
     extract.only    [lindex ${ghc_source_checksums} 0]
-
-    worksrcdir      ${distname}
+if {[exists extract.rename]} {
+    extract.rename  yes
+}
     set worksrcpath ${workpath}/${worksrcdir}/${subport}
 
     variant stack \
