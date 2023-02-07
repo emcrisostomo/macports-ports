@@ -1,18 +1,18 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           cmake 1.1
-PortGroup           github 1.0
 PortGroup           boost 1.0
-PortGroup           openssl 1.0
-PortGroup           legacysupport 1.1
+PortGroup           cmake 1.1
 PortGroup           compiler_blacklist_versions 1.0
+PortGroup           github 1.0
+PortGroup           legacysupport 1.1
+PortGroup           openssl 1.0
 
-github.setup        facebook fbthrift 2022.08.08.00 v
+github.setup        facebook fbthrift 2023.01.30.00 v
 revision            0
-checksums           rmd160  96f437cae0bfe52c4be7df6b04d09076906021c9 \
-                    sha256  6b5165b4f5115f3537b9b5843f2dec21cd4836e6d69d8562dcdfae13ca8ff322 \
-                    size    8500146
+checksums           rmd160  e227dbc53aee905d043342d36de57e52ac11c145 \
+                    sha256  66c785a116b52d36cc113b9e639471bd89ca67bdd422f85fad1e44dfa98d7a8f \
+                    size    13408656
 
 categories          devel
 license             Apache-2
@@ -31,9 +31,9 @@ cmake.module_path-append \
 depends_build-append \
                     port:bison \
                     port:flex
-depends_lib-append  port:mstch \
+depends_lib-append  port:fizz \
+                    port:mstch \
                     port:wangle \
-                    port:fizz \
                     port:${port_libfmt}
 
 patchfiles          patch-cpp2.diff
@@ -59,15 +59,11 @@ platform darwin {
         # gcc does not recognize -fno-aligned-allocation
         if {[string match *clang* ${configure.compiler}]} {
             configure.cxxflags-append \
-                                  -fno-aligned-allocation
+                            -fno-aligned-allocation
         }
     }
-
-    # https://kumasento.github.io/2020-06-12-glog-gflags-and-c-abi/
-    if {${os.major} < 16} {
-        configure.cxxflags-append -D_GLIBCXX_USE_CXX11_ABI=0
-    }
     if {[string match *gcc* ${configure.compiler}]} {
-        configure.ldflags-append  -latomic
+        configure.ldflags-append \
+                            -latomic
     }
 }

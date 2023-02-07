@@ -1,18 +1,18 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           cmake 1.1
-PortGroup           github 1.0
 PortGroup           boost 1.0
-PortGroup           openssl 1.0
-PortGroup           legacysupport 1.1
+PortGroup           cmake 1.1
 PortGroup           compiler_blacklist_versions 1.0
+PortGroup           github 1.0
+PortGroup           legacysupport 1.1
+PortGroup           openssl 1.0
 
-github.setup        facebook wangle 2022.08.08.00 v
+github.setup        facebook wangle 2023.01.30.00 v
 revision            0
-checksums           rmd160  60cfe88b01bb5c1ed4b49aa280b0d077c407b355 \
-                    sha256  b0e4f1beda451e3a35547d250531eb40950fe1d376dd6dc0282e21b1709eb4d8 \
-                    size    336226
+checksums           rmd160  40c00b74d7064f0f11971e0e3edd12dee30af267 \
+                    sha256  03e981ffca04aa11605eb129a9a1efdf4fd0828ac83b814852ca8caf3b8694fa \
+                    size    339206
 
 categories          devel
 license             BSD
@@ -37,9 +37,9 @@ depends_lib-append  port:double-conversion \
                     port:folly \
                     port:google-glog \
                     port:libevent \
-                    port:${port_libfmt} \
                     port:libsodium \
-                    port:zlib
+                    port:zlib \
+                    port:${port_libfmt}
 
 cmake.source_dir    ${worksrcpath}/${name}
 
@@ -65,13 +65,8 @@ if {[string match *clang* ${configure.compiler}]} {
     legacysupport.use_mp_libcxx yes
 }
 
-platform darwin {
-    # https://kumasento.github.io/2020-06-12-glog-gflags-and-c-abi/
-    if {${os.major} < 16} {
-        configure.cxxflags-append -D_GLIBCXX_USE_CXX11_ABI=0
-    }
-    if {[string match *gcc* ${configure.compiler}]} {
-        # ___atomic_fetch_sub_8, ___atomic_compare_exchange_8, ___atomic_store_8, ___atomic_load_8, ___atomic_fetch_add_8
-        configure.ldflags-append  -latomic
-    }
+if {[string match *gcc* ${configure.compiler}]} {
+    # ___atomic_fetch_sub_8, ___atomic_compare_exchange_8, ___atomic_store_8, ___atomic_load_8, ___atomic_fetch_add_8
+    configure.ldflags-append \
+                    -latomic
 }
