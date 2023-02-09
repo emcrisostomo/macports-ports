@@ -5,8 +5,8 @@ PortGroup           cmake 1.1
 PortGroup           github 1.0
 PortGroup           boost 1.0
 
-github.setup        apache arrow 8.0.0 apache-arrow-
-revision            3
+github.setup        apache arrow 11.0.0 apache-arrow-
+revision            0
 name                ${github.author}-${github.project}
 
 categories          devel
@@ -20,12 +20,9 @@ long_description    Apache Arrow is a development platform for in-memory \
                     analytics. It contains a set of technologies that \
                     enable big data systems to process and move data fast.
 
-# stealth update 2022-07; remove for next version
-dist_subdir         ${name}/${version}_1
-
-checksums           rmd160  37c669b5c80b034f58ecdafe7fa4476e041255a6 \
-                    sha256  0086ea4b5fc65f759a01ecb98fdce83033258822350b9e92162c6e18c037babf \
-                    size    17725097
+checksums           rmd160  8fc930aaddf3ed33396df0cdf9333b84b0ccc442 \
+                    sha256  416b6a16a2c44b219abdadf04773f170da27e9e17086b6576e582a104bb1e74c \
+                    size    19653769
 
 compiler.cxx_standard \
                     2017
@@ -200,7 +197,9 @@ if {[string match "py*" ${subport}]} {
                     port:py${python.version}-pycares \
                     port:py${python.version}-numpy \
                     path:${python.pkgd}/tensorflow:py${python.version}-tensorflow
-    if {${python.version} eq 310} {
+
+    # py-tensorflow-macos requires minimum macOS 12.0 and Python 3.8
+    if {${os.major} >= 21 && ${python.version} >= 38} {
         depends_lib-replace \
                     path:${python.pkgd}/tensorflow:py${python.version}-tensorflow \
                     path:${python.pkgd}/tensorflow:py${python.version}-tensorflow-macos
@@ -246,7 +245,7 @@ if {[string match "py*" ${subport}]} {
     }
 
     cmake.module_path-prepend \
-                    ${configure_destdir}${prefix}/lib/cmake/arrow
+                    ${configure_destdir}${prefix}/lib/cmake
 
     compiler.library_path \
                     "${configure_destdir}${prefix}/lib:${prefix}/lib"
@@ -280,8 +279,8 @@ if {[string match "py*" ${subport}]} {
                     -Dre2_DIR:PATH=${prefix}/lib/cmake/grpc/modules
 
     pre-build {
-        reinplace -E -q "s|^(set\\(PLASMA_STORE_SERVER\[\[:space:]]+\")(${prefix}/bin/plasma-store-server\"\\))|\\1${configure_destdir}\\2|" \
-            ${configure_destdir}${prefix}/lib/cmake/arrow/PlasmaConfig.cmake
+        reinplace "s|${prefix}/bin/plasma-store-server|${configure_destdir}${prefix}/bin/plasma-store-server|" \
+            ${configure_destdir}${prefix}/lib/cmake/Plasma/PlasmaConfig.cmake
     }
 
     build.env-append \
