@@ -385,7 +385,7 @@ if {[lsearch -exact $PortInfo(depends_build) port:cctools] != -1} {
 
 
 # use the system python27 if present
-if {${os.platform} eq "darwin" && ${os.major} >= 11 && ${os.major} < 22} {
+if {${os.platform} eq "darwin" && ${os.major} >= 11 && ${os.major} < 21} {
     set pythonfullpath   /usr/bin/python2.7
 } else {
     set pythonfullpath   ${prefix}/bin/python2.7
@@ -472,7 +472,7 @@ platform darwin {
 }
 
 if {${subport} eq "lldb-${llvm_version}"} {
-    if {${os.platform} eq "darwin" && ${os.major} < 16} {
+    if {${os.platform} eq "darwin" && (${os.major} < 16 || ${os.major} > 21)} {
         depends_build
         depends_lib
         depends_run
