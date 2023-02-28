@@ -7,7 +7,9 @@ PortGroup           github  1.0
 name                upx
 categories          archivers
 license             GPL-2+
-maintainers         {l2dy @l2dy} openmaintainer
+maintainers         {l2dy @l2dy} \
+                    {gmail.com:herby.gillot @herbygillot} \
+                    openmaintainer
 
 description         compress or expand executable files
 long_description    UPX is a free, portable, extendable, high-performance \
@@ -31,9 +33,9 @@ if {${name} eq ${subport}} {
 }
 
 subport upx-devel {
-    github.setup    upx upx 163377d1a0c008759222569d5e1152ef878adfd1
+    github.setup    upx upx fa56a1d9cd574f2eabfbda40b319b0530e60c285
     github.livecheck.branch devel
-    version         20230130
+    version         20230224
 
     fetch.type      git
 

@@ -6,6 +6,8 @@ PortGroup           python 1.0
 name                py-pipdeptree
 version             2.5.0
 license             MIT
+platforms           {darwin any}
+supported_archs     noarch
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
@@ -18,6 +20,7 @@ checksums           rmd160  37c09308255d90403fb977d8821723226652d542 \
                     sha256  ef17672a0ec47ae97ae9d50f98eabe209609ffd08e8b4abdc2e8e20bf499b151 \
                     size    120182
 
+python.pep517       yes
 python.pep517_backend \
                     hatch
 
@@ -25,9 +28,7 @@ python.versions     38 39 310 311
 
 if {${name} ne ${subport}} {
     depends_build-append \
-                    port:py${python.version}-hatch-vcs  \
-                    port:py${python.version}-setuptools \
-                    port:py${python.version}-wheel
+                    port:py${python.version}-hatch-vcs
 
     depends_lib-append \
                     port:py${python.version}-pip
