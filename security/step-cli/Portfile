@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/smallstep/cli 0.23.2 v
+go.setup            github.com/smallstep/cli 0.23.4 v
 github.tarball_from archive
 name                step-cli
 revision            0
@@ -24,9 +24,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 # Allow fetching deps at build time
 build.env-delete    GO111MODULE=off GOPROXY=off
 
-checksums           rmd160  0a7da1a8759b0710b4b67509680de9b0083a9848 \
-                    sha256  c5409021b5d40ef8a6d4dd38d81dbf3e4dc5d75c87b1c9c6b5841faa25f0d9ec \
-                    size    1718764
+checksums           rmd160  acc574733898c4248d3b7e098f210304a5c5c0a2 \
+                    sha256  c2a610399e59d05114226d69ca3a2ee282c12b73524ec4746a66a233f24275f7 \
+                    size    1721793
 
 # Mirrors already have a tarball named cli-${version}.  Since the tarball
 # is versioned, then we don't have to version our dist_subdir. We need only

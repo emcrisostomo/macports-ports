@@ -29,44 +29,44 @@ subport kubectl-1.26 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     1
+    set patchNumber     2
     revision            0
-    checksums           rmd160  2fd2cfa7b6af842565c3d73960fae43950babf63 \
-                        sha256  0e19d477b5123c74d12bb46bc72e5b6f4c407473af3772ef31cfff3a1d64d311 \
-                        size    38162001
+    checksums           rmd160  bf032b0572faa982abd99510491216aef5c1391a \
+                        sha256  7a50f0a8f0b649922f021f811d6ace8c282d09a0e3a30fa69d86b6c28eb51fd1 \
+                        size    38192706
 }
 
 subport kubectl-1.25 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     6
+    set patchNumber     7
     revision            0
-    checksums           rmd160  6bf6605c4beeb29fa9fc9b841ee7e70ed7e7f252 \
-                        sha256  bae5c57228e77f207e2a28327dcf9cc37b998515e34ee1001caed86a2ea56848 \
-                        size    38158861
+    checksums           rmd160  1d3f4da879e40f86e35359c7f40272bea13e8527 \
+                        sha256  1adac40efc6d25da3ef655fadf68d5d18d2c298ca90badf44ed213a129092ed0 \
+                        size    38169376
 }
 
 subport kubectl-1.24 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     10
+    set patchNumber     11
     revision            0
-    checksums           rmd160  04d95eca1d69c8bdd072f6af957cf3247cc599a0 \
-                        sha256  66003898bfef960a7a7f2680793a8bb251615899d2e14cea32cbdb6bff2e6125 \
-                        size    37847249
+    checksums           rmd160  3280d6fd196d04d7aa61d7fd4b643110d9dbee01 \
+                        sha256  6e3eb70f8b1ed477d887ed9cbb98b5b3706f1eb7ff57f2ea52fdf2bbb4eea371 \
+                        size    37867002
 }
 
 subport kubectl-1.23 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     16
+    set patchNumber     17
     revision            0
-    checksums           rmd160  69105654442141cb5fefd1c3626ad930454e6f8f \
-                        sha256  1864eddb7f1769abc931ce5a88a6c0dde71b98757fef4fe255f98609716ae7a7 \
-                        size    38115819
+    checksums           rmd160  b7f36ce95472e256c5dd5d2f4fee1fa08502d184 \
+                        sha256  def840469468254f2b437cb21404b0a76a81b8ee2112583d7f0bdb52e0de1c18 \
+                        size    38135738
 }
 
 subport kubectl-1.22 {
@@ -193,7 +193,7 @@ if {${subport} == ${name}} {
 
 } elseif {${subport} == "kubectl_select"} {
     version             0.0.0
-    revision            0
+    revision            1
     supported_archs     noarch
     platforms           any
 
@@ -212,6 +212,8 @@ if {${subport} == ${name}} {
         select::install kubectl ${filespath}/base
         select::install kubectl ${filespath}/none
     }
+
+    destroot.keepdirs-append ${destroot}${prefix}/share/bash-completion/completions
 
     livecheck.type     none
 

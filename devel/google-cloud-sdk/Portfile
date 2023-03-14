@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                google-cloud-sdk
-version             419.0.0
+version             421.0.0
 revision            0
 categories          devel python
 license             Apache-2
@@ -21,19 +21,19 @@ supported_archs     i386 x86_64 arm64
 
 if { ${configure.build_arch} eq "i386" } {
     distname        ${name}-${version}-darwin-x86
-    checksums       rmd160  632c2dfed2bfbe05b86cbf8a10639c6ba35b8d11 \
-                    sha256  ec4bb3923b03a8afcdf4da97f9a2740782635a0df884200bd5bd9388dcea050c \
-                    size    111278222
+    checksums       rmd160  12a6cf42829d777659668f26597a09da236ab5cc \
+                    sha256  d14efccf3dc78d6acb097d2e623660ab8604b1a467384a56564ce3f91958ab20 \
+                    size    111473424
 } elseif { ${configure.build_arch} eq "x86_64" } {
     distname        ${name}-${version}-darwin-x86_64
-    checksums       rmd160  7e58324f0e62e01c7001fc138104d04b220c65da \
-                    sha256  39890f5f541c3282931cd61b80faccb39bbb496ed7437c53a75b2915427ed53b \
-                    size    131602640
+    checksums       rmd160  c23934d9dede084a0a5e33ea3808db18aba902ec \
+                    sha256  3738438f70edc87bc94a1ee4ee4da9fc16c84141c2bb038e4db2827a5232ea37 \
+                    size    131804176
 } elseif { ${configure.build_arch} eq "arm64" } {
     distname        ${name}-${version}-darwin-arm
-    checksums       rmd160  abd241ecdead59770af0755e67ff3b8183107e29 \
-                    sha256  40bf84e3153f8c6313009164bb6413ef4c827f3f8a5ce753b537c1e599e7e05b \
-                    size    128442219
+    checksums       rmd160  204d0b2c09331a244c68c350de687a437bda3795 \
+                    sha256  baf3b0d0fd934ecea74a20b56f25828b7e3e8b848191bf6f487056c18212e03b \
+                    size    128642965
 }
 
 homepage            https://cloud.google.com/sdk/
@@ -88,6 +88,7 @@ variant cloud_sql_proxy description {Add Cloud SQL Proxy} { dict set variant_to_
 variant config_connector description {Add config connector} { dict set variant_to_component config_connector config-connector }
 variant datalab description {Add Cloud Datalab Command Line Tool} { dict set variant_to_component datalab datalab }
 variant docker_credential_gcr description {Add Google Container Registry's Docker credential helper} { dict set variant_to_component docker_credential_gcr docker-credential-gcr }
+variant enterprise_certificate_proxy description {Add Enterprise certificate proxy} { dict set variant_to_component enterprise_certificate_proxy enterprise-certificate-proxy }
 variant gke_gcloud_auth_plugin description {Add GKE Google Cloud auth plugin} { dict set variant_to_component gke_gcloud_auth_plugin gke-gcloud-auth-plugin }
 variant kpt description {Add kpt} { dict set variant_to_component kpt kpt }
 variant kubectl description {Add kubectl} { dict set variant_to_component kubectl kubectl }

@@ -11,13 +11,13 @@ PortGroup           legacysupport 1.1
 # MAP_ANONYMOUS
 legacysupport.newest_darwin_requires_legacy 14
 
-github.setup        ruby ruby eb2670e32df1bfd63167748f81f480a0dc4f0f72
+github.setup        ruby ruby 477fc776fdf03cbc69f0cd2c6fde6cac58b757f0
 
 set ruby_ver        3.3
 set ruby_patch      0
 set ruby_ver_nodot  [string map {. {}} ${ruby_ver}]
 name                ruby-devel
-version             2023.01.26
+version             2023.03.05
 revision            0
 
 categories          lang ruby
@@ -33,9 +33,9 @@ long_description    Ruby is the interpreted scripting language \
 homepage            https://www.ruby-lang.org/
 license             {Ruby BSD}
 
-checksums           rmd160  ea3147611cfba3646baf7f973ca17cbe2561c358 \
-                    sha256  eb4821d72f65293c4b45cd1211d2ad03495207714aa37dacd55109e092b1b39a \
-                    size    15610783
+checksums           rmd160  27ab84f5d21c640c7b653203876bbca0a5a0f3ba \
+                    sha256  7b4413ecae781ed905dbcde3ae504a7cb7dc566f7c36989224545d472efd9cfe \
+                    size    15663034
 
 universal_variant   no
 

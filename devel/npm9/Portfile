@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                npm9
-version             9.5.1
+version             9.6.1
 revision            0
 categories          devel
 platforms           darwin
@@ -27,10 +27,10 @@ extract.suffix      .tgz
 
 # Please keep the sha1 - users can use it to validate sha values
 # published on npmjs.org for the package
-checksums           rmd160  6d7cca7af3712a5243ed102119103479fd8cdeb1 \
-                    sha1    dc74eb85d07d78e24fadc674968a1ea16b18108c \
-                    sha256  f5f0cbf0d054e604bf9497b94f095f892702e9259361a6577b0a0fd49755cfbf \
-                    size    2614173
+checksums           rmd160  fdac27c8a742029ac126e8b87e893dab5e061c3f \
+                    sha1    a2152518a0458007fc8a3a65e9c5e17f2ea76bf7 \
+                    sha256  c151a142596abb9849637ad24a29836edf2d0b6b5743b16f7647f361551f724a \
+                    size    2622349
 
 worksrcdir          "package"
 

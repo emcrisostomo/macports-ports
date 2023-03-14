@@ -3,10 +3,25 @@
 PortSystem                  1.0
 PortGroup                   makefile    1.0
 
+# each version of Lua can (and does) break backwards compatibility
+# see, e.g.,
+#     https://trac.macports.org/ticket/40423
+#     https://trac.macports.org/ticket/46621#comment:20
+# so each major.minor version of Lua gets its own subport
+#
+# if the `version` of the main port changes, please update `lua.default_version` in the lua PortGroup
+#
+# increasing revisions of dependents:
+#     increasing the revision of dependents of subports should not be necessary since only the patch version of the subports change
+#     if the major or minor version of the main port changes, increasing the revisions of dependents may be necessary if:
+#         *) the `compat_branch` value increases as well
+#         *) the dependent port uses `lua.default_version`, whose values should be updated as well
+#         *) the dependent port uses `lua.modules`, whose versions will change
+
 name                        lua
 conflicts                   lua50
 version                     5.3.6
-revision                    1
+revision                    2
 categories                  lang
 license                     MIT
 maintainers                 {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
@@ -15,16 +30,27 @@ long_description            Lua is a {*}${description} designed for \
                             extending applications. Lua is also frequently used as a general-purpose, \
                             standalone language.
 
-homepage                    https://www.lua.org/
-master_sites                ${homepage}ftp/
+homepage                    https://www.lua.org
+master_sites                ${homepage}/ftp
 
 checksums                   rmd160  cc715df991bccaec75a022404902200d984b002e \
                             sha256  fc5fd69bb8736323f026672b1b7235da613d7177e72558893a0bdcd320466d60 \
                             size    303770
 
+# Semantic Versioning uses x.y.z as the "version"
+# in the Lua nomenclature, x.y is the version and z is the release
+#     this causes notation conflict within the port
+#     the lua PG has an option `lua.version` for consistency with the Lua language
+#     the Portfile uses the name branch to avoid conflict with the MacPorts concept of version
+# see
+#     https://semver.org
+#     https://www.lua.org/versions.html
+
 subport                     ${name} {
     patchfiles              patch-src-Makefile.diff
 
+    # for default value, see ${worksrcpath}src/Makefile
+    set compat_branch       5.1
     # considering the myriad of compatibility subports, it is not clear this is desirable
     # added in https://github.com/macports/macports-ports/commit/6fc7473672d8bdcb06b6726cb224b860b204757d
     #
@@ -34,7 +60,7 @@ subport                     ${name} {
 
 subport                     lua54 {
     version                 5.4.4
-    revision                1
+    revision                2
     checksums               rmd160  fc2d63300da19e1c2cdb35011034d44cfd590b0e \
                             sha256  164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61 \
                             size    360876
@@ -44,7 +70,7 @@ subport                     lua54 {
 
 subport                     lua53 {
     version                 5.3.6
-    revision                1
+    revision                2
     checksums               rmd160  cc715df991bccaec75a022404902200d984b002e \
                             sha256  fc5fd69bb8736323f026672b1b7235da613d7177e72558893a0bdcd320466d60 \
                             size    303770
@@ -54,7 +80,7 @@ subport                     lua53 {
 
 subport                     lua52 {
     version                 5.2.4
-    revision                5
+    revision                6
     checksums               rmd160  3bad2da85f354132da6a53b45882006f0a451b5c \
                             sha256  b9e2e4aad6789b3b63a056d442f7b39f0ecfca3ae0f1fc0ae4e9614401b69f4b \
                             size    252651
@@ -68,7 +94,7 @@ subport                     lua52 {
 
 subport                     lua51 {
     version                 5.1.5
-    revision                7
+    revision                8
     checksums               rmd160  b0c2234675335a8bf158a125b6778cf800c754a0 \
                             sha256  2640fc56a795f29d28ef15e13c34a47e223960b0240e8cb0a82d9b0738695333 \
                             size    221213
@@ -79,6 +105,8 @@ subport                     lua51 {
 # TODO: also add lua50 here
 
 set branch                  [join [lrange [split ${version} .] 0 1] .]
+
+use_parallel_build          no
 
 depends_lib                 port:readline
 
@@ -100,104 +128,107 @@ if {${os.platform} ne "darwin"} {
 test.run                    yes
 test.args-append            DYLD_LIBRARY_PATH=${worksrcpath}/src
 
-post-extract {
-    xinstall -m 0644        ${filespath}/COPYRIGHT \
-                            ${worksrcpath}
-
-    if {${subport} eq ${name}} {
-        xinstall -m 0644    ${filespath}/lua.pc \
-                            ${worksrcpath}
-    } else {
-        xinstall -m 0644    ${filespath}/lua-branched.pc \
-                            ${worksrcpath}/lua.pc
-    }
-}
-
-post-patch {
-    foreach {var val} "@BRANCH@ ${branch} @VERSION@ ${version} @PREFIX@ ${prefix}" {
-        reinplace           "s|${var}|${val}|g" \
-                            ${worksrcpath}/lua.pc
-    }
+post-patch { if {[file exists ${worksrcpath}/src/luaconf.h]} {
     reinplace               "s|/usr/local|${prefix}|g" \
                             ${worksrcpath}/src/luaconf.h
+}}
+
+if {${os.platform} eq "darwin"} {
+    set dylib_suffix        dylib
+} else {
+    set dylib_suffix        so
 }
 
 build.args-append           MACPORTS_PREFIX=${prefix} \
                             MYCFLAGS="\$CPPFLAGS \$CFLAGS" \
                             MYLDFLAGS="\$LDFLAGS" \
-                            MACPORTS_VERSION=${version} \
-                            MACPORTS_BRANCH=${branch}
+                            MACPORTS_VERSION=${version}
 
 destroot.args-append        INSTALL_TOP=${destroot}${prefix} \
                             MACPORTS_VERSION=${version} \
-                            MACPORTS_BRANCH=${branch} \
                             INSTALL_MAN=${destroot}${prefix}/share/man/man1
-if {${subport} ne ${name}} {
-    destroot.args-append    INSTALL_INC=${destroot}${prefix}/include/lua-${branch} \
-                            INSTALL_LIB=${destroot}${prefix}/lib/lua-${branch}
-}
-if {${os.platform} eq "darwin" && ${subport} eq ${name}} {
-    build.args-append       MACPORTS_SHARED_LIB=liblua.dylib
-    destroot.args-append    MACPORTS_SHARED_LIB=liblua.dylib
-    post-destroot {
-        xinstall -m 0755    ${worksrcpath}/src/liblua.dylib \
-                            ${destroot}${prefix}/lib/
-        ln -s               liblua.dylib \
-                            ${destroot}${prefix}/lib/liblua.${branch}.dylib
-        ln -s               liblua.dylib \
-                            ${destroot}${prefix}/lib/liblua.${version}.dylib
-    }
-} elseif {${os.platform} eq "darwin"} {
-    build.args-append       MACPORTS_SHARED_LIB=liblua-${branch}.dylib \
-                            TO_LIB=liblua-${branch}.a \
-                            LUA_A=liblua-${branch}.a
-    destroot.args-append    MACPORTS_SHARED_LIB=liblua-${branch}.dylib \
-                            TO_LIB=liblua-${branch}.a \
-                            LUA_A=liblua-${branch}.a
-    post-destroot {
-        xinstall -d -m 0755 ${destroot}${prefix}/lib/lua-${branch}
-        xinstall -m 0755    ${worksrcpath}/src/liblua-${branch}.dylib \
-                            ${destroot}${prefix}/lib/lua-${branch}
-    }
-} elseif {${subport} eq ${name}} {
-    build.args-append       MACPORTS_SHARED_LIB=liblua.so
-    destroot.args-append    MACPORTS_SHARED_LIB=liblua.so
-    post-destroot {
-        xinstall -m 0755    ${worksrcpath}/src/liblua.so \
-                            ${destroot}${prefix}/lib/
-        ln -s               liblua.so \
-                            ${destroot}${prefix}/lib/liblua-${branch}.so
-        ln -s               liblua.dylib \
-                            ${destroot}${prefix}/lib/liblua-${version}.so
-    }
-} else {
-    build.args-append       MACPORTS_SHARED_LIB=liblua-${branch}.so \
-                            TO_LIB=liblua-${branch}.a \
-                            LUA_A=liblua-${branch}.a
-    destroot.args-append    MACPORTS_SHARED_LIB=liblua-${branch}.so \
-                            TO_LIB=liblua-${branch}.a \
-                            LUA_A=liblua-${branch}.a
-    post-destroot {
-        xinstall -d -m 0755 ${destroot}${prefix}/lib/lua-${branch}
-        xinstall -m 0755    ${worksrcpath}/src/liblua-${branch}.so \
-                            ${destroot}${prefix}/lib/lua-${branch}
-    }
-}
 
-use_parallel_build          no
+if {${subport} ne ${name}} {
+    build.args-append       MACPORTS_SHARED_LIB=liblua${branch}.${dylib_suffix} \
+                            MACPORTS_BRANCH=${branch} \
+                            TO_LIB=liblua${branch}.a \
+                            LUA_A=liblua${branch}.a
+
+    destroot.args-append    MACPORTS_SHARED_LIB=liblua${branch}.${dylib_suffix} \
+                            INSTALL_INC=${destroot}${prefix}/include/lua${branch} \
+                            TO_LIB=liblua${branch}.a \
+                            LUA_A=liblua${branch}.a
+} else {
+    build.args-append       MACPORTS_SHARED_LIB=liblua.${dylib_suffix} \
+                            MACPORTS_BRANCH=${compat_branch}
+
+    destroot.args-append    MACPORTS_SHARED_LIB=liblua.${dylib_suffix}
+}
 
 post-destroot {
     # documentation
     set docdir ${prefix}/share/doc/${subport}
+
+    xinstall -d -m 0755     ${destroot}${docdir}
+    foreach f {COPYRIGHT README} { if {[file exists ${worksrcpath}/${f}]} {
+        xinstall -m 0644    ${worksrcpath}/${f} \
+                            ${destroot}${docdir}
+    }}
+
     xinstall -d -m 0755 ${destroot}${docdir}/html
-    xinstall -m 0644 -W ${worksrcpath} COPYRIGHT README ${destroot}${docdir}
-    foreach html [glob ${worksrcpath}/doc/*.html ${worksrcpath}/doc/*.css ${worksrcpath}/doc/*.gif ${worksrcpath}/doc/*.png] {
-        xinstall -m 0644 ${html} ${destroot}${docdir}/html
+    foreach f [glob -directory ${worksrcpath}/doc *.html *.css *.gif *.png] {
+        xinstall -m 0644    ${f} \
+                            ${destroot}${docdir}/html
     }
 
-    if {${subport} eq ${name}} {
-        xinstall -W ${worksrcpath} -m 0644 lua.pc ${destroot}${prefix}/lib/pkgconfig/
+    if {${subport} ne ${name}} {
+        set pcinfile        lua_branch.pc
+        set pcfile          lua${branch}.pc
+        set libs            ${worksrcpath}/src/liblua${branch}.${dylib_suffix}
     } else {
+        set pcinfile        lua.pc
+        set pcfile          lua.pc
+        set libs            ${worksrcpath}/src/liblua.${dylib_suffix}
+    }
+
+    # install shared library
+    foreach f ${libs} {
+        xinstall -m 0755    ${f} \
+                            ${destroot}${prefix}/lib/
+    }
+
+    # install pkgconfig file
+    xinstall -m 0644        ${filespath}/${pcinfile} \
+                            ${destroot}${prefix}/lib/pkgconfig/${pcfile}
+    foreach {var val} "@BRANCH@ ${branch} @VERSION@ ${version} @PREFIX@ ${prefix}" {
+        reinplace           "s|${var}|${val}|g" \
+                            ${destroot}${prefix}/lib/pkgconfig/${pcfile}
+    }
+
+    if {${subport} ne ${name}} {
+        # in case port needs all lua files in one directory
+        xinstall -d -m 0755 ${destroot}${prefix}/libexec/${subport}/include
+        foreach f [glob -tail -directory ${destroot}${prefix}/include/lua${branch} *] {
+            ln -s           ${prefix}/include/lua${branch}/${f} \
+                            ${destroot}${prefix}/libexec/${subport}/include/${f}
+        }
+
+        xinstall -d -m 0755 ${destroot}${prefix}/libexec/${subport}/lib/
+        foreach f [glob -tail -directory ${destroot}${prefix}/lib *.${dylib_suffix} *.a] {
+            ln -s           ${prefix}/lib/${f} \
+                            ${destroot}${prefix}/libexec/${subport}/lib/[string map "${branch} {}" ${f}]
+        }
+
+        xinstall -d -m 0755 ${destroot}${prefix}/libexec/${subport}/lib/pkgconfig
+        ln -s               ${prefix}/lib/pkgconfig/lua${branch}.pc \
+                            ${destroot}${prefix}/libexec/${subport}/lib/pkgconfig/lua.pc
+
+        xinstall -d -m 0755 ${destroot}${prefix}/libexec/${subport}/bin
+        foreach f [glob -tail -directory ${destroot}${prefix}/bin *] {
+            ln -s           ${prefix}/bin/${f}${branch} \
+                            ${destroot}${prefix}/libexec/${subport}/bin/[string map "${branch} {}" ${f}]
+        }
+
         # version executable and man pages files
         foreach f [glob ${destroot}${prefix}/bin/*] {
             move $f ${f}${branch}
@@ -206,16 +237,25 @@ post-destroot {
             move $f [file rootname $f]${branch}[file extension $f]
         }
 
-        # install versioned pkgconfig file
-        xinstall -m 0644 ${worksrcpath}/lua.pc ${destroot}${prefix}/lib/pkgconfig/lua-${branch}.pc
+        # this is for compatibly only
+        # once all ports have been successfully moved to the new structure, this can be removed
+        xinstall -d -m 0755 ${destroot}${prefix}/lib/lua-${branch}
+        ln -s               ../liblua${branch}.${dylib_suffix} \
+                            ${destroot}${prefix}/lib/lua-${branch}/liblua-${branch}.${dylib_suffix}
+
+        ln -s               lua${branch} \
+                            ${destroot}${prefix}/include/lua-${branch}
+
+        ln -s               lua${branch}.pc \
+                            ${destroot}${prefix}/lib/pkgconfig/lua-${branch}.pc
     }
 }
 
 livecheck.type              regex
 livecheck.url               ${master_sites}
-# Main lua port livecheck shouldn't be limited by the branch
-if {${subport} eq ${name}} {
-    livecheck.regex         {lua-(\d+(?:\.\d+)*)}
-} else {
+# main lua port livecheck shouldn't be limited by the branch
+if {${subport} ne ${name}} {
     livecheck.regex         lua-(${branch}\.\[0-9]+)
+} else {
+    livecheck.regex         {lua-(\d+(?:\.\d+)*)}
 }

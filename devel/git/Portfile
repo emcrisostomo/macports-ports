@@ -6,35 +6,88 @@ PortGroup           perl5           1.0
 
 legacysupport.newest_darwin_requires_legacy 10
 
+# RELEASE VERSION
 name                git
-version             2.39.2
+# NOTE: Update the DEVEL version first before updating this RELEASE version,
+#       to verify that the intended version builds on all platforms.
+version             2.40.0
 revision            0
 
 description         A fast version control system
+
 long_description    Git is a fast, scalable, distributed open source version \
                     control system focusing on speed and efficiency.
+
+# DEVELOPMENT VERSION
+subport ${name}-devel {
+    PortGroup           github  1.0
+
+    github.setup        git git 2.40.0 v
+    github.tarball_from archive
+
+    description     \
+        {*}${description} (Development Version)
+
+    long_description \
+        {*}${long_description} (Development Version)
+}
+
 maintainers         {ciserlohn @ci42} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
+
+default_variants    +doc +pcre +credential_osxkeychain +diff_highlight
+
 categories          devel
 license             GPL-2 LGPL-2.1+
 installs_libs       no
-homepage            https://git-scm.com/
-master_sites        https://www.kernel.org/pub/software/scm/git/ \
+
+if {${name} eq ${subport}} {
+    # RELEASE VERSION
+
+    homepage        https://git-scm.com/
+
+    master_sites    https://www.kernel.org/pub/software/scm/git/ \
                     https://cdn.kernel.org/pub/software/scm/git/
-distname            git-${version}
-use_xz              yes
-distfiles           git-${version}${extract.suffix} \
+
+    distname        git-${version}
+    use_xz          yes
+    distfiles-append \
+                    git-${version}${extract.suffix} \
                     git-manpages-${version}${extract.suffix}
 
-checksums           git-${version}${extract.suffix} \
-                    rmd160  fae317477d3deaff885f932b0eab9889bfd1eeab \
-                    sha256  475f75f1373b2cd4e438706185175966d5c11f68c4db1e48c26257c43ddcf2d6 \
-                    size    7163224 \
+    checksums       git-${version}${extract.suffix} \
+                    rmd160  14c277d36a9dad067062275aa77d75280bb76781 \
+                    sha256  b17a598fbf58729ef13b577465eb93b2d484df1201518b708b5044ff623bf46d \
+                    size    7183692 \
                     git-manpages-${version}${extract.suffix} \
-                    rmd160  60ec345f23549f9bd376f05ebe70427480741f79 \
-                    sha256  0b3927a2f09db3d3ec91dd548409a7129d3af9dabf11847401872c8c0c529b25 \
-                    size    557080
+                    rmd160  0066433ef53b2454892727e2df5c37d68ed563e1 \
+                    sha256  5766aecf137370015e3fd72e355b83c73dc2aa2ee14a42546049346442c3356e \
+                    size    562824
+
+    extract.only    git-${version}${extract.suffix} \
+                    git-manpages-${version}${extract.suffix}
+
+    conflicts       git-devel
+
+    livecheck.type  regexm
+    livecheck.regex {<span class="version">.*?(\d+\.\d+\.\d+).*?</span>}
+} else {
+    # DEVELOPMENT VERSION
+
+    checksums       ${distname}${extract.suffix} \
+                    rmd160  c75b602e363eae59cd068f1a9f9752bde731459a \
+                    sha256  d46fa859fe1e89b479e3e29c6e65d7c3c26a48f3c08f1e2e5a5ced04155b4f86 \
+                    size    10601526
+
+    depends_build-append \
+                    port:asciidoc \
+                    port:xmlto
+
+    build.target    all man html
+
+    conflicts       git
+}
 
 perl5.require_variant   false
 perl5.conflict_variants yes
@@ -53,7 +106,7 @@ depends_lib-append  port:curl \
 
 depends_run-append  path:bin/rsync:rsync
 
-patchfiles          patch-Makefile.diff \
+patchfiles-append   patch-Makefile.diff \
                     patch-git-subtree.1.diff \
                     patch-sha1dc-older-apple-gcc-versions.diff \
                     patch-gitk-git-gitk.diff
@@ -66,8 +119,12 @@ if {${os.platform} eq "darwin" && ${os.major} < 14} {
     patchfiles-append   patch-ignore-fsmonitor-daemon-backend.diff
 }
 
-extract.only        git-${version}${extract.suffix} \
-                    git-manpages-${version}${extract.suffix}
+# Git 2.40.0 fails to build on macOS 10.6 & 10.7 unless
+# USE_ENHANCED_BASIC_REGULAR_EXPRESSIONS is disabled.
+# See: https://trac.macports.org/ticket/67091
+if {${os.platform} eq "darwin" && ${os.major} < 12} {
+    patchfiles-append   patch-disable-enhanced-basic-regex.diff
+}
 
 use_configure       no
 
@@ -121,7 +178,8 @@ pre-test {
 destroot.target     install
 pre-destroot {
     destroot.args  {*}${build.args}
-    xinstall -m 644 ${worksrcpath}/contrib/subtree/git-subtree.1 ${workpath}/man1
+    xinstall -m 0644 \
+        ${worksrcpath}/contrib/subtree/git-subtree.1 ${workpath}/man1
 }
 
 set docdestroot         ${destroot}${prefix}/share/doc/git-doc
@@ -129,12 +187,23 @@ set guidir              ${prefix}/share/git-gui/lib/Git\ Gui.app/Contents
 set system_gitconfig    ${prefix}/etc/gitconfig
 
 post-destroot {
+
     foreach f {1 5 7} {
         xinstall -d ${destroot}${prefix}/share/man/man${f}
-        foreach m [glob -directory ${workpath} man${f}/*.${f}] {
-            xinstall ${m} ${destroot}${prefix}/share/man/man${f}
+
+        if {${name} eq ${subport}} {
+            # RELEASE man pages
+            foreach m [glob -directory ${workpath} man${f}/*.${f}] {
+                xinstall ${m} ${destroot}${prefix}/share/man/man${f}
+            }
+        } else {
+            # DEVEL man pages
+            foreach m [glob -directory ${worksrcpath} Documentation/*.${f}] {
+                xinstall ${m} ${destroot}${prefix}/share/man/man${f}
+            }
         }
     }
+
     if {![variant_isset svn]} {
         system "rm ${destroot}${prefix}/libexec/git-core/git-svn*"
     }
@@ -150,16 +219,16 @@ post-destroot {
 
     set completions_path ${destroot}${prefix}/share/bash-completion/completions
     xinstall -d ${completions_path}
-    xinstall -m 644 ${worksrcpath}/contrib/completion/git-completion.bash \
+    xinstall -m 0644 ${worksrcpath}/contrib/completion/git-completion.bash \
         ${completions_path}/git
 
     set share_path ${destroot}${prefix}/share/${name}
     xinstall -d ${share_path}
-    xinstall -m 644 ${worksrcpath}/contrib/completion/git-prompt.sh \
+    xinstall -m 0644 ${worksrcpath}/contrib/completion/git-prompt.sh \
         ${share_path}/git-prompt.sh
 
     xinstall -d ${destroot}${prefix}/libexec/git-core
-    xinstall -m 755 ${worksrcpath}/contrib/subtree/git-subtree.sh \
+    xinstall -m 0755 ${worksrcpath}/contrib/subtree/git-subtree.sh \
         ${destroot}${prefix}/libexec/git-core/git-subtree
 
     # Tiger doesn't build the GUI, so check for its existence before mucking with it
@@ -181,38 +250,51 @@ variant pcre description {Use pcre} {
 }
 
 variant doc description {Install HTML and plaintext documentation} {
-    distfiles-append        git-htmldocs-${version}${extract.suffix}
-    checksums-append        git-htmldocs-${version}${extract.suffix} \
-                            rmd160  98cea7039d4d87e8c1ba422303638ca825e6b4aa \
-                            sha256  f729edf1821c688efc6767b1c0bb728aec673bc15b80a6b8be6a18c2cbb9d67e \
-                            size    1505352
 
-    patchfiles-append       patch-git-subtree.html.diff
+    if {${name} eq ${subport}} {
+        # RELEASE
+        distfiles-append    git-htmldocs-${version}${extract.suffix}
+        checksums-append    git-htmldocs-${version}${extract.suffix} \
+                            rmd160  fab989a73b05e03e139adb17e2bf1dfb6d82b097 \
+                            sha256  3da9fbe542e7d565b4168ea15872e8e1b13324e4bb5ab65604ca9a333dfe37bb \
+                            size    1517292
 
-    post-extract {
-        file mkdir ${workpath}/htmldocs
-        system -W ${workpath}/htmldocs "${extract.cmd} ${extract.pre_args} \
-            '${distpath}/git-htmldocs-${version}${extract.suffix}' \
-            ${extract.post_args}"
-    }
+        patchfiles-append   patch-git-subtree.html.diff
 
-    pre-destroot {
-        xinstall -m 644 ${worksrcpath}/contrib/subtree/git-subtree.html ${workpath}/htmldocs
-    }
-
-    post-destroot {
-        foreach f [glob ${workpath}/htmldocs/*] {
-            file delete -force "${docdestroot}/[file tail ${f}]"
-            file attribute ${f} -permissions ugo+r
-            copy ${f} ${docdestroot}
+        post-extract {
+            file mkdir ${workpath}/htmldocs
+            system -W ${workpath}/htmldocs "${extract.cmd} ${extract.pre_args} \
+                '${distpath}/git-htmldocs-${version}${extract.suffix}' \
+                ${extract.post_args}"
         }
 
-        fs-traverse f [list ${docdestroot}/howto ${docdestroot}/technical ${docdestroot}/RelNotes] {
-            if {[file isdirectory ${f}]} {
-                file attribute ${f} -permissions ugo+rx
-            } else {
+        pre-destroot {
+            xinstall -m 0644 \
+                ${worksrcpath}/contrib/subtree/git-subtree.html \
+                ${workpath}/htmldocs
+        }
+
+        post-destroot {
+            foreach f [glob ${workpath}/htmldocs/*] {
+                file delete -force "${docdestroot}/[file tail ${f}]"
                 file attribute ${f} -permissions ugo+r
+                copy ${f} ${docdestroot}
             }
+
+            fs-traverse f [list ${docdestroot}/howto ${docdestroot}/technical ${docdestroot}/RelNotes] {
+                if {[file isdirectory ${f}]} {
+                    file attribute ${f} -permissions ugo+rx
+                } else {
+                    file attribute ${f} -permissions ugo+r
+                }
+            }
+        }
+
+    } else {
+        # DEVEL
+        post-destroot {
+            system -W ${worksrcpath} \
+                "${destroot.cmd} install-html prefix=${destroot}/${prefix}"
         }
     }
 }
@@ -227,14 +309,14 @@ variant gitweb description {Install gitweb.cgi} {
         xinstall -W ${worksrcpath}/gitweb \
             gitweb.cgi \
             ${destroot}${prefix}/share/${name}/gitweb
-        xinstall -m 444 -W ${worksrcpath}/gitweb/static \
+        xinstall -m 0444 -W ${worksrcpath}/gitweb/static \
             gitweb.css \
             gitweb.js \
             git-favicon.png \
             git-logo.png \
             ${destroot}${prefix}/share/${name}/gitweb
         xinstall -d ${docdestroot}/gitweb
-        xinstall -m 444 -W ${worksrcpath}/gitweb README INSTALL \
+        xinstall -m 0444 -W ${worksrcpath}/gitweb README INSTALL \
             ${docdestroot}/gitweb
     }
 }
@@ -300,7 +382,8 @@ variant diff_highlight description {Install git diff-highlight utility from cont
     }
 
     post-destroot {
-        xinstall -m 755 "${worksrcpath}/contrib/diff-highlight/diff-highlight" \
+        xinstall -m 0755 \
+            "${worksrcpath}/contrib/diff-highlight/diff-highlight" \
             "${destroot}${prefix}/bin/"
     }
 }
@@ -310,8 +393,8 @@ variant diff_highlight description {Install git diff-highlight utility from cont
 # This variant enables git to use MacPorts' Python as it builds these
 # additional tools.
 variant python description {Build with Python support} {
-    depends_lib-append  port:python39
-    build.args-append   PYTHON_PATH="${prefix}/bin/python3.9"
+    depends_lib-append  port:python311
+    build.args-append   PYTHON_PATH="${prefix}/bin/python3.11"
 }
 
 platform darwin 8 {
@@ -323,7 +406,3 @@ platform darwin 8 {
     build.args-append   CC_LD_DYNPATH=-R
 }
 
-default_variants        +doc +pcre +credential_osxkeychain +diff_highlight
-
-livecheck.type          regexm
-livecheck.regex         {<span class="version">.*?(\d+\.\d+\.\d+).*?</span>}

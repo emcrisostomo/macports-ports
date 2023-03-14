@@ -7,17 +7,17 @@ PortGroup           compilers 1.0
 PortGroup           github 1.0
 
 name                fortran-stdlib
-github.setup        fortran-lang stdlib fba31e0db6375e9207438d2815b8552dc87c6f0b
-version             2023.02.22
+github.setup        fortran-lang stdlib 91387a0f936ec7ae5f55b4a31b56a48ed828d9d9
+version             2023.03.04
 revision            0
 categories-append   lang fortran
 license             MIT
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 description         Fortran Standard Library
 long_description    {*}${description}
-checksums           rmd160  328d76940bf758be5ba725f163d80808d97e4f7f \
-                    sha256  9e6cccccf57d44d6c095a42b0595c538da03874d96655fb7363fd304cc87611f \
-                    size    373896
+checksums           rmd160  eb68688fdc1ff27d1b92c9c92b5d5e8126cc072e \
+                    sha256  5e7f5ac48e913640e409937e7ce7849ced83d457bd52654018cba6ea93fc1321 \
+                    size    374789
 cmake.generator     Ninja
 
 set py_ver          3.11
@@ -33,13 +33,6 @@ platform darwin {
     }
 }
 
-post-extract {
-    move ${worksrcpath}/test/string/test_string_assignment.f90 ${worksrcpath}/test/string/test_string_assignment.fypp
-}
-
-patch.pre_args      -p1
-patchfiles          0001-Check-for-equality-between-Fortran-and-C-logicals.patch
-
 compilers.setup require_fortran
 compiler.blacklist-append \
                     {*gcc-[34].*} {macports-gcc-[58]} {clang < 500}
@@ -53,6 +46,54 @@ configure.args-append \
                     -DBUILD_TESTING=OFF
 
 platform darwin powerpc {
+    # https://github.com/fortran-lang/stdlib/issues/690
+    # This will normally fail, since atm GCC does not support ieee_arithmetic on Darwin PPC;
+    # however, we rather make it conditional on the module actually being present for a given compiler.
+    # See discussion here: https://github.com/iains/darwin-toolchains-start-here/discussions/40
+
+    # These have to be updated following GCC releases:
+    if {[string match macports-gcc-10 ${configure.compiler}]} {
+        set gcc_v_major 10
+        set gcc_v_full  ${gcc_v_major}.4.0
+    } elseif {[string match macports-gcc-11 ${configure.compiler}]} {
+        set gcc_v_major 11
+        set gcc_v_full  ${gcc_v_major}.3.0
+    } elseif {[string match macports-gcc-12 ${configure.compiler}]} {
+        set gcc_v_major 12
+        set gcc_v_full  ${gcc_v_major}.2.0
+    } elseif {[string match macports-gcc-devel ${configure.compiler}]} {
+        set gcc_v_major -devel
+        set gcc_v_full  13.0.1
+    }
+    
+    if {${build_arch} eq "ppc"} {
+        # Macports presently sets incorrect dir name on PowerPC, using build_arch instead of powerpc*; check both:
+        if {![file exists "${prefix}/lib/gcc${gcc_v_major}/gcc/powerpc-apple-darwin${os.major}/${gcc_v_full}/finclude/ieee_arithmetic.mod"] \
+            && ![file exists "${prefix}/lib/gcc${gcc_v_major}/gcc/ppc-apple-darwin${os.major}/${gcc_v_full}/finclude/ieee_arithmetic.mod]"]} {
+            known_fail         yes
+
+            pre-fetch {
+                ui_error "Building ${name} requires ieee_arithmetic module in Gfortran, however it is absent in this GCC version.\
+                    There is an experimental branch with ieee_arithmetic support for Darwin PowerPC here: https://github.com/barracuda156/gcc-git/tree/gfortran"
+                return -code error "Unsupported compiler."
+            }
+        }
+    }
+
+    if {${build_arch} eq "ppc64"} {
+        # Macports presently sets incorrect dir name on PowerPC, using build_arch instead of powerpc*; check both:
+        if {![file exists "${prefix}/lib/gcc${gcc_v_major}/gcc/powerpc64-apple-darwin${os.major}/${gcc_v_full}/finclude/ieee_arithmetic.mod"] \
+            && ![file exists "${prefix}/lib/gcc${gcc_v_major}/gcc/ppc64-apple-darwin${os.major}/${gcc_v_full}/finclude/ieee_arithmetic.mod]"]} {
+            known_fail         yes
+
+            pre-fetch {
+                ui_error "Building ${name} requires ieee_arithmetic module in Gfortran, however it is absent in this GCC version.\
+                    There is an experimental branch with ieee_arithmetic support for Darwin PowerPC here: https://github.com/barracuda156/gcc-git/tree/gfortran"
+                return -code error "Unsupported compiler."
+            }
+        }
+    }
+
     # See: https://github.com/fortran-lang/stdlib/issues/694
     configure.args-append \
                     -DWITH_XDP=OFF

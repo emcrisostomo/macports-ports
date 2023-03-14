@@ -6,7 +6,7 @@ PortGroup           github           1.0
 
 name                py-scikit-hep-awkward
 
-github.setup        scikit-hep awkward 2.0.8 v
+github.setup        scikit-hep awkward 2.1.0 v
 revision            0
 fetch.type          git
 
@@ -23,19 +23,23 @@ long_description    {*}${description}
 python.versions     37 38 39 310 311
 
 if {${name} ne ${subport}} {
+
+    conflicts       py${python.version}-scikit-hep-awkward1
     
     post-fetch {
         system -W ${worksrcpath} "git submodule update --init --recursive"
     }
 
-    python.pep517  yes
+    python.pep517   yes
 
     compiler.cxx_standard 2011
 
     depends_build-append \
         path:bin/cmake:cmake \
         port:py${python.version}-setuptools \
-        port:py${python.version}-hatch-fancy-pypi-readme
+        port:py${python.version}-hatch-fancy-pypi-readme \
+        port:py${python.version}-hatchling \
+        port:py${python.version}-hatch-vcs
 
     depends_lib-append \
         port:py${python.version}-numpy \

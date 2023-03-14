@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/abiosoft/colima 0.5.2 v
+go.setup            github.com/abiosoft/colima 0.5.4 v
 github.tarball_from archive
 revision            0
 
@@ -17,9 +17,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  1bd18716d5d85e84f84038e85e7174fbebd481a5 \
-                    sha256  8f51bf1cb9f826c9ac45100f05d68ba8560cdd8f0a156f61d89c8269bc766939 \
-                    size    636854
+checksums           rmd160  5034b3499dd152101d819d1c2cd016e4f1c5100a \
+                    sha256  9dc25fee68c02a79493d61ecf563832ce483955db102fbca64d112957ae2e6e8 \
+                    size    613341
 
 depends_run         port:lima
 

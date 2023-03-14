@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/weaveworks/eksctl 0.131.0 v
+go.setup            github.com/weaveworks/eksctl 0.133.0 v
 github.tarball_from archive
 revision            0
 
@@ -23,9 +23,9 @@ maintainers         {@szczad gmail.com:szczad} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  7bf5d10dace6bb774eebb6111c2136144e5c00f1 \
-                    sha256  51ebd3bf4089901b68ebbef86d30b027fda1f74de891ef50521bebec91fbe9eb \
-                    size    10112118
+checksums           rmd160  ac166b81de323a230f8e503f772a43f915e4bc32 \
+                    sha256  336ab6f7982b7465acb14cacfc36282957f09d479b2e5798ccd0c3c48f158173 \
+                    size    10116339
 
 # Allow fetching dependencies
 build.env-delete    GO111MODULE=off GOPROXY=off

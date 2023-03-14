@@ -3,13 +3,13 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gohugoio/hugo 0.110.0 v
+go.setup            github.com/gohugoio/hugo 0.111.3 v
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  b8b40a9c3b967f0a73e5e3d1779033fb8d6f5377 \
-                    sha256  eeb137cefcea1a47ca27dc5f6573df29a8fe0b7f1ed0362faf7f73899e313770 \
-                    size    29055652
+checksums           rmd160  d18996eca32dffc4d9ad5cd2f6d46e6a83a0b8d8 \
+                    sha256  b6eeb13d9ed2e5d5c6895bae56480bf0fec24a564ad9d17c90ede14a7b240999 \
+                    size    29191902
 
 categories          www
 installs_libs       no
@@ -19,7 +19,7 @@ maintainers         {isi.edu:calvin @cardi} \
                     openmaintainer
 
 description         A Fast and Flexible Static Site Generator built with love in GoLang
-long_description    ${description}
+long_description    {*}${description}
 
 # FIXME: This port currently can't be built without allowing go mod to fetch
 # dependencies during the build phase. See
