@@ -29,33 +29,33 @@ subport kubectl-1.26 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     2
+    set patchNumber     3
     revision            0
-    checksums           rmd160  bf032b0572faa982abd99510491216aef5c1391a \
-                        sha256  7a50f0a8f0b649922f021f811d6ace8c282d09a0e3a30fa69d86b6c28eb51fd1 \
-                        size    38192706
+    checksums           rmd160  10278817c024f34ce7e3d7c0e53d95a087bc7c2b \
+                        sha256  e9db7e0a2e8cb40e478564de22530c5e582ae7136558994130b3ae7d8828ab31 \
+                        size    38215855
 }
 
 subport kubectl-1.25 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     7
+    set patchNumber     8
     revision            0
-    checksums           rmd160  1d3f4da879e40f86e35359c7f40272bea13e8527 \
-                        sha256  1adac40efc6d25da3ef655fadf68d5d18d2c298ca90badf44ed213a129092ed0 \
-                        size    38169376
+    checksums           rmd160  50626927bd2f720f4ff0146140c69396091bda45 \
+                        sha256  ad4627df63c001d8a3dab7bc6fb9430f516ff0a4d3f757dcc41b4261d2b696fd \
+                        size    38188305
 }
 
 subport kubectl-1.24 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     11
+    set patchNumber     12
     revision            0
-    checksums           rmd160  3280d6fd196d04d7aa61d7fd4b643110d9dbee01 \
-                        sha256  6e3eb70f8b1ed477d887ed9cbb98b5b3706f1eb7ff57f2ea52fdf2bbb4eea371 \
-                        size    37867002
+    checksums           rmd160  bfa35dea36b82beefe8c01fd8c0033fd091202d5 \
+                        sha256  57bb349d6c53ad111baf09b8699b1ad4dcf07ebfc2d3e7d9809dc3c75d491821 \
+                        size    37883841
 }
 
 subport kubectl-1.23 {
@@ -188,8 +188,8 @@ if {${subport} == ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.16.0
-    revision            2
+    version             1.26.3
+    revision            0
 
 } elseif {${subport} == "kubectl_select"} {
     version             0.0.0

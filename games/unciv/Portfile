@@ -5,7 +5,7 @@ PortGroup           app 1.0
 PortGroup           java 1.0
 PortGroup           github 1.0
 
-github.setup        yairm210 Unciv 4.5.8
+github.setup        yairm210 Unciv 4.5.10
 name                unciv
 github.tarball_from archive
 revision            0
@@ -31,9 +31,9 @@ master_sites-append https://services.gradle.org/distributions/
 distfiles-append    ${gradle_distfile}
 
 checksums           ${main_distfile} \
-                    rmd160  22b5f107b45a0818f53328c193250605ea1501f8 \
-                    sha256  d7923e22f98094b8965f98095dcb0507cbbe284047af89f95edaafa668d2ba89 \
-                    size    43868325 \
+                    rmd160  9ca5431f61f8c9cdd727bec20c5df5c8c4e94445 \
+                    sha256  b102d83040ac174476d2fa3d3856375592b148abeb465e2b778be96489f20b99 \
+                    size    43875241 \
                     ${gradle_distfile} \
                     rmd160  9a359c0a1f37cbaef3feffbf6f822de21dc86601 \
                     sha256  cb87f222c5585bd46838ad4db78463a5c5f3d336e5e2b98dc7c0c586527351c2 \
