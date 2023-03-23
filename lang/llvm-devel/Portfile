@@ -18,7 +18,7 @@ legacysupport.disable_function_wrap   yes
 
 # libc++ link step fails on OSX10.10 and older to correctly use static legacy support lib.
 # So force it to find it via compiler wrapping
-if {${os.platform} eq "darwin" && ${os.major} < 15} {
+if { ${os.platform} eq "darwin" && ${os.major} <= [option legacysupport.newest_darwin_requires_legacy] } {
     PortGroup compiler_wrapper        1.0
 
     pre-configure {
@@ -525,16 +525,6 @@ if {${subport} eq "clang-${llvm_version}"} {
     # Avoid requiring a bootstrap version of perl5 on 10.6.
     if {${os.major} >= 11} {
         default_variants    +analyzer
-    }
-
-
-    if { ${cxx_stdlib} eq "libc++" && ${os.major} < 13 } {
-        variant defaultlibcxx description {default to -stdlib=libc++ if not otherwise specified}  {
-            # on systems older than darwin 13, if macports.conf is configured to stdlib=libc++
-            # then make that the default if not otherwise specified. This matches the behaviour of newer systems.
-            patchfiles-append 0018-10.6-and-less-clang-default-to-libc-on-all-darwin-sy.patch
-        }
-        default_variants-append +defaultlibcxx
     }
 
     variant libstdcxx description {-stdlib=libstdc++_macports searches for MacPorts libstdc++} {
