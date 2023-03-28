@@ -16,17 +16,6 @@ legacysupport.use_static              yes
 # Sysconf wrapping causes issues so disable
 legacysupport.disable_function_wrap   yes
 
-# libc++ link step fails on OSX10.10 and older to correctly use static legacy support lib.
-# So force it to find it via compiler wrapping
-if { ${os.platform} eq "darwin" && ${os.major} <= [option legacysupport.newest_darwin_requires_legacy] } {
-    PortGroup compiler_wrapper        1.0
-
-    pre-configure {
-        configure.cc  [compwrap::wrap_compiler cc]
-        configure.cxx [compwrap::wrap_compiler cxx]
-    }
-}
-
 categories              lang
 platforms               darwin
 license                 NCSA
@@ -73,8 +62,8 @@ patch.dir               ${workpath}/${distname}
 compiler.blacklist      *gcc* {clang < 1001} macports-clang-3.*
 # work/build/include/c++/v1/optional:224:5: error: destructor cannot be marked constexpr
 #     _LIBCPP_CONSTEXPR_AFTER_CXX17 ~__optional_destruct_base()
-compiler.blacklist-append {clang < 1204} {macports-clang-[5-9].0}
-compiler.fallback       clang macports-clang-11 macports-clang-10
+compiler.blacklist-append {clang < 1204} {macports-clang-[5-9].0} {macports-clang-1[0-3]}
+compiler.fallback       clang macports-clang-14 macports-clang-15
 
 # We can't use Ninja with our custom destrooting plan for llvm
 #cmake.generator         Ninja
@@ -216,6 +205,13 @@ post-patch {
         ${patch.dir}/clang/tools/clang-format/clang-format-sublime.py         \
         ${patch.dir}/clang/tools/clang-format/clang-format.el                 \
         ${patch.dir}/clang/tools/clang-format/clang-format.py
+}
+
+# libc++ link step fails on OSX10.10 and older to correctly use static legacy support lib.
+if {${os.platform} eq "darwin" && ${os.major} <= [option legacysupport.newest_darwin_requires_legacy] } {
+    post-patch {
+        reinplace "s|LIBCXX_LIBRARIES \"\"|LIBCXX_LIBRARIES \"[legacysupport::get_library_link_flags]\"|" ${worksrcpath}/../libcxx/CMakeLists.txt
+    }
 }
 
 if {${subport} eq "llvm-${llvm_version}"} {
@@ -373,6 +369,16 @@ if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "flang-${llvm_versio
         # TODO: apply this always to all systems?
         if {${configure.sdkroot} eq ""} {set configure.sdkroot "/"}
         configure.args-append    -DDARWIN_osx_SYSROOT="${configure.sdkroot}"
+    }
+
+    if {${os.platform} eq "darwin" && ${os.major} == 16} {
+        # On macOS 10.12, if Xcode 9.2 is installed this only provides
+        # the SDk for 10.13, and this causes build issues.
+        #  /filesystem_common.h:516:7: error: 'utimensat' is only available on macOS 10.13 or newer [-Werror,-Wunguarded-availability-new]
+        #  if (::utimensat(AT_FDCWD, p.c_str(), TS.data(), 0) == -1)
+        #      ^~~~~~~~~~~
+        # We just suppress this warning, as with legacy-support we know the implementation is available.
+        patchfiles-append        0300-10.12-disable-error-unguarded-availability-new.patch
     }
 
     if {${os.platform} eq "darwin" && ${os.major} <= 15} {

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github rstudio shinytest 1.5.1 v
+R.setup             github rstudio shinytest 1.5.3 v
 revision            0
 categories-append   devel
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -11,9 +11,9 @@ license             MIT
 description         Automated testing for Shiny apps
 long_description    {*}${description}
 homepage            https://rstudio.github.io/shinytest
-checksums           rmd160  b41fdc3304ebe350102b278be6cd798093d1dc50 \
-                    sha256  c53bc6f361f04664a0f1dbda5eb49ddc7ea3f003e997acbd66bca497ed9343dc \
-                    size    1623767
+checksums           rmd160  fa75a6116be7909fa3d8b280e122732a38336d74 \
+                    sha256  f5f5f6fa42d2249d78378ac75f82fc80a361bb5137188792a8f1d6216d7d02e5 \
+                    size    1623042
 supported_archs     noarch
 
 depends_lib-append  port:R-assertthat \

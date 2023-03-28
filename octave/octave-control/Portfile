@@ -1,11 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           octave 1.0
 PortGroup           compilers 1.0
+PortGroup           github 1.0
+PortGroup           octave 1.0
 
-octave.setup        control 3.5.0
+set pkg_name        control
+version             3.5.1
 revision            1
+github.setup        gnu-octave pkg-${pkg_name} ${version} ${pkg_name}-
+octave.setup        ${pkg_name} ${version}
 license             GPL-3+
 maintainers         {mps @Schamschula} openmaintainer
 description         Computer-Aided Control System Design (CACSD) \
@@ -13,11 +17,17 @@ description         Computer-Aided Control System Design (CACSD) \
                     SLICOT Library.
 long_description    {*}${description}
 
-checksums           rmd160  adabf69fc864cd6133030697960fc6227ce1c093 \
-                    sha256  507d14ea3ea80bdc55b67c146a9dc88229229714fe33febe983393a67dec714a \
-                    size    2984204
+github.tarball_from releases
+distname            ${pkg_name}-${version}
+
+checksums           rmd160  d3546cacd17f9cdc688a421cc07f019fe188c745 \
+                    sha256  53fa34450a0774384f3f7c6e891f600856fad022ab037d1ba5cfdd1ffa330e98 \
+                    size    2983541
 
 compilers.choose    fc f77 f90
 compilers.setup     require_fortran
 
 patchfiles          patch-src-Makefile.diff
+
+# stealth update due to incomplete GitHub tarball
+dist_subdir         ${name}/${version}

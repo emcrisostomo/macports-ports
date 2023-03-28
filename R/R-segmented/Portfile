@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           R 1.0
+
+R.setup             cran cran segmented 1.6-3
+revision            0
+categories-append   math
+maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+license             {GPL-2 GPL-3}
+description         Regression models with break-points estimation
+long_description    {*}${description}
+checksums           rmd160  dfa31671e1cbdea31c710ed3cf99e3d355696a3b \
+                    sha256  5191d59d4e19c2930ceb858c950c321d1800a8ed4a79969fd7d8d9bd982ff374 \
+                    size    174006
+supported_archs     noarch
+
+test.run            yes
