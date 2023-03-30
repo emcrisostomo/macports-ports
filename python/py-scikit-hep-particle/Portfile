@@ -6,7 +6,7 @@ PortGroup           github           1.0
 
 name                py-scikit-hep-particle
 
-github.setup        scikit-hep particle 0.21.2 v
+github.setup        scikit-hep particle 0.22.0 v
 revision            0
 fetch.type          git
 
@@ -30,6 +30,8 @@ if {${name} ne ${subport}} {
 
     depends_lib-append \
         port:py${python.version}-attrs \
+        port:py${python.version}-hatchling \
+        port:py${python.version}-hatch-vcs \
         port:py${python.version}-scikit-hep-hepunits
 
     depends_test-append \
