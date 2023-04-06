@@ -3,15 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran ellipse 0.4.3
+R.setup             cran dmurdoch ellipse 0.4.5
 revision            0
 maintainers         nomaintainer
 license             {GPL-2 GPL-3}
 description         Functions for drawing ellipses and ellipse-like confidence regions
 long_description    {*}${description}
-checksums           rmd160  db861173b4475b855c076cf358f74b365ac861b5 \
-                    sha256  02ef2b11c3462a8b800332e522183f4c7c40c7d2d66c5174d5f3f6d8cc68a946 \
-                    size    35413
+homepage            https://dmurdoch.github.io/ellipse
+checksums           rmd160  c96cb9c2099ef3112daad0b55aa98eb1f898c69b \
+                    sha256  39c475851380deeb9361464f8f32fa2ee250f24604791c00680a54aaaaba8936 \
+                    size    160681
 supported_archs     noarch
 
 test.run            yes
