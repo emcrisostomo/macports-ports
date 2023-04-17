@@ -8,7 +8,7 @@ PortGroup           debug 1.0
 github.setup        OSGeo grass 7.8.7
 name                grass7
 set main_version    [join [lrange [split ${version} "."] 0 1] ""]
-revision            3
+revision            4
 set realVersion     ${version}
 #distname           grass-${version}
 distname            grass-${realVersion}
@@ -44,6 +44,10 @@ depends_lib         port:bzip2 \
 patchfiles          patch-grass.py.diff
 
 configure.cflags    -DGL_SILENCE_DEPRECATION
+
+# needed for PDAL 2.4+
+compiler.cxx_standard  2017
+configure.cxxflags-append -std=c++17
 
 configure.args-append \
     --prefix=${prefix}/share \
