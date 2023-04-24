@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           R 1.0
+
+R.setup             cran kunfa BayesQVGEL 0.1.1
+revision            0
+categories-append   math
+maintainers         nomaintainer
+license             GPL-2
+description         Bayesian quantile variable selection for G–E in longitudinal studies
+long_description    {*}${description}
+checksums           rmd160  ce20e6096c4f5448752f1501e7ad2238af7599cb \
+                    sha256  641c8ef467e53f6f51d0c1e293663d6538630d3f49d9997c01861551324b577e \
+                    size    41813
+
+depends_lib-append  port:R-Rcpp \
+                    port:R-RcppArmadillo
+
+compilers.setup     require_fortran
+
+test.run            yes

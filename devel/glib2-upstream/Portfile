@@ -14,33 +14,31 @@ PortGroup                   legacysupport 1.1
 name                        glib2-upstream
 conflicts                   glib2 glib2-devel
 set my_name                 glib
-version                     2.74.0
-revision                    0
+version                     2.76.1
+revision                    1
 epoch                       1
-checksums                   rmd160  7f3943b84afb3e0ac56142246cb7d05ff626d3ab \
-                            sha256  3652c7f072d7b031a6b5edd623f77ebc5dcd2ae698598abcc89ff39ca75add30 \
-                            size    5183072
+checksums                   rmd160  9ca9728bab7da012152717f78a036cd1883fc94a \
+                            sha256  43dc0f6a126958f5b454136c4398eab420249c16171a769784486e25f2fda19f \
+                            size    5270936
 
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  devel
 maintainers                 {mascguy @mascguy} openmaintainer
 license                     LGPL-2+
 homepage                    https://wiki.gnome.org/Projects/GLib
-platforms                   darwin
 dist_subdir                 glib2
 distname                    ${my_name}-${version}
 use_xz                      yes
 use_parallel_build          yes
 
 description                 Library with data structure functions and other constructs
-
 long_description            Glib is a library which includes support routines \
                             for C, such as lists, trees, hashes, memory \
                             allocation, and many other things.
 
 master_sites                gnome:sources/${my_name}/${branch}/
 
-patchfiles                  libintl.patch \
+patchfiles-append           libintl.patch \
                             patch-gio-tests-meson.build.diff \
                             patch-glib_gunicollate.c.diff \
                             patch-gio_xdgmime_xdgmime.c.diff \
@@ -119,10 +117,41 @@ if {${universal_possible} && [variant_isset universal]} {
 }
 
 post-patch {
-    reinplace -W ${worksrcpath} "s|@PYTHON@|${configure.python}|" meson.build
-    reinplace -W ${worksrcpath} "s|@PREFIX@|${prefix}|g" gio/xdgmime/xdgmime.c glib/gi18n-lib.h glib/gi18n.h gio/gdbusaddress.c
-    reinplace "s|data_dirs = \"/usr|data_dirs = \"${prefix}/share:/usr|g" ${worksrcpath}/glib/gutils.c
-    reinplace "s|path = \"/bin|path = \"${prefix}/bin:/bin|g" ${worksrcpath}/glib/gutils.c ${worksrcpath}/glib/gspawn.c
+    reinplace -W ${worksrcpath} "s|@PYTHON@|${configure.python}|" \
+        meson.build
+
+    reinplace -W ${worksrcpath} "s|@PREFIX@|${prefix}|g" \
+        gio/xdgmime/xdgmime.c \
+        glib/gi18n-lib.h \
+        glib/gi18n.h \
+        gio/gdbusaddress.c
+
+    reinplace -W ${worksrcpath} "s|data_dirs = \"/usr|data_dirs = \"${prefix}/share:/usr|g" \
+        glib/gutils.c
+
+    reinplace -W ${worksrcpath} "s|path = \"/bin|path = \"${prefix}/bin:/bin|g" \
+        glib/gutils.c \
+        glib/gspawn.c
+
+    reinplace -W ${worksrcpath} "s|/usr/bin/env python3$|${configure.python}|" \
+        docs/reference/gio/concat-files-helper.py \
+        gio/data-to-c.py \
+        glib/update-gtranslit.py \
+        tools/gen-visibility-macros.py
+
+    set testpath_list [list \
+        ${worksrcpath}/gio/tests \
+        ${worksrcpath}/glib/tests \
+        ${worksrcpath}/gobject/tests \
+    ]
+    foreach p ${testpath_list} {
+        fs-traverse f ${p} {
+            if {[string match *.py ${f}]} {
+                ui_debug "patching testpath: ${f}"
+                reinplace "s|/usr/bin/env python3$|${configure.python}|" ${f}
+            }
+        }
+    }
 }
 
 # this edit does not, for some reason, apply against the build-arm64 config.h
@@ -158,7 +187,7 @@ post-destroot {
 
     set docdir ${prefix}/share/doc/${my_name}
     xinstall -d ${destroot}${docdir}
-    xinstall -m 0644 -W ${worksrcpath} COPYING HACKING NEWS README.md \
+    xinstall -m 0644 -W ${worksrcpath} COPYING NEWS README.md \
         ${destroot}${docdir}
 }
 
