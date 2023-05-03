@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 R.setup             github r-lib systemfonts 1.0.4 v
-revision            0
+revision            1
 categories-append   sysutils
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
@@ -37,3 +37,10 @@ configure.env-append \
     
 destroot.post_args-append \
                     --no-docs --no-html
+
+depends_test-append port:R-covr \
+                    port:R-knitr \
+                    port:R-rmarkdown \
+                    port:R-testthat
+
+test.run            yes

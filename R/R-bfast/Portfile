@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 R.setup             github bfast2 bfast 1.6.1 v
-revision            0
+revision            1
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             {GPL-2 GPL-3}
@@ -21,10 +21,8 @@ depends_lib-append  port:R-forecast \
                     port:R-strucchangeRcpp \
                     port:R-zoo
 
-patchfiles          patch-no-raster.diff
-
-depends_test-append port:R-sfsmisc \
+depends_test-append port:R-raster \
+                    port:R-sfsmisc \
                     port:R-stlplus
 
-# R-raster-related example won’t run.
 test.run            yes

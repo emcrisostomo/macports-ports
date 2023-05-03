@@ -10,7 +10,7 @@ name                        R
 # Remember to set revision to 0 when bumping version
 # And also to update Rversion in R PortGroup
 version                     4.3.0
-revision                    0
+revision                    1
 
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  math science
@@ -48,6 +48,12 @@ compiler.blacklist-append   {macports-clang-1[6-9]}
 
 compilers.choose            fc f77
 compilers.setup             require_fortran
+
+# https://trac.macports.org/ticket/67298
+# See related: https://skia.googlesource.com/skia/+/3490263287e9432119c501884e45840de4d986bc
+if {${os.platform} eq "darwin" && ${os.major} < 11} {
+    patchfiles-append       patch-fix-10.6.diff
+}
 
 # We wanna ensure the same compiler is used for R itself and R packages.
 # See R PortGroup.
@@ -263,7 +269,7 @@ variant java description {enable Java} {
     configure.args-replace --disable-java --enable-java
 }
 
-default_variants +cairo +recommended +openmp
+default_variants +cairo +tcltk +recommended +openmp
 
 if {![variant_isset quartz]} {
     default_variants-append +x11

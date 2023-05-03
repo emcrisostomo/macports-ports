@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-awscli
-version             1.27.118
+version             1.27.124
 revision            0
 
 categories          python devel
@@ -19,9 +19,9 @@ long_description    {*}${description}
 
 homepage            https://aws.amazon.com/cli/
 
-checksums           rmd160  3972f82c8ae127e8a98ce0462dc8f1d926a8e0ee \
-                    sha256  590fcdd7c49194b09e575e2e1594c5838a2320d9c8216eda15fdc659c45866fd \
-                    size    1514897
+checksums           rmd160  29fd33a1dcb7ad39d0e633d0609a6e65d5ae71d4 \
+                    sha256  af17efafcb2653926869b013d7508f6760d2dd891999b19279892bf2d14f5fd5 \
+                    size    1515254
 
 python.versions     39 310 311
 
