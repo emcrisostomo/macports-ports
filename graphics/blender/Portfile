@@ -8,7 +8,7 @@ PortGroup           boost 1.0
 
 name                blender
 version             2.93.17
-revision            0
+revision            1
 categories          graphics multimedia
 platforms           darwin
 license             GPL-2+
@@ -79,7 +79,7 @@ depends_lib-append  port:python${py_ver_nodot} \
                     port:fftw-3 \
                     port:zlib \
                     port:freetype \
-                    port:openexr \
+                    port:openexr2 \
                     path:lib/libavcodec.dylib:ffmpeg \
                     port:opencollada \
                     port:pcre \
@@ -113,6 +113,8 @@ if { ${llvm_version} eq "" } {
     # Blender links to libLLVM, so we need to add port:llvm as a dependency
     depends_lib-append  port:llvm-$llvm_version
 }
+
+configure.env-append    OPENEXR_ROOT_DIR=${prefix}/libexec/openexr2
 
 patchfiles          patch-macports-libs-creator.diff \
                     patch-macports-libs-platform_apple.diff \
@@ -405,6 +407,8 @@ configure.args-append   -DLLVM_STATIC=OFF
 
 # MacPorts hasn't got NanoVDB from Nvidia, disable it
 configure.args-append   -DWITH_NANOVDB=OFF
+
+configure.args-append   -DTBB_ROOT_DIR=${prefix}/libexec/tbb
 
 post-destroot {
     # Make sure that an addons_contrib folder makes it into the final

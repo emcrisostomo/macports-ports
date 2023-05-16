@@ -27,16 +27,13 @@ conflicts           opencv3
 set my_name         opencv3
 version             3.4.16
 # NOTE: Separate revisions maintained for Python subports, later in portfile
-revision            7
-categories          graphics science
-platforms           darwin
-license             BSD
+revision            9
 
-maintainers         \
-                    {mascguy @mascguy}
+categories          graphics science
+license             BSD
+maintainers         {mascguy @mascguy}
 
 description         Open Source Computer Vision Library
-
 long_description    OpenCV (Open Source Computer Vision Library) is an \
                     open source computer vision and machine learning \
                     software library. OpenCV was built to provide a \
@@ -45,7 +42,6 @@ long_description    OpenCV (Open Source Computer Vision Library) is an \
                     perception in the commercial products. Being a \
                     BSD-licensed product, OpenCV makes it easy for \
                     businesses to utilize and modify the code.
-
 homepage            https://opencv.org
 
 master_sites        https://github.com/opencv/opencv/archive/:opencv
@@ -122,7 +118,7 @@ depends_lib-append  \
                     port:tiff \
                     port:webp \
                     port:ilmbase \
-                    port:openexr
+                    port:openexr2
 
 # only search for openexr in ${prefix}
 patchfiles-append   patch-find-openexr.diff
@@ -135,7 +131,7 @@ configure.cppflags-replace -I${prefix}/include -isystem${prefix}/include
 patchfiles-append   patch-local_protobuf.diff
 
 post-patch {
-    reinplace "s|@PREFIX@|${prefix}|g" \
+    reinplace "s|@PREFIX@|${prefix}/libexec/openexr2|g" \
         ${worksrcpath}/cmake/OpenCVFindOpenEXR.cmake
 }
 
@@ -552,8 +548,18 @@ if {${name} eq ${subport}} {
                             -DWITH_TBB=OFF \
                             -DWITH_TBB=ON
         configure.args-append \
-                            -DHAVE_TBB=ON \
-                            -DTBB_INCLUDE_DIRS=${prefix}/include
+                            -DHAVE_TBB=ON
+
+        # NOTE: TBB 2020 (tbb port) doesn't provide cmake package and to prevent
+        # from pickinkg OneTBB it uses TBBROO env to verify that cmake picks the right one
+        configure.env-append \
+                            TBBROOT=${prefix}/libexec/tbb
+        configure.cflags-prepend \
+                            -I${prefix}/libexec/tbb/include
+        configure.cxxflags-prepend \
+                            -I${prefix}/libexec/tbb/include
+        configure.ldflags-prepend \
+                            -L${prefix}/libexec/tbb/lib
     }
 
     variant vtk description {Include VTK support} {

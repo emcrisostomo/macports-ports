@@ -12,7 +12,7 @@ PortGroup           legacysupport 1.0
 mpi.setup
 
 github.setup        OSGeo gdal 3.6.4 v
-revision            0
+revision            2
 checksums           rmd160  bfd5ccf14b829b066a6a8b8cb1e3299c756e7a27 \
                     sha256  889894cfff348c04ac65b462f629d03efc53ea56cf04de7662fbe81a364e3df1 \
                     size    8648032
@@ -221,6 +221,8 @@ configure.args-append                                        \
 
 # Miscellaneous drivers
 configure.args-append                                        \
+                    -DBUILD_CSHARP_BINDINGS=OFF              \
+                    -DBUILD_JAVA_BINDINGS=OFF                \
                     -DBUILD_PYTHON_BINDINGS=OFF              \
                     -DGDAL_USE_CFITSIO=OFF                   \
                     -DGDAL_USE_CRYPTOPP=OFF                  \
@@ -543,6 +545,9 @@ eval ${projdf}
 variant native description {Optimize for speed} {
     if {${os.arch} eq "arm"} {
         configure.optflags  -O3 -pipe -mcpu=apple-m1 -DGDAL_COMPILATION
+    } elseif {${os.arch} eq "powerpc"} {
+        # https://github.com/macports/macports-ports/pull/18587#issuecomment-1540025830
+        configure.optflags  -O3 -pipe -mtune=native -mcpu=native -DGDAL_COMPILATION
     } else {
         configure.optflags  -O3 -pipe -march=native -DGDAL_COMPILATION
     }

@@ -9,7 +9,7 @@ conflicts           glibmm-devel
 set my_name         glibmm
 
 # this version should match glib2, as closely as possible
-version             2.72.1
+version             2.76.0
 revision            0
 
 categories          devel x11
@@ -22,13 +22,13 @@ homepage            http://www.gtkmm.org/
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 master_sites        gnome:sources/${my_name}/${branch}/
-distname            ${my_name}-${version}
 dist_subdir         ${my_name}
+distname            ${my_name}-${version}
 use_xz              yes
 
-checksums           rmd160  bef762260d6340842088291d9ee2cdfe1855c9f0 \
-                    sha256  2a7649a28ab5dc53ac4dabb76c9f61599fbc628923ab6a7dd74bf675d9155cd8 \
-                    size    7921260
+checksums           rmd160  0e3a92d83e72cfff8f0fc6283aed38a356d50566 \
+                    sha256  8637d80ceabd94fddd6e48970a082a264558d4ab82684e15ffc87e7ef3462ab2 \
+                    size    9295168
 
 set py_ver          3.11
 set py_ver_nodot    [string map {. {}} ${py_ver}]

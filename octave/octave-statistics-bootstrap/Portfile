@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           octave 1.0
 
-version             5.1.6
-revision            1
+version             5.2.5
+revision            0
 github.setup        gnu-octave statistics-bootstrap ${version} v
 octave.setup        statistics-bootstrap ${version}
 license             GPL-3
@@ -15,8 +15,8 @@ description         Estimate bias, uncertainty (standard errors and confidence \
                     methods.
 long_description    {*}${description}
 
-checksums           rmd160  fe77cdac494a3b304b056bc8679741950b613a3a \
-                    sha256  a4d38fc01bf7cc08238934c23a56d3639c2ce5abb38301facf6c386c49e76d37 \
-                    size    1124712
+checksums           rmd160  e87d2fd0fa925bf96ae0fc3f210ac5e56af7c132 \
+                    sha256  f8db38711139cd4516553a8a5abf0f03c651c313addf2da599dfb6f5434352ac \
+                    size    1128271
 
 depends_lib-append  port:octave-statistics
