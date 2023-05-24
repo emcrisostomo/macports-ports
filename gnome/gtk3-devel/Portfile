@@ -7,12 +7,13 @@ PortGroup           active_variants 1.1
 PortGroup           compiler_blacklist_versions 1.0
 PortGroup           legacysupport 1.1
 PortGroup           meson 1.0
+PortGroup           debug 1.0
 
 name                gtk3-devel
 conflicts           gtk3
 set my_name         gtk3
 version             3.24.37
-revision            0
+revision            1
 epoch               0
 
 set proj_name       gtk+
@@ -145,10 +146,6 @@ post-destroot {
 
 platform darwin {
     if {${os.major} <= 8} {
-        # The rules enabled by gobject-introspection require GNU make 3.81+
-        depends_build-append    port:gmake
-        build.cmd               ${prefix}/bin/gmake
-
         if {[variant_isset quartz] || ![variant_isset x11]} {
             configure.ldflags-append  -framework Cocoa -framework Carbon
         }
@@ -160,6 +157,12 @@ platform darwin {
             patchfiles-append   patch-gdk_quartz_gdkcursor-quartz-10_6_compat.diff
         }
     }
+
+    if {${os.major} <= 11} {
+        # Drop linking to 'CoreGraphics', not available for 10.7 and earlier
+        patchfiles-append patch-quartz-disable-coregraphics.diff
+    }
+
     if {${os.major} <= 12} {
         # requires cups 1.7
         configure.args-append \

@@ -6,7 +6,7 @@ PortGroup           R 1.0
 # https://github.com/rspatial/terra/issues/1131
 R.setup             github rspatial terra f511ea5ac254acbb668704852a9ba72b1b792717
 version             1.7-30
-revision            1
+revision            3
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3+
@@ -24,6 +24,11 @@ depends_lib-append  path:lib/proj5/lib/pkgconfig/proj.pc:proj \
                     port:geos \
                     port:R-Rcpp \
                     port:sqlite3
+
+# TODO: verify this works correctly:
+if {${build_arch} in [list i386 ppc]} {
+    patchfiles      patch-32-bit.diff
+}
 
 destroot.pre_args-append \
                     --configure-args=' \

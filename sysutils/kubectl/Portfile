@@ -29,44 +29,44 @@ subport kubectl-1.27 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     1
+    set patchNumber     2
     revision            0
-    checksums           rmd160  8f469fde899c3561e1e50b7cfc318293663abd5d \
-                        sha256  3a3f7c6b8cf1d9f03aa67ba2f04669772b1205b89826859f1636062d5f8bec3f \
-                        size    38048443
+    checksums           rmd160  0b8a63a58956c9f83db1f696defcc5f809f9a233 \
+                        sha256  c6fcfddd38f877ce49c49318973496f9a16672e83a29874a921242950cd1c5d2 \
+                        size    38061986
 }
 
 subport kubectl-1.26 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     4
+    set patchNumber     5
     revision            0
-    checksums           rmd160  6205a578b096328dc66a410433cd51b56eb5b025 \
-                        sha256  70ec54b87bc956b601b89694b14a46616f68e060fef215ece799a9049fe050d9 \
-                        size    38229656
+    checksums           rmd160  e2e75f12f150be74cf156a55cf049b6701743f8e \
+                        sha256  17769c501faa1bc8b50d7ef9b9c037bc2105b245fd1a31ea5d812df36fb6c7af \
+                        size    38241396
 }
 
 subport kubectl-1.25 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     9
+    set patchNumber     10
     revision            0
-    checksums           rmd160  48589a879478c387e1f484b9569a2ae4c24f9971 \
-                        sha256  3891ef0b66d4d28b4432ff126b9d79e6b3cf938714a84cdc5971364d2c5dc261 \
-                        size    38197577
+    checksums           rmd160  5a061a8a0fbc8cb925d25f9bee70d51834a9db72 \
+                        sha256  0432ad194d000df079429a741cc5ed1487217b7720bf3acf8db0b09baf0a3bcb \
+                        size    38218997
 }
 
 subport kubectl-1.24 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     13
+    set patchNumber     14
     revision            0
-    checksums           rmd160  3ed742720bb060ccc6a6337647ee1da8bff7ccb9 \
-                        sha256  78e798e3a74d85c3ddf092f92747c7814d43a260bf3eb785deb4d73d1561cb5d \
-                        size    37889804
+    checksums           rmd160  f809820b63ccd505b94da912394048e3b62422cc \
+                        sha256  144d986bca1efb650710e65b99170397573b10896463bfa73b8a8e95d40af8a5 \
+                        size    37908337
 }
 
 subport kubectl-1.23 {
@@ -199,7 +199,7 @@ if {${subport} == ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.27.1
+    version             1.27.2
     revision            0
 
 } elseif {${subport} == "kubectl_select"} {

@@ -189,6 +189,7 @@ set libcxx_incpath ${prefix}/libexec/${name}/libc++/include/c++/v1
 
 subport ${libcxxname} {
     PortGroup compilers     1.0
+
     compilers.choose        cxx
     compilers.setup         -gcc -fortran -clangdevel -clang34 -clang35 -clang36 \
                             -clang37 -clang50 -clang60 -clang70 -clang80 -clang90
@@ -264,6 +265,20 @@ compiler.blacklist-append {clang < 800} gcc-4.0 *gcc-4.2 {llvm-gcc-4.2 < 2336.1}
 # https://build.macports.org/builders/ports-10.13_x86_64-builder/builds/105513/steps/install-port/logs/stdio
 # c++/v1/functional:1408:2: error: no member named 'fancy_abort' in namespace 'std::__1'; did you mean simply 'fancy_abort'?
 compiler.blacklist-append {clang < 1001}
+
+# https://trac.macports.org/ticket/67416
+# Blacklist Xcode Clang 14.0.1
+compiler.blacklist-append {clang >= 1400 < 1400.0.29.202}
+# Blacklist MacPorts Clang 14 and later, due to our existing link crash issue
+compiler.blacklist-append {macports-clang-1[4-9]}
+
+# https://github.com/macports/macports-ports/commit/fe84d24a2fd27db03d966c6bd85cfaf060f1b203#commitcomment-113554609
+# Require latest Xcode/CLT >= 14.2  on Darwin 21
+if { ${subport} ne ${libcxxname} && ${os.platform} eq "darwin" && ${os.major} == 21 } {
+    if { [vercmp ${xcodeversion} < 14.2] || [vercmp ${xcodecltversion} < 14.2] } {
+        compiler.blacklist-append clang
+    }
+}
 
 # "-stdlib" would be passed on to the bootstrap compiler if present
 configure.cxx_stdlib

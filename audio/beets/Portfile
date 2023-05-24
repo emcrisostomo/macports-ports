@@ -39,13 +39,13 @@ if {$subport eq $name} {
 subport ${name}-devel {
     conflicts       $name
 
-    github.setup    beetbox beets 8fc3ddee2702d0612c5340700f876d78c3e06bbc
-    version         20230507
+    github.setup    beetbox beets 9527a07767629c1ceb99c2cd681b78172a7272a0
+    version         20230512
     revision        0
 
-    checksums       rmd160  cbeea2e628e4cac0d7973530410100f8aa2e8bba \
-                    sha256  985bd3ee0c0ec93841b5744788243a9c6672ed19c5b1f4f273b55445ac74239a \
-                    size    1867919
+    checksums       rmd160  47a9819099086969bdec29b3d3589410fb948ec3 \
+                    sha256  436410b7b886af13288d28c3a1b0ca1a95a8cb3096cdc709fdb6837f1a309b99 \
+                    size    1867798
 
     depends_build-append \
                     port:py${python.version}-sphinx
@@ -232,8 +232,8 @@ subport ${name}-barcode {
 
 subport ${name}-beetcamp {
     python.rootname beetcamp
-    version         0.16.3
-    revision        0
+    version         0.17.1
+    revision        1
 
     license         GPL-2
 
@@ -243,9 +243,13 @@ subport ${name}-beetcamp {
 
     homepage        https://github.com/snejus/beetcamp
 
-    checksums       rmd160  e9545400eb9cb36987f159ab973107932b3ed575 \
-                    sha256  b58433c33f1aaee50673866614d9e32189b313f035de12a354c7c4a9432aa765 \
-                    size    43079
+    checksums       rmd160  8f0dd6bc7bca3f146c2699c6a8cf5b3719a8ec74 \
+                    sha256  e0dfe23703e2a029c71e56ca48d22712ab71403f221610355f5a132e67aece44 \
+                    size    43529
+
+    python.pep517   yes
+    python.pep517_backend \
+                    poetry
 
     depends_lib-append \
                     port:py${python.version}-cached-property \
@@ -253,6 +257,16 @@ subport ${name}-beetcamp {
                     port:py${python.version}-dateutil \
                     port:py${python.version}-ordered-set \
                     port:py${python.version}-requests
+
+    post-destroot {
+        set docdir ${destroot}${prefix}/share/doc/${subport}
+        set doc_list [list LICENSE README.md]
+        xinstall -d ${docdir}
+        foreach f ${doc_list} {
+            xinstall -m 644 -W ${worksrcpath} ${f} ${docdir}
+            file delete -force ${destroot}/${python.pkgd}/${f}
+        }
+    }
 }
 
 subport ${name}-bpmanalyser {
