@@ -126,6 +126,10 @@ post-patch {
 # ld: internal error: atom not found in symbolIndex(__ZNSt3__1plIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_12basic_stringIT_T0_T1_EERKS9_SB_) for architecture x86_64
 patchfiles-append patch-b2-build-older-OSes.diff
 
+# Upstream fix to allow building Boost with Clang 16+. Included in versions v181+.
+# https://trac.macports.org/ticket/67324
+patchfiles-append patch-boost-clang16-cpp17-compat.diff
+
 proc write_jam s {
     global worksrcpath
     set config [open ${worksrcpath}/user-config.jam a]
@@ -287,8 +291,9 @@ foreach v ${pythons_versions} {
         configure.args-delete   --without-libraries=python
         configure.args-append   --with-python=${prefix}/bin/python${v} --with-python-root=${prefix}/bin/python${v}
 
-        patchfiles-append   ${bppatch} patch-tools-build-src-tools-python.jam.diff \
-                            patch-tools-build-src-tools-python-2.jam.diff
+        patchfiles-append   ${bppatch} patch-tools-build-src-tools-python.jam.diff
+        patchfiles-append   patch-tools-build-src-tools-python-2.jam.diff
+        patchfiles-append   patch-python-enum_type.diff
 
         post-patch {
             reinplace s|@FRAMEWORKS_DIR@|${frameworks_dir}| ${worksrcpath}/tools/build/src/tools/python.jam
@@ -359,7 +364,7 @@ subport ${name}-numpy {
 
 if {$subport eq $name} {
 
-    revision 4
+    revision 6
 
     patchfiles-append patch-disable-numpy-extension.diff
 

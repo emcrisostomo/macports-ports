@@ -5,7 +5,7 @@ PortGroup           legacysupport 1.1
 
 name                kismet
 version             2022-08-R1
-revision            0
+revision            2
 
 categories          net
 license             GPL-2
@@ -42,13 +42,14 @@ depends_build-append \
                     port:pkgconfig
 
 depends_lib-append \
+                    port:libpcap \
+                    port:libusb \
+                    port:libwebsockets \
                     port:ncurses \
                     path:lib/libssl.dylib:openssl \
-                    port:libpcap \
                     port:pcre \
                     port:protobuf-c \
-                    port:libusb \
-                    port:libwebsockets
+                    port:protobuf3-cpp
 
 patchfiles-append   patch-capture_osx_corewlan_wifi-Makefile.diff
 

@@ -8,7 +8,7 @@ PortGroup               muniversal     1.1
 
 name                    gmsh
 version                 4.11.1
-revision                2
+revision                3
 categories              science
 license                 GPL-2+
 maintainers             {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
@@ -33,6 +33,9 @@ compiler.c_standard     1999
 
 mpi.setup
 veclibfort              no
+
+patchfiles-append       patch-implicit.diff \
+                        patch-test.diff
 
 depends_lib-append      port:alglib \
                         port:eigen3 \
