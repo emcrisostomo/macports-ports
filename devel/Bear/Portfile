@@ -3,9 +3,14 @@
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cmake 1.1
+PortGroup           legacysupport 1.1
+
+# Needed for clock_gettime, std::filesystem
+legacysupport.newest_darwin_requires_legacy 18
+legacysupport.use_mp_libcxx                 yes
 
 github.setup        rizsotto Bear 3.1.1
-revision            3
+revision            4
 checksums           rmd160  66e4698f34c116ff875bd80e15e097fb4fada48f \
                     sha256  b80b81abe8b38cfd7399a074ef97e1c1045875a3e38459c960543e226e309476 \
                     size    127097
@@ -27,6 +32,9 @@ patchfiles          patch-spdlog-header-only.diff
 
 cmake.module_path-append \
                     ${prefix}/lib/libfmt9/cmake
+
+# Cxx 2017 needed, as of latest 3.1.x releases
+compiler.cxx_standard 2017
 
 depends_build-append \
                     port:pkgconfig \
