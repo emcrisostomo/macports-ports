@@ -5,7 +5,7 @@ PortGroup           github 1.0
 PortGroup           cmake 1.1
 
 github.setup        gperftools gperftools 2.10 gperftools-
-revision            1
+revision            2
 
 categories          devel
 license             BSD
@@ -23,6 +23,10 @@ checksums           rmd160  54e35f78813b5409bc6f82e0894b0b8e42ad711a \
 # Patch to replace use of std::random_shuffle, removed in Cxx 2017 and later
 patchfiles-append   patch-malloc_bench-random_shuffle.diff
 
+# Patch to fix ARM detection, for CMake. Already present for autotools-based builds.
+# See: https://trac.macports.org/ticket/67572
+patchfiles-append   patch-cmake-arm64-detect.diff
+
 patchfiles-append   patch-rosetta.diff
 
 compiler.cxx_standard  2017
@@ -36,21 +40,10 @@ if { [string match *clang* ${configure.compiler}] } {
                     -Wno-unknown-warning-option
 }
 
-depends_lib-append \
-                    port:libunwind
-
 configure.args-append \
                     -DBUILD_TESTING:BOOL=OFF \
-                    -Dgperftools_build_benchmark:BOOL=OFF
-
-platform darwin {
-    if { ${configure.build_arch} eq "arm64" } {
-        # Upstream ARM check broken, so explicitly enable when necessary
-        # https://trac.macports.org/ticket/67572
-        configure.args-append \
-                    -DARM:BOOL=ON
-    }
-}
+                    -Dgperftools_build_benchmark:BOOL=OFF \
+                    -Dgperftools_enable_libunwind:BOOL=OFF
 
 variant benchmark description {Enable benchmark support} {
     configure.args-replace \
