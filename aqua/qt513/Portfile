@@ -994,7 +994,7 @@ foreach {module module_info} [array get modules] {
             # respect configure.sdk_version
             post-patch {
                 reinplace \
-                    "s|__MACPORTS_MAC_SDK__|[qt5pg::qmake_mac_sdk]|g" \
+                    "s|__MACPORTS_MAC_SDK__|${qt5.mac_sdk}|g" \
                     ${worksrcpath}/mkspecs/common/macx.conf
             }
 
@@ -1181,8 +1181,9 @@ foreach {module module_info} [array get modules] {
             # It builds the rest using its own internal environment.
             # For consistency, clear MacPorts environment.
             #configure.cxx_stdlib
-            proc portconfigure::should_add_stdlib {} {return false}
-            configure.sdkroot
+            proc portconfigure::should_add_stdlib {} {return no}
+            proc portconfigure::should_add_cxx_abi {} {return no}
+            compiler.limit_flags yes
             configure.cc_archflags
             configure.cxx_archflags
             configure.objc_archflags

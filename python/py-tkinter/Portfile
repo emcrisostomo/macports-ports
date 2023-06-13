@@ -88,48 +88,48 @@ subport py36-tkinter {
 }
 subport py37-tkinter {
     maintainers {jmr @jmroot}
-    version     3.7.16
+    version     3.7.17
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 df3b8ad6e2ab8f198d65ecf68816bf42 \
-                rmd160 e731263101e091914068e41e94cb7b5e2148b416 \
-                sha256 8338f0c2222d847e904c955369155dc1beeeed806e8d5ef04b00ef4787238bfd
+    checksums   md5 dd94cab4541b57b88cf3dab32d6336e3 \
+                rmd160 4dc4fb8286e8550da79a610ecb3a161757cf0886 \
+                sha256 7911051ed0422fd54b8f59ffc030f7cf2ae30e0f61bda191800bb040dce4f9d2
 }
 subport py38-tkinter {
     maintainers nomaintainer
-    version     3.8.16
+    version     3.8.17
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 621ac153586a3152e2ab7d3a8614df9a \
-                rmd160 25947fe421ca5a3d6d0b6edbd7233ef3700119b6 \
-                sha256 d85dbb3774132473d8081dcb158f34a10ccad7a90b96c7e50ea4bb61f5ce4562
+    checksums   md5 70223497e664524303ca2364208647e1 \
+                rmd160 73a4bed2f9fb3ab0a60839e1d24237b70e0e3822 \
+                sha256 2e54b0c68191f16552f6de2e97a2396540572a219f6bbb28591a137cecc490a9
 }
 subport py39-tkinter {
     maintainers {jmr @jmroot}
-    version     3.9.16
+    version     3.9.17
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 5738c204eecc375e29751cb2176fc9cc \
-                rmd160 2620290222929bb5eebacaf0eda8fffd4b4b9266 \
-                sha256 22dddc099246dd2760665561e8adb7394ea0cc43a72684c6480f9380f7786439
+    checksums   md5 601fc470594f378b4339b454901f8e41 \
+                rmd160 3f3c92decdabe268267448eecf4dd5e2274e0bef \
+                sha256 30ce057c44f283f8ed93606ccbdb8d51dd526bdc4c62cce5e0dc217bfa3e8cee
 }
 subport py310-tkinter {
     maintainers {jmr @jmroot}
-    version     3.10.11
+    version     3.10.12
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 1bf8481a683e0881e14d52e0f23633a6 \
-                rmd160 a1b8024e9b9ef631d8996a4376b58dd578df127f \
-                sha256 3c3bc3048303721c904a03eb8326b631e921f11cc3be2988456a42f115daf04c
+    checksums   md5 49b0342476b984e106d308c25d657f12 \
+                rmd160 2fa4755bd20a07c1af9b51a83659716fb9163b8f \
+                sha256 afb74bf19130e7a47d10312c8f5e784f24e0527981eab68e20546cfb865830b8
 }
 subport py311-tkinter {
     maintainers {jmr @jmroot}
-    version     3.11.3
+    version     3.11.4
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 c8d52fc4fb8ad9932a11d86d142ee73a \
-                rmd160 2ab568c92e89a095ecc5add44a6a18ee2c5a2358 \
-                sha256 8a5db99c961a7ecf27c75956189c9602c968751f11dbeae2b900dbff1c085b5e
+    checksums   md5 fb7f7eae520285788449d569e45b6718 \
+                rmd160 3b31d5c3e4294282de3ff76958efac2fa75d55b4 \
+                sha256 2f0e409df2ab57aa9fc4cbddfb976af44e4e55bf6f619eee6bc5c2297264a7f6
 }
 
 master_sites    https://www.python.org/ftp/python/${version}/
