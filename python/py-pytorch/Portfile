@@ -4,11 +4,11 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           mpi 1.0
 PortGroup           python 1.0
-PortGroup           xcodeversion 1.0
 
 name                py-pytorch
+# NOTE: please remove blacklist of clang14+ after update
 version             2.0.0
-revision            1
+revision            2
 github.setup        pytorch pytorch ${version} v
 fetch.type          git
 
@@ -41,6 +41,9 @@ mpi.setup
 compiler.cxx_standard 2017
 
 compiler.blacklist-append *gcc*
+
+# See: https://github.com/pytorch/pytorch/issues/99223
+compiler.blacklist-append {clang >= 1400} {macports-clang-1[4-9]}
 
 variant mkl description {Enable Intel Math Kernel Library support} { }
 
@@ -100,10 +103,11 @@ if {${name} ne ${subport}} {
         port:eigen3 \
         port:gmp \
         port:mpfr \
-        port:OpenBLAS \
+        path:lib/libopenblas.dylib:OpenBLAS \
         path:lib/opencv4/libopencv_core.dylib:opencv4 \
         port:zmq \
         port:zstd \
+        port:onetbb \
         port:google-glog \
         port:gflags \
         port:leveldb \
@@ -169,6 +173,7 @@ if {${name} ne ${subport}} {
                     USE_OPENMP=ON \
                     USE_ROCM=OFF \
                     USE_TBB=ON \
+                    USE_SYSTEM_TBB=ON \
                     USE_ZMQ=ON \
                     USE_ZSTD=OFF
 
