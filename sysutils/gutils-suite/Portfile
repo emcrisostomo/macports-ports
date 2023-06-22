@@ -18,7 +18,6 @@ supported_archs     noarch
 platforms           any
 
 depends_lib-append \
-                    port:afscompress \
                     port:apple-completion \
                     port:bash \
                     port:bash-completion \
@@ -53,11 +52,18 @@ depends_lib-append \
                     path:bin/rsync:rsync-hfscomp \
                     port:smartmontools \
                     port:symlinks \
-                    port:vim \
                     port:wget \
                     port:xz
 
 depends_run-append \
                     path:bin/git:git
+
+platform darwin {
+    if { ${os.major} >= 10 } {
+        depends_lib-append \
+                    port:afscompress \
+                    port:vim
+    }
+}
 
 livecheck.type      none
