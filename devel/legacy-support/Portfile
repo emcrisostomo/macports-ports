@@ -11,7 +11,7 @@ categories          devel
 platforms           darwin
 
 maintainers         {jonesc @cjones051073} openmaintainer
-license             MIT
+license             MIT BSD APSL-2
 
 description         Installs wrapper headers to add missing functionality to legacy OSX versions.
 long_description    {*}${description}
@@ -33,13 +33,13 @@ subport ${name} {
 
 subport ${name}-devel {
     conflicts           ${name}
-    github.setup        macports macports-legacy-support d24f1d50c27f86fa05aa0fac209b6468b07f4940
-    version             20230701
-    revision            0
+    github.setup        macports macports-legacy-support b570b7f97476e5377ee2397a7a3a71638b72bdb5
+    version             20230705
+    revision            1
     livecheck.type      none
-    checksums           rmd160  feab9f99245f8a131ef5e61537cd88e4b21dc596 \
-                        sha256  a5513e3211461d7aedc00c4230e39e207f15e61166f336e4be6e1d54b381eda7 \
-                        size    58373
+    checksums           rmd160  f7cee33104ed1941c389888ef54b4a05cda6ea8e \
+                        sha256  e65d6cf0eae5ee85b818acd39b5a47af15605c410c98bfab653975ca1a2589ea \
+                        size    61879
     set v_split         [split ${release_ver} .]
     set release_ver     [lindex ${v_split} 0].[lindex ${v_split} 1].99
 }

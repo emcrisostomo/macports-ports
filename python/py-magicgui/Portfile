@@ -23,9 +23,11 @@ checksums           rmd160  46beec141499791f35dab52bfcce59f8f6f7427c \
 
 if {${name} ne ${subport}} {
     python.pep517   yes
+    python.pep517_backend \
+                    hatch
 
     depends_build-append \
-                    port:py${python.version}-setuptools_scm
+                    port:py${python.version}-hatch-vcs
 
     depends_lib-append  \
                     port:py${python.version}-docstring_parser \
