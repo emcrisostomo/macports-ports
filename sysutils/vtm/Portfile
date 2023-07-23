@@ -6,7 +6,7 @@ PortGroup               cmake 1.1
 PortGroup               legacysupport 1.1
 PortGroup               compiler_blacklist_versions 1.0
 
-github.setup            netxs-group vtm 0.9.9r v
+github.setup            netxs-group vtm 0.9.9t v
 github.tarball_from     archive
 revision                0
 
@@ -19,9 +19,9 @@ description             Monotty Desktopio - text-based desktop environment \
 long_description        ${name} is a terminal multiplexer with window manager \
                         and session sharing.
 
-checksums               rmd160  22ae2e0d7bf8f903ec16d4c31c3e056d30b42a7d \
-                        sha256  52c771a69e66770c5db868732e1e7ead06fce7de28960df05f3f8e83e8a62812 \
-                        size    1397981
+checksums               rmd160  6de5a3c0ed7db12de02d73ae61728a5ccb90422b \
+                        sha256  23d6ea2703297f403886332c5aab37e9b28fc1659d9973eee9601609d62c4453 \
+                        size    1399708
 
 # Requires a compiler with full C++20 support
 compiler.cxx_standard   2020

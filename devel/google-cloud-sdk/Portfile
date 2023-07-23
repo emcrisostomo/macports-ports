@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                google-cloud-sdk
-version             437.0.1
+version             439.0.0
 revision            0
 categories          devel python
 license             Apache-2
@@ -21,19 +21,19 @@ supported_archs     i386 x86_64 arm64
 
 if { ${configure.build_arch} eq "i386" } {
     distname        ${name}-${version}-darwin-x86
-    checksums       rmd160  871d9e1defbd4b3c1ab6f09982346d7f9c68d919 \
-                    sha256  9c72e01fdebf686751b224fd7513545787fe032a59c6575841635871c78ce250 \
-                    size    100577590
+    checksums       rmd160  1dca36df4c717ae7ef561c137edc908414268d2e \
+                    sha256  991bd0c69ccfad49de81c68ee3e630826ca733966793c7606f63af5b7d3cc911 \
+                    size    100995658
 } elseif { ${configure.build_arch} eq "x86_64" } {
     distname        ${name}-${version}-darwin-x86_64
-    checksums       rmd160  b8b444e34856b1a5c6beaf08222ae21a23af403b \
-                    sha256  abdc930d3eee5cd551e2f243f37b27899bbb89f6e214933bb866c4c9c3c5726e \
-                    size    120855397
+    checksums       rmd160  b7c5b77e450094ae42dca5666cb4f61c17f188d6 \
+                    sha256  564c39e3782498a138c1f5d4990e3af0063d5e9bc6eff440802279dd49d11b88 \
+                    size    121250606
 } elseif { ${configure.build_arch} eq "arm64" } {
     distname        ${name}-${version}-darwin-arm
-    checksums       rmd160  40532fba56160bbc5e54606a437036d65f00d045 \
-                    sha256  44282327276fc12535e242b109f719d7fed2a975ad7d8a995ce10320bf10a747 \
-                    size    117974387
+    checksums       rmd160  ed0ae8c6fb52e5370f6bfff76582cb9ee8f26cd6 \
+                    sha256  29ea27050cb84a0dd53a688c3c55057827f61881047658a839a475d15d66b0ac \
+                    size    118421397
 }
 
 homepage            https://cloud.google.com/sdk/
@@ -105,7 +105,7 @@ variant skaffold description {Add Skaffold} { dict set variant_to_component skaf
 variant terraform_tools description {Add Terraform Tools} { dict set variant_to_component terraform_tools terraform-tools }
 
 patch {
-    set install_command "CLOUDSDK_CONFIG=${worksrcpath}/.config ./install.sh \
+    set install_command "CLOUDSDK_CONFIG=${worksrcpath}/.config CLOUDSDK_PYTHON=${python.bin} ./install.sh \
         --usage-reporting false \
         --command-completion false \
         --path-update false \

@@ -4,7 +4,7 @@ PortSystem              1.0
 
 name                    gnuastro
 version                 0.20
-revision                0
+revision                1
 categories              science
 license                 GPL-3+
 maintainers             {@sikmir disroot.org:sikmir} openmaintainer
@@ -23,7 +23,7 @@ depends_build-append    port:libtool
 
 depends_lib-append      port:cfitsio \
                         port:gsl \
-                        port:libgit2 \
+                        path:lib/pkgconfig/libgit2.pc:libgit2 \
                         port:openjpeg \
                         port:tiff \
                         port:wcslib \

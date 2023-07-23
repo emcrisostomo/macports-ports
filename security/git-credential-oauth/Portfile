@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/hickford/git-credential-oauth 0.8.0 v
+go.setup            github.com/hickford/git-credential-oauth 0.9.1 v
 github.tarball_from archive
 revision            0
 
@@ -27,9 +27,9 @@ destroot {
 }
 
 checksums           ${distname}${extract.suffix} \
-                        rmd160  6befedab18cab10c1cd5dbe3afbc00b29be13c46 \
-                        sha256  3c48505c9fc02ef46a5ecadcbc4470a5389d82c7e607448d2d24333726c08809 \
-                        size    14364
+                        rmd160  a72f022ff7c1e5f585514cc8cd878b4dd959c144 \
+                        sha256  b44562f1ca85984de25560629e322eb19e43661542b12018183d020f78d04655 \
+                        size    14394
 
 go.vendors          google.golang.org/protobuf \
                         repo    github.com/protocolbuffers/protobuf-go \

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/jesseduffield/lazygit 0.38.2 v
+go.setup            github.com/jesseduffield/lazygit 0.39.3 v
 github.tarball_from archive
 revision            0
 
@@ -16,9 +16,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  4f4d5cc3fa5d59a4ee58a819de36f93612d8e204 \
-                    sha256  2e727db952022c0518443d18c9b8a97a882970b93c5ab198ff33bb8ed2166c2f \
-                    size    3870937
+checksums           rmd160  a2b50ab23a8b14223625fd069367fdb32666a19c \
+                    sha256  32231f7654339b197dcfe564b9edea7d9fa623bf6b41cb9ff17002c6a1307808 \
+                    size    3883453
 
 # lazygit's dependencies are already vendored in the source code
 # Allow Go modules so that we can build vendored dependencies

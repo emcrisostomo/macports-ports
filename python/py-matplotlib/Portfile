@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           compiler_wrapper 1.0
 
 name                py-matplotlib
-version             3.7.1
+version             3.7.2
 revision            1
 
 categories-append   graphics math
@@ -25,9 +25,9 @@ long_description    Matplotlib strives to produce publication quality 2D \
 
 homepage            https://matplotlib.org/
 
-checksums           rmd160  29f3a8925d369f3ffed0408a7e13392717412698 \
-                    sha256  7b73305f25eab4541bd7ee0b96d87e53ae9c9f1823be5659b806cd85786fe882 \
-                    size    38003777
+checksums           rmd160  b5b4431b361f5b7edd19acc0fd55354fa0028b08 \
+                    sha256  a8cdb91dddb04436bd2f098b8fdf4b81352e68cf4d2c6756fcc414791076569b \
+                    size    38095843
 
 use_parallel_build  no
 
@@ -67,7 +67,7 @@ if {${name} ne ${subport}} {
 
     if {${python.version} == 37 || ${python.version} > 37 && ${os.platform} eq "darwin" && ${os.major} <= 16} {
         version     3.5.3
-        revision    0
+        revision    1
         checksums   rmd160  6eef2bea598dcd4b004e861349c081fe712a11c1 \
                     sha256  339cac48b80ddbc8bfd05daae0a3a73414651a8596904c2a881cfd1edb65f26c \
                     size    35236343
@@ -81,7 +81,7 @@ if {${name} ne ${subport}} {
                     port:py${python.version}-contourpy
     } elseif {${python.version} == 27} {
         version     2.2.5
-        revision    3
+        revision    4
         checksums   rmd160  4532a205e8f40d6f40346b2e461d3dca144b38b9 \
                     sha256  a3037a840cd9dfdc2df9fee8af8f76ca82bfab173c0f9468193ca7a89a2b60ea \
                     size    36678633

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-Faker
-version             18.11.2
+version             19.2.0
 revision            0
 supported_archs     noarch
 platforms           {darwin any}
@@ -18,9 +18,9 @@ long_description    \
     or anonymize data taken from a production service, Faker is for you.
 homepage            https://github.com/joke2k/faker
 
-checksums           rmd160  a0c75adb35bb738b7ee605c3345c8a748d4c00ea \
-                    sha256  ec6e2824bb1d3546b36c156324b9df6bca5a3d6d03adf991e6a5586756dcab9d \
-                    size    1670644
+checksums           rmd160  4e1e98ce02181e18f8468110b3d601df5546f99e \
+                    sha256  78840b94843f3aa32a34a220b2b5e8b309e3ffff3a231b0c54e841bb68e0757d \
+                    size    1676517
 
 python.versions     37 38 39 310 311
 

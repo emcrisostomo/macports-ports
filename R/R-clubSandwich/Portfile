@@ -4,17 +4,36 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version lags behind.
-R.setup             cran jepusto clubSandwich 0.5.8
-revision            1
+R.setup             cran jepusto clubSandwich 0.5.10
+revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3
 description         Cluster-robust (sandwich) variance estimators with small-sample corrections
 long_description    {*}${description}
 homepage            https://jepusto.github.io/clubSandwich
-checksums           rmd160  7f794d579c1238f76b57babccbb571424719f457 \
-                    sha256  7814a1c80f0efb700a4a80ec1d9d6eb49504edb5b2bb5842c59f125a862509f9 \
-                    size    360354
+checksums           rmd160  0fccf63cc0cf4722e8c0b881fd56a39b4126224f \
+                    sha256  daf0b372f0e6aae141d45b78b69c6f680c774f201691a1333400073001c6a463 \
+                    size    344217
 supported_archs     noarch
 
 depends_lib-append  port:R-sandwich
+
+depends_test-append port:R-AER \
+                    port:R-carData \
+                    port:R-covr \
+                    port:R-Formula \
+                    port:R-geepack \
+                    port:R-ivreg \
+                    port:R-knitr \
+                    port:R-lme4 \
+                    port:R-metadat \
+                    port:R-metafor \
+                    port:R-mlmRev \
+                    port:R-plm \
+                    port:R-rmarkdown \
+                    port:R-robumeta \
+                    port:R-testthat \
+                    port:R-zoo
+
+test.run            yes

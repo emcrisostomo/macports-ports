@@ -10,13 +10,12 @@ github.setup        OSGeo grass 8.3.0
 name                grass
 epoch               1
 set main_version    [join [lrange [split ${version} "."] 0 1] ""]
-revision            0
+revision            1
 set realVersion     ${version}
 distname            grass-${realVersion}
 maintainers         nomaintainer
 categories          gis
 license             GPL-2+
-platforms           darwin
 
 description         GRASS
 long_description    GRASS is a Geographic Information System (GIS) used for \
@@ -95,7 +94,7 @@ configure.args-append \
 build.target            default
 
 # Python 3 variants
-set python_suffixes {36 37 38 39 310 311}
+set python_suffixes {37 38 39 310 311}
 set python_variants {}
 
 foreach pyver ${python_suffixes} {

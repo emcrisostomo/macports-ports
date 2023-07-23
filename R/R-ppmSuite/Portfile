@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran ppmSuite 0.3.2
-revision            1
+R.setup             cran cran ppmSuite 0.3.4
+revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
-license             {GPL-2 GPL-3}
+license             GPL
 description         Collection of models that employ product partition distributions as a prior on partitions
 long_description    {*}${description}
-checksums           rmd160  b96d67133bae3c57cce237974a6c7cc1818f0e19 \
-                    sha256  3a77ac601aa79673d70fe8eb06d42cf8d38d791553c60395f754cd64dd1e7ad2 \
-                    size    200303
+checksums           rmd160  bb627c4c75fe1abec767a7fdc42ac1b6178a08c6 \
+                    sha256  7579468264075a6e1765ddf139f3290820e26fee06fac13b68c8acb253d903d9 \
+                    size    197413
 
 compilers.setup     require_fortran
 

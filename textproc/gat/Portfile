@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/koki-develop/gat 0.9.0 v
+go.setup            github.com/koki-develop/gat 0.11.0 v
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ destroot {
 }
 
 checksums           ${distname}${extract.suffix} \
-                        rmd160  47862eed4e928a3a79fbbfcb40cbd03f8f9a964c \
-                        sha256  c44b4999604ff8cf65c9d747d4613ba8d42d003a8e2ded6a8adee42099e007fc \
-                        size    13916460
+                        rmd160  39387949f0ac7bd7183c060aef32640167432514 \
+                        sha256  d2002f2ce653213dcbb2db6f4fa0a95f83ef520aee7ff78ccf83c5f7c7aa1859 \
+                        size    13916657
 
 go.vendors          gopkg.in/yaml.v3 \
                         lock    v3.0.1 \
@@ -40,15 +40,15 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  233f8faf427ce6701ac3427f85c28bc6b6ae7cdc97a303a52873c69999223325 \
                         size    30360 \
                     golang.org/x/term \
-                        lock    v0.9.0 \
-                        rmd160  7d57f52bf0195a21d9628f7d04b202b6426bfa21 \
-                        sha256  7628c777f684cd13619c91b2b007c27e6d678fcfee3c6e1a6741a418a5c907d6 \
-                        size    14799 \
+                        lock    v0.10.0 \
+                        rmd160  3fe74cc1e896e699905f977770d03fb18d57446e \
+                        sha256  9aecdd02affdb29761beced82234ea873f6452500e7338482be692816c29d6e1 \
+                        size    14801 \
                     golang.org/x/sys \
-                        lock    v0.9.0 \
-                        rmd160  2cc3f76a07816bf45247088a57f093ee1dfebd00 \
-                        sha256  138197a232bf1882aeb8865e8263afc6e7dc3b34e632361098ea3506c13f6791 \
-                        size    1440217 \
+                        lock    v0.10.0 \
+                        rmd160  83368c420a37696a8f102d9409b238b89a9c9d82 \
+                        sha256  131890e51d97b703ad20cebc231370408213b554c32231001d204bfac7ac96d5 \
+                        size    1441834 \
                     golang.org/x/net \
                         lock    v0.8.0 \
                         rmd160  9fad54bb4c2f96a60e6d5126ff16ffa4064b1844 \
@@ -160,10 +160,10 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  b2c0f4f5a24184577800de0ad1c4056cf636be2b7cd794eb46a90d6cfe8cb7a0 \
                         size    7488 \
                     github.com/alecthomas/chroma \
-                        lock    v2.7.0 \
-                        rmd160  333ad72e29e34850410db57931c67f4643a8362a \
-                        sha256  3b9da2190f5468b892f2b0904ab277181a146d83f70419999afc00a7556cbef0 \
-                        size    934098 \
+                        lock    v2.8.0 \
+                        rmd160  0ca9a85d7bc0fae802ef0d694f269e6ddb4b0759 \
+                        sha256  ab6b676c9301bea5dda956febfe02b144f954274ef44bf2c9eff1646865e6e14 \
+                        size    971225 \
                     github.com/alecthomas/assert \
                         lock    v2.2.1 \
                         rmd160  c12916281402f7d3f47485aabd9948040018fd3c \

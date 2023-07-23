@@ -22,7 +22,7 @@ revision        2
 dist_subdir     ${name}/${version}_1
 
 categories      devel
-maintainers     nomaintainer
+maintainers     {mascguy @mascguy} openmaintainer
 license         BSD
 
 conflicts       protobuf-cpp
@@ -127,4 +127,4 @@ variant tests description {Build with tests enabled} {
     test.target check
 }
 
-github.livecheck.regex  {([0-9.]+)}
+livecheck.type  none
