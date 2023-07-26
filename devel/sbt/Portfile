@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       github 1.0
 PortGroup       java 1.0
 
-github.setup    sbt sbt 1.9.1 v
+github.setup    sbt sbt 1.9.3 v
 revision        0
 categories      devel java
 license         Apache-2
@@ -21,9 +21,9 @@ long_description \
 
 homepage        https://www.scala-sbt.org/
 
-checksums       rmd160  ce3c4ad4051ae300fafc72883b7c211345810b66 \
-                sha256  29cca5153cc96315d6e423777e5800b831e45723b47732c207a66efa5ca4fc2b \
-                size    38488030
+checksums       rmd160  909a70e2765641f8133a3d22587718896349eb84 \
+                sha256  9ccf944eccb33c66830ef9ff9d46c3402741cdc6d883251045261db33e748e82 \
+                size    47258601
 
 java.version    1.8+
 java.fallback   openjdk8
