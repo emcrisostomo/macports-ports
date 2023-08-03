@@ -12,13 +12,13 @@ maintainers         {ra1nb0w @ra1nb0w} \
 description         gopls is the official language server for the Go language
 long_description    {*}${description}
 
-go.setup            golang.org/x/tools 0.12.4 gopls/v
+go.setup            golang.org/x/tools 0.13.1 gopls/v
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  9344d60cd267a7b711d0d5db2f0905d4c244bf56 \
-                    sha256  746b0e1942c028c62fd8c114242a024faed19009ac64180f2cbfc9480fd45544 \
-                    size    3364220
+checksums           rmd160  6c9f21cd91fc9d54c97d61a65ac655e0a41d4ae9 \
+                    sha256  e59a87ebd380d25e76701e163b9dd447b0c3ad94b5f7b68885d0cc94d8d956d3 \
+                    size    3456032
 
 build.dir           ${worksrcpath}/${name}
 
