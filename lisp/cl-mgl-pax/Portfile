@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem                  1.0
+PortGroup                   github 1.0
+PortGroup                   common_lisp 1.0
+
+github.setup                melisgl mgl-pax 8e7dc0ce2eec26a17543e53d3527eb7315711f16
+name                        cl-mgl-pax
+version                     20230810
+revision                    0
+
+checksums                   rmd160  52867424bbda4828739abfa92cbf66356c42a594 \
+                            sha256  1ec3abded0b021de81f60890df3b1583b76f2896f20e6388e37c34b31f7e19fd \
+                            size    979681
+
+categories-append           devel textproc
+maintainers                 {@catap korins.ky:kirill} openmaintainer
+license                     MIT
+
+description                 Reify definitions, provide portable access to docstrings and source locations in an extensible framework.
+
+long_description            {*}${description}
+
+if {${name} eq ${subport}} {
+    depends_lib-append      port:cl-3bmd \
+                            port:cl-alexandria \
+                            port:cl-dref \
+                            port:cl-named-readtables \
+                            port:cl-md5 \
+                            port:cl-pythonic-string-reader
+
+    depends_test-append     port:cl-trivial-utf-8
+}
+
+subport cl-dref {
+    # NOTE: cl-dref depends on cl-mgl-pax which depends on cl-dref :)
+    # MacPorts can't handle such dependency => switch off building
+    # and avoid dependency from cl-dref to cl-mgl-pax
+    common_lisp.build_run   no
+
+    worksrcdir              ${worksrcdir}/dref
+
+    depends_lib-append      port:cl-alexandria \
+                            port:cl-named-readtables \
+                            port:cl-pythonic-string-reader \
+                            port:cl-swank
+
+    depends_test-append     port:cl-mgl-pax \
+                            port:cl-try
+
+    livecheck.type          none
+}
