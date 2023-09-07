@@ -38,7 +38,7 @@ subport maxima-devel {
     # Date:  Sun Jul 30 06:55:16 2023 -0700
     # commit 65e393d796fedd34162d2a510af37c2448f07d74
     version     5.47-dev-20230730
-    revision    0
+    revision    1
     fetch.type  git
     git.url     https://git.code.sf.net/p/maxima/code
     git.branch  65e393d796fedd34162d2a510af37c2448f07d74
@@ -58,7 +58,7 @@ if {${subport} eq ${name}} {
     conflicts   maxima-devel
 
     version     5.47.0
-    revision    0
+    revision    1
     # get the source tarball from sourceforge.
     master_sites    sourceforge:project/maxima/Maxima-source/${version}-source
 
@@ -107,7 +107,7 @@ variant clisp conflicts abcl ccl ecl gcl sbcl \
 
 variant ecl conflicts abcl ccl clisp gcl sbcl \
     description {Use ECL as lisp implementation} {
-    depends_lib-append      port:ecl
+    depends_lib-append      path:bin/ecl:ecl
     configure.args-append   --enable-ecl \
                             --with-ecl=${prefix}/bin/ecl
 }
@@ -123,7 +123,7 @@ variant gcl conflicts abcl ccl clisp ecl sbcl \
 
 variant sbcl conflicts abcl ccl clisp ecl gcl \
     description {Use SBCL as lisp implementation} {
-    depends_lib-append      port:sbcl
+    depends_lib-append      path:bin/sbcl:sbcl
     configure.args-append   --enable-sbcl \
                             --enable-sbcl-exec \
                             --with-sbcl=${prefix}/bin/sbcl

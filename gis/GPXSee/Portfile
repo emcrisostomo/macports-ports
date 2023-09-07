@@ -4,12 +4,12 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           qmake5 1.0
 
-github.setup        tumic0 GPXSee 13.5
+github.setup        tumic0 GPXSee 13.7
 revision            0
 
-checksums           rmd160  2ad07a5c52a7531561ea562b4bc0adbcd4e883e1 \
-                    sha256  5a527ac591f6eb64a6f0d98802d6e03495d3efd875ac25d8675aa5b7d63b6c7f \
-                    size    5499668
+checksums           rmd160  30d8c5c52768999594cbefd222277e18c8099b57 \
+                    sha256  d41d4cfb117006a47c298b4b54b9dd198995e4c8e136b3f103b9d04addc081d8 \
+                    size    5501892
 
 categories          gis graphics
 license             GPL-3

@@ -4,7 +4,13 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           common_lisp 1.0
 
-github.setup        gwkkwg cl-markdown 3c7093c4b67af8c5979264004f4628eb9d3adfaa
+github.setup        hraban cl-markdown 3c7093c4b67af8c5979264004f4628eb9d3adfaa
+
+# NOTE: repository was moved from github user gwkkwg to hraban,
+# and github produces archive which contains user name inside
+# => checksums are miss match with distfiles, until any commit is made
+master_sites        macports_distfiles
+
 version             20230111
 revision            0
 
@@ -21,8 +27,10 @@ description         A Common Lisp rewrite of Markdown
 long_description    {*}${description}
 
 # we're handle dependency by our self, no need for that hack
-# See: https://github.com/gwkkwg/cl-markdown/issues/1
+# See: https://github.com/hraban/cl-markdown/issues/1
 patchfiles-append   remove-container-dynamic-classes.diff
+
+patchfiles-append   modern-lift.diff
 
 depends_lib-append  port:cl-anaphora \
                     port:cl-containers \
@@ -36,5 +44,7 @@ depends_lib-append  port:cl-anaphora \
                     port:cl-ppcre \
                     port:cl-trivial-shell
 
-# See: https://github.com/gwkkwg/dynamic-classes/issues/2
-test.run            no
+# Caught READER-ERROR while processing --eval option "(asdf:operate (quote asdf:build-op) (quote kmrcl))":
+#   The symbol "MAKE-THREAD-LOCK" was not found in package EXT.
+# See: https://github.com/armedbear/abcl/issues/616
+common_lisp.abcl    no

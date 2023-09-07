@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/stripe/stripe-cli 1.17.0 v
+go.setup            github.com/stripe/stripe-cli 1.17.2 v
+go.offline_build    no
 github.tarball_from archive
 revision            0
 
@@ -24,12 +25,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  890ad1255b46e54781bf0759d83c801892d78b8c \
-                    sha256  ce647062135cd4a1739dbfd60138b022778955b92cf33a4331fb63e0aaee197b \
-                    size    1488279
-
-# Allow Go to fetch dependencies at build time
-go.offline_build no
+checksums           rmd160  ce2336624b5c86be0e45de04c613286f6fad12c3 \
+                    sha256  dd21c4df533faa4c2006c508992ff5a44be3ee42b3f2f242e469fef131a21c6f \
+                    size    1488303
 
 build.cmd           make
 build.target        build

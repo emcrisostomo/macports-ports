@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        walles riff 2.23.4
+github.setup        walles riff 2.25.2
 github.tarball_from archive
 revision            0
 
@@ -20,9 +20,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  99f341864c376213a3765eae7155923a8ff23136 \
-                    sha256  59a7a9b3f87fa63b3d15672b58412a412525c12dc683be9c98cf544ad2aa2200 \
-                    size    491658
+                    rmd160  84255d7cb7f3e4265082164f14a88bafea042af7 \
+                    sha256  ea108289c0516ecabd35974208d360b189be1ad07f3d67883ff8784c8776b21c \
+                    size    492796
 
 destroot {
     xinstall -m 0755 \

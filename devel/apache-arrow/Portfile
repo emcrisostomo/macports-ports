@@ -2,14 +2,20 @@
 
 PortSystem          1.0
 PortGroup           cmake 1.1
+PortGroup           conflicts_build 1.0
 PortGroup           github 1.0
+PortGroup           legacysupport 1.1
 PortGroup           boost 1.0
 PortGroup           active_variants 1.1
+
+# clock_gettime needed for abseil
+# https://github.com/macports/macports-ports/pull/19905#issuecomment-1680281240
+legacysupport.newest_darwin_requires_legacy 15
 
 boost.version       1.81
 
 github.setup        apache arrow 13.0.0 apache-arrow-
-revision            0
+revision            1
 name                ${github.author}-${github.project}
 
 categories          devel
@@ -81,6 +87,14 @@ depends_lib-append \
                     port:wget \
                     port:zlib \
                     port:zstd
+
+# https://trac.macports.org/ticket/67951
+conflicts_build     boost
+
+# https://trac.macports.org/ticket/67952
+# Backport of: https://github.com/apache/arrow/commit/4b70fd4b1eac29cd8ac20083ad644b60fe6483ab
+# See: https://github.com/apache/arrow/issues/37138
+patchfiles-append   0001-GH-36856-C-Remove-needless-braces-from-BasicDecimal2.patch
 
 # Remove incorrect make dependency on SDK that cmake adds on some systems
 # See https://github.com/grpc/grpc/issues/24902

@@ -175,13 +175,13 @@ array set modules {
             79e56b7800d49649a8a8010818538c367a829e0b7a09d5f60bd3aecf5abe972c
             1466828
         }
+        "port:qt6-qttools"
         ""
         ""
-        "qttools"
         {"translation files"}
         ""
         "variant overrides: ~examples ~tests ~debug noarch ~docs"
-        "revision 0"
+        "revision 1"
         "License: "
     }
     qtdoc {
@@ -341,7 +341,7 @@ array set modules {
             440562844
         }
         "port:python${python_version} port:py${python_version}-html5lib"
-        "path:bin/node:nodejs16 port:re2 path:lib/pkgconfig/icu-uc.pc:icu port:webp \
+        "path:bin/node:nodejs20 port:re2 path:lib/pkgconfig/icu-uc.pc:icu port:webp \
             port:libopus path:lib/libavcodec.dylib:ffmpeg path:lib/pkgconfig/vpx.pc:libvpx \
             port:snappy path:lib/pkgconfig/glib-2.0.pc:glib2 port:zlib port:minizip port:libevent \
             port:libxml2 port:libxslt port:lcms2 port:libpng path:include/turbojpeg.h:libjpeg-turbo \
@@ -745,6 +745,13 @@ array set sql_plugins {
                     -DMySQL_LIBRARY=${prefix}/lib/mysql8/mysql/libmysqlclient.dylib
                 }
             }
+            mysql81 {
+                "port:mysql81"
+                {
+                    -DMySQL_INCLUDE_DIR=${prefix}/include/mysql81/mysql
+                    -DMySQL_LIBRARY=${prefix}/lib/mysql81/mysql/libmysqlclient.dylib
+                }
+            }
         }
     }
 }
@@ -843,6 +850,12 @@ foreach {module module_info} [array get modules] {
 
         depends_build-append                port:${name}-qttools \
                                             port:${name}-sqlite-plugin
+
+        # have the same build dependencies
+        foreach deps [lindex ${module_info} 1] {
+            depends_build-append [subst ${deps}]
+        }
+
         depends_lib-append                  port:${name}-${module}
 
         description                         Documentation for Qt Tool Kit ${qt_major}
@@ -953,7 +966,7 @@ subport ${name}-qttools {
     }
 }
 
-subport ${name}-qtwebengine {
+if { ${subport} in [list "${name}-qtwebengine" "${name}-qtwebengine-docs"] } {
     configure.env-append            PYTHON3_PATH=${prefix}/Library/Frameworks/Python.framework/Versions/${python_branch}/bin
     # in ${worksrcpath}, `${qt6.dir}/bin/qt-configure-module . -help` and `${qt6.dir}/bin/qt-configure-module . -list-features`
     # it is not clear why, but icu and ffmpeg support must be added manually
@@ -999,6 +1012,9 @@ if { ${subport} eq "${name}-qtbase" || ${subport} eq "${name}-qtbase-docs" } {
     # note: candidate function not viable: requires 2 arguments, but 3 were provided
     # see https://trac.macports.org/ticket/67802
     patchfiles-append               patch-qtbase-intel_intrinsics.diff
+
+    # see https://trac.macports.org/ticket/67980
+    patchfiles-append               patch-qtbase-memory_resource.diff
 
     configure.pre_args-replace      --prefix=${prefix} \
                                     "-prefix ${qt6.dir}"
