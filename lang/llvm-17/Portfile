@@ -6,6 +6,7 @@ PortGroup compiler_blacklist_versions 1.0
 PortGroup active_variants             1.1
 PortGroup cmake                       1.1
 PortGroup legacysupport               1.1
+PortGroup conflicts_build             1.0
 
 # Do not propagate c/c++ standards as set by base
 cmake.set_c_standard                  no
@@ -23,7 +24,7 @@ maintainers             nomaintainer
 
 set llvm_version        17
 set clang_exe_version   ${llvm_version}
-version                 ${llvm_version}.0.4
+version                 ${llvm_version}.0.5
 
 name                    llvm-${llvm_version}
 revision                0
@@ -32,9 +33,9 @@ subport                 clang-${llvm_version} { revision [ expr ${revision} + 0 
 subport                 lldb-${llvm_version}  { revision [ expr ${revision} + 0 ] }
 subport                 flang-${llvm_version} { revision [ expr ${revision} + 0 ] }
 
-checksums               rmd160  475f7c5f661ab38e7628b7ca6bb1dfffebc46250 \
-                        sha256  a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a \
-                        size    127828636
+checksums               rmd160  aa379a062ad2152b900bd1f7e8110d2fc3829984 \
+                        sha256  95d7eff82945cf05c16a1851d7b391fc2da726b87c1138125e3b6e4d300ab834 \
+                        size    127842560
 
 master_sites            https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}
 distname                llvm-project-${version}.src
@@ -44,6 +45,9 @@ dist_subdir             llvm
 set suffix              mp-${llvm_version}
 set sub_prefix          ${prefix}/libexec/llvm-${llvm_version}
 worksrcdir              ${worksrcdir}/llvm
+
+# https://github.com/macports/macports-ports/commit/a83a493bc21cbe7e14b1f5884379649ec8f31bae#commitcomment-132530885
+conflicts_build-append  libunwind libunwind-headers
 
 # hand-tweaked, approximately c++ standard 2017
 compiler.blacklist      *gcc* {clang < 1001} macports-clang-3.*

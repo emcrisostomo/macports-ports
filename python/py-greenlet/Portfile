@@ -58,13 +58,15 @@ if {${name} ne ${subport}} {
                             port:py${python.version}-setuptools
     }
 
+    # cc1plus: error: unrecognized command line option "-std=gnu++11"
+    compiler.cxx_standard 2011
+
     pre-test {
         test.env    PYTHONPATH=[glob -nocomplain ${worksrcpath}/build/lib*]
     }
 
     test.run            yes
-    test.cmd            python${python.branch}
-    test.target         -m unittest discover greenlet.tests
+    python.test_framework unittest
 
     livecheck.type      none
 }

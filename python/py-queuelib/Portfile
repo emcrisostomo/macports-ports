@@ -6,7 +6,8 @@ PortGroup               python 1.0
 name                    py-queuelib
 version                 1.6.2
 maintainers             {khindenburg @kurthindenburg} openmaintainer
-platforms               darwin
+platforms               {darwin any}
+supported_archs         noarch
 license                 BSD
 
 description             Collection of persistent (disk-based) queues
@@ -15,9 +16,6 @@ long_description        Queuelib is a collection of persistent (disk-based) \
                         simplicity. It was originally part of the `Scrapy \
                         framework`_ and stripped out on its own library.
 homepage                https://pypi.python.org/pypi/queuelib
-
-distname                queuelib-${version}
-master_sites            pypi:q/queuelib/
 
 checksums               rmd160  5d8f6b55eb22ad85f556b29b19ab5809462cc186 \
                         sha256  4b207267f2642a8699a1f806045c56eb7ad1a85a10c0e249884580d139c2fcd2 \
@@ -28,12 +26,5 @@ python.versions         37 38 39 310 311
 if {${name} ne ${subport}} {
     depends_build-append    port:py${python.version}-setuptools
 
-    depends_test        port:py${python.version}-pytest
-
-    livecheck.type      none
-
     test.run            yes
-    test.cmd            py.test-${python.branch}
-    test.env            PYTHONPATH=${worksrcpath}/build/lib
-    test.target
 }

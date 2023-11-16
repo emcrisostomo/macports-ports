@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/abiosoft/colima 0.5.6 v
+go.setup            github.com/abiosoft/colima 0.6.2 v
 github.tarball_from archive
 revision            0
 
@@ -15,11 +15,12 @@ categories          sysutils
 installs_libs       no
 license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
+                    {macports.halostatue.ca:austin @halostatue} \
                     openmaintainer
 
-checksums           rmd160  21a14801a7fd24b1190fc2740695d502456783ce \
-                    sha256  76e53fb9fa003ba328b191c289049aeb9829b1c933384eee58e90f92636767b9 \
-                    size    614617
+checksums           rmd160  dffa6b6dd539e50de69a9cf8e0e838769d7dc208 \
+                    sha256  8ca2ceca433cc5658a3bdce84394a6c47cd3f02e7e91377b1416bdeaf4dcde4e \
+                    size    605583
 
 depends_run         port:lima
 
@@ -35,4 +36,9 @@ build.args          ./cmd/${name}
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
+}
+
+notes {
+    If upgrading from Colima 0.5.6 or earlier, both colima instances and
+    profiles must be deleted and recreated.
 }

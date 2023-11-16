@@ -31,33 +31,33 @@ subport kubectl-1.28 {
     set offline_build   no
     supported_archs     x86_64 arm64
 
-    set patchNumber     3
+    set patchNumber     4
     revision            0
-    checksums           rmd160  38867d61ce86d4216859812bd2467aa3f0664636 \
-                        sha256  c9e8916aa9cca8eb1876b9e2e39282f789ae4a87bfa6e8ca2993a4aa15bf481b \
-                        size    39928717
+    checksums           rmd160  3686af0d8c0a8a25ae87b5b544ebae6296bce1fb \
+                        sha256  6543c6a7fc60828ef4816ebf5425efbf5fdf9e9785d0193b98e3fb833e1145f0 \
+                        size    39955274
 }
 
 subport kubectl-1.27 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     7
+    set patchNumber     8
     revision            0
-    checksums           rmd160  e69d13dd191d56e693816d2814a3cf4af8fd9701 \
-                        sha256  1ea39b23542066c87657c85bc4f4f23533b328cec1f9fc2c8331eb6322bf44e8 \
-                        size    38489371
+    checksums           rmd160  f5351c5d8d3d7e4bb3334c9dea15f795da6c9e04 \
+                        sha256  db1d6b0067a666b188f14e6354438540b34257128d13aa259c437c9298e290ba \
+                        size    39174989
 }
 
 subport kubectl-1.26 {
     set source_build    yes
     supported_archs     x86_64 arm64
 
-    set patchNumber     10
+    set patchNumber     11
     revision            0
-    checksums           rmd160  24cedae54ddf1736743777a27521348069398c57 \
-                        sha256  06c2eaf5772dc46a0abe8058e6a8d340fdc34f987d966d74f4555b58cc65d85c \
-                        size    38741138
+    checksums           rmd160  95d56e7c4f29a6c8e02a342f26b59ca914fa472a \
+                        sha256  9fa573ebe606fd8e7ca9da1ad31110b199a983368aada234c6ff94e0e590405e \
+                        size    39443009
 }
 
 subport kubectl-1.25 {
@@ -212,7 +212,7 @@ if {${subport} == ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.28.3
+    version             1.28.4
     revision            0
 
 } elseif {${subport} == "kubectl_select"} {

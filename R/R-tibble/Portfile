@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github tidyverse tibble 3.2.1.9009 v
+R.setup             github tidyverse tibble 3.2.1.9012 v
 revision            0
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
 description         Modern re-imagining of the data frame
 long_description    {*}${description}
 homepage            https://tibble.tidyverse.org
-checksums           rmd160  d0c2cc0e2642369a1cdf71c9b8853513be94a953 \
-                    sha256  5aa843a7e7971b3c9f9d70989155e967af94f8367d5446b5c2ce7a06ed3535bb \
-                    size    1233482
+checksums           rmd160  bd8db617b2c9e85f96ba9d7a4b209a97808a20cf \
+                    sha256  8333d7c8c2f9e7c284a7f49a1dc07a69b68057bc0c79478b6fd871c044d733de \
+                    size    1233551
 
 depends_lib-append  port:R-fansi \
                     port:R-lifecycle \
