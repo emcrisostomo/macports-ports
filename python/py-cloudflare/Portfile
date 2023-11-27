@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-cloudflare
-version             2.12.4
+version             2.14.2
 revision            0
 categories          python
 license             MIT
@@ -15,9 +15,9 @@ supported_archs     noarch
 platforms           {darwin any}
 homepage            https://github.com/cloudflare/python-cloudflare
 
-checksums           rmd160  1b7992172ed52ed36afe0484dea2b23246c5994f \
-                    sha256  517f11382ea92fc591f36cc9ba95243da73e68345e52f221f03d51d6e8d786a5 \
-                    size    85422
+checksums           rmd160  91280b8a14a1088ad1c2342c9b1ac015afe355af \
+                    sha256  1de49a889288d82dc5c0f2a2a746552967b99d96063f5df3a57a703642e240b4 \
+                    size    89773
 
 python.versions     38 39 310 311
 
@@ -27,6 +27,7 @@ if {${name} ne ${subport}} {
     depends_lib-append  \
                     port:py${python.version}-beautifulsoup4 \
                     port:py${python.version}-jsonlines \
-                    port:py${python.version}-yaml \
-                    port:py${python.version}-requests
+                    port:py${python.version}-pytest \
+                    port:py${python.version}-requests \
+                    port:py${python.version}-yaml
 }
