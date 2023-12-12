@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/derailed/k9s 0.28.2 v
+go.setup            github.com/derailed/k9s 0.29.1 v
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ maintainers         {breun.nl:nils @breun} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  843cb14624454a6c6d8637e64ed0579c1ac0a10a \
-                    sha256  cf8e84421aed99c7911d512e86b94b0f85936e9cffd0ae4e3301a3d664dad0c5 \
-                    size    6396221
+checksums           rmd160  3d67c3363b11eabb7668de062da9476a52e4444f \
+                    sha256  4ba35533f67af14718a61f66732f246e861c62397b633159c7648504fba945ff \
+                    size    6702839
 
 # FIXME: This port currently can't be built without allowing go mod to fetch
 # dependencies during the build phase. See
