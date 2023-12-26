@@ -126,6 +126,7 @@ proc python_set_versions {option action args} {
             unset python.version
             patch {}
             build {}
+            build.cmd   true
             destroot {
                 system "echo $name is a stub port > ${destroot}${prefix}/share/doc/${name}/README"
             }
@@ -417,7 +418,13 @@ proc python_add_dependencies {} {
                     }
                     nose {
                         depends_test-delete    port:py${python.version}-nose
-                        depends_test-append    port:py${python.version}-nose
+                        depends_test-delete    port:py${python.version}-pynose
+                        if {${python.version} >= 312} {
+                            depends_test-append \
+                                                port:py${python.version}-pynose
+                        } else {
+                            depends_test-append    port:py${python.version}-nose
+                        }
                     }
                     default {}
                 }
