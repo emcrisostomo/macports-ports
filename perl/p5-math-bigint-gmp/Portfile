@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Math-BigInt-GMP 1.6013
+perl5.setup         Math-BigInt-GMP 1.7000
 revision            0
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -13,9 +13,9 @@ long_description    {*}${description}
 
 platforms           darwin
 
-checksums           rmd160  8e826969b0a67def484e4036de94031b9d5af5e4 \
-                    sha256  cb1a92e02267d40515f8e03a4e212f66fd307c974cbbd313e23de32fdf10f6b5 \
-                    size    2592490
+checksums           rmd160  8a851bd2310060ba1a5f845553f64d8e23941923 \
+                    sha256  7684ccf043049c692e1e8086909685ee99a3c6079423772f84b07f2624c46a14 \
+                    size    2636336
 
 if {${perl5.major} != ""} {
     depends_lib-append \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-cloudflare
-version             2.14.3
+version             2.15.1
 revision            0
 categories          python
 license             MIT
@@ -15,9 +15,9 @@ supported_archs     noarch
 platforms           {darwin any}
 homepage            https://github.com/cloudflare/python-cloudflare
 
-checksums           rmd160  e25d2a157eb30eb25dbad105337f3dde04269136 \
-                    sha256  83e245474dac6e0efbf9632fac90a644cb1c505cd450c881e03d88461cff955c \
-                    size    89921
+checksums           rmd160  b8c0c3013f80d2d881db63c5a989f0a5334e8257 \
+                    sha256  28b97805da0d7cd2e031e7661b0abae601aec6a8c893d7c325140d1d3c43059e \
+                    size    95619
 
 python.versions     38 39 310 311
 
@@ -30,4 +30,9 @@ if {${name} ne ${subport}} {
                     port:py${python.version}-pytest \
                     port:py${python.version}-requests \
                     port:py${python.version}-yaml
+
+    # See: https://github.com/cloudflare/python-cloudflare/issues/178
+    post-destroot {
+        delete ${destroot}/${python.prefix}/lib/python${python.branch}/site-packages/tests
+    }
 }

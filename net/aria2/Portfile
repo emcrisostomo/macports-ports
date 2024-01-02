@@ -5,7 +5,7 @@ PortGroup           compiler_blacklist_versions 1.0
 PortGroup           github 1.0
 
 github.setup        aria2 aria2 1.37.0 release-
-revision            2
+revision            4
 categories          net
 platforms           darwin
 maintainers         {mps @Schamschula}
@@ -18,26 +18,8 @@ checksums           rmd160  942de85a653d890bfa1198dc82069cff8267991b \
                     sha256  7e7541966bc0f1d7b121ea9f4189c65b5782e78771ec4f49f40b6cf53d7a12df \
                     size    4186060
 
-variant python38 conflicts python39 python310 python311 python312 description {Build using Python 3.8} {}
-variant python39 conflicts python38 python310 python311 python312 description {Build using Python 3.9} {}
-variant python310 conflicts python38 python39 python311 python312 description {Build using Python 3.10} {}
-variant python311 conflicts python38 python39 python310 python312 description {Build using Python 3.11} {}
-variant python312 conflicts python38 python39 python310 python311 description {Build using Python 3.12} {}
-
-if {![variant_isset python38] && ![variant_isset python39] && ![variant_isset python310] && ![variant_isset python312]} {
-    default_variants +python311
-}
-
-foreach pv {312 311 310 39 38} {
-    if {[variant_isset python${pv}]} {
-        set python.version ${pv}
-        break
-    }
-}
-
 depends_build-append    port:pkgconfig \
-                        port:gettext \
-                        port:py${python.version}-sphinx
+                        port:gettext
 
 depends_lib-append      port:gettext-runtime \
                         port:libiconv \
@@ -52,8 +34,10 @@ patchfiles-append       patch-doc-manual-src-Makefile.am.diff
 # Alternatively, depends_*-append could be used.
 use_autoreconf      yes
 
-configure.cxxflags-append -I${prefix}/include/libxml2
-configure.ldflags-append  -lintl
+configure.cxxflags-append \
+                    -I${prefix}/include/libxml2
+configure.ldflags-append \
+                    -lintl
 configure.args      --with-libiconv-prefix=${prefix} \
                     --with-libintl-prefix=${prefix} \
                     --with-libuv \
@@ -86,6 +70,26 @@ if {![variant_isset gnutls]} {
 variant cares description {Add c-ares support} {
     configure.args-replace  --without-libcares --with-libcares
     depends_lib-append      port:c-ares
+}
+
+variant docs description {Build documentation using sphinx} {
+    set python.version  312
+
+    # check if docutils and sphinx don't have 'none' selected
+    pre-configure {
+        if {![catch { exec ${prefix}/bin/port select sphinx | /usr/bin/grep active | /usr/bin/grep none } eq ""]} {
+            ui_error "Didn't find sphinx, please use sudo port select sphinx py${python.version}-sphinx."
+            return -code error
+        }
+        if {![catch { exec ${prefix}/bin/port select docutils | /usr/bin/grep active | /usr/bin/grep none } eq ""]} {
+            ui_error "Didn't find docutils, please use sudo port select docutils py${python.version}-docutils."
+            return -code error
+        }
+    }
+
+    depends_build-append \
+                        port:py${python.version}-docutils \
+                        port:py${python.version}-sphinx
 }
 
 variant gnutls conflicts openssl description {Use GNU TLS instead of Apple built-in TLS library} {
