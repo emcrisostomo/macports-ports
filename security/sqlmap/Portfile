@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                sqlmap
-version             1.7.12
-revision            0
+version             1.8
+revision            1
 
 categories          security databases python
 maintainers         {judaew @judaew} openmaintainer
@@ -24,9 +24,9 @@ long_description    \
     the operating system via out-of-band connections.
 homepage            https://sqlmap.org/
 
-checksums           rmd160  2b19feab8c7cd26a073e40bdccd4cbe5849e9791 \
-                    sha256  f6c97fb47fd33571a4793717846f62ebf401c8e3bb482d06933c8487355f25d9 \
-                    size    7207638
+checksums           rmd160  ff99cc6e1f5637c4f971a3c7ca57c895247b81b6 \
+                    sha256  8dbb204ee36e57c123ff50f042345174dfd262f3ed0a044ed8d7251379472ba1 \
+                    size    7208171
 
 patchfiles          patch-cmd-usage-string.diff
 
@@ -65,7 +65,7 @@ variant python311 conflicts python27 python38 python39 python310 python312 \
     python.default_version 311
 }
 
-variant python311 conflicts python27 python38 python39 python310 python311 \
+variant python312 conflicts python27 python38 python39 python310 python311 \
     description {Build for Python 3.12} {
     python.default_version 312
 }
@@ -78,4 +78,9 @@ if {![variant_isset python27] && \
     ![variant_isset python310] && ![variant_isset python311] && \
     ![variant_isset python312]} {
     default_variants +python312
+}
+
+post-destroot {
+    ln -s ${frameworks_dir}/Python.framework/Versions/[string index ${python.version} 0].[string range ${python.version} 1 end]/bin/${name} \
+        ${destroot}${prefix}/bin/${name}
 }
