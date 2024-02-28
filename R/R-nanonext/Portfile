@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # Revert to GitHub once updated there.
-R.setup             cran shikokuchuo nanonext 0.11.0
+R.setup             cran shikokuchuo nanonext 0.13.0
 revision            0
 categories-append   devel
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -12,9 +12,9 @@ license             GPL-3+
 description         NNG (Nanomsg Next Gen) lightweight messaging library
 long_description    {*}${description}
 homepage            https://shikokuchuo.net/nanonext
-checksums           rmd160  82b0cbe1a8c564976270cb18f222e9d7adbc815e \
-                    sha256  47cfddf41223fe3a4872dd63518003cdcd3c776abb4c888e51ad368b48cd9163 \
-                    size    752724
+checksums           rmd160  feeae843ea165ab285a660811ad7a7bd050ca6ed \
+                    sha256  4b907b47690d1e06bb8de3572df36f5a044a3089a8deba00883d14ad5b1fd136 \
+                    size    766434
 
 depends_build-append \
                     path:bin/cmake:cmake \
@@ -32,6 +32,9 @@ post-patch {
     reinplace "s,@PREFIX@,${prefix},g" ${worksrcpath}/configure
 }
 
-destroot.env-append CC=${configure.cc} CXX=${configure.cxx}
+build.env-append    CC=${configure.cc} CXX=${configure.cxx}
+
+depends_test-append port:R-knitr \
+                    port:R-markdown
 
 test.run            yes

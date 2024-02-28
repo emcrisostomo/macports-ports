@@ -25,7 +25,7 @@ checksums           rmd160  ea2a5fb50885f70463f2b5ae951f3e816e699212 \
                     sha256  ec5524d612dcd28a9652b00ef66ac69badc4e69191edf477d559152afbee6972 \
                     size    204563
 
-python.versions     38 39 310 311
+python.versions     38 39 310 311 312
 
 conflicts           ${subport}-devel
 
@@ -33,12 +33,12 @@ foreach pver [list {*}${python.versions} ""] {
     subport py${pver}-nmrglue-devel {
         PortGroup       github 1.0
 
-        github.setup    jjhelmus nmrglue e249dbe33809351e11c
-        version         20231130-[string range ${github.version} 0 7]
+        github.setup    jjhelmus nmrglue e5007e70844d549c642
+        version         20240207-[string range ${github.version} 0 7]
         revision        0
-        checksums       rmd160  b89c462a460314cc2a46a1ac948e02f601f9619c \
-                        sha256  b0f2857b72d1d7fa81c4f53171e0d673af1a8bb1db45f6268c5b22547a3539f6 \
-                        size    14920408
+        checksums       rmd160  7713a1c5486b49348bb5df86edeb3458de3dfbf7 \
+                        sha256  2214b1c5940f6d359ea524e62a46f9cfd3ef5b4c8169e89338fd8e0785ff8791 \
+                        size    14921301
 
         conflicts       py${pver}-nmrglue
 

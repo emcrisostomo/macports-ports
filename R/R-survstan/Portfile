@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran fndemarqui survstan 0.0.5
+R.setup             cran fndemarqui survstan 0.0.6.1
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -11,14 +11,19 @@ license             MIT
 description         Fit survival regression models via Stan
 long_description    {*}${description}
 homepage            https://fndemarqui.github.io/survstan
-checksums           rmd160  647fab6ab17c992bbab786253055177baaa5971b \
-                    sha256  9d0c03159fc8a88c8ec00ff57847ed83055e95d4ec6c3a65a628024e822350c4 \
-                    size    131606
+checksums           rmd160  5cf9b1759b6fe63e52cdc6cb4e71ca4860cef5b8 \
+                    sha256  d0f60f50d1c376046e80bd09cf989be8bf817b067d3f809963f4162f0780a6a4 \
+                    size    132254
 
 depends_lib-append  port:R-actuar \
                     port:R-BH \
+                    port:R-broom \
+                    port:R-doFuture \
                     port:R-dplyr \
                     port:R-extraDistr \
+                    port:R-foreach \
+                    port:R-future \
+                    port:R-generics \
                     port:R-ggplot2 \
                     port:R-gridExtra \
                     port:R-purrr \
@@ -33,7 +38,9 @@ depends_lib-append  port:R-actuar \
                     port:R-tibble \
                     port:R-tidyr
 
-depends_test-append port:R-GGally \
+depends_test-append port:R-emmeans \
+                    port:R-estimability \
+                    port:R-GGally \
                     port:R-knitr \
                     port:R-rmarkdown \
                     port:R-testthat

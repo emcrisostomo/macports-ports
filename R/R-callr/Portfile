@@ -3,17 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github r-lib callr 3.7.3 v
-revision            1
+R.setup             github r-lib callr 3.7.5 v
+revision            0
 categories-append   devel
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
 description         Call R from R
 long_description    {*}${description}
 homepage            https://callr.r-lib.org
-checksums           rmd160  2330917c6ddc0c203d8292aac16e1ab6154fd59a \
-                    sha256  082784fcb1affc0c7f062c73444d71b14f99cb12ad58e6dbe233b4ca4120965a \
-                    size    100074
+checksums           rmd160  8df0e72ef78640c068676169e6177d4725ed390e \
+                    sha256  67f2a08eb459125fa2e9cc9f1c7e99d7b675d4ac29465a90dae4e3673aacf3c9 \
+                    size    103446
 supported_archs     noarch
 
 depends_lib-append  port:R-processx \

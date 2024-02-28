@@ -46,13 +46,13 @@ subport ${name} {
 
 subport ${name}-devel {
     conflicts           ${name}
-    github.setup        macports macports-legacy-support 707aab751ce95cb394dc09593a5027e97473740e
-    version             20230915
+    github.setup        macports macports-legacy-support 3631c1f36ff8f9e7f284ce4e15be7ea659e8cc1a
+    version             20240220
     revision            0
     livecheck.type      none
-    checksums           rmd160  e4b78b21c8bfd7fbb3aa8003da90932e83d53dc4 \
-                        sha256  cbd73bdd6261368a521c24f73fbd20e2f96ff3d49b3d1e1291a9de77e4914ba8 \
-                        size    72245
+    checksums           rmd160  2417714d15221eaaaa04ab5f3721eb6fcd83bd12 \
+                        sha256  9c9a394b9e23bb256103cf2a343be4e0d227174b14966125cc9fbf7395687b49 \
+                        size    71438
     set v_split         [split ${release_ver} .]
     set release_ver     [lindex ${v_split} 0].[lindex ${v_split} 1].99
 }
@@ -60,6 +60,14 @@ subport ${name}-devel {
 # Until this can be fixed disable parallel builds...
 # https://build.macports.org/builders/ports-10.10_x86_64-builder/builds/141962/steps/install-port/logs/stdio
 use_parallel_build  no
+
+# This port doesn't use C++ at all, except for a couple of tests which may
+# fail to build with an non-OS-default stdlib setting.  Since the cxx_stdlib
+# selection is unimportant for the tests (which are actually only testing
+# the C-only interface to the library), we disable the cxx_stlib setting.
+# This also avoids depending on a MacPorts compiler in some OS versions.
+
+configure.cxx_stdlib
 
 post-extract {
     # until upstream can be fixed, do not include atexit symbols
@@ -111,20 +119,41 @@ proc tiger_copy {from to} {
     }
 }
 
-# The legacy-support build cannot create the LegacySupportSystem library directly
-# on newer systems as the reexport link option to /usr/lib/libSystem.B.dylib
-# does not work, due to the file system library cache added in macOS11.
-# Fallback to using optool here. Optool also currently not working on arm.
-if { ${build_arch} ne "arm64" && ${os.major} > ${max_darwin_reexport} && ${os.major} <= ${max_darwin_optool} } {
-    depends_build-append port:optool
+# The legacy-support build cannot create the LegacySupportSystem library
+# directly on newer systems as the reexport link option to
+# /usr/lib/libSystem.B.dylib does not work, due to the file system
+# library cache added in macOS11.
+#
+# Fall back to using optool here. Optool does not currently work on arm64.
+# This means that LegacySupportSystem will be missing on arm64, and that
+# universal builds of LegacySupportSystem will lack the arm64 slice
+# (which will produce a warning).
+
+if { ${os.major} > ${max_darwin_reexport}
+     && ${os.major} <= ${max_darwin_optool} } {
+     # First determine whether any non-arm64 slice will be built
+    set optool_needed no
+    foreach arch ${muniversal.architectures} {
+        if { ${arch} ne "arm64"} {
+            set optool_needed yes
+        }
+    }
+    # If any non-arm64, add optool dependency
+    if { ${optool_needed} } {
+        depends_build-append port:optool
+        depends_skip_archcheck-append optool
+    }
+    # After destroot, apply optool to any non-arm64 slice
     post-destroot {
-        set legSupp   ${prefix}/lib/libMacportsLegacySupport.dylib
-        set legSystem ${prefix}/lib/libMacportsLegacySystem.B.dylib
-        if {![file exists ${destroot}${legSystem}]} {
-            copy ${destroot}${legSupp} ${destroot}${legSystem}
-            system "${prefix}/bin/optool install -c reexport -p /usr/lib/libSystem.B.dylib -t ${destroot}${legSystem}"
-        } else {
-            ui_warn "${destroot}${legSystem} already exists."
+        if { ${muniversal.build_arch} ne "arm64" } {
+            set legSupp   ${prefix}/lib/libMacportsLegacySupport.dylib
+            set legSystem ${prefix}/lib/libMacportsLegacySystem.B.dylib
+            if {![file exists ${destroot}${legSystem}]} {
+                copy ${destroot}${legSupp} ${destroot}${legSystem}
+                system "${prefix}/bin/optool install -c reexport -p /usr/lib/libSystem.B.dylib -t ${destroot}${legSystem}"
+            } else {
+                ui_warn "${destroot}${legSystem} already exists."
+            }
         }
     }
 }

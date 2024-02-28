@@ -6,7 +6,7 @@ PortGroup               makefile 1.0
 PortGroup               legacysupport 1.0
 PortGroup               compiler_blacklist_versions 1.0
 
-github.setup            felt tippecanoe 2.40.0
+github.setup            felt tippecanoe 2.45.0
 revision                0
 categories              gis
 license                 BSD
@@ -14,9 +14,9 @@ maintainers             {@sikmir disroot.org:sikmir} openmaintainer
 description             Build vector tilesets from large collections of GeoJSON features
 long_description        {*}${description}
 
-checksums               rmd160  a5bacb20ef9cf81cd8ebb5350051b9f4e7d4c0fe \
-                        sha256  5d7b539eb1a4cf5031c1a4c95eccd9730dea636aa526f98404ff9b432674bce7 \
-                        size    21571537
+checksums               rmd160  8662ecd2f075e5c80253b341b27d84a40f0537e2 \
+                        sha256  40c261e3b1b4217fdec4d04eff65d603cdd3c1ea302881983e519f449eb3bcdb \
+                        size    22542415
 
 depends_lib-append      port:sqlite3 \
                         port:zlib

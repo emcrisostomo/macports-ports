@@ -2,14 +2,14 @@
 
 PortSystem          1.0
 
-PortGroup           github  1.0
-PortGroup           cmake   1.1
-PortGroup           legacysupport 1.1
+PortGroup           github          1.0
+PortGroup           cmake           1.1
+PortGroup           legacysupport   1.1
 
 # clock_gettime
 legacysupport.newest_darwin_requires_legacy 15
 
-github.setup        aws s2n-tls 1.4.1 v
+github.setup        aws s2n-tls 1.4.5 v
 github.tarball_from archive
 revision            0
 
@@ -21,9 +21,9 @@ long_description    \
     ${name} is a C99 implementation of the TLS/SSL protocols that is designed \
     to be simple, small, fast, and with security as a priority.
 
-checksums           rmd160  e1c2e766fcf573fb8aeeb6794dcf64bc30679ea1 \
-                    sha256  d8c1d8e1142441412434feacb4947ce6430a244dcd8f58921af79b29bd901731 \
-                    size    4494300
+checksums           rmd160  4ee11fe58357a4f87446fd91f895cbe53b76a0c0 \
+                    sha256  0914f59a6d458d2fb726f172a4d05d036822ed41feb7763cd37fccf6aa3c58b2 \
+                    size    4584556
 
 categories          security
 license             Apache-2

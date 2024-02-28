@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/goplus/gop 1.1.13 v
+go.setup            github.com/goplus/gop 1.2.2 v
 go.offline_build    no
 github.tarball_from archive
 name                goplus
@@ -24,9 +24,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  7b13aee8b665c8df990c5b2f743a2fbbb0276989 \
-                    sha256  335c60bf09e33b60a1cc5a6925ee40417f8bc4b73d3b8ebefb49aa71826838ff \
-                    size    322174
+checksums           rmd160  8d0c4982697375a0a8ea218fa04c4cbf34a8d4a8 \
+                    sha256  9aa0cd3f95a2291272434b16fb433bd04b64ea71d42809406f9b83d894e8f0df \
+                    size    362018
 
 build.cmd           ./make.bash
 build.pre_args      {}

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        Byron dua-cli 2.25.0 v
+github.setup        Byron dua-cli 2.28.0 v
 github.tarball_from archive
 revision            0
 
@@ -27,9 +27,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  de339cd91ecb97cdcda47cff5e7b4dd25e5c6073 \
-                    sha256  4b173266831c8aed80a3fb2ac418cc33057f9226b70a831372c8d4f0712b80aa \
-                    size    125965
+                    rmd160  8b24c8345606e17d78292d3418bf18fd19a4f8b3 \
+                    sha256  a44691d0dae8e567951cbe4f0b187edc60d306f78e95ceed9e96b9310e6ce350 \
+                    size    134112
 
 destroot {
     xinstall -m 0755 \

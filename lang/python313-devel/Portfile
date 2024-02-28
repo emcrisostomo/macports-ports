@@ -6,7 +6,7 @@ PortGroup select 1.0
 name                python313-devel
 
 # Remember to keep py313-tkinter and py313-gdbm's versions sync'd with this
-version             3.13.0a2
+version             3.13.0a4
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          lang
@@ -23,9 +23,9 @@ master_sites        ${homepage}ftp/python/3.13.0/
 
 distname            Python-${version}
 use_xz              yes
-checksums           md5 8ca56cbbe6237d446eb40f42297f2eb8 \
-                    rmd160 a8142e810aaeabad033139e152f2647487e418e8 \
-                    sha256 b6d46b44190c4c02421eb69a042d16b0c55481bdda818c6c416dc244113a9c2d
+checksums           md5 57d4883f5191206a9f04ebd91e8a6ede \
+                    rmd160 636088ac20b4710344fd848003b7b7e93b4069f6 \
+                    sha256 bcbd6daae3de381d64a84e9ac50889dce71c5fdff2b680b676537b09907425f6
 
 patchfiles          patch-configure.diff \
                     patch-Lib-ctypes-macholib-dyld.py.diff \

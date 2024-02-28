@@ -13,18 +13,18 @@ legacysupport.newest_darwin_requires_legacy 19
 # See discussion in: https://github.com/macports/macports-ports/pull/19686
 legacysupport.use_mp_libcxx yes
 
-github.setup        TileDB-Inc TileDB 2.18.2
+github.setup        TileDB-Inc TileDB 2.20.1
 name                tiledb
-revision            1
+revision            0
 categories          databases
 license             MIT
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 description         The universal storage engine
 long_description    {*}${description}
 homepage            https://tiledb.com
-checksums           rmd160  be4ee1364763a61a56f83a54eda31faa63fb9f88 \
-                    sha256  9514856314b859d3d10fcdcf9e4999aead5c09dc5f37d10db68df73a5982bd2f \
-                    size    4393968
+checksums           rmd160  55536b56429c847788560897f528bc4280e8dde8 \
+                    sha256  d9d52de7eef25c9e358f0dd6e696dc11a08d5b4d6c4ede88f11afffd32ec31c2 \
+                    size    4416428
 github.tarball_from archive
 
 # Notice that 32-bit platforms are not supported by upstream, and there are reports elsewhere
@@ -65,14 +65,19 @@ if {${os.platform} eq "darwin" && ${os.major} < 20} {
     patchfiles-append \
                     patch-linking.diff
 
-    if {${configure.build_arch} in [list i386 ppc]} {
-        patchfiles-append \
-                    patch-Add-a-fix-for-32-bit.diff
-    }
-
     post-patch {
         reinplace "s,@PREFIX@,${prefix},g" ${worksrcpath}/cmake/Modules/FindMagic_EP.cmake
     }
+}
+
+# Verify if still broken in the next release. Relevant only for build with +tests:
+# https://github.com/TileDB-Inc/TileDB/issues/4590
+patchfiles-append   patch-unit_capi_error_tree.cc-temporary-fix.diff
+
+# Can be rewritten unconditionally, but no point in making a patch more complex:
+if {[string match *gcc* ${configure.compiler}] && ${configure.build_arch} in [list arm i386 ppc]} {
+    patchfiles-append \
+                    patch-libatomic-32-bit.diff
 }
 
 compiler.cxx_standard       2020
@@ -115,19 +120,27 @@ if {${build_arch} eq "i386" && [string match *clang* ${configure.compiler}]} {
 
 destroot.target     install-tiledb
 
+# FIXME: ppc32 tests build, but fail to pass. Possibly size of bool issue?
+# ppc64 tests are much better, though not clean. See above.
 variant tests description "Enable testing" {
-    PortGroup       conflicts_build 1.0
+    # This is needed only if a bundled Catch2 is used:
+    # PortGroup       conflicts_build 1.0
 
     if {${configure.build_arch} in [list i386 ppc]} {
         cmake.build_type    Debug
     }
 
-    # Use bundled catch2 due to regular breakages. See:
+    # This is a tricky part. We may need to switch between
+    # Macports-provided Catch2 and a bundled one. Related:
     # https://github.com/TileDB-Inc/TileDB/issues/4590
     # https://github.com/TileDB-Inc/TileDB/issues/4095
-    #    depends_build-append \
-    #                    port:catch2
-    conflicts_build catch2
+    depends_build-append \
+                    port:catch2
+    # As of 2.19.1, bundled one is broken:
+    # :info:build Undefined symbols:
+    # :info:build   "__ZN5Catch29formatReconstructedExpressionERSoRKSsNS_9StringRefES2_", referenced from:
+    # :info:build       __ZNK5Catch10BinaryExprIRKN9__gnu_cxx17__normal_iteratorIPiSt6vectorIiSaIiEEEES9_E29streamReconstructedExpressionERSo in test_assert.cc.o
+    # conflicts_build catch2
 
     configure.pre_args-replace \
                     -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON \

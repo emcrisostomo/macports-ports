@@ -5,7 +5,7 @@ PortGroup           github 1.0
 PortGroup           python 1.0
 PortGroup           select 1.0
 
-github.setup        tmux-python tmuxp 1.34.0 v
+github.setup        tmux-python tmuxp 1.38.0 v
 name                py-tmuxp
 revision            0
 
@@ -34,9 +34,9 @@ if {${name} ne ${subport}} {
     depends_run-append \
                     port:tmuxp_select
 
-    checksums       rmd160  1ebb1988ca9188193c15beb49109c7d07896eda3 \
-                    sha256  72ce6634b2e537ec084ad27ed19cb6e5bdab2aa1b37f1fbb9354c7208729377d \
-                    size    868260
+    checksums       rmd160  b68fb1ae1b573b936ae65c3ccdf5dc49d9c79ca5 \
+                    sha256  d195782f96c3bb7dfe2ed73205454a99da315d8d8a9640d37cadd275cd31d277 \
+                    size    870019
 
     select.group    tmuxp
     select.file     ${worksrcpath}/py${python.version}-tmuxp

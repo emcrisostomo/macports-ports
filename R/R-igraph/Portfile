@@ -3,8 +3,8 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran igraph igraph 1.6.0
-revision            1
+R.setup             cran igraph igraph 2.0.2
+revision            0
 maintainers         {gmail.com:szhorvat @szhorvat} {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-2+
 description         Network Analysis and Visualization
@@ -13,9 +13,9 @@ long_description    Routines for simple graphs and network analysis. \
                     for generating random and regular graphs, graph visualization, \
                     centrality methods and much more.
 homepage            https://igraph.org/r
-checksums           rmd160  32c1e94ef3f8b33ca2b10a3a7735bc2dc1984a1c \
-                    sha256  410ecc37fb38e72079dc72f839bde19093100a422729c343e0b2523df6453bb8 \
-                    size    3510416
+checksums           rmd160  35d0fb8dd4de3645f0e55049979134803a4a3db6 \
+                    sha256  34f9d5b778c2f41a024183cc3613a1716660f7e3ffb74a2af88c14efe94acc4d \
+                    size    4965448
 
 depends_lib-append  path:lib/pkgconfig/icu-uc.pc:icu \
                     port:glpk \
@@ -26,7 +26,8 @@ depends_lib-append  path:lib/pkgconfig/icu-uc.pc:icu \
                     port:R-lifecycle \
                     port:R-magrittr \
                     port:R-pkgconfig \
-                    port:R-rlang
+                    port:R-rlang \
+                    port:R-vctrs
 
 compilers.setup     require_fortran
 

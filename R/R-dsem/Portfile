@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           R 1.0
+
+R.setup             cran James.Thorson dsem 1.1.0
+revision            0
+categories-append   math
+maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+license             GPL-3
+description         Fit dynamic structural equation models
+long_description    {*}${description}
+homepage            https://james-thorson-noaa.github.io/dsem
+checksums           rmd160  9b7483c75c2467c501c5897874797cf922bb3168 \
+                    sha256  bd75f5ba6ce1527efbcd13c19f6e0e7aa4d794134b59856072ff58050ed1f48b \
+                    size    185960
+
+depends_lib-append  port:R-igraph \
+                    port:R-RcppEigen \
+                    port:R-sem \
+                    port:R-TMB

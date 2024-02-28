@@ -4,13 +4,12 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-pymongo
-version             4.4.1
+version             4.6.2
 revision            0
 categories-append   databases
 license             Apache
 
-python.versions     37 38 39 310 311
-python.pep517       yes
+python.versions     38 39 310 311 312
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -22,12 +21,14 @@ long_description \
 
 homepage            https://www.mongodb.org/
 
-checksums           rmd160  641bcb5e65afaf0666aec7c22437945ebd59c79b \
-                    sha256  a4df87dbbd03ac6372d24f2a8054b4dc33de497d5227b50ec649f436ad574284 \
-                    size    828735
+checksums           rmd160  391604bfda855976acc4bd9010baca8572028e9c \
+                    sha256  ab7d01ac832a1663dad592ccbd92bb0f0775bc8f98a1923c5e1a7d7fead495af \
+                    size    1431379
 
 if {${name} ne ${subport}} {
-    conflicts               py${python.version}-bson
+    conflicts           py${python.version}-bson
+
+    depends_lib-append  port:py${python.version}-dnspython
 
     post-destroot {
         xinstall -m 755 -d ${destroot}${python.prefix}/share/doc/${subport}

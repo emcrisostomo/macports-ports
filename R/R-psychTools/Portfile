@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran revelle psychTools 2.3.12
+R.setup             cran revelle psychTools 2.4.2
 revision            0
 maintainers         nomaintainer
 license             GPL-2+
 description         Tools to accompany the R-psych package for psychological research
 long_description    {*}${description}
 homepage            https://personality-project.org/r/psych
-checksums           rmd160  9131d547d47c3d98f5a23b157713cc04ca29ed4b \
-                    sha256  79a14b5d363c1d3cf154aacc2d4b70a9da81433687f995ad6f37622187afdda3 \
-                    size    3312008
+checksums           rmd160  5edd436047aff0662721134a79229e6ecd8b3ef6 \
+                    sha256  1ab11cda68c580d33fb561d6a229f8285802f05ffa3056299a452149d7dec392 \
+                    size    3107772
 supported_archs     noarch
 
 depends_lib-append  port:R-psych

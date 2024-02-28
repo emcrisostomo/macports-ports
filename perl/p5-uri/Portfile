@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         URI 5.21
-revision            1
+perl5.setup         URI 5.27
+revision            0
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
 
@@ -17,9 +17,9 @@ long_description    This package contains the URI.pm module with friends. The mo
                     implements the URI class. Objects of this class represent Uniform Resource \
                     Identifier references as specified in RFC 2396 and updated by RFC 2732.
 
-checksums           rmd160  424aafc25fd4a8d4c26005b91cf3147ca4a3c20e \
-                    sha256  96265860cd61bde16e8415dcfbf108056de162caa0ac37f81eb695c9d2e0ab77 \
-                    size    119928
+checksums           rmd160  f3efffaddc16f234347587a91f3c081b3e1093da \
+                    sha256  11962d8a8a8496906e5d34774affc235a1c95c112d390c0b4171f3e91e9e2a97 \
+                    size    123909
 
 if {${perl5.major} != ""} {
     depends_build-append \

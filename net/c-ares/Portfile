@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 PortGroup           github 1.0
 
-github.setup        c-ares c-ares 1.25.0 cares-
+github.setup        c-ares c-ares 1.27.0 cares-
 set version_        [join [split ${github.version} .] _]
 git.branch          [join ${github.tag_prefix}]${version_}[join ${github.tag_suffix}]
 revision            0
@@ -27,9 +27,9 @@ long_description    This is c-ares, an asynchronous resolver \
 
 homepage            https://c-ares.org
 
-checksums           rmd160  06c775794faddd378b620b6d1160b1ee3bbc7baa \
-                    sha256  71832b93a48f5ff579c505f4869120c14e57b783275367207f1a98314aa724e5 \
-                    size    1264129
+checksums           rmd160  f753e092e794e5ac47d1f4374a6e09643034d367 \
+                    sha256  0a72be66959955c43e2af2fbd03418e82a2bd5464604ec9a62147e37aceb420b \
+                    size    1301440
 
 configure.args-append \
                     -DCARES_SHARED:BOOL=ON

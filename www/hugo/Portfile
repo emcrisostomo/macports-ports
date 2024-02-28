@@ -3,13 +3,13 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gohugoio/hugo 0.121.1 v
+go.setup            github.com/gohugoio/hugo 0.123.4 v
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  f3e9e05d84883cec4f34b6ebf8149b8ee93fff34 \
-                    sha256  fd16b6723365e2d60bef9dd2c0a12a0b046185b033973a85eae7e5979693b799 \
-                    size    21036269
+checksums           rmd160  c91429cc69d9b26bc6b3cba3070b71c5896a4e46 \
+                    sha256  3e681c0a3f5d1422e7b26cb996ec53f20481ab4bb24eaf9f1ba0cccf5dde20ac \
+                    size    21043942
 
 categories          www
 installs_libs       no

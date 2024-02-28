@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-cloudflare
-version             2.16.0
+version             2.19.2
 revision            0
 categories          python
 license             MIT
@@ -15,9 +15,9 @@ supported_archs     noarch
 platforms           {darwin any}
 homepage            https://github.com/cloudflare/python-cloudflare
 
-checksums           rmd160  7bb662b6246c0e8819b523bef69307ac4365c3ec \
-                    sha256  42ddf55d15152696ff1b6f99ef84f68fa3dd5aac2d94b6ccb365d860e651977d \
-                    size    101425
+checksums           rmd160  16f2be11539fe39b016ea8923a9f5630070fd48f \
+                    sha256  10d4b96b2addee07dfa3699e0a167df77d2a8d5ab7f86e6590eaa6ea87d6dc18 \
+                    size    114453
 
 python.versions     38 39 310 311 312
 

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        dbeaver dbeaver 23.3.2
+github.setup        dbeaver dbeaver 23.3.5
 github.tarball_from releases
 revision            0
 name                dbeaver-community
@@ -32,15 +32,15 @@ use_dmg             yes
 switch ${build_arch} {
     x86_64 {
         distfiles           dbeaver-ce-${version}-macos-x86_64${extract.suffix}
-        checksums           rmd160  f03e1fa7b6a14c14fc4ebaf93b6b715cab8eafcb \
-                            sha256  7262542d1c4babd7cf14db81fc696689cb6f6454406e377155f9371a7942eb6f \
-                            size    128908131
+        checksums           rmd160  81be706613ae1191b3b140478cf93c603ef5f2a6 \
+                            sha256  033f80224c03b2e1cd1a497d1c901a329dfaf017b3960118f378946eadc7952f \
+                            size    129514845
     }
     arm64 {
         distfiles           dbeaver-ce-${version}-macos-aarch64${extract.suffix}
-        checksums           rmd160  8278886277c256c6cb5831bab7091e67f5dc9fec \
-                            sha256  7da91112ca1f5f8aa3c05b00a78ee4b1d219b3d9493fe50e00efeaea0f454121 \
-                            size    127837034
+        checksums           rmd160  48fd62c0efe4b63876c525237d6568569ca39cba \
+                            sha256  3121eb483508003e5ea4dcaba821212fcf7df5b1efc5a395e34ec4aab9c6e684 \
+                            size    128399936
     }
     default {
         known_fail  yes

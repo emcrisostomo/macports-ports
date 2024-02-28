@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran flowervalleyconsulting forsearch 4.2.0
+R.setup             cran flowervalleyconsulting forsearch 5.1.0
 revision            0
 categories-append   math
 maintainers         nomaintainer
 license             GPL-3+
 description         Diagnostic analysis using forward search procedure for various models
 long_description    {*}${description}
-checksums           rmd160  984bb5d4a00c5be5514f6d8d4ebc0f94cca38b84 \
-                    sha256  1eba9f4e57966037a9499529efdb23cc91c24aa273d21dc59832c364d68feb1a \
-                    size    274811
+checksums           rmd160  b990544efc3f0ef9670692041903b41e67bb7a87 \
+                    sha256  4a13e1464d5e8e460d9cdd1e276cebe8db40d95d573b32044204addb8e0875d9 \
+                    size    295796
 supported_archs     noarch
 
 depends_lib-append  port:R-Cairo \

@@ -10,7 +10,7 @@ revision            0
 categories-append   science
 license             BSD
 
-python.versions     38 39 310 311
+python.versions     38 39 310 311 312
 python.pep517_backend   meson
 
 maintainers         {stromnov @stromnov} openmaintainer
@@ -64,4 +64,6 @@ if {${name} ne ${subport}} {
     }
 
     build.env-append        PATH=${python.prefix}/bin:$::env(PATH)
+
+    livecheck.type          none
 }

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/containers/gvisor-tap-vsock 0.7.1 v
+go.setup            github.com/containers/gvisor-tap-vsock 0.7.3 v
 github.tarball_from archive
 revision            0
 
@@ -17,9 +17,9 @@ long_description    \
     the network stack of gVisor. Compared to libslirp, gvisor-tap-vsock \
     brings a configurable DNS server and dynamic port forwarding.
 
-checksums           rmd160  2ad36235d8bf62fed9d6e44ee8aecfd6c15a9506 \
-                    sha256  cbc97a44b6ca8f6c427ac58e193aa39c28674e4f1d2af09b5a9e35d1d3bb7fd3 \
-                    size    10311217
+checksums           rmd160  221f87b2b757675172e34ed0050b774129d8edde \
+                    sha256  851ed29b92e15094d8eba91492b6d7bab74aff4538dae0c973eb7d8ff48afd8a \
+                    size    10469734
 
 # FIXME: This port currently can't be built without allowing go mod to fetch
 go.offline_build no

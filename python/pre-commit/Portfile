@@ -5,8 +5,8 @@ PortGroup           python 1.0
 
 name                pre-commit
 python.rootname     pre_commit
-version             3.6.0
-revision            1
+version             3.6.2
+revision            0
 
 categories-append   devel
 supported_archs     noarch
@@ -19,9 +19,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/pre-commit/pre-commit
 
-checksums           rmd160  b9094f5fd1b92984ac42c4ec7d7de28805bf7d92 \
-                    sha256  d30bad9abf165f7785c15a21a1f46da7d0677cb00ee7ff4c579fd38922efe15d \
-                    size    177069
+checksums           rmd160  16b74aad9cadea702791652b64804b38ea6a740a \
+                    sha256  c3ef34f463045c88658c5b99f38c1e297abdcc0ff13f98d3370055fbbfabc67e \
+                    size    177293
 
 python.default_version 312
 

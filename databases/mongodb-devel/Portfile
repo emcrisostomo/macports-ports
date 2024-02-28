@@ -9,7 +9,7 @@ PortGroup           muniversal 1.0
 
 epoch               0
 github.setup        mongodb mongo 6.0.7 r
-revision            0
+revision            1
 checksums           rmd160  b50b1900daf9ee99b4337c410e4db47d1a57f26f \
                     sha256  32f6b4ad561a519da0b6a030064f011ebae1aa36f8fcaecd410d4b606cd8efc5 \
                     size    89667776 \
@@ -208,7 +208,8 @@ build.args          CC="${configure.cc}" \
                     DESTDIR="${destroot}" \
                     LIBPATH="${prefix}/lib" \
                     PREFIX="${prefix}" \
-                    --disable-warnings-as-errors \
+                    --disable-warnings-as-errors=configure \
+                    --disable-warnings-as-errors=source \
                     --enable-http-client=on \
                     --install-action=hardlink \
                     --libc++ \
@@ -223,6 +224,10 @@ build.args          CC="${configure.cc}" \
                     --use-system-zlib \
                     --use-system-zstd \
                     --wiredtiger=on
+
+# error: no template named 'unary_function' in namespace 'std'; did you mean '__unary_function'?
+# https://jira.mongodb.org/browse/SERVER-85779
+build.args-append   CPPDEFINES=BOOST_NO_CXX98_FUNCTION_BASE
 
 # It should build with --use-system-asio, but doesn't:
 # TODO: Report bug and put link here

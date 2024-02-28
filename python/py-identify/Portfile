@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-identify
-version             2.5.33
+version             2.5.35
 revision            0
 
 categories-append   devel
@@ -18,8 +18,8 @@ long_description    {*}${description}
 
 homepage            https://github.com/pre-commit/identify
 
-checksums           rmd160  13e3aca88b0f7db9f57b293e3633b0442c2c3529 \
-                    sha256  161558f9fe4559e1557e1bff323e8631f6a0e4837f7497767c1782832f16b62d \
+checksums           rmd160  85b6ae1b562b97c55f7c10c86aa08272e5b805dc \
+                    sha256  10a7ca245cfcd756a554a7288159f72ff105ad233c7c4b9c6f0f4d108f5f6791 \
                     size    99009
 
 python.versions     39 310 311 312

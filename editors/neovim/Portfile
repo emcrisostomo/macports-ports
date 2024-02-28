@@ -49,13 +49,14 @@ configure.args-append   -DUSE_BUNDLED=OFF \
                         -DLUA_PRG=${prefix}/bin/luajit
 
 subport neovim-devel {
-    github.setup    neovim neovim 6fa0f303d7f0823bfc5ba6cc7b4e7a7cd76143ac
-    version         20240101-[string range ${github.version} 0 6]
+    github.setup    neovim neovim 848fc8ede84b9cfc4e651e0e3b449060a8a8d70c
+    version         20240217-[string range ${github.version} 0 6]
     revision        0
 
-    checksums       rmd160  419fefb665764a319a93b27d4c8b838a90c79081 \
-                    sha256  fe74369fc30a32ec7a086b1013acd0eacd674e7570eb1acc520a66180c9e9719 \
-                    size    11590180
+    github.tarball_from tarball
+    checksums       rmd160  6f5d9f4dfc9e9204ee8a68fa9fdfca75ccc5e1f9 \
+                    sha256  36a4145c97cf46e99f2630843c440d3f13a707b8d36ff3cb895bef4e5a5a82b6 \
+                    size    12674085
 
     conflicts       neovim
 

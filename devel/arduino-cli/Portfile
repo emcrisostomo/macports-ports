@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/arduino/arduino-cli 0.34.2
+go.setup            github.com/arduino/arduino-cli 0.35.3 v
 revision            0
 
 categories          devel electronics
@@ -17,9 +17,9 @@ long_description    \
     needed to use any Arduino compatible board and platform.
 homepage            https://arduino.github.io/arduino-cli
 
-checksums           rmd160  d1b76df3da38be390f5337762d69fc474447c937 \
-                    sha256  34f747398dc70a972ae7c77c61bfe940256246fd6300e54fc44e0dee2bc66dd7 \
-                    size    10336077
+checksums           rmd160  43ad7fa9682bb62631f1f884a94705d2d48bfb1b \
+                    sha256  4006b786d29a6c56aa9b679451012c792f7c51aa1f76f2c6c7befdd623a06360 \
+                    size    10420313
 
 # FIXME: This port currently can't be built without allowing go mod to fetch
 go.offline_build no

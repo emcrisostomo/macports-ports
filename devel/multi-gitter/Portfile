@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/lindell/multi-gitter 0.32.0 v
+go.setup            github.com/lindell/multi-gitter 0.50.1 v
+go.offline_build    no
 revision            0
 
 description         A CLI to update multiple Git repositories in bulk
@@ -17,19 +18,16 @@ long_description    {*}${description}. ${name} allows you to make changes in \
                     completed successfully.
 
 categories          devel
+installs_libs       no
+license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
-license             Apache-2
-installs_libs       no
 
-checksums           rmd160  cb33a583f41e1be19d5010ea8038e8975680322d \
-                    sha256  5583be9213802e0e34ee88355c457174148e7e2a1fc1f8bb13b40389e34f5bba \
-                    size    278481
+checksums           rmd160  981a1868bcc9a583534f4b5cd277acb27d110a5a \
+                    sha256  c1206dd718a8310befa2924571be2c6dafa180da96f8fec16de4351b6b1cd84d \
+                    size    303150
 
 github.tarball_from archive
-
-# Allow Go to fetch dependencies at build time
-go.offline_build no
 
 build.pre_args-append \
                     -ldflags \"-X main.version=${github.tag_prefix}${version}\"

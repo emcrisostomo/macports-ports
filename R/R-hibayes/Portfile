@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran YinLiLin hibayes 3.0.1
+R.setup             cran YinLiLin hibayes 3.0.3
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3
 description         Individual-level, summary-level and single-step Bayesian regression model
 long_description    {*}${description}
-checksums           rmd160  56edc4bd8c524bef8b6c03ef088a8966e212a6c9 \
-                    sha256  b2fac332e0cacd5e3bb29442fe9ce799c80b5f49dd17a31b574ddb0977b883c2 \
-                    size    183133
+homepage            https://github.com/YinLiLin/hibayes
+checksums           rmd160  96d9dce30a8a99a98978561744b576e3b05ed7f2 \
+                    sha256  a687c4c4cbfb2a11da1f6c517e6ee4bda686801828c74e9dac9709a420de7313 \
+                    size    183143
 
 depends_lib-append  port:R-BH \
                     port:R-bigmemory \

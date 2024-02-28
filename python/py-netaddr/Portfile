@@ -4,13 +4,13 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-netaddr
-version             0.8.0
+version             1.2.1
 categories-append   devel
 platforms           {darwin any}
 license             BSD MIT
 supported_archs     noarch
 
-python.versions     37 38 39 310 311
+python.versions     38 39 310 311 312
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -19,13 +19,10 @@ long_description    ${description}
 
 homepage            https://github.com/drkjam/netaddr/
 
-checksums           rmd160  a4f5def6bba751895ac441f75b1c6699de8651f7 \
-                    sha256  d6cc57c7a07b1d9d2e917aa8b36ae8ce61c35ba3fcd1b83ca31c5a0ee2b5a243 \
-                    size    1891561
+checksums           rmd160  6f10ec842a1c24f2555131c75238648f830dbde1 \
+                    sha256  6eb8fedf0412c6d294d06885c110de945cf4d22d2b510d0404f4e06950857987 \
+                    size    2278809
 
 if {${name} ne ${subport}} {
-    depends_build-append \
-                        port:py${python.version}-setuptools
-
     test.run            yes
 }

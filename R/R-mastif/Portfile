@@ -3,15 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran mastif 2.0
+R.setup             cran jimclark mastif 2.2
 revision            0
 maintainers         nomaintainer
-license             {GPL-2 GPL-3}
-description         Analyze production and dispersal of seeds dispersed from trees and recovered in seed traps
+license             GPL-2+
+description         Analyze production and dispersal of seeds \
+                    dispersed from trees and recovered in seed traps
 long_description    {*}${description}
-checksums           rmd160  fa913ed7d34d29394ca00d3ed0e2bf976d1d99de \
-                    sha256  bcd79144834da0b502c850bef3a9dca7bc6e173cc39a203b096e5e249c21cbc9 \
-                    size    240554
+checksums           rmd160  e1292b38138d08c614fa1dd0cbac5932fd5bd6fe \
+                    sha256  e906da84604c0b339353196b64f90f3bb374747a5375935ffa1e6ac3f88526a6 \
+                    size    262041
 
 depends_lib-append  port:R-corrplot \
                     port:R-RANN \

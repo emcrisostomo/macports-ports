@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version lags behind.
-R.setup             cran USDAForestService gdalraster 1.7.0
+R.setup             cran USDAForestService gdalraster 1.8.0
 revision            0
 categories-append   gis
 maintainers         nomaintainer
@@ -12,9 +12,9 @@ license             MIT
 description         Bindings to the Geospatial Data Abstraction Library Raster API
 long_description    {*}${description}
 homepage            https://usdaforestservice.github.io/gdalraster
-checksums           rmd160  13d1e93cd496139ecd0bd92c692fee8f7f935f67 \
-                    sha256  dfb0b638ce7222a25f7e7cd9f10a33595e08f6eead19290750b86818069f41a1 \
-                    size    1769718
+checksums           rmd160  da283ebdb278c2c3bb3f13dbec875d8bdf5387f4 \
+                    sha256  bbc000ed465fe89d88b852372e633a7065c4cc494e0167ea6ca18a7c83bdd8af \
+                    size    1777981
 
 set proj_v          proj9
 
@@ -22,19 +22,17 @@ depends_build-append \
                     port:pkgconfig
 depends_lib-append  path:lib/${proj_v}/lib/pkgconfig/proj.pc:${proj_v} \
                     port:gdal \
+                    port:libxml2 \
                     port:R-Rcpp \
                     port:R-xml2 \
                     port:sqlite3
 
 # configure fails to do its job: https://github.com/r-spatial/sf/issues/2292
-destroot.env-append CPPFLAGS=-I${prefix}/lib/${proj_v}/include
+build.env-append    CPPFLAGS=-I${prefix}/lib/${proj_v}/include
 
-destroot.pre_args-append \
-                    --configure-args=' \
-                        --with-proj-include=${prefix}/lib/${proj_v}/include \
+build.args-append   --configure-args="--with-proj-include=${prefix}/lib/${proj_v}/include \
                         --with-proj-lib=${prefix}/lib/${proj_v}/lib \
-                        --with-proj-share=${prefix}/lib/${proj_v}/share/proj \
-                        '
+                        --with-proj-share=${prefix}/lib/${proj_v}/share/proj"
 
 depends_test-append port:R-gt \
                     port:R-knitr \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        pyviz holoviews 1.18.1 v
+github.setup        pyviz holoviews 1.18.3 v
 revision            0
 categories-prepend  science
 license             BSD
@@ -18,9 +18,9 @@ supported_archs     noarch
 platforms           {darwin any}
 homepage            https://github.com/holoviz/holoviews
 
-checksums           rmd160  79866ad873c28cad643ea61c4bc1c45f4935752f \
-                    sha256  af069fb840aedf077b23472e7f4f3693dbf993072cae9a8aafec5d7d8c0bfd25 \
-                    size    4878512
+checksums           rmd160  e9452de6684524a73f5397f8bf7b17d9ebabb3a9 \
+                    sha256  9763a485cb982768f619c5e3f48d3e78612582e1a1c36e8be3c127b088509e9d \
+                    size    4882279
 
 variant python39 conflicts python310 python311 description {Use Python 3.9} {}
 variant python310 conflicts python39 python311 description {Use Python 3.10} {}

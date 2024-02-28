@@ -3,17 +3,22 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran lmomco 2.4.11
+R.setup             cran william.asquith lmomco 2.4.14
 revision            0
 categories-append   math
 maintainers         nomaintainer
 license             GPL
-description         L-moments, censored l-moments, trimmed l-moments, l-comoments and many distributions
+description         L-moments, censored l-moments, trimmed l-moments, \
+                    l-comoments and many distributions
 long_description    {*}${description}
-checksums           rmd160  75724d7f82df50e32f4cdaf8763cbc7cc2d6d7d5 \
-                    sha256  842a91a85da7d37b09c6a071a0ae7263f62e86330ca8e0865535363f34ddda1f \
-                    size    1177613
+checksums           rmd160  f5f8eedf883a84070b5366ead13db7a3ce696d1b \
+                    sha256  9310fd354301c2c175866e0b0a1035c3bd90394b0ee14f39cce14b709cc64d25 \
+                    size    1194463
 supported_archs     noarch
 
 depends_lib-append  port:R-goftest \
                     port:R-Lmoments
+
+depends_test-append port:R-copBasic
+
+test.run            yes

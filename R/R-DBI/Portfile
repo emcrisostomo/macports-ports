@@ -3,17 +3,20 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github r-dbi DBI 1.2.0.9002 v
+R.setup             github r-dbi DBI 1.2.2.9001 v
 revision            0
 categories-append   databases
-maintainers         {@krlmlr cynkra.com:kirill} {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         {@krlmlr cynkra.com:kirill} \
+                    {@barracuda156 gmail.com:vital.had} \
+                    openmaintainer
 license             LGPL-2.1+
-description         A database interface (DBI) definition for communication between R and RDBMSs
+description         A database interface (DBI) definition for communication \
+                    between R and RDBMSs
 long_description    {*}${description}
 homepage            https://dbi.r-dbi.org
-checksums           rmd160  4045a5295d6d4f4f59ad3e8e0d2b6088584734ef \
-                    sha256  7d2d69ec1b6c5d242f14ee75f540695d7205a82a4df1207ac658d04641dc01ec \
-                    size    231380
+checksums           rmd160  ff45763f341fdbd538ce2c308a86573b2d99bcf8 \
+                    sha256  0e3a06cdfda94618450b695e04ddc00ae1674be170ffd59f4087d059f3c30e03 \
+                    size    282696
 supported_archs     noarch
 
 depends_test-append port:R-blob \

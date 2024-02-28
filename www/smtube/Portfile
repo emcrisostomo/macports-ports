@@ -1,10 +1,19 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           qmake 1.0
+
+if {${os.platform} eq "darwin" && ${os.major} < 17} {
+    PortGroup       qmake 1.0
+
+} else {
+    PortGroup       qmake5 1.0
+
+    qt5.depends_component   qttools qtwebkit
+}
 
 name                smtube
 version             21.10.0
+revision            1
 
 categories          www
 license             GPL-2+
@@ -25,8 +34,7 @@ checksums           rmd160  febb3403f24f6f621870ffd243b3291666f0d87d \
 depends_build-append \
                     port:makeicns
 
-depends_run-append  path:${prefix}/bin/mplayer:MPlayer \
-                    port:yt-dlp
+depends_run-append  port:yt-dlp
 
 configure.dir       ${worksrcpath}/src
 
@@ -35,6 +43,7 @@ patchfiles          patch-smplayer.diff
 post-patch {
     reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/src/players.cpp \
                                          ${worksrcpath}/src/retrieveyoutubeurl.cpp
+    reinplace "s|@@APPLICATIONS@@|${applications_dir}|" ${worksrcpath}/src/players.cpp
 }
 
 pre-build {
@@ -48,7 +57,7 @@ pre-build {
                                -out src/smtube.icns"
 }
 
-build.dir            ${worksrcpath}/src
+build.dir           ${worksrcpath}/src
 
 # fixme - the translations are made, but forcing the installed app to find them
 # is proving somewhat difficult.
@@ -66,3 +75,19 @@ notes "
 The mechanism smtube uses has changed slightly. You may notice\
 a slight delay before the video starts to play.
 "
+
+variant mplayer description "Use MPlayer for playback" {
+    depends_run-append   path:${prefix}/bin/mplayer:MPlayer
+}
+
+variant qmplay2 description "Use QMPlay2 for playback" {
+    depends_run-append   port:QMPlay2
+
+    notes-append "
+    To use QMPlay2 for playback, please launch ${name}, open Preferences>Players,\
+    click Add predefined players and move QMPlay2 to the top of the list.
+    "
+}
+
+# Notice, there is no conflict between variants, they merely add a runtime dep.
+default_variants-append  +mplayer
