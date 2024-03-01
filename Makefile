@@ -5,8 +5,7 @@ PORT_INDEX_SENTINEL:=   $(LOCAL_PORTS_DIR)/.port-index.sentinel
 .PHONY: pull-upstream
 pull-upstream:
 	git fetch --all -p
-	git merge --no-edit origin/master
-	git merge --no-edit upstream/master
+	git rebase upstream/master -X ours
 	git push
 	portindex
 
