@@ -7,6 +7,7 @@ devel/gradle
 devel/hub
 devel/libtool
 devel/mongo-tools
+devel/operator-sdk
 java/maven3
 java/spring-boot-cli
 python/py-awscli
