@@ -9,6 +9,7 @@ github.setup        rockdaboot libpsl 0.21.5
 # that psl_data_commit and psl_data_date refer to latest
 # https://github.com/publicsuffix/list git master commit
 revision            0
+epoch               1
 license             MIT
 description         A C library and utility to handle the Public Suffix List
 long_description    {*}${description}
@@ -48,7 +49,7 @@ ${psl_data_distfile} \
 # See e.g. https://trac.macports.org/ticket/60419
 
 # DO NOT change this unless you have understood and acted on the above comment!
-set py_ver          3.12
+set py_ver          3.10
 set py_ver_nodot    [string map {. {}} ${py_ver}]
 
 depends_build-append \
