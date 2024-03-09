@@ -10,7 +10,7 @@ revision            0
 
 platforms           darwin
 license             LGPL-2.1+
-maintainers         nomaintainer
+maintainers         {gmail.com:yan12125 @yan12125} openmaintainer
 
 description	        curses-based UI/widget library for Python
 long_description    \
@@ -43,4 +43,6 @@ if {${name} ne ${subport}} {
     }
 
     livecheck.type  none
+} else {
+    livecheck.type  pypi
 }

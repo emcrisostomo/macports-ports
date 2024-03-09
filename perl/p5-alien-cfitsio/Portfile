@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Alien-CFITSIO v4.3.0.0
+perl5.setup         Alien-CFITSIO v4.4.0.1
 revision            0
 license             {Artistic-1 GPL}
 maintainers         {devans @dbevans} openmaintainer
@@ -14,9 +14,9 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  6456e2a9de2b69466e7a6aa2d68a89b0a167e976 \
-                    sha256  fb6cf5c606f36f4bda0af1430a7614e44b12579769b10a6c47734ef5a8b237b9 \
-                    size    27247
+checksums           rmd160  0dcd2b848846f6bf3d5eb2add4190ca408439f12 \
+                    sha256  7c35c1ca4af8e67dc642f206af7e75be3b69a97471c175e1950249a2b9f4c1bf \
+                    size    28121
 
 if {${perl5.major} != ""} {
     depends_build-append \

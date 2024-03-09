@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-asdf-standard
 python.rootname     asdf_standard
-version             1.0.3
+version             1.1.1
 revision            0
 license             BSD
 platforms           {darwin any}
@@ -15,9 +15,9 @@ description         This document describes the Advanced Scientific Data Format 
 long_description    {*}${description}
 homepage            https://github.com/asdf-format/asdf-standard
 
-checksums           rmd160  a5e58389d30572a04852d783111c673a36525c1b \
-                    sha256  afd8ff9a70e7b17f6bcc64eb92a544867d5d4fe1f0076719142fdf62b96cfd44 \
-                    size    113484
+checksums           rmd160  b76fc9310007d8604bd1840b325885b7a34b6a6b \
+                    sha256  01535bc2b15bfc09ec8a62d4999f9cf32dc49dc71660c8425640228fd8776102 \
+                    size    114823
 
 python.versions     39 310 311 312
 

@@ -169,7 +169,7 @@ if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libc++"} {
 
 global prefix frameworks_dir
 # Please update R version here:
-set Rversion        4.3.2
+set Rversion        4.3.3
 set branch          [join [lrange [split ${Rversion} .] 0 1] .]
 set packages        ${frameworks_dir}/R.framework/Versions/${branch}/Resources/library
 set suffix          .tar.gz
@@ -210,5 +210,11 @@ default test.run    no
 # We do not need to check rebuilding vignettes, since that often requires Tex and even Pandoc,
 # and we do not want these as dependencies for tests. It also wastes time.
 test {
-    system -W ${worksrcpath} "${r.cmd} CMD check ./${R.package}_${version}${suffix} --no-manual --no-build-vignettes"
+    if {![option test.run]} {
+        ui_info "Tests are disabled."
+        return
+    }
+    system -W ${worksrcpath} "export _R_CHECK_FORCE_SUGGESTS_=0 \
+        && ${r.cmd} CMD check ./${R.package}_${version}${suffix} \
+            --no-manual --no-build-vignettes"
 }

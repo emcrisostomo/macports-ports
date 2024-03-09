@@ -6,7 +6,7 @@ PortGroup           meson   1.0
 PortGroup           openssl 1.0
 
 epoch               1
-github.setup        rizinorg rizin 0.7.0 v
+github.setup        rizinorg rizin 0.7.2 v
 github.tarball_from releases
 revision            0
 
@@ -29,9 +29,9 @@ distname            ${github.project}-src-v${github.version}
 worksrcdir          ${github.project}-v${github.version}
 use_xz              yes
 
-checksums           rmd160  c843d4f775bd262749052ec5d35f20b78737d57a \
-                    sha256  fc6734320d88b9e2537296aa0364a3c3b955fecc8d64dda26f1f3ede7c8d6c31 \
-                    size    18938092
+checksums           rmd160  195a7008fa6a3240aebdb9a04d9c83041368db25 \
+                    sha256  fcff3fb45ae2b75e3f604bc7a08076e322e6e14def79098186378065ccb3582a \
+                    size    18940872
 
 depends_build-append \
                     port:pkgconfig

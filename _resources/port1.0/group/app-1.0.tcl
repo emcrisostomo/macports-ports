@@ -122,6 +122,28 @@ default app.version {${version}}
 options app.identifier
 default app.identifier {[app.get_default_identifier]}
 
+
+# app.hide_dock_icon: hide the dock icon
+#
+# x11 apps do not receive a proper indication that application has successfully
+# launched, and so the icon keeps bouncing in the dock. Until this is properly
+# fixed, just hide the the dock icon for now
+
+options app.hide_dock_icon 
+default app.hide_dock_icon  no
+
+
+# app.use_launch_script: use a bash launch script instead of a symlink to the executable
+#
+# the default behaviour is to symlink the executable into the bundle. 
+# However, this has two issues -- it passes -psn to the executable,
+# which some ports can't handle. Also, it doesn't set up the path to ${prefix}/bin. The launch
+# script option solves both these issues.
+
+options app.use_launch_script 
+default app.use_launch_script  no
+
+
 proc app.get_default_identifier {} {
     global app.name homepage
     set identifier [split [lindex [split ${homepage} "/"] 2] .]
