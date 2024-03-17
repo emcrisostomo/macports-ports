@@ -32,11 +32,11 @@ subport kubectl-1.29 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     2
+    set patchNumber     3
     revision            0
-    checksums           rmd160  e03da5dbd960f99f8b5ff5757444f28883539cd4 \
-                        sha256  da261f3d82e1b534dbc585bdf961b1eb9d073501fa0ecf406317e95238d0867b \
-                        size    41132583
+    checksums           rmd160  ca504b5d303fae44a79c12e20cb5c6da83784f79 \
+                        sha256  401d29af71cb962eb328cefd5166695587f195f9bd960edd1ede630f7e98bf7a \
+                        size    41151982
 }
 
 subport kubectl-1.28 {
@@ -45,11 +45,11 @@ subport kubectl-1.28 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     7
+    set patchNumber     8
     revision            0
-    checksums           rmd160  0760bde60aa8165a9695e44dd0a428ca1965fa8e \
-                        sha256  bd7b2c457c91479ee4233d717f0740bc16a43bc51c270c21a1b63d703bef9329 \
-                        size    39959046
+    checksums           rmd160  67d8007113ea5414129773a7a47e3d4b46023940 \
+                        sha256  97099f6d8090b911f39b798a1fc5185e351bb4a1d81d1be249d9f9f1381a21f7 \
+                        size    39978242
 }
 
 subport kubectl-1.27 {
@@ -57,11 +57,11 @@ subport kubectl-1.27 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     11
+    set patchNumber     12
     revision            0
-    checksums           rmd160  dc9a4b1b1068a626a82fbb465c6bf567b81add19 \
-                        sha256  2dafbfd80b1efd40ac059bfac468be746cefad0c52462d77dc89bf03c5ba1bf0 \
-                        size    39184562
+    checksums           rmd160  2dad36bdf47efcf1bf3bebc982d8d86884697b50 \
+                        sha256  1da2b904fa5794de963b714d51c91c50a08df8efc7764430292de29a05ce14cb \
+                        size    39200862
 }
 
 subport kubectl-1.26 {
@@ -235,7 +235,7 @@ if {${subport} == ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.29.2
+    version             1.29.3
     revision            0
 
 } elseif {${subport} == "kubectl_select"} {
