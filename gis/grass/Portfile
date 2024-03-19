@@ -6,8 +6,8 @@ PortGroup           debug 1.0
 epoch               1
 
 name                grass
-version             8.3.1
-revision            2
+version             8.3.2
+revision            0
 
 maintainers         {yahoo.com:n_larsson @nilason} openmaintainer
 categories          gis
@@ -30,9 +30,9 @@ homepage            https://grass.osgeo.org
 master_sites        ${homepage}/grass[join [lrange [split ${version} .] 0 1] {}]/source/
 distname            grass-${version}
 
-checksums           rmd160  323d456160ea82ecdd64a2009e610431c02baa6b \
-                    sha256  7eb1adadcc7336ce3bde72a4fbb7d72f10b444dc4d48d5dc8c24e78205b6a697 \
-                    size    68491177
+checksums           rmd160  1061cb30745d01a48264b9de617e18f1c0d2f910 \
+                    sha256  ab924978c9d77dad9df9cdd8007955ef5ed6b377010e96f18bbfc85a99fba43c \
+                    size    68662576
 
 depends_build-append \
                     port:bison \
@@ -54,7 +54,8 @@ depends_lib-append  port:bzip2 \
                     port:zlib \
 
 patchfiles          01_patch-dyld-link.diff \
-                    02_grass-python.diff
+                    02_grass-python.diff \
+                    03_patch_python312.diff
 
 # c++17 needed for PDAL 2.4+
 compiler.cxx_standard     2017
@@ -276,6 +277,8 @@ subport grass-gui {
     build               {}
     
     # Python variants
+    # for the time being, missing `py312-wxpython-4.0`, skip Python 3.12
+    set python_suffixes {38 39 310 311}
     set py_grass        [lindex $python_suffixes end]
     set py_variant      ${py_grass}
     foreach pyver ${python_suffixes} {
@@ -289,8 +292,8 @@ subport grass-gui {
         }
     }
     if {${py_grass} ne ${py_variant}} {
-        ui_error "Python variant must be the same as for 'grass', i.e. +python${py_grass}."
-        return -code error "Conflicting Python variants."
+        ui_warn "'${subport}' Python variant must be the same as for the active\
+version of 'grass'. Change +python${py_variant} to +python${py_grass}."
     }
     set python_variants {}
     foreach pyver ${python_suffixes} {
