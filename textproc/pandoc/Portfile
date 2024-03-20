@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        jgm pandoc 3.1.12.2
+github.setup        jgm pandoc 3.1.12.3
 revision            0
 categories          textproc haskell
 license             GPL-3
@@ -27,9 +27,9 @@ homepage            https://pandoc.org
 
 installs_libs       no
 
-checksums           rmd160  1c465118e3118f2534607feda25f11db94576966 \
-                    sha256  8f922a35eff1a96be323e496ba0ebe8ad985db17a84d2c553d672346913bea9c \
-                    size    7655959
+checksums           rmd160  48d25968949d35c50289889f53ab8657a0c90bfe \
+                    sha256  14f7c29964a3b3f0f3a124134221e3e60269bda860aad93342e5b1612be46af9 \
+                    size    7657171
 
 depends_lib-append  port:zlib
 
@@ -124,14 +124,14 @@ if {(${os.platform} eq {darwin}
     # run `sudo port clean --all pandoc` afterwards
     switch ${build_arch} {
         arm64 {
-            checksums       rmd160  005e26c030147695a1b5b489050a20e48488e32b \
-                            sha256  1e651659072743d7304d6891d231707aa9bd783314e35872b94efac1a8978f2d \
-                            size    35177939
+            checksums       rmd160  35b4e308078541b184be314e5933028792003a99 \
+                            sha256  7c67ba6e481a27bcd1dbed3f4de982f2efff6a781c706aee27002e46dee95cce \
+                            size    34709166
         }
         x86_64 {
-            checksums       rmd160  db08264005c82d37d4112e437b5fc3812c1e2a3e \
-                            sha256  f693cc59619053da7a6606ee8ab812664ee033f5efca88da92077c96066fa37b \
-                            size    21561936
+            checksums       rmd160  0416252bac8250427940d5f4ffa0e1eab26dd92d \
+                            sha256  108c7adc9ffdbfa976eae4f78d33feb9a9b3f1fbb75045306e9ce50f493c6252 \
+                            size    21592305
         }
         default {
             known_fail  yes
