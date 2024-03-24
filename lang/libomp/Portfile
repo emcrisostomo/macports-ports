@@ -31,7 +31,7 @@ subport                 libomp-devel {}
 if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libstdc++"} {
 
     version             18.1.2
-    revision            0
+    revision            1
 
     if { ${subport} eq "libomp-devel" } {
         # Marked obsolete 10/25/2022
@@ -139,7 +139,7 @@ if {${os.major} <= 10} {
     set hnames              {omp.h}
     configure.args-append   -DLIBOMP_OMPT_SUPPORT=FALSE
 } else {
-    set hnames              {omp-tools.h omp.h ompt.h}
+    set hnames              {omp-tools.h omp.h ompt.h ompx.h}
 }
 
 variant top_level description \

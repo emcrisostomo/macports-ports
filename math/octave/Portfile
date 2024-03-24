@@ -4,6 +4,7 @@ PortSystem          1.0
 PortGroup           compilers  1.0
 PortGroup           muniversal 1.0
 PortGroup           compiler_blacklist_versions 1.0
+PortGroup           legacysupport 1.1
 PortGroup           linear_algebra 1.0
 
 name                octave
@@ -38,7 +39,8 @@ patchfiles-append patch-better_error.diff
 
 # bsdtar and tar have different outputs
 # starting in Mac OS X Snow Leopard (10.6), tar is an alias of bsdtar
-if { ${os.platform} eq "darwin" && ${os.major} >= 10 } {
+# this patch breaks packages builds on 10.6 ppc, so exclude it there
+if { ${os.platform} eq "darwin" && ${os.major} >= 10 && ${os.arch} ne "powerpc" } {
     patchfiles-append patch-bsdtar.diff
 }
 
@@ -73,18 +75,39 @@ post-patch {
         ${worksrcpath}/Makefile.in
 }
 
-post-patch {
-    if { ${os.arch} eq "i386" } {
-        if { ${os.platform} eq "darwin" && ${os.major} >= 9 && [sysctl hw.cpu64bit_capable] == 1 } {
-            set short_host_name x86_64-apple-${os.platform}${os.major}.x.x
-        } else {
-            set short_host_name i686-apple-${os.platform}${os.major}.x.x
+# https://trac.macports.org/ticket/69575
+legacysupport.redirect_bins mkoctfile-${version} octave-${version} octave-cli-${version} octave-config-${version}
+
+if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libc++"} {
+    # Patch the script which runs at destroot:
+    patchfiles-append patch-run-octave-libstdcpp.diff
+
+    # Patch scripts installed by LegacySupport so that they call correct binaries.
+    post-activate {
+        foreach obin {mkoctfile octave octave-cli octave-config} {
+            reinplace "s|\"\${0}-orig\"|$obin-${version}-orig|" \
+                ${prefix}/bin/${obin}-${version}
         }
-    } else {
-        if { ${os.platform} eq "darwin" && ${os.major} >= 9 && [sysctl hw.cpu64bit_capable] == 1 } {
-            set short_host_name powerpc64-apple-${os.platform}${os.major}.x.x
-        } else {
+    }
+}
+
+post-patch {
+    platform darwin {
+        # Keep ppc before i386, so that Rosetta builds for ppc.
+        # Also, use build_arch and not sysctl:
+        # https://trac.macports.org/ticket/69573
+        if { ${configure.build_arch} eq "arm64" } {
+            set short_host_name aarch64-apple-${os.platform}${os.major}.x.x
+        } elseif { ${configure.build_arch} eq "ppc" } {
             set short_host_name powerpc-apple-${os.platform}${os.major}.x.x
+        } elseif { ${configure.build_arch} eq "ppc64" } {
+            set short_host_name powerpc64-apple-${os.platform}${os.major}.x.x
+        } elseif { ${os.arch} eq "i386" } {
+            if { ${os.major} >= 9 && [sysctl hw.cpu64bit_capable] == 1 } {
+                set short_host_name x86_64-apple-${os.platform}${os.major}.x.x
+            } else {
+                set short_host_name i686-apple-${os.platform}${os.major}.x.x
+            }
         }
     }
     reinplace \
@@ -334,9 +357,11 @@ depends_lib-append  port:hdf5
 #    fatal error: 'mpi.h' file not found
 # see https://github.com/macports/macports-ports/pull/1865
 #    for a discussion
-foreach mpi {mpich mpich_devel openmpi openmpi_devel} {
-    require_active_variants hdf5 "" ${mpi}
-}
+# UPD. 2024.03. No longer an issue, apparently:
+# https://trac.macports.org/ticket/69574
+# foreach mpi {mpich mpich_devel openmpi openmpi_devel} {
+#     require_active_variants hdf5 "" ${mpi}
+# }
 
 #--disable-fftw-threads
 #--without-fftw3
