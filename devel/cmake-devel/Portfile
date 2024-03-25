@@ -37,23 +37,11 @@ platforms           darwin freebsd
 gitlab.instance     https://gitlab.kitware.com
 
 gitlab.setup        cmake   cmake cff8aefc6aa5fcf5c659b2c40027c86618426005
-version             20240322-3.29.1-[string range ${gitlab.version} 0 7]
+version             20240324-3.29.0-[string range ${gitlab.version} 0 7]
 checksums           rmd160  5e24744d96f37448868489ff0488d617eef955cb \
                     sha256  59f92fe2d35ebf4d22852779dc19eec3d7f6df893eaf5fa183ea22298686e405 \
                     size    8690367
 revision            0
-
-# cmake 3.29.N currently does not build on 10.7 (kernel panic) or < 10.6 (spawn issues)
-# https://trac.macports.org/ticket/67540#comment:15
-if { ${os.platform} eq "darwin" && (${os.major} < 10 || ${os.major} == 11)} {
-    gitlab.setup        cmake   cmake b5602e7254c8ce4a6f732c017d784cd80559e5aa
-    version             20240322-3.28.4-[string range ${gitlab.version} 0 7]
-    checksums           rmd160  ab52e74ad2486be70499341b5cf85f9f06a09b79 \
-                        sha256  b20e8d4f3a9ed3b0ea7ce8d54bb9ae3ce25f9f1368a7afbdc69a854084e4cb20 \
-                        size    8452116
-    revision            0
-}
-
 epoch               1
 
 dist_subdir         ${my_name}
@@ -87,7 +75,7 @@ patchfiles-append \
     patch-fix-clock_gettime-test.diff \
     patch-qt5gui.diff \
     patch-cmake-cmInstallRuntime-initializer-fix.diff \
-    patch-uv_spawn.diff \
+    patch-libuv-legacy-systems.diff \
     patch-cmakeroot-with-app.diff \
     patch-remove-homebrew-references.diff
 
@@ -97,8 +85,7 @@ depends_lib-append \
     port:zlib \
     port:bzip2 \
     port:libarchive \
-    port:ncurses \
-    port:libuv
+    port:ncurses
 
 # configure is just a shell script that passes directly to bootstrap
 configure.cmd ./bootstrap
@@ -169,6 +156,7 @@ configure.args-append \
     --no-qt-gui \
     --no-system-jsoncpp \
     --no-system-librhash \
+    --no-system-libuv \
     --no-system-cppdap
 
 configure.universal_args
