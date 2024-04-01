@@ -8,7 +8,7 @@ PortGroup               makefile 1.0
 # clock_gettime in game_base
 legacysupport.newest_darwin_requires_legacy 15
 
-github.setup            JFreegman toxic 0.14.1 v
+github.setup            JFreegman toxic 0.15.1 v
 revision                0
 categories              net security
 maintainers             {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -16,9 +16,9 @@ license                 GPL-3
 description             An ncurses-based Tox client
 long_description        Toxic is a Tox-based instant messaging and video chat client.
 homepage                https://toktok.ltd
-checksums               rmd160  b2a1f6bd5c546f269a036f1c0740c446b149d22f \
-                        sha256  232b72e2546694c668a6cb6e96ac109df3770ddd124361acce30366713880278 \
-                        size    1238139
+checksums               rmd160  86596cc3fd2d466abec2b570d53a924aad5f0465 \
+                        sha256  56cedc37b22a1411c68fd8b395f40f515d6a4779be02540c5cd495665caa127c \
+                        size    1246436
 github.tarball_from     archive
 
 depends_build-append    port:pkgconfig
@@ -32,7 +32,8 @@ depends_lib-append      path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:ncurses \
                         port:openal-soft \
                         port:qrencode \
-                        port:toxcore
+                        port:toxcore \
+                        port:xorg-libX11
 
 patchfiles              0001-Makefile-add-PPC.patch \
                         0002-Config-make-paths-sane.patch \
@@ -41,9 +42,6 @@ patchfiles              0001-Makefile-add-PPC.patch \
 if {${os.platform} eq "darwin" && ${os.major} < 11} {
     patchfiles-append   0005-Remove-hardcoded-osx_video.patch
 }
-
-# https://github.com/TokTok/toxic/pull/358
-patchfiles-append       0006-Fix-static-asserts.patch
 
 post-patch {
     reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/cfg/global_vars.mk

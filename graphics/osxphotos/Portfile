@@ -4,7 +4,7 @@ PortSystem              1.0
 PortGroup               python 1.0
 
 name                    osxphotos
-version                 0.67.7
+version                 0.67.10
 revision                0
 
 categories              graphics python
@@ -26,9 +26,9 @@ long_description        {*}${description}
 
 homepage                https://github.com/RhetTbull/osxphotos
 
-checksums               rmd160  d01c78f22be6e972580ae96c011f7ad9f3303eca \
-                        sha256  cb4ca009f62b355c661104508a653c6bc3cb6237b4415c06ced4cc0dcfbff782 \
-                        size    2098823
+checksums               rmd160  9cdf7c9c75053e4ae46252d89670c2b7badf8ebc \
+                        sha256  96ae4830cd09b1cc40491c06269ddf8c7d96cf492cd4468cd0c88bdad91601bb \
+                        size    2104706
 
 python.default_version  312
 
@@ -37,6 +37,7 @@ depends_build-append    port:py${python.version}-setuptools
 depends_lib-append      port:py${python.version}-bitmath \
                         port:py${python.version}-bpylist2 \
                         port:py${python.version}-click \
+                        port:py${python.version}-mac-alias \
                         port:py${python.version}-mako \
                         port:py${python.version}-more-itertools \
                         port:py${python.version}-objexplore \
