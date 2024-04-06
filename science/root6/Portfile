@@ -14,7 +14,7 @@ PortGroup           legacysupport                 1.1
 # Please also check if Gate needs a revbump after root6 update
 github.setup        root-project root 6-30-06 v
 version             [string map {- .} ${github.version}]
-revision            0
+revision            1
 livecheck.version   ${github.version}
 
 # Use git commit
@@ -80,12 +80,13 @@ depends_lib-append  port:expat \
                     port:xxhashlib \
                     port:z3 \
                     port:zstd \
+                    port:nlohmann-json \
+                    port:zlib \
+                    port:bzip2 \
+                    port:brotli \
+                    port:librsvg \
                     path:lib/libopenblas.dylib:OpenBLAS \
                     path:lib/libssl.dylib:openssl
-
-# Use builtin zlib instead as upstream claims has better performance
-# https://root.cern/content/release-61800
-#                   port:zlib
 
 depends_run-append  port:root_select
 
@@ -112,7 +113,7 @@ configure.args-append \
                     -Dbuiltin_freetype=ON \
                     -Dbuiltin_glew=OFF \
                     -Dbuiltin_pcre=OFF \
-                    -Dbuiltin_zlib=ON \
+                    -Dbuiltin_zlib=OFF \
                     -Dbuiltin_lzma=OFF \
                     -Dbuiltin_tbb=OFF \
                     -Dbuiltin_afterimage=ON \
@@ -223,6 +224,19 @@ pre-configure {
     set pystringtoreplace "/usr/bin/env python"
     foreach f [ exec find ${worksrcpath} -type f -and -not -name "shtest-encoding.py" -and -name "*.py" ] {
         reinplace -q "s|${pystringtoreplace}|/usr/bin/python|g" $f
+    }
+}
+
+post-build {
+    ui_debug "Searching ${workpath}/build for third party build logs ..."
+    foreach log [ exec find ${workpath}/build -type f -and -name "*.log" ] {
+        ui_debug "Contents of ${log} :-"
+        set f [open ${log}]
+        set lines [split [read $f] "\n"]
+        foreach line $lines {
+            ui_debug "${line}"
+        }
+        close $f
     }
 }
 

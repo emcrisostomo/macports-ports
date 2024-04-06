@@ -26,7 +26,7 @@ subport ${name-ltr} {}
 if {${subport} eq ${name}} {
     # Latest version
     github.setup    qgis QGIS 3_36_1 final-
-    revision        0
+    revision        1
     set app_name    QGIS3
 
     checksums       rmd160  778513d1f9257e13328091b4a9f6dd1bf353727d \
@@ -37,7 +37,7 @@ if {${subport} eq ${name}} {
 } else {
     # LTR version
     github.setup    qgis QGIS 3_34_5 final-
-    revision        0
+    revision        1
     set app_name    QGIS3-LTR
     description     {*}${description} (LTR)
 
@@ -352,6 +352,7 @@ foreach pyver ${python_suffixes} {
                             port:py${pyver}-pandas \
                             port:py${pyver}-patsy \
                             port:py${pyver}-Pillow \
+                            port:py${pyver}-plotly \
                             port:py${pyver}-pyproj \
                             port:py${pyver}-pysal \
                             port:py${pyver}-rasterio \
@@ -365,10 +366,6 @@ foreach pyver ${python_suffixes} {
                             port:py${pyver}-statsmodels \
                             port:py${pyver}-termcolor
     "
-    # plotly temporary removed, see https://trac.macports.org/ticket/69416
-    # and https://trac.macports.org/ticket/69415, not crucial for
-    # the workings of QGIS.
-    # port:py${pyver}-plotly
 }
 
 # Python default
@@ -377,30 +374,32 @@ foreach pyver ${python_suffixes} {
     set python_default "${python_default}!\[variant_isset python${pyver}\] && "
 }
 set python_default [string range ${python_default} 0 end-4]
-set python_default "${python_default}} { default_variants +python312 +plugin_support312}"
+set python_default "${python_default}} { default_variants +python312}"
 eval ${python_default}
 
 # Python support default
 set python_default "if {"
 foreach pyver ${python_suffixes} {
-    set python_default "${python_default}!\[variant_isset python${pyver}\] && "
+    set python_default "${python_default}!\[variant_isset plugin_support${pyver}\] && "
 }
 set python_default [string range ${python_default} 0 end-4]
-set python_default "${python_default}} { default_variants +python312 +plugin_support312}"
+set python_default "${python_default}} { default_variants +plugin_support312}"
 eval ${python_default}
 
-# Assert +pythonXY and +plugin_supportXY variants are in sync
-set supp_py_list [list]
-set pyth_py_list [list]
-foreach pyver ${python_suffixes} {
-    if {[variant_isset plugin_support${pyver}]} {lappend supp_py_list ${pyver}}
-    if {[variant_isset python${pyver}]} {lappend pyth_py_list ${pyver}}
-}
-if { [expr ([llength $supp_py_list] > 0) && ([llength $pyth_py_list] > 0)] &&
-     [lindex $supp_py_list 0] != [lindex $pyth_py_list 0] } {
-         set pyv [lindex $pyth_py_list 0]
-         ui_error "${subport} +pythonXY and +plugin_supportXY variants must be in sync"
-         return -code error "Try running `port install ${subport} +python${pyv} +plugin_support${pyv}`"
+pre-configure {
+    # Assert +pythonXY and +plugin_supportXY variants are in sync
+    set supp_py_list [list]
+    set pyth_py_list [list]
+    foreach pyver ${python_suffixes} {
+        if {[variant_isset plugin_support${pyver}]} {lappend supp_py_list ${pyver}}
+        if {[variant_isset python${pyver}]} {lappend pyth_py_list ${pyver}}
+    }
+    if { [expr ([llength $supp_py_list] > 0) && ([llength $pyth_py_list] > 0)] &&
+         [lindex $supp_py_list 0] != [lindex $pyth_py_list 0] } {
+             set pyv [lindex $pyth_py_list 0]
+             ui_error "${subport} +pythonXY and +plugin_supportXY variants must be in sync"
+             return -code error "Try running `port install ${subport} +python${pyv} +plugin_support${pyv}`"
+    }
 }
 
 variant server description "Builds with the server (FCGI) option" {
