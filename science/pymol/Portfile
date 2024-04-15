@@ -5,8 +5,7 @@ PortGroup           python 1.0
 PortGroup           github 1.0
 PortGroup           boost 1.0
 
-github.setup        schrodinger pymol-open-source 2.5.0 v
-revision            6
+github.setup        schrodinger pymol-open-source 3.0.0 v
 name                pymol
 conflicts           pymol-devel
 
@@ -22,20 +21,19 @@ long_description    PyMOL is a molecular graphics system with an embedded Python
 
 homepage            https://www.pymol.org/
 
-checksums           rmd160  6432d47616aee1e5d9d40cc2a74425b33159d7a0 \
-                    sha256  67c5aa944ce9ac2e3babd42e7e2b78ed11719283a2c0a063e100cfe24665c0d3 \
-                    size    10471287
+checksums           rmd160  d963b8704371db01d78cf75708b29f8f1c27829a \
+                    sha256  27659a99d843c58c513bd9fd78cc67a717cef151b34a439213fbca8bffa2298f \
+                    size    29508167
 
 subport pymol-devel {
-    github.setup    schrodinger pymol-open-source c33c916e7c21a86e220260d4ed08d9c26f7c6da4
-    version         20240315-[string range ${github.version} 0 7]
+    github.setup    schrodinger pymol-open-source 1180fec3492c4d9072a3a3a34c2ff69f60885368
+    version         20240410-[string range ${github.version} 0 7]
     conflicts       pymol
     revision        0
     maintainers     {reneeotten @reneeotten} openmaintainer
-    checksums       rmd160  df4d4f3161d5982888cd02d6ae71ba6d399c6b8e \
-                    sha256  ecb1049d302c08b026f439fce2d1ba109d7e8fb8c154e5ff5a45b35dc236f4be \
-                    size    29478978
-    compiler.cxx_standard 2017
+    checksums       rmd160  cf89081bd3d0710b8d1114197b28eb95a53bf0d6 \
+                    sha256  e641b0f23ecc0ca06b6954a9a67e175a05d88713293a8fe0a29118fb24b58394 \
+                    size    29509695
 }
 
 variant python38 conflicts python39 python310 python311 python312 description {Use Python 3.8} {}
@@ -60,7 +58,7 @@ python.pep517   no
 
 boost.depends_type build
 
-compiler.cxx_standard 2011
+compiler.cxx_standard 2017
 
 variant vtkm description {Use VTK-m for isosurface generation} {
     depends_lib-append  port:vtk-m
@@ -90,15 +88,6 @@ depends_run-append  port:py${python.version}-pyqt5
 patchfiles          pymol_shell.diff \
                     setup.py.diff \
                     patch-boost-include.diff
-
-# two fixes for PyMOL v2.5.0 (can be removed upon next update):
-# 1. fix for build on 10.13 and below;
-# see: https://github.com/schrodinger/pymol-open-source/issues/193
-# 2. fix for build with VTK-M 1.6
-if {${subport} != "pymol-devel"} {
-    patchfiles-append   patch-layer1_Wizard.cpp.diff \
-                        patch-vtkm.diff
-}
 
 post-patch {
     reinplace  "s|@PREFIX@|${prefix}|g" ${worksrcpath}/setup.py

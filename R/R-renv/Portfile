@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version lags behind.
-R.setup             cran rstudio renv 1.0.5
+R.setup             cran rstudio renv 1.0.7
 revision            0
 categories-append   devel
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -15,9 +15,9 @@ long_description    A dependency management toolkit for R. Using renv, \
                     save the state of these libraries to a lockfile \
                     and later restore your library as required.
 homepage            https://rstudio.github.io/renv
-checksums           rmd160  8e641d714017b4be4735090d709420fa95c334da \
-                    sha256  97e0aace1e5e6b09b4d93f0c2aff411e8fbacb250cb98719986fcad22deec11f \
-                    size    1166502
+checksums           rmd160  d4b44621bb88db6e66344f385edf42b0df7753ef \
+                    sha256  7b60b58a23743803ab167f82f78663e86f778947b2bda07afa12689338794507 \
+                    size    1172218
 supported_archs     noarch
 
 depends_test-append port:R-BiocManager \

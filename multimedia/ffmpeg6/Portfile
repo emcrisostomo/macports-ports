@@ -17,7 +17,7 @@ name                ffmpeg6
 set my_name         ffmpeg
 
 version             6.1.1
-revision            2
+revision            3
 epoch               0
 
 license             LGPL-2.1+
@@ -112,6 +112,9 @@ patchfiles-append   patch-libavcodec-librsvgdec.diff
 # https://trac.macports.org/ticket/68720
 # Remove once upstream has included these in the next release
 patchfiles-append   patch-issue-10695.diff
+
+# https://trac.macports.org/ticket/69678
+patchfiles-append   patch-fix-vulkan.diff
 
 # enable auto configure of asm optimizations
 # requires Xcode 3.1 or better on Leopard
@@ -312,7 +315,7 @@ platform darwin {
     # this port requires '-ld_classic' to build successfully with the toolchains from Xcode 15 or Command Line Tools 15.
     #
     # TODO: This is a temporary solution, the classic linker will be removed in a future release by Apple.
-    if { ( [vercmp ${xcodeversion} 15 ] >= 0 ) || ( [vercmp ${xcodecltversion} 15 ] >= 0 ) } {
+    if { ${os.major} == 23 && ( [vercmp ${xcodeversion} 15 ] >= 0 ) || ( [vercmp ${xcodecltversion} 15 ] >= 0 ) } {
         configure.ldflags-append \
                     -Wl,-ld_classic
     }

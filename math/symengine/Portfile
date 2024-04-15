@@ -6,7 +6,7 @@ PortGroup                       cmake                         1.1
 PortGroup                       legacysupport                 1.1
 
 github.setup                    symengine symengine 0.11.2 v
-revision                        0
+revision                        1
 categories                      math science
 license                         MIT
 maintainers                     {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
@@ -85,7 +85,8 @@ if {${llvm_version} ne "none"} {
 
 # mirrors setings in llvm-11
 legacysupport.use_static                     yes
-legacysupport.newest_darwin_requires_legacy  13
+# futimens
+legacysupport.newest_darwin_requires_legacy  16
 
 if {${configure.build_arch} in [list i386 ppc] && [string match *gcc* ${configure.compiler}]} {
     # ___atomic_store_8
