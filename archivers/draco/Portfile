@@ -3,6 +3,7 @@
 PortSystem          1.0
 PortGroup           cmake   1.1
 PortGroup           github  1.0
+PortGroup           legacysupport 1.1
 
 github.setup        google draco 1.5.7
 revision            0
@@ -22,19 +23,23 @@ checksums           rmd160  8570f7264777ac166dfec8db1d09c07cd997f4ee \
                     sha256  bf6b105b79223eab2b86795363dfe5e5356050006a96521477973aba8f036fe1 \
                     size    60465968
 
-patchfiles          patch-gltf-decoder-cc.diff
+patchfiles          patch-gltf-decoder-cc.diff \
+                    patch-draco-targets-cmake.diff
 
-compiler.cxx_standard   2014
+compiler.cxx_standard   2017
 cmake.set_cxx_standard  yes
 
 depends_build-append \
+                    port:ghc-filesystem \
                     port:gtest
 
 depends_lib-append  port:eigen3 \
-                    port:ghc-filesystem \
                     port:nlohmann-json \
                     port:stb \
                     port:tinygltf
+
+# ghc-filesystem uses utimensat in its headers
+legacysupport.newest_darwin_requires_legacy 16
 
 configure.args-append \
                     -DBUILD_SHARED_LIBS=ON \
