@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cmake   1.1
 
-github.setup        fastfetch-cli fastfetch 2.11.5
+github.setup        fastfetch-cli fastfetch 2.13.2
 github.tarball_from archive
 revision            0
 
@@ -21,9 +21,9 @@ platforms           any
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  61dfb67fecf6d832a9077b392b2f71117c55614c \
-                    sha256  83b7699d0aee3aa1683721fe4b82d667c88e97e257d48e9efe586b0e830f8a64 \
-                    size    1321195
+checksums           rmd160  7c7577e43ac877f77bd430759a0926782e22e053 \
+                    sha256  69ff73a2f5da269bdfbde0a81182a427c6d141633a70cb4b69f7ad37e49726ba \
+                    size    1254865
 
 set py_version      312
 
@@ -37,4 +37,3 @@ depends_lib-append  port:chafa                  \
 
 configure.args-append \
                     -DENABLE_SYSTEM_YYJSON=ON
-
