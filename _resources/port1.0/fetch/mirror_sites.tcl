@@ -423,6 +423,9 @@ set fastly      ${letsencrypt_https_or_http}
 #set aarnet.au   ${letsencrypt_https_or_http}
 set aarnet.au   http
 set atl.us      http
+# bos.us letsencrypt certs not set up yet, update when they are
+# (and also remove separate mirrors.mit.edu entry)
+set bos.us      http
 set cph.dk      ${letsencrypt_https_or_http}
 set cjj.kr      http
 # cert doesn't have macports.org SANs; admin notified
@@ -440,6 +443,7 @@ set pek.cn      ${letsencrypt_https_or_http}
 set ykf.ca      http
 set ywg.ca      ${letsencrypt_https_or_http}
 set fcix.net    http
+set sjtu.edu.cn ${letsencrypt_https_only}
 
 set portfetch::mirror_sites::sites(macports_distfiles) [lsearch -all -glob -inline -not "
     ${fastly}://distfiles.macports.org/:mirror
@@ -447,6 +451,8 @@ set portfetch::mirror_sites::sites(macports_distfiles) [lsearch -all -glob -inli
     ${fcix.net}://mirror.fcix.net/macports/distfiles/:mirror
     ${aarnet.au}://aarnet.au.distfiles.macports.org/pub/macports/distfiles/:mirror
     ${atl.us}://atl.us.distfiles.macports.org/:mirror
+    https://mirrors.mit.edu/macports/distfiles/:mirror
+    ${bos.us}://bos.us.distfiles.macports.org/:mirror
     ${cjj.kr}://cjj.kr.distfiles.macports.org/:mirror
     ${cph.dk}://cph.dk.distfiles.macports.org/:mirror
     ${fco.it}://fco.it.distfiles.macports.org/:mirror
@@ -456,6 +462,7 @@ set portfetch::mirror_sites::sites(macports_distfiles) [lsearch -all -glob -inli
     ${kmq.jp}://kmq.jp.distfiles.macports.org/:mirror
     ${mse.uk}://mse.uk.distfiles.macports.org/:mirror
     ${pek.cn}://pek.cn.distfiles.macports.org/macports/distfiles/:mirror
+    ${sjtu.edu.cn}://mirror.sjtu.edu.cn/macports/distfiles/:mirror
     ${ykf.ca}://ykf.ca.distfiles.macports.org/MacPorts/mpdistfiles/:mirror
     ${ywg.ca}://ywg.ca.distfiles.macports.org/mirror/macports/distfiles/:mirror
 " {:*}]
