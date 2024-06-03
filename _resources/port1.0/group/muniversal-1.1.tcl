@@ -138,7 +138,7 @@ default muniversal.is_cross.ppc64   {[expr { ${os.arch} ne "powerpc" || !${os.cp
 # see https://wiki.osdev.org/Target_Triplet
 ##########################################################################################
 options triplet.vendor
-default triplet.vendor      {apple}
+default triplet.vendor      {[expr {${os.platform} eq "darwin" ? "apple" : "unknown"}]}
 
 options triplet.os
 default triplet.os          {${os.platform}${os.major}}
@@ -1079,6 +1079,7 @@ proc muniversal::add_compiler_flags {} {
 
     if {[option universal_possible] && [variant_isset universal]} {
         if { [option os.platform] eq "darwin" && [option os.major] >= 22 } {
+            depends_build-delete port:diffutils-for-muniversal
             depends_build-append port:diffutils-for-muniversal
         }
     }
