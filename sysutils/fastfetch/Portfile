@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cmake   1.1
 
-github.setup        fastfetch-cli fastfetch 2.15.0
+github.setup        fastfetch-cli fastfetch 2.16.0
 github.tarball_from archive
 revision            0
 
@@ -17,18 +17,17 @@ long_description    {*}${description}
 categories          sysutils
 installs_libs       no
 license             MIT
-platforms           any
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  e75017b0d6442bcffac7ad4893fcd73c63e4b028 \
-                    sha256  b42392c66eb7292db8b56715a072908b91d72385e6fdeae56fa7653adfc5428d \
-                    size    1031800
+checksums           rmd160  689cfed844b521607c8cc3476431f6e60cb73309 \
+                    sha256  8c5d137e0439d70189fc267176840feaba5f3e06177d57c4be9a866595651803 \
+                    size    1044675
 
 set py_version      312
 
 depends_build-append \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
 
 depends_lib-append  port:chafa                  \
                     port:python${py_version}    \
