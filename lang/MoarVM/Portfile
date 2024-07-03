@@ -5,11 +5,11 @@ PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 PortGroup           legacysupport 1.1
 
-# strnlen, arc4random_buf
-legacysupport.newest_darwin_requires_legacy 10
+# strnlen, arc4random_buf, clock_gettime
+legacysupport.newest_darwin_requires_legacy 15
 
 name                MoarVM
-version             2024.05
+version             2024.06
 revision            0
 categories          lang devel
 license             Artistic-2 BSD ISC MIT public-domain
@@ -22,13 +22,13 @@ long_description    MoarVM is a modern virtual machine built for the Rakudo \
 homepage            https://moarvm.org/
 master_sites        https://moarvm.org/releases/
 
-checksums           rmd160  ef76b0d04ed525009c1e7127de849a9e7407ac7d \
-                    sha256  015c609132c1540c59291967a347c9bc8bd70944eaf1c586d938f4b27a8a7c66 \
-                    size    14956570
+checksums           rmd160  51d754c2e56ebb66634a71f3cb43ff2568895209 \
+                    sha256  24ecedd1220e215742cbfa9228797812f6f281ba87bf5dc58e8caac0c0d404d0 \
+                    size    14956672
 
 depends_build-append \
                     port:perl5 \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
 
 # libatomic_ops:    https://trac.macports.org/ticket/53171
 depends_lib-append  port:dyncall \
@@ -65,6 +65,9 @@ legacysupport.redirect_bins moar
 
 # https://trac.macports.org/ticket/53950
 compiler.blacklist  cc gcc-* apple-gcc-* llvm-gcc-*
+# uv-common.h:41:11: fatal error: 'stdatomic.h' file not found
+compiler.blacklist-append \
+                    {clang < 700}
 
 configure.cmd       ${prefix}/bin/perl Configure.pl
 configure.args      --cc=${configure.cc} \
@@ -84,6 +87,16 @@ if {${os.platform} eq "darwin" && ${os.major} <= 10} {
     configure.args-append \
                     --no-mimalloc
 }
+
+# The build system puts CPPFLAGS and LDFLAGS before its own flags which leads to
+# build failures if MacPorts libuv is installed. The right -I and -L flags are
+# inserted later by the build system so the ones MacPorts adds are not needed.
+# https://github.com/MoarVM/MoarVM/issues/1818
+configure.cppflags-delete   -I${prefix}/include
+configure.ldflags-delete    -L${prefix}/lib
+
+# Disable silent rules
+build.args-append   NOISY=1
 
 # https://github.com/MoarVM/MoarVM/issues/414
 universal_variant   no

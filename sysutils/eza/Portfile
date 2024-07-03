@@ -5,7 +5,7 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cargo   1.0
 
-github.setup        eza-community eza 0.18.19 v
+github.setup        eza-community eza 0.18.21 v
 github.tarball_from archive
 revision            0
 
@@ -29,9 +29,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  8fa2cb44886b598019040ca5f516a14ec2436022 \
-                    sha256  b721cea8d9f7da7a9e17298911632912606bc51a983a0c1fc52340dbc4dc6ffa \
-                    size    1385110
+                    rmd160  f23eadb1b736db088188f37b3dd6b6ec3b9a1061 \
+                    sha256  53cee12706be2b5bedcf40b97e077a18b254f0f53f1aee52d1d74136466045bc \
+                    size    1385590
 
 depends_lib-append  port:libiconv \
                     path:lib/pkgconfig/libgit2.pc:libgit2 \

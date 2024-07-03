@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cmake   1.1
 
-github.setup        fastfetch-cli fastfetch 2.16.0
+github.setup        fastfetch-cli fastfetch 2.17.1
 github.tarball_from archive
-revision            0
+revision            1
 
 description         \
     Fastfetch is a neofetch-like tool for fetching system information and \
@@ -20,9 +20,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  689cfed844b521607c8cc3476431f6e60cb73309 \
-                    sha256  8c5d137e0439d70189fc267176840feaba5f3e06177d57c4be9a866595651803 \
-                    size    1044675
+checksums           rmd160  bd6556dc5276fa1a3f299aff3af46f8ddec87f9a \
+                    sha256  a38969ebb757070db5dace8a42f874d8898a7232da64c73fc86c60a2c9da9be0 \
+                    size    1050623
 
 set py_version      312
 
@@ -35,4 +35,5 @@ depends_lib-append  port:chafa                  \
                     port:yyjson
 
 configure.args-append \
-                    -DENABLE_SYSTEM_YYJSON=ON
+                    -DENABLE_SYSTEM_YYJSON=ON \
+                    -DENABLE_VULKAN=OFF

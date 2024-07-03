@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/walles/moar 1.24.3 v
+go.setup            github.com/walles/moar 1.24.6 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -18,9 +18,9 @@ long_description    Moar should work as a drop-in replacement for Less. \
                     support, incremental search and automatic decompression, \
                     among others.
 
-checksums           rmd160  a9db325b49095a54ec237c07d250458847c4191e \
-                    sha256  66157f547cffbcbf3cede581f4e232ed991213055157a3a075dc789ea1f7475a \
-                    size    2806023
+checksums           rmd160  e7c00f72d2c884dc935bc3d7f8895b7e4f3f6479 \
+                    sha256  d3debd13771a5f9417ee5fa8ba0a8c110d249e8fa615b53ea2b0c4cdacf33f6c \
+                    size    2806800
 
 categories          textproc
 installs_libs       no
