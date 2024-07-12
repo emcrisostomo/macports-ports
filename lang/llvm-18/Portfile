@@ -84,6 +84,10 @@ configure.args-append \
     -DFFI_INCLUDE_DIR=${prefix}/include \
     -DFFI_LIBRARY_DIR=${prefix}/lib
 
+# Remove for now. See https://trac.macports.org/ticket/70333
+# Probably need to detect when Xcode is available ...
+#  -DLLVM_CREATE_XCODE_TOOLCHAIN=ON
+
 # Disable iOS support
 # To Be reviewed with later versions
 # https://reviews.llvm.org/D133273

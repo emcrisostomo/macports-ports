@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cmake   1.1
 
-github.setup        fastfetch-cli fastfetch 2.17.1
+github.setup        fastfetch-cli fastfetch 2.18.1
 github.tarball_from archive
-revision            1
+revision            0
 
 description         \
     Fastfetch is a neofetch-like tool for fetching system information and \
@@ -20,9 +20,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  bd6556dc5276fa1a3f299aff3af46f8ddec87f9a \
-                    sha256  a38969ebb757070db5dace8a42f874d8898a7232da64c73fc86c60a2c9da9be0 \
-                    size    1050623
+checksums           rmd160  14ceaa57018ef190d5fefad1abcc708abbec797a \
+                    sha256  53421de317bfc918e168751cf910e7faa51ebbd71f6f4de3b56d2cc74794365f \
+                    size    1067696
 
 set py_version      312
 

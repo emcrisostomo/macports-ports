@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        wasmerio wasmer 4.3.2 v
+github.setup        wasmerio wasmer 4.3.4 v
 github.tarball_from archive
 revision            0
 
@@ -24,9 +24,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  bc8d6037e240bfb0824f92b1c5c511e71d7d9cd7 \
-                    sha256  7842ee0d9253c12785b5f59e6fc41b42956e1c1469478d1e12960906e9e1ccca \
-                    size    112145419
+checksums           rmd160  3d1b7b3e6bd578989ca4a150469c579b801ba89d \
+                    sha256  0e18c0aedec7f62d1397091501332af1e0b164c75f25a44743db96a52c5ee688 \
+                    size    112159308
 
 build.cmd           make
 build.pre_args      {}

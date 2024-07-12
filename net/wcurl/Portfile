@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        debian wcurl 2024-07-07
+revision            0
+checksums           rmd160  0fc212010e432bfa92350e44a0ddc5dacdf5e241 \
+                    sha256  5ee1d686aeef4353cb023be341f4b34401d8c6f55039cdda5d52d47cf8db4932 \
+                    size    4960
+
+categories          net www
+license             Curl
+maintainers         {ryandesign @ryandesign} openmaintainer
+platforms           any
+supported_archs     noarch
+
+description         a simple wrapper around curl to easily download files
+
+long_description    ${name} is a simple curl wrapper which lets you use curl \
+                    to download files without having to remember any \
+                    parameters. Simply call wcurl with a list of URLs you want \
+                    to download and wcurl will pick sane defaults.
+
+homepage            https://samueloph.dev/blog/announcing-wcurl-a-curl-wrapper-to-download-files/
+github.tarball_from archive
+
+depends_test        path:bin/grealpath:coreutils \
+                    port:shunit2
+
+depends_run         bin:curl:curl
+
+patchfiles          tests.patch
+
+use_configure       no
+
+build {}
+
+test.run            yes
+test.dir            ${worksrcpath}/tests
+test.cmd            ./tests.sh
+test.target
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin
+    xinstall -m 0444 ${worksrcpath}/${name}.1 ${destroot}${prefix}/share/man/man1
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -W ${worksrcpath} -m 0644 LICENSE README.md ${destroot}${docdir}
+}
