@@ -30,6 +30,12 @@ depends_lib-append  port:mpfr \
                     port:gmp \
                     port:cgal5
 
+compiler.cxx_standard   2017
+
+if {[string match *gcc* ${configure.compiler}]} {
+    patchfiles-append   patch-atomic.diff
+}
+
 variant examples description {builds examples} {
 
     configure.args-append   -DSFCGAL_BUILD_EXAMPLES=ON
