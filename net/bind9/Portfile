@@ -6,10 +6,11 @@ PortGroup       compiler_blacklist_versions 1.0
 
 name            bind9
 version         9.20.0
-revision        0
+revision        3
 categories      net
 maintainers     {geeklair.net:dluke @danielluke} {jmr @jmroot}
-platforms       darwin freebsd sunos
+platforms       {darwin >= 11} freebsd sunos
+conflicts       bind9.18
 
 description     Domain Name System server
 # see https://gitlab.isc.org/isc-projects/bind9/-/blob/main/LICENSE
@@ -25,7 +26,7 @@ long_description \
                 and Internet addresses and is intended to be linked with applications \
                 requiring name service.
 
-homepage        https://www.isc.org/
+homepage        https://www.isc.org/bind/
 
 distname        bind-${version}
 master_sites    isc:${name}/${version}
@@ -46,19 +47,22 @@ depends_lib     path:lib/libssl.dylib:openssl  \
                 port:json-c \
                 port:libidn2 \
                 port:lmdb \
-                port:liburcu
+                port:userspace-rcu
 
 universal_variant \
                 no
 
-# Needs working __atomic_* builtins
-# Apple clang 15.0.0 from Xcode before 15.2 has a codgen bug that causes a crash in libisc
+compiler.c_standard 2011
+# Needs stdatomic.h
+# Apple clang 15.0.0 from Xcode before 15.2 has a codegen bug that causes a crash in libisc
 compiler.blacklist \
-                *gcc-4.0 *gcc-4.2 \
-                {clang < 500} \
+                {clang < 703} \
                 {clang >= 1500.0.40.1 < 1500.1.0.2.5 }
 
-patchfiles      lib_dns_Makefile.in.patch
+patchfiles      atomics.patch \
+                lib_dns_Makefile.in.patch \
+                setrlimit.patch \
+                fix-rwlock.patch
 
 # tests require `sudo bin/tests/system/ifconfig.sh up`
 test.run        yes
@@ -144,5 +148,5 @@ notes "******************************************************
 ******************************************************"
 
 livecheck.type   regex
-livecheck.url    ${homepage}downloads/
+livecheck.url    https://www.isc.org/downloads/
 livecheck.regex  {BIND(\d+\.\d*[02468]\.\d+(?:-P\d+)?)\.tar\.[gx]z</a>}
