@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Business-ISBN-Data 20240807.001 ../../authors/id/B/BR/BRIANDFOY
+perl5.setup         Business-ISBN-Data 20240817.001 ../../authors/id/B/BR/BRIANDFOY
 revision            0
 license             Artistic-2
 maintainers         nomaintainer
@@ -14,6 +14,6 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  43568d0c6fe12f0e3fe1fde2d22bd6d57ba7f8a3 \
-                    sha256  97eba0bba64121fde7e3fb19870cdd1553fc24bf4c52486016a9f2c0b871b313 \
-                    size    35061
+checksums           rmd160  4a9f43a641362e311e964b2e583d652f830de297 \
+                    sha256  ba2b3a823ed20426c04d8b0d459576278968fd325553104d729fe1b2747a0a73 \
+                    size    35133
