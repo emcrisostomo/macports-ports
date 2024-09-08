@@ -121,6 +121,11 @@ array set crossgcc.versions_info {
         sha256  e283c654987afe3de9d8080bc0bd79534b5ca0d681a73a11ff2b5d3767426840 \
         size    92265736
     }}
+    14.2.0 {xz {
+        rmd160  f01750a5753ec6977c23ae6e94f9449a8c147881 \
+        sha256  a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9 \
+        size    92306460
+    }}
 }
 
 array set newlib.versions_info {
@@ -326,7 +331,7 @@ proc crossgcc.setup {target version} {
 
             # https://build.macports.org/builders/ports-10.13_x86_64-builder/builds/105513/steps/install-port/logs/stdio
             # c++/v1/functional:1408:2: error: no member named 'fancy_abort' in namespace 'std::__1'; did you mean simply 'fancy_abort'?
-            compiler.blacklist-append {clang < 1000}
+            compiler.blacklist-append {clang < 1001}
         }
 
         universal_variant no

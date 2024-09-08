@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        ast-grep ast-grep 0.26.2
+github.setup        ast-grep ast-grep 0.27.0
 github.tarball_from archive
 revision            0
 
@@ -27,9 +27,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  9ecf2d8c077b25ed82c3c98982ab10deefaa1356 \
-                    sha256  e5273fb95b0538e8534e865c619bf8d5098098232273bf58269210c3397bfaf7 \
-                    size    847559
+                    rmd160  68dde04daa3296dfb9f6a36c312466236dc7d193 \
+                    sha256  e20dd7d287ee796868f1a8f944533e84630fcf1cf9dac82c89f810bd45f6a056 \
+                    size    848718
 
 destroot {
     xinstall -m 0755 \
@@ -71,7 +71,7 @@ cargo.crates \
     ciborium-ll                      0.2.2  57663b653d948a338bfb3eeba9bb2fd5fcfaecb9e199e87e1eda4d9e8b240fd9 \
     clap                            4.5.16  ed6719fffa43d0d87e5fd8caeab59be1554fb028cd30edc88fc4369b17971019 \
     clap_builder                    4.5.15  216aec2b177652e3846684cbfe25c9964d18ec45234f0f5da5157b207ed1aab6 \
-    clap_complete                   4.5.18  1ee158892bd7ce77aa15c208abbdb73e155d191c287a659b57abd5adb92feb03 \
+    clap_complete                   4.5.23  531d7959c5bbb6e266cecdd0f20213639c3a5c3e4d615f97db87661745f781ff \
     clap_derive                     4.5.13  501d359d5f3dcaf6ecdeee48833ae73ec6e42723a1e52419c79abf9507eec0a0 \
     clap_lex                         0.7.0  98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce \
     codespan-reporting              0.11.1  3538270d33cc669650c4b093848450d380def10c331d38c768e34cac80576e6e \
@@ -88,6 +88,7 @@ cargo.crates \
     crunchy                          0.2.2  7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7 \
     ctor                             0.2.8  edb49164822f3ee45b17acd4a208cfc1251410cf0cad9a833234c9890774dd9f \
     dashmap                          5.5.3  978747c1d849a7d2ee5e8adc0159961c48fb7e5db2f06af6723b80123bb53856 \
+    dashmap                          6.0.1  804c8821570c3f8b70230c2ba75ffa5c0f9a4189b9a432b6656c536712acae28 \
     difflib                          0.4.0  6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8 \
     doc-comment                      0.3.3  fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10 \
     dyn-clone                       1.0.17  0d6ef0072f8a535281e4876be788938b528e9a1d43900b82c2569af7da799125 \
@@ -184,10 +185,10 @@ cargo.crates \
     schemars_derive                 0.8.21  b1eee588578aff73f856ab961cd2f79e36bc45d7ded33a7562adba4667aecc0e \
     scopeguard                       1.2.0  94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49 \
     semver                          1.0.23  61697e0a1c7e512e84a621326239844a24d8207b4669b41bc18b32ea5cbf988b \
-    serde                          1.0.208  cff085d2cb684faa248efb494c39b68e522822ac0de72ccf08109abde717cfb2 \
-    serde_derive                   1.0.208  24008e81ff7613ed8e5ba0cfaf24e2c2f1e5b8a0495711e44fcd4882fca62bcf \
+    serde                          1.0.209  99fce0ffe7310761ca6bf9faf5115afbc19688edd00171d81b1bb1b116c63e09 \
+    serde_derive                   1.0.209  a5831b979fd7b5439637af1752d535ff49f4860c0f341d1baeb6faf0f4242170 \
     serde_derive_internals          0.29.0  330f01ce65a3a5fe59a60c82f3c9a024b573b8a6e875bd233fe5f934e71d54e3 \
-    serde_json                     1.0.125  83c8e735a073ccf5be70aa8066aa984eaf2fa000db6c8d0100ae605b366d31ed \
+    serde_json                     1.0.127  8043c06d9f82bd7271361ed64f415fe5e12a77fdb52e573e7f06a516dea329ad \
     serde_repr                      0.1.19  6c64451ba24fc7a6a2d60fc75dd9c83c90903b19028d4eff35e88fc1e86564e9 \
     serde_yaml           0.9.34+deprecated  6a8b1a1a2ebf674015cc02edccce75287f1a0130d394307b36743c2f5d504b47 \
     signal-hook                     0.3.17  8621587d4798caf8eb44879d42e56b9a93ea5dcd315a6487c357130095b62801 \
@@ -238,7 +239,7 @@ cargo.crates \
     tree-sitter-json                0.21.0  5b737dcb73c35d74b7d64a5f3dde158113c86a012bf3cee2bfdf2150d23b05db \
     tree-sitter-kotlin               0.3.8  54ff60aeb036f5762515ceb31404512ea4f9599764bcd3857074bb82867bdd34 \
     tree-sitter-lua                  0.1.0  3b9fe6fc87bd480e1943fc1fcb02453fb2da050e4e8ce0daa67d801544046856 \
-    tree-sitter-php                 0.22.8  1be890bd043986cc26b69968698e508dbd40060805e482f226dc873a63a88d60 \
+    tree-sitter-php                 0.23.0  701096cc0c7c8e5c33ec0be7ea4d7aed971ee07043af5c35581c029805527ac5 \
     tree-sitter-python              0.21.0  b4066c6cf678f962f8c2c4561f205945c84834cce73d981e71392624fdc390a9 \
     tree-sitter-ruby                0.21.0  c0031f687c0772f2dad7b77104c43428611099a1804c81244ada21560f41f0b1 \
     tree-sitter-rust                0.21.2  277690f420bf90741dea984f3da038ace46c4fe6047cba57a66822226cde1c93 \
@@ -246,6 +247,7 @@ cargo.crates \
     tree-sitter-sequel               0.3.5  8e39194c44ad71033d8b09d225c03e154dee9b788c6a113bce7feb809f39480f \
     tree-sitter-swift                0.5.0  75fd4af840121c5add7a20372be867c04fc398edf3edb2c64286b56f2da28c43 \
     tree-sitter-typescript          0.21.2  ecb35d98a688378e56c18c9c159824fd16f730ccbea19aacf4f206e5d5438ed9 \
+    tree-sitter-yaml                 0.6.1  aad27ec46ad343d8b514f64dd3fdffb478c592ece561b6c935d90ef55589c6b6 \
     unicode-bidi                    0.3.15  08f95100a766bf4f8f28f90d77e0a5461bbdb219042e7679bebe79004fed8d75 \
     unicode-ident                   1.0.12  3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b \
     unicode-normalization           0.1.23  a56d1686db2308d901306f92a263857ef59ea39678a5458e7cb17f01415101f5 \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Dist-Build 0.011 ../../authors/id/L/LE/LEONT
+perl5.setup         Dist-Build 0.013 ../../authors/id/L/LE/LEONT
 revision            0
 license             {Artistic-1 GPL}
 maintainers         {devans @dbevans} openmaintainer
@@ -14,9 +14,9 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  218e2efe5625555f68e84d9709362d596ada52bb \
-                    sha256  7d86c68ded216a0d392f362f179fada2528e44db83c72901c3346967e6d59c79 \
-                    size    25734
+checksums           rmd160  2d80d9214c4eceffbe3a3cada027dd3eee57258c \
+                    sha256  fb58e1a485ba67ae45b8aaa5e1a7f04ac8c420fb959f0733832c5834b5f818c8 \
+                    size    26847
 
 if {${perl5.major} != ""} {
     depends_build-append \
@@ -33,6 +33,7 @@ if {${perl5.major} != ""} {
                     port:p${perl5.major}-extutils-helpers \
                     port:p${perl5.major}-extutils-install \
                     port:p${perl5.major}-extutils-installpaths \
+                    port:p${perl5.major}-file-sharedir-tiny \
                     port:p${perl5.major}-getopt-long \
                     port:p${perl5.major}-podlators \
                     port:p${perl5.major}-scalar-list-utils \

@@ -3,40 +3,32 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran rlph50 garma 0.9.13
-revision            1
+R.setup             cran rlph50 garma 0.9.22
+revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3
 description         Fitting and forecasting Gegenbauer ARMA time series models
 long_description    {*}${description}
-checksums           rmd160  00f06ef630cbbbf230b320511a6bc77da48d6413 \
-                    sha256  8c02c7f7afd867157884f3c189d1f3a19f1e2977ac7246fcdcc108d19370c140 \
-                    size    1070725
+checksums           rmd160  546360f98d1c971af153a4b563f44fe722226a1f \
+                    sha256  b02d0af31f1139a22299aa6a2da9b124866bd23acb2265582d865c200ab1a61e \
+                    size    1085026
 supported_archs     noarch
-platforms           {darwin any}
 
-depends_lib-append  port:R-BB \
-                    port:R-crayon \
-                    port:R-dfoptim \
-                    port:R-FKF \
+depends_lib-append  port:R-crayon \
                     port:R-forecast \
-                    port:R-GA \
                     port:R-ggplot2 \
-                    port:R-hypergeo \
-                    port:R-ltsa \
                     port:R-lubridate \
                     port:R-nloptr \
                     port:R-pracma \
-                    port:R-pso \
+                    port:R-rlang \
                     port:R-Rsolnp \
                     port:R-signal \
-                    port:R-tswge \
                     port:R-zoo
 
 depends_test-append port:R-knitr \
                     port:R-longmemo \
-                    port:R-knitr \
                     port:R-rmarkdown \
                     port:R-testthat \
                     port:R-yardstick

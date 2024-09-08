@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github r-lib pillar 1.9.0.9020 v
+R.setup             github r-lib pillar 1.9.0.9022 v
 revision            0
 platforms           {darwin any}
 maintainers         nomaintainer
@@ -12,9 +12,9 @@ description         Format columns with color
 long_description    ${name} provides tools for styling columns of data, \
                     artfully using color and unicode characters to guide the eye.
 homepage            https://pillar.r-lib.org
-checksums           rmd160  ef4489a1bf0d7ed6b0187c1a513386c19ddac572 \
-                    sha256  9a4721b3b4c4a7ff3df121de9d591ac7b8b73bae1d0d8fcc9a71b81a56afd882 \
-                    size    164088
+checksums           rmd160  9e83c6ab337c14a9bb1ada44fc426aeb4981eb12 \
+                    sha256  4b105543fa4a39a1521240e61cce50ea65a3c113dc25247fa2b517f8fcdb3e27 \
+                    size    165378
 github.tarball_from archive
 supported_archs     noarch
 

@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       makefile 1.0
 PortGroup       github 1.0
 
-github.setup    ColinIanKing stress-ng 0.18.02 V
+github.setup    ColinIanKing stress-ng 0.18.04 V
 revision        0
 categories      benchmarks sysutils
 maintainers     {i0ntempest @i0ntempest} openmaintainer
@@ -29,6 +29,6 @@ post-patch {
     reinplace "s|BASHDIR=/usr/share/bash-completion/completions|BASHDIR=${prefix}/share/bash-completion/completions|" ${worksrcpath}/Makefile
 }
 
-checksums       rmd160  062b84762761973020cf29fa844b0f5e8ee14cfc \
-                sha256  73d93526d161dd3a318015f8a0df22362b4ef24daf0cfb8970eb294581b5df65 \
-                size    6629296
+checksums       rmd160  a9c74689ad56212c19b07546d68e53c5446c38f4 \
+                sha256  791c5913d6f35e83b56c75fefa1e142605a247b88f41b2baa50b73d5333973d7 \
+                size    6649919
