@@ -8,7 +8,7 @@ PortGroup           compiler_blacklist_versions 1.0
 PortGroup           legacysupport 1.0
 
 github.setup        cmus cmus 2.11.0 v
-revision            1
+revision            3
 categories          audio
 maintainers         {@Traace hotmail.de:xxtraacexx} \
                     openmaintainer
@@ -44,6 +44,11 @@ configure.ccache    no
 
 compiler.blacklist-append *gcc-3.* *gcc-4.*
 compiler.blacklist-append { clang < 700 } macports-clang-3.3 macports-clang-3.4
+
+# See https://github.com/cmus/cmus/pull/1367
+# Remove in the next version
+patchfiles-append   patch-configure-swresample.diff
+
 platform darwin i386 {
     # clang-5.0 tested, and also likely installed on these systems
     compiler.fallback-append  macports-clang-5.0 macports-clang-6.0 macports-clang-7.0
@@ -64,7 +69,6 @@ configure.args      prefix=${prefix} CONFIG_FLAC=n CONFIG_MIKMOD=n \
                     HOST_CFLAGS="${configure.cflags}" \
                     HOST_LDFLAGS="${configure.ldflags}" \
                     DEBUG=0
-
 
 # darwin < 12 cannot build coreaudio output
 if { ${os.platform} eq "darwin" && ${os.major} < 12 } {
@@ -120,11 +124,18 @@ variant opus  description {Support Opus files} {
 }
 
 variant ffmpeg  description {Support ffmpeg} {
-    depends_lib-append    port:ffmpeg6
+    set ffmpeg_ver        7
+    depends_lib-append    port:ffmpeg${ffmpeg_ver}
     configure.pkg_config_path-prepend \
-                          ${prefix}/libexec/ffmpeg6/lib/pkgconfig
+                          ${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib/pkgconfig
     configure.args-delete CONFIG_FFMPEG=n
     configure.args-append CONFIG_FFMPEG=y
+    # Without these build process links ffmpeg v4 if present
+    # With these present the build env line above is redundant, but I'm keeping it anyways
+    configure.cflags-prepend \
+                          -I${prefix}/libexec/ffmpeg${ffmpeg_ver}/include
+    configure.ldflags-prepend \
+                          -L${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib
     # https://github.com/cmus/cmus/pull/1330
     post-patch {
         reinplace "s|LIBAVCODEC_VERSION_MAJOR >= 58|LIBAVCODEC_VERSION_MAJOR >= 60|g" ip/ffmpeg.c

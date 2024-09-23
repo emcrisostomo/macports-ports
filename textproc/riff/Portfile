@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        walles riff 3.2.1
+github.setup        walles riff 3.3.1
 github.tarball_from archive
 revision            0
 
@@ -20,9 +20,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  e1a73dc6a393f80ce5d9490c6feee430ed924823 \
-                    sha256  3e2970b757b877e1399741da5727534a304cbf8cbe98d8b9fa81cb70494b33a6 \
-                    size    1061760
+                    rmd160  5436dd4e72046ef9a15283c62be702f1bd2314ae \
+                    sha256  08a83f0f2fa075be3ef4d834e7491492972c00b71d8bbe61c42ba5e275dd35eb \
+                    size    1062096
 
 patchfiles          patch-src-main-rs-moar-pager.diff
 

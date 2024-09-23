@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           cargo   1.0
 
-github.setup        curlpipe ox 0.5.1
+github.setup        curlpipe ox 0.6.1
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  a9d5a7ea31625a1014eeaba8624875b7a04832c6 \
-                    sha256  78406932f985da0ebec9bc19149c80fdae2bd24874a1635e26b18e6f4fe90537 \
-                    size    77391549
+                    rmd160  b31f38f7f222b258a2c993a48c3b11a24499c57a \
+                    sha256  99135a0825f0fd604bd060699856dc0a4b79179807c6345ccf85ad33cdbd7db6 \
+                    size    121702
 
 cargo.offline_cmd
 

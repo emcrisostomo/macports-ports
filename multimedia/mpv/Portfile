@@ -10,7 +10,7 @@ PortGroup               active_variants 1.1
 # Please revbump mpv whenever ffmpeg6 is updated!
 github.setup            mpv-player mpv 0.38.0 v
 conflicts               mpv-legacy
-revision                2
+revision                4
 categories              multimedia
 license                 GPL-2+
 maintainers             {ionic @Ionic} {i0ntempest @i0ntempest} openmaintainer
@@ -31,8 +31,9 @@ checksums               rmd160  aa62d957e22d4618a4850262ddda14e9d7bdabae \
 
 installs_libs           no
 
+set ffmpeg_ver          7
 depends_build-append    port:pkgconfig
-depends_lib             port:ffmpeg6 \
+depends_lib             port:ffmpeg${ffmpeg_ver} \
                         path:bin/perl:perl5 \
                         port:libiconv \
                         port:zlib \
@@ -42,7 +43,7 @@ depends_lib             port:ffmpeg6 \
 
 universal_variant       no
 
-default_variants        +network +osd +opengl +bluray +dvd +audiocd +libarchive
+default_variants        +network_ytdlp +osd +opengl +bluray +dvd +audiocd +libarchive
 
 platform darwin {
     default_variants-append +bundle +rubberband
@@ -98,7 +99,7 @@ configure.args-append   -Dcaca=disabled \
                         -Dxv=disabled
 
 configure.pkg_config_path-prepend \
-                        ${prefix}/libexec/ffmpeg6/lib/pkgconfig
+                        ${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib/pkgconfig
 
 # Fix picking up the correct talloc version.
 # -isystem has the added benefit of moving the include
@@ -324,11 +325,11 @@ variant screenshot description {Enable optional screenshot support} {
                             -Djpeg=enabled
 }
 
-variant network conflicts ytdlp description {Enable networking support via youtube-dl (supports wide variety of pages)} {
+variant network conflicts network_ytdlp description {Enable networking support via youtube-dl (supports wide variety of pages)} {
     depends_run-append      port:youtube-dl
 }
 
-variant ytdlp conflicts network description {Enable networking support via yt-dlp instead of youtube-dl (supports wide variety of pages)} {
+variant network_ytdlp conflicts network description {Enable networking support via yt-dlp instead of youtube-dl (supports wide variety of pages)} {
     depends_run-append      port:yt-dlp
 }
 
