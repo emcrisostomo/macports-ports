@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/projectdiscovery/nuclei 3.3.2 v
+go.setup            github.com/projectdiscovery/nuclei 3.3.4 v
 go.package          github.com/projectdiscovery/nuclei/v3
 go.offline_build    no
 github.tarball_from archive
@@ -28,9 +28,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  79c374742a230a8a0aa118816e603d2547c93f98 \
-                    sha256  193657ec42c9b931e911ed67d8c8ba1e4047651d75bfc855951e47ec06bd20ff \
-                    size    2292614
+checksums           rmd160  b94c5ce083580f5bc6dbd8ff783783246fa74b08 \
+                    sha256  2be73621c43de19943cc7f9e826219ea0dbef6180893c8c4fffc56d64271ff3d \
+                    size    2301877
 
 build.args-append   ./cmd/${name}
 

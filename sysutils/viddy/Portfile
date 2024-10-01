@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        sachaos viddy 1.1.2 v
+github.setup        sachaos viddy 1.1.5 v
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  931c43645e152463b633bd178fea32161381646b \
-                    sha256  a1238f5712251cf06403b6e9cfd711115e295019cb0801b4250070aabf074233 \
-                    size    1577654
+                    rmd160  a4be82a1c0cb66731c4d103d31fc009dc03c18b8 \
+                    sha256  abc01bc4eae92f6fbf11ea220f1ef8ee88e48f80b090e09d0c5d5e4cf23d9065 \
+                    size    1577663
 
 destroot {
     xinstall -m 0755 \
