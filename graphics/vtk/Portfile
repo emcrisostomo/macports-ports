@@ -3,8 +3,12 @@
 PortSystem          1.0
 PortGroup           cmake 1.1
 PortGroup           compiler_blacklist_versions 1.0
+PortGroup           legacysupport 1.1
 PortGroup           mpi 1.0
 PortGroup           muniversal 1.0
+
+# strnlen
+legacysupport.newest_darwin_requires_legacy 10
 
 # Require C++11
 compiler.cxx_standard 2011
@@ -63,6 +67,11 @@ depends_lib-append \
 
 mpi.enforce_variant hdf5
 
+# Re restoring support for legacy macOS, see:
+# https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11171
+# https://gitlab.kitware.com/vtk/vtk/-/issues/19352
+patchfiles-append   patch-MACH_TASK_BASIC_INFO.diff
+
 configure.pre_args-delete \
                     -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON
 
@@ -87,6 +96,17 @@ if {${os.platform} eq "darwin" && ${os.major} < 11} {
     patchfiles-append   patch-pthread_threadid_np.diff
     # Ensure Cocoa does not get picked and fix GL linking:
     patchfiles-append   patch-use-x11.diff
+    # With legacysupport getentropy is detected, but sys/random.h is not.
+    # This breaks the build, since we need sys/random.h included.
+    # dict.c:970:17: error: implicit declaration of function 'getentropy'
+    # Once that is fixed, u_int is not recognized:
+    # /usr/include/sys/random.h:37:32: error: unknown type name 'u_int'; did you mean 'int'?
+    # Adding sys/types.h fixes that.
+    patchfiles-append   patch-libxml2-getentropy.diff
+    # https://trac.macports.org/ticket/71421
+    # https://gitlab.kitware.com/vtk/vtk/-/issues/19547
+    # Patch from upstream:
+    patchfiles-append   patch-fix-DataObjectBackendInterface.diff
     # Fix 32-bit builds with gcc:
     if {[string match *gcc* ${configure.compiler}] \
         && ${configure.build_arch} in [list arm i386 ppc]} {
@@ -119,7 +139,7 @@ if {[string match *gcc* ${configure.compiler}]} {
 }
 
 variant ffmpeg description {Add support for ffmpeg} {
-    depends_lib-append path:lib/libavcodec.dylib:ffmpeg
+    depends_lib-append port:ffmpeg
     configure.args-append \
         -DModule_vtkIOFFMPEG:BOOL=ON
 }
