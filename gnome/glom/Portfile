@@ -13,7 +13,7 @@ version             1.32.0
 revision            15
 
 categories          gnome databases
-license             GPL-2
+license             GPL-3+
 maintainers         {mascguy @mascguy} openmaintainer
 
 description         Glom is an easy-to-use database designer and user interface.
@@ -52,7 +52,6 @@ depends_lib-append \
                     port:desktop-file-utils \
                     port:libarchive \
                     port:gtkmm3 \
-                    path:lib/pkgconfig/icu-uc.pc:icu \
                     port:libxml2 \
                     port:libxmlxx3 \
                     port:libxslt \
