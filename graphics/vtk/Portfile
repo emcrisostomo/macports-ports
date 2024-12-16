@@ -25,8 +25,7 @@ license             BSD
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 
-maintainers         {stromnov @stromnov} \
-                    {@Dave-Allured noaa.gov:dave.allured} \
+maintainers         {@Dave-Allured noaa.gov:dave.allured} \
                     openmaintainer
 
 description         Visualization Toolkit (VTK)
@@ -45,27 +44,6 @@ checksums           rmd160  b265f1752ab0be2687ada62e2376177f54ccbbf0 \
                     size    118611659
 
 mpi.setup
-
-depends_lib-append \
-    port:double-conversion \
-    path:share/pkgconfig/eigen3.pc:eigen3 \
-    port:expat \
-    port:freetype \
-    port:gl2ps \
-    port:glew \
-    port:hdf5 \
-    path:include/turbojpeg.h:libjpeg-turbo \
-    port:jsoncpp \
-    port:libharu \
-    port:libogg \
-    port:libtheora \
-    port:lz4 \
-    port:netcdf-cxx \
-    port:pugixml \
-    port:tiff \
-    port:zlib
-
-mpi.enforce_variant hdf5
 
 # Re restoring support for legacy macOS, see:
 # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11171
