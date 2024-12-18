@@ -162,7 +162,7 @@ array set modules {
         {"Qt Core" "Qt GUI" "Qt Network" "Qt SQL" "Qt Test" "Qt Widgets" "Qt Concurrent" "Qt D-Bus" "Qt OpenGL" "Qt Platform Headers" "Qt Print Support" "Qt XML"}
         ""
         "variant overrides: "
-        "revision 10"
+        "revision 11"
         "License: "
     }
     qtcharts {
@@ -297,7 +297,7 @@ array set modules {
         {"Qt Location" "Qt Positioning"}
         ""
         "variant overrides: "
-        "revision 5"
+        "revision 6"
         "License: "
     }
     qtlottie  {
@@ -627,7 +627,7 @@ array set modules {
         {"Qt WebKit" "Qt WebKit Widgets"}
         "community support only (use Qt WebEngine)"
         "variant overrides: "
-        "revision 5"
+        "revision 6"
         "License: "
     }
     qtwebkit-examples {
@@ -1096,6 +1096,9 @@ foreach {module module_info} [array get modules] {
 
             # http://lists.qt-project.org/pipermail/development/2017-January/028392.html
             # Prefer ICU over iconv
+            # ICU requires C++17
+            compiler.cxx_standard   2017
+            configure.args-append   QMAKE_CXXFLAGS_GNUCXX11=-std=c++17
 
             # Additional options:
             configure.args-append       \
@@ -1357,6 +1360,9 @@ foreach {module module_info} [array get modules] {
                 # include/mbgl/util/unique_any.hpp: error: no member named 'move' in namespace 'std'
                 patchfiles-append  patch-qtlocation-mbgl-unique_any.hpp.diff
 
+                # fix compiling with C++17
+                patchfiles-append  patch-qtlocation-cxx17.diff
+
                 # qtlocation uses
                 #    Gypsy (https://gypsy.freedesktop.org/wiki/)
                 #    if they can be found
@@ -1369,6 +1375,11 @@ foreach {module module_info} [array get modules] {
 
                 # avoid unnecessary dependency on OpenSSL
                 configure.args-append "QMAKE_LIBS_OPENSSL="
+
+                # ICU requires C++17
+                compiler.cxx_standard   2017
+                configure.args-append   QMAKE_CXXFLAGS_CXX14=-std=c++17
+                configure.args-append   QMAKE_CXXFLAGS=-Wno-error=enum-constexpr-conversion
             }
 
             # special case
@@ -1400,6 +1411,9 @@ foreach {module module_info} [array get modules] {
                 patchfiles-append patch-webkit_XPathGrammar.y.diff
                 patchfiles-append patch-webkit_makegrammar.pl.diff
 
+                # fix compiling with C++17
+                patchfiles-append patch-qtwebkit-cxx17.diff
+
                 # qtwebkit uses
                 #    glx
                 #    libXcomposite
@@ -1411,6 +1425,10 @@ foreach {module module_info} [array get modules] {
                         reinplace "s|return 0;|return 0;\\\n#error turn off test|g" ${worksrcpath}/Tools/qmake/config.tests/${test}/${test}.cpp
                     }
                 }
+
+                # ICU requires C++17
+                compiler.cxx_standard   2017
+                configure.args-append   QMAKE_CXXFLAGS=-Wno-error=register
             }
 
             # special case
