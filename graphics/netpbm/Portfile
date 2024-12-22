@@ -160,28 +160,20 @@ pre-build {
 build.args              messages=yes
 build.type              gnu
 
-set pkgtargets          {}
+destroot.target
 
 post-build {
     # Build manpages from html files.
-    system -W ${workpath}/${userguide_distname} "${build.cmd} MAKEMAN='${worksrcpath}/buildtools/makeman -v' USERGUIDE=. -f ${worksrcpath}/buildtools/manpage.mk manpages"
-
-    # The tests can only be run after things have been destrooted ("packaged").
-    system -W ${worksrcpath} "${build.cmd} ${pkgtargets} pkgdir=${destroot}${prefix}"
+    system -W ${workpath}/${userguide_distname} "${build.cmd} MAKEMAN=[shellescape "${worksrcpath}/buildtools/makeman -v"] USERGUIDE=. -f [shellescape ${worksrcpath}/buildtools/manpage.mk] manpages"
 }
 
-destroot {
+destroot.destdir        pkgdir=${destroot}${prefix}
+
+post-destroot {
     # Install manpages.
-    system -W ${workpath}/${userguide_distname} "${build.cmd} MANDIR=${destroot}${prefix}/share/man USERGUIDE=. -f ${worksrcpath}/buildtools/manpage.mk installman"
+    system -W ${workpath}/${userguide_distname} "${build.cmd} MANDIR=[shellescape ${destroot}${prefix}/share/man] USERGUIDE=. -f [shellescape ${worksrcpath}/buildtools/manpage.mk] installman"
 
     move ${destroot}${prefix}/misc ${destroot}${prefix}/share/${name}
-
-    # Fix ownership of files installed during the build phase.
-    # Not using fs-traverse to call file attributes because that doesn't
-    # handle symlinks. Not using chown proc because that doesn't support
-    # changing the group: https://trac.macports.org/ticket/55332
-    #chown ${destroot} ${install.user} ${install.group}
-    system "chown -R '${install.user}':'${install.group}' ${destroot}"
 }
 
 if {${subport} eq ${name}} {
@@ -207,13 +199,16 @@ if {${subport} eq ${name}} {
     #use_parallel_build  no
 
     # Install programs.
-    lappend pkgtargets  install.bin
+    destroot.target-append \
+                        install.bin
     # Install data files.
-    lappend pkgtargets  install.data
+    destroot.target-append \
+                        install.data
 
     test.run            yes
     test.target         check
-    test.args           pkgdir=${destroot}${prefix} \
+    test.args           ${destroot.destdir} \
+                        RGBDEF=${prefix}/share/netpbm/rgb.txt \
                         resultdir=${workpath}/test \
                         tmpdir=${workpath}/.tmp
 
@@ -239,7 +234,7 @@ if {${subport} eq ${name}} {
     variant x11 description {Build the pamx image viewer} {
         global want_x11
         set want_x11            Y
-        depends_build-append    port:pkgconfig
+        depends_build-append    path:bin/pkg-config:pkgconfig
         depends_lib-append      port:xorg-libX11
     }
 
@@ -262,9 +257,11 @@ subport libnetpbm {
     build.target        lib/all
 
     # Install libraries and headers.
-    lappend pkgtargets  install-dev
+    destroot.target-append \
+                        install-dev
     # Install rgb.txt data file.
-    lappend pkgtargets  lib/install.data
+    destroot.target-append \
+                        lib/install.data
 
     post-build {
         # Build netpbm-config and netpbm.pc like installnetpbm.pl would.
