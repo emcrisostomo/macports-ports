@@ -47,9 +47,7 @@ foreach {qt_base qt_info} ${qt6::available_versions} {
     }
 }
 
-# qt64-qtbase is broken on macOS 15+ because of
-# `error: 'CGDisplayCreateImageForRect' is unavailable: obsoleted in macOS 15.0 - Please use ScreenCaptureKit instead.`
-platform darwin 24 {
+if {${os.platform} eq "darwin" && [vercmp ${macosx_deployment_target} >= 15.0]} {
     macosx_deployment_target 14.0
 }
 
@@ -59,6 +57,13 @@ set llvm_version            17
 # MacPorts Python branch & version to use when required
 set python_branch           3.11
 set python_version          [join [split ${python_branch} .] ""]
+
+if {${os.platform} eq "darwin" && [vercmp ${xcodeversion} 13.0] < 0} {
+    pre-fetch {
+        ui_warn "XCode ${xcodeversion} is not a supported build environment for Qt."
+        ui_warn "See https://doc.qt.io/archives/qt-6.4/macos.html#supported-versions"
+    }
+}
 
 ############################################################################### Modules Not Considered
 #
