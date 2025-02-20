@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 
 name                di
-version             5.0.9
+version             5.0.11
 revision            0
 categories          sysutils
 maintainers         {mps @Schamschula} openmaintainer
@@ -16,9 +16,9 @@ long_description    di is a disk information utility, displaying everything \
 homepage            https://diskinfo-di.sourceforge.io/
 master_sites        sourceforge:project/diskinfo-di
 
-checksums           rmd160  8530b1ff30ba619d7a78980cc91194a251792958 \
-                    sha256  2624c2bbceb55fec1561e23b40f50b9cfcd16d183fdd6b982a0b5d457aa29b41 \
-                    size    132243
+checksums           rmd160  a7ae747e8810e387550f9c85c4fb43cfc2861b03 \
+                    sha256  49947afa71421a69b64ec1c3814e2fa1881e2db76755afb6dfa9a87fb6f8b07e \
+                    size    132493
 
 depends_build-append \
                     port:gettext
@@ -27,7 +27,7 @@ depends_lib         port:gettext-runtime
 
 # Could use gmp (or tommath when https://trac.macports.org/ticket/71791 is fixed)
 configure.args-append \
-                    -DDI_MATH=DI_INTERNAL
+                    -DDI_USE_MATH=DI_INTERNAL
 
 if {${os.platform} eq "darwin" && ${os.major} < 14} {
     # clang: error: unknown argument: '-fstack-protector-strong'
