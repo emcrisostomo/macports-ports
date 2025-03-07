@@ -54,7 +54,7 @@ compiler.blacklist      *gcc* {clang < 1001} macports-clang-3.*
 # work/build/include/c++/v1/optional:224:5: error: destructor cannot be marked constexpr
 #     _LIBCPP_CONSTEXPR_AFTER_CXX17 ~__optional_destruct_base()
 compiler.blacklist-append {clang < 1204} {macports-clang-[5-9].0} {macports-clang-1[0-3]}
-compiler.fallback       clang macports-clang-14 macports-clang-15
+compiler.fallback       clang macports-clang-16
 
 cmake.generator         Ninja
 cmake.install_prefix    ${sub_prefix}
@@ -194,6 +194,11 @@ if {${os.platform} eq "darwin" && ${os.major} < 19} {
     patchfiles-append 0130-10.14-and-less-availability.patch
 }
 
+if {${os.platform} eq "darwin" && ${os.major} <= 16} {
+    # https://github.com/llvm/llvm-project/issues/64226
+    patchfiles-append 0042-mbstate_t-not-defined.patch
+}
+
 post-patch {
     reinplace "s|@@PREFIX@@|${prefix}|" \
         ${patch.dir}/clang/lib/Driver/ToolChains/Clang.cpp \
@@ -264,8 +269,8 @@ if { ${subport} eq "clang-${llvm_version}" } {
     select.file         ${filespath}/mp-${subport}
 
     configure.args-append   \
-        -DLLVM_ENABLE_PROJECTS="clang\;clang-tools-extra\;compiler-rt\;lld" \
-        -DLLVM_ENABLE_RUNTIMES="libcxx\;libcxxabi\;libunwind" \
+        -DLLVM_ENABLE_PROJECTS="clang\;clang-tools-extra\;lld" \
+        -DLLVM_ENABLE_RUNTIMES="libcxx\;libcxxabi\;libunwind\;compiler-rt" \
         -DLIBCXX_ENABLE_SHARED=ON \
         -DLIBCXX_INSTALL_LIBRARY=ON \
         -DLIBCXX_INSTALL_LIBRARY_DIR=${sub_prefix}/lib/libc++ \
@@ -286,7 +291,8 @@ if { ${subport} eq "flang-${llvm_version}" } {
     supported_archs     arm64 x86_64
 
     configure.args-append \
-        -DLLVM_ENABLE_PROJECTS="clang\;flang\;compiler-rt\;mlir" \
+        -DLLVM_ENABLE_PROJECTS="clang\;flang\;mlir" \
+        -DLLVM_ENABLE_RUNTIMES="compiler-rt" \
         -DLIBCXX_ENABLE_SHARED=OFF          \
         -DLIBCXX_INSTALL_LIBRARY=OFF
 
@@ -325,11 +331,12 @@ if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "flang-${llvm_versio
         configure.args-append    -DDARWIN_osx_SYSROOT="${configure.sdkroot}"
     }
 
-    if {${os.platform} eq "darwin" && ${os.major} <= 15} {
+    if {${os.platform} eq "darwin" && ${os.major} <= 17} {
         # sanitizers in compiler_rt fail to build on older systems
         # might be fixable with the use of newer SDK and/or effort if motivated
         # all three toggles are needed to force them off
         # Extended to 10.11 and older, see https://trac.macports.org/ticket/65887
+        # Extend to 10.13 and older, see https://trac.macports.org/ticket/72150
         configure.args-append    -DCOMPILER_RT_BUILD_SANITIZERS=OFF \
                                  -DCOMPILER_RT_BUILD_XRAY=OFF \
                                  -DCOMPILER_RT_BUILD_MEMPROF=OFF
