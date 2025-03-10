@@ -3,26 +3,24 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/koki-develop/gat 0.21.2 v
+go.setup            github.com/dlvhdr/diffnav 0.3.0 v
 go.offline_build    no
 revision            0
 
-description         cat alternative written in Go
+description         A git diff pager based on delta but with a file tree, à \
+                    la GitHub.
 
 long_description    {*}${description}
 
-categories          textproc sysutils
+categories          textproc devel
 installs_libs       no
 license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  33a1a09875f28c608790ea24a6637fe66bb9e349 \
-                    sha256  17536538142780aa9cc32dec491778e2fcbf783848ea30cb5aac553ed8e75812 \
-                    size    15016316
-
-build.pre_args-append \
-    -ldflags \"-X ${go.package}/cmd.version=${github.tag_prefix}${version}\"
+checksums           rmd160  724517b91fdb410f3ec2b36c19e0661a5a90ea6e \
+                    sha256  7917dcc14f8c47330b8569b082384e6177a959ac36423069e6cfeaf2b69524fc \
+                    size    477930
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
