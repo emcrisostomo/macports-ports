@@ -38,6 +38,8 @@ compiler.cxx_standard \
 
 universal_variant   no
 
+patchfiles          patch-cpp-src-parquet-size_statistics.cc.diff
+
 # Build instructions: https://github.com/apache/arrow/blob/master/docs/source/developers/python.rst#build-and-test
 cmake.generator     Ninja
 cmake.source_dir    ${worksrcpath}/cpp
@@ -340,22 +342,24 @@ if {[string match "py*" ${subport}]} {
                     PYARROW_WITH_S3=0 \
                     PYARROW_WITH_TENSORFLOW=0
 
-    variant tensorflow description {Build with tensorflow support enabled} {
-        require_active_variants apache-arrow tensorflow
-
-        build.env-replace \
-                    PYARROW_WITH_TENSORFLOW=0 \
-                    PYARROW_WITH_TENSORFLOW=1
-
-        # py-tensorflow-macos requires minimum macOS 12.0 and Python 3.8
-        if {${os.major} >= 21 && ${python.version} >= 38} {
-            depends_lib-append \
-                    path:${python.pkgd}/tensorflow:py${python.version}-tensorflow-macos
-        } else {
-            depends_lib-append \
-                    path:${python.pkgd}/tensorflow:py${python.version}-tensorflow
-        }
-    }
+# Currently tensorflow is broken see Portfile
+# https://github.com/macports/macports-ports/blob/2fb2ee24cba7359d7c78aa9d88bebaadfa00b66b/python/py-tensorflow/Portfile#L12
+#     variant tensorflow description {Build with tensorflow support enabled} {
+#         require_active_variants apache-arrow tensorflow
+# 
+#         build.env-replace \
+#                     PYARROW_WITH_TENSORFLOW=0 \
+#                     PYARROW_WITH_TENSORFLOW=1
+# 
+#         # py-tensorflow-macos requires minimum macOS 12.0 and Python 3.8
+#         if {${os.major} >= 21 && ${python.version} >= 38} {
+#             depends_lib-append \
+#                     path:${python.pkgd}/tensorflow:py${python.version}-tensorflow-macos
+#         } else {
+#             depends_lib-append \
+#                     path:${python.pkgd}/tensorflow:py${python.version}-tensorflow
+#         }
+#     }
 
     build.dir       ${worksrcpath}/python
     build.cmd       ${python.bin} setup.py --no-user-cfg
@@ -405,9 +409,9 @@ if {[string match "py*" ${subport}]} {
     github.livecheck.regex {([0-9.]+)}
 }
 
-if { ![variant_isset tensorflow] } {
-    notes-append "\
-- ${subport} is now built with tensorflow support disabled by default.\
-To enable it, install the port with '+tensorflow'.\
-"
-}
+# if { ![variant_isset tensorflow] } {
+#     notes-append "\
+# - ${subport} is now built with tensorflow support disabled by default.\
+# To enable it, install the port with '+tensorflow'.\
+# "
+# }
