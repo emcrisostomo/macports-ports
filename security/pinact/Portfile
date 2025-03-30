@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/suzuki-shunsuke/pinact 2.2.0 v
+go.setup            github.com/suzuki-shunsuke/pinact 3.0.1 v
 categories          security
 maintainers         {macports.halostatue.ca:austin @halostatue} \
                     openmaintainer
@@ -16,15 +16,23 @@ description         A CLI to edit GitHub Workflow and Composite action files and
 long_description    {*}${description}
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  376eaf6e2d61ca072f6142ee5d1cddae02cbecf1 \
-                    sha256  047745c193add771fb49f16dcfa49f7f186eb74b510296faf49b33a04a760090 \
-                    size    33143
+                    rmd160  073bdd33dc198c3f686b4fae39defe3e75dfee39 \
+                    sha256  0eb2b41c97c5b301d723d213598a6d74f443ed61541b15446909866dbac6f0fe \
+                    size    33098
 
 build.args-append   -ldflags \"-X main.version=${version} -X main.commit=MacPorts \" \
                     ./cmd/pinact
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
+}
+
+notes {
+  pinact 3.0 introduces a new configuration file format version which is incompatible
+  with previous versions.
+
+  If you have an existing .pinact.yaml file, you will need to use pinact 2.2 and run
+  'pinact migrate' to fix the pinact configuration file for pinact 3.0.
 }
 
 go.vendors          gopkg.in/yaml.v3 \
