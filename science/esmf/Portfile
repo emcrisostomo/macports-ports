@@ -7,6 +7,11 @@ PortGroup           github 1.0
 
 compilers.choose    f90 cxx
 compilers.setup     require_fortran -clang
+compiler.cxx_standard \
+                    2011
+compiler.thread_local_storage \
+                    yes
+
 mpi.setup
 mpi.enforce_variant netcdf-fortran
 
@@ -30,6 +35,13 @@ long_description    ESMF defines an architecture for composing complex, coupled 
 homepage            https://earthsystemmodeling.org
 github.tarball_from archive
 
+# Fix builds for 10.6-10.8.
+# Was fixed upstream after ESMF version 8.8.1.
+# Remove this patch on next release after 8.8.1.
+# Fixes unknown 'task_info_data_t', 'TASK_VM_INFO_COUNT', 'TASK_VM_INFO'.
+# Patch copied from upstream patch by @barracuda156.
+patchfiles-append   patch-task_vm_info_missing.diff
+
 depends_build       bin:ranlib:cctools
 
 depends_lib         port:netcdf \
@@ -40,14 +52,6 @@ depends_lib         port:netcdf \
 # Avoid duplicate LC_RPATH.
 # Discussion in https://github.com/macports/macports-ports/pull/21765
 compilers.add_gcc_rpath_support no
-
-if {${os.platform} eq "darwin" && ${os.major} < 12} {
-    known_fail      yes
-    pre-fetch {
-        ui_error "${name} @{version} requires OS X Mountain Lion or later."
-        return -code error "unsupported Mac OS X version"
-    }
-}
 
 post-patch {
     if {[variant_isset openmpi]} {
