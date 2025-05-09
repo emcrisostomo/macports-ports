@@ -5,11 +5,9 @@ PortGroup           python 1.0
 
 name                py-trove-classifiers
 python.rootname     trove_classifiers
-version             2025.5.7.19
+version             2025.5.8.15
 revision            0
 
-supported_archs     noarch
-platforms           {darwin any}
 license             Apache-2
 maintainers         {mps @Schamschula} openmaintainer
 
@@ -17,9 +15,12 @@ description         Canonical source for classifiers on PyPI (pypi.org).
 long_description    {*}${description}
 homepage            https://github.com/pypa/trove-classifiers
 
-checksums           rmd160  c2d5103e7970c85f72555219764a7c59c0af9518 \
-                    sha256  a775b23f73f3d9b69ee8b58985dfce8a21e29cd75380e9b94926b3f53f1ed81a \
-                    size    16891
+supported_archs     noarch
+platforms           {darwin any}
+
+checksums           rmd160  5b3d8afa41fe084352d3b030902114fe4f80b131 \
+                    sha256  b2308b26b1d156aa590896acd8f155a7a4e088a7f093b1a9cc6c3f1277d8f2ad \
+                    size    16870
 
 python.versions     37 38 39 310 311 312 313
 
