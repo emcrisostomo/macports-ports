@@ -5,8 +5,9 @@ PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                openssh
-version             9.9p2
-revision            1
+version             10.0p2
+distname            openssh-10.0p1
+revision            0
 categories          net
 maintainers         {@artkiver gmail.com:artkiver} openmaintainer
 license             BSD
@@ -28,9 +29,9 @@ long_description    OpenSSH is a FREE version of the SSH protocol suite of \
 
 homepage            https://www.openbsd.org/openssh/
 
-checksums           rmd160  3a15a3386fb6be9e9269c9f3f3ac39d53904fa3a \
-                    sha256  91aadb603e08cc285eddf965e1199d02585fa94d994d6cae5b41e1721e215673 \
-                    size    1944499
+checksums           rmd160  59074f7100d71c2a15ddbd919730b0fe90bfedf7 \
+                    sha256  021a2e709a0edf4250b1256bd5a9e500411a90dddabea830ed59cef90eb9d85c \
+                    size    1972675
 
 master_sites        openbsd:OpenSSH/portable \
                     ftp://ftp.cise.ufl.edu/pub/mirrors/openssh/portable/ \
@@ -50,10 +51,8 @@ if {${name} eq ${subport}} {
 
     patch.pre_args-replace  -p0 -p1
     patchfiles          launchd.patch \
-                        agent.patch \
                         pam.patch \
                         patch-sandbox-darwin.c-apple-sandbox-named-external.diff \
-                        patch-sshd-session.c-apple-sandbox-named-external.diff \
                         macports-config.patch \
 
     # We need a couple of patches
@@ -206,13 +205,6 @@ if {${name} eq ${subport}} {
         depends_lib-append      port:libfido2
     }
 
-    variant legacy_dsa description "Enable legacy DSA support (until 2025)" {
-        configure.args-append  --enable-dsa-keys
-        notes-append "DSA support is scheduled to be removed in early 2025."
-        notes-append "DSA-based keys will need to be replaced by then."
-        notes-append "See: https://www.openbsd.org/openssh/releasenotes.html"
-    }
-
     platform darwin {
         # create link to /usr/include/pam because 'security' was renamed to 'pam'
         # in OS X.
@@ -236,10 +228,6 @@ if {${name} eq ${subport}} {
     startupitem.name    OpenSSH
     startupitem.start   \
         "if \[ -x ${prefix}/sbin/sshd \]; then
-            if \[ ! -f ${prefix}/etc/ssh/ssh_host_dsa_key \]; then
-                ${prefix}/bin/ssh-keygen -t dsa -f \\
-                ${prefix}/etc/ssh/ssh_host_dsa_key -N \"\" -C `hostname`
-            fi
             if \[ ! -f ${prefix}/etc/ssh/ssh_host_rsa_key \]; then
                 ${prefix}/bin/ssh-keygen -t rsa -f \\
                 ${prefix}/etc/ssh/ssh_host_rsa_key -N \"\" -C `hostname`
@@ -269,7 +257,7 @@ subport ssh-copy-id {
     long_description    {*}${description}
 
     # Make sure to not create multiple copies of the same distfile.
-    distname            openssh-${version}
+    distname            openssh-10.0p1
     dist_subdir         openssh
 
     use_configure       no
@@ -280,6 +268,8 @@ subport ssh-copy-id {
         xinstall -m 644 ${worksrcpath}/contrib/ssh-copy-id.1 ${destroot}${prefix}/share/man/man1
     }
 }
+notes-append "As previously warned, DSA support has now been removed."
+notes-append "Please refer to https://www.openssh.com/releasenotes.html#10.0p1."
 
 livecheck.type      regex
 livecheck.url       https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/
