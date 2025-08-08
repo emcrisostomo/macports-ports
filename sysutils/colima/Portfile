@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/abiosoft/colima 0.8.2 v
+go.setup            github.com/abiosoft/colima 0.8.4 v
 revision            0
 
 description         Run Kubernetes and Docker containers with minimal setup
@@ -21,9 +21,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     {macports.halostatue.ca:austin @halostatue} \
                     openmaintainer
 
-checksums           rmd160  3d6ea38546924260b54afb348e870cba6bf06694 \
-                    sha256  c076bc9bf984f42d7f3b47b09cec9859f5fc715a0410d5e2e8263cc9cb05b864 \
-                    size    618128
+checksums           rmd160  40f16e81a540baabe806ed0ec518d21160d87f03 \
+                    sha256  e02f3abf3ad7911fe4665b1c3291f03677edc0efa93e8d37b337d76149a7202b \
+                    size    619108
 
 depends_run         port:lima
 
