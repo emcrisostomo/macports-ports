@@ -7,7 +7,6 @@ go.setup            github.com/docker/docker-credential-helpers 0.9.3 v
 revision            0
 name                docker-credential-helper-osxkeychain
 categories          devel
-platforms           darwin
 license             Apache-2
 maintainers         {emcrisostomo @emcrisostomo} \
                     openmaintainer
