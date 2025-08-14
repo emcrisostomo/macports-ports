@@ -5,7 +5,7 @@ PortGroup           github  1.0
 PortGroup           cmake   1.1
 PortGroup           legacysupport 1.1
 
-github.setup        fastfetch-cli fastfetch 2.48.1
+github.setup        fastfetch-cli fastfetch 2.50.1
 github.tarball_from archive
 revision            0
 
@@ -21,9 +21,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  bc53cbfd2afa4aeb6acdba23267bc5d4bc7cf25a \
-                    sha256  912692fb4ffa34b10809909e3a774e8193751554f77550d6ae126892b029c021 \
-                    size    1336646
+checksums           rmd160  c8ec31fd209a65f007a79b518bd5e1b7e8e5d61c \
+                    sha256  947e070edcf906bfe88ccc219f65226c75c509612b127aba28e3b62ab30f50da \
+                    size    1346815
 
 set py_branch       3.13
 set py_version      [string map {. ""} ${py_branch}]
