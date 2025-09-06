@@ -3,7 +3,7 @@
 PortSystem              1.0
 PortGroup               github 1.0
 
-github.setup            gitkraken gk-cli 3.1.9 v
+github.setup            gitkraken gk-cli 3.1.14 v
 name                    gk
 github.tarball_from     releases
 
@@ -25,15 +25,15 @@ long_description        ${name} is GitKraken on the command line. It makes worki
 if {${build_arch} eq "x86_64"} {
     # file name is "amd64" for x86_64
     set arch_filename   amd64
-    checksums           rmd160  c2cbc37ed73cf92cf59e5df6e21a81869ed307ab \
-                        sha256  6244e0997409ab1c7411b0b0b0fcd705396312d789fe3dcecabacdfce1d0cafd \
-                        size    6592095
+    checksums           rmd160  844c3ccd6b2fd2762c9ebc5f10417dc54a04ee64 \
+                        sha256  b869447eddd524e5ac189467a544bce4c2796b55e98bf0d5a65baf28e1ebc5aa \
+                        size    6676914
 } else {
     # arm64
     set arch_filename ${build_arch}
-    checksums           rmd160  740abdc79b6b67a527b7c56e4ece816e7f6e693a \
-                        sha256  6942d543d698bbf2dd0ec6f7905c6f6432e0e10dda0cb07ec7cc4149c316b999 \
-                        size    6095604
+    checksums           rmd160  8cf00a836d3f8a680d035083aaf28eeaf871ccc5 \
+                        sha256  04c7dd02471b01b16e826b251bd37af6c2cfe9f3a49076ae22a216b3bc99eaa7 \
+                        size    6170801
 }
 
 distfiles               ${name}_${version}_darwin_${arch_filename}.zip

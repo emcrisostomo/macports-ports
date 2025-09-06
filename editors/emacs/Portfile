@@ -116,7 +116,7 @@ platform darwin {
 
 if {$subport eq $name || $subport eq "emacs-app"} {
     version         30.2
-    revision        0
+    revision        1
     checksums       rmd160  fefdd3fcd453d733114f609a3e122b2529cc7410 \
                     sha256  1d79a4ba4d6596f302a7146843fe59cf5caec798190bcc07c907e7ba244b076d \
                     size    83059014
@@ -129,17 +129,17 @@ if {$subport eq "emacs-devel" || $subport eq "emacs-app-devel"} {
 
     # do not forget to check that configure hasn't introduce some suprises via
     # git diff [old]..[new] -- '**/configure.ac'
-    github.setup    emacs-mirror emacs d99354720be8655a58c8a09c5ae110f86ac9fb5d
+    github.setup    emacs-mirror emacs 25380c8e14567894f1e847b5f2ce75f0265293d8
     github.tarball_from archive
     epoch           5
-    version         20250814
-    revision        0
+    version         20250816
+    revision        1
 
     master_sites    ${github.master_sites}
 
-    checksums       rmd160  1ac90ea0947dc4f965cd2e22d52f11712ad86395 \
-                    sha256  459c5535864ec8212f9f8604baf7675207e86fa40eab60300169354b87a59bb6 \
-                    size    52268769
+    checksums       rmd160  f1d603f1d185c5e1f8fc9fc10a36f219baa16c60 \
+                    sha256  b509a8389090cc59c44797ad19796e4e68d94bded2e3b45fcaa249e5ec8f6a19 \
+                    size    52268149
 
     livecheck.type none
 
@@ -287,7 +287,7 @@ if {$subport eq "emacs-app" || $subport eq "emacs-app-devel"} {
 }
 
 variant nativecomp description {Builds emacs with native compilation support} {
-    set gcc_v                      14
+    set gcc_v                      15
     depends_lib-append             port:gcc${gcc_v}
     configure.args-replace         --with-native-compilation=no \
                                    --with-native-compilation=aot
