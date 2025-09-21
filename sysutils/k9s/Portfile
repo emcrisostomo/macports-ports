@@ -3,12 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/derailed/k9s 0.50.9 v
+go.setup            github.com/derailed/k9s 0.50.12 v
 go.offline_build    no
-revision            1
-
-# 0.50.9 had a stealth update, remove again with next update -- https://trac.macports.org/ticket/72837
-dist_subdir         ${name}/${version}_1
+revision            0
 
 homepage            https://k9scli.io
 
@@ -28,9 +25,9 @@ maintainers         {breun @breun} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  16752367856b46bb073f7f06d0ddc58b9ab13887 \
-                    sha256  7496cfc6da6da5d91ef2ad5ea61eae15186effabb77adf904c896213ca6ff810 \
-                    size    6834765
+checksums           rmd160  36f5bb59cd04a7b2d13bd1e710158ac2813188f2 \
+                    sha256  b3e0fa057bfb1af9e1823128dbfe624526f5660957a14a03484bd98911266d26 \
+                    size    6808697
 
 build.cmd           make
 build.pre_args-append \
