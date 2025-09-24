@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/walles/moor 2.1.1 v
+go.setup            github.com/walles/moor 2.2.1 v
 go.offline_build    no
 revision            0
 
@@ -15,9 +15,9 @@ long_description    Moor should work as a drop-in replacement for Less. \
                     support, incremental search and automatic decompression, \
                     among others.
 
-checksums           rmd160  81563a91b176dd573cad2b2ac69d5422078bf583 \
-                    sha256  15cd249dca023cf446c379d3a168a0dcb12d4089fe5902558508049b8103ed8b \
-                    size    3013310
+checksums           rmd160  fb4547a8d8af0ce9fc32077cd19a7be3dd7432ee \
+                    sha256  6a50a20859b0f1d84e6f37705a6407dd1159dddd285abde07af9ac4cf1ab0e70 \
+                    size    3015448
 
 categories          textproc
 installs_libs       no
