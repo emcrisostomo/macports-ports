@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           npm 1.0
 
 name                gemini-cli
-version             0.11.3
+version             0.15.3
 revision            0
 
 categories          llm
@@ -21,9 +21,9 @@ homepage            https://geminicli.com
 npm.rootname        @google/${name}
 distname            ${name}-${version}
 
-checksums           rmd160  922688f2d9517c0f93f5072b23e0bcbaf52dc794 \
-                    sha256  277710db32268d5de9801ea6745f1b697d07006f4d160415b2d6444437d83d1d \
-                    size    1233034
+checksums           rmd160  3abf77f162ca46da2623c3a02a7f38d3344966ec \
+                    sha256  d80b73972ff7ce70c4d4c630a4223a6b2557a5169881cdddc63f3a9f959fae87 \
+                    size    2731285
 
 test.run    yes
 test.cmd    gemini

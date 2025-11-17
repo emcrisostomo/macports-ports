@@ -23,7 +23,7 @@ long_description    Git is a fast, scalable, distributed open source version \
 subport ${name}-devel {
     PortGroup           github  1.0
 
-    github.setup        git git 2.51.1 v
+    github.setup        git git 2.52.0-rc2 v
     github.tarball_from archive
     revision            0
 
@@ -87,9 +87,9 @@ if {${name} eq ${subport}} {
     # DEVELOPMENT VERSION
 
     checksums       ${distname}${extract.suffix} \
-                    rmd160  e449e5374c77ed3aee1eafdf859acb63f5fe2370 \
-                    sha256  586fc2c8ba466c1f2122d44047e5fb575a5c0a7620840d3ab5f6943fc281c8c4 \
-                    size    11761560
+                    rmd160  63534762e4cc3d4b00d2140bf132185db13382e0 \
+                    sha256  1854614bc5324a025497224efee2d722d96ba04c2e414a06786daf8eb058f5fe \
+                    size    11833403
 
     depends_build-append \
                     port:asciidoc \
