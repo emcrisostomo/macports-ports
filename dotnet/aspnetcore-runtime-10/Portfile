@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                aspnetcore-runtime-10
-version             10.0.0
+version             10.0.2
 revision            0
 categories          dotnet
 license             MIT
@@ -25,15 +25,15 @@ supported_archs     x86_64 arm64
 switch ${build_arch} {
     x86_64 {
         distname            aspnetcore-runtime-${version}-osx-x64
-        checksums           rmd160  5b8aac6d8eba9b9fa945eae1fb09835a6e68b652 \
-                            sha256  1cd63065f68a9174da4eef99a3ee062bb66f1a13fbbbcbae898fff45c0414913 \
-                            size    48428368
+        checksums           rmd160  e00e5c6dd073c4fc9ff61d51809fa9491f2d8f02 \
+                            sha256  785bda9b3c14c7db1dbe688769f05ec3d535568852b7ae470dca98bfbbacc74e \
+                            size    48361663
     }
     arm64 {
         distname            aspnetcore-runtime-${version}-osx-arm64
-        checksums           rmd160  060841c8c8342eeaac09e11281bacdf9722abb36 \
-                            sha256  f9e76b7959297a8d1f12c703c653612306c9ffa4b90b6040ee1a837ac2bebdf5 \
-                            size    45559656
+        checksums           rmd160  53415f315962beca79d8a4d2e2bcbb3c84a95b7e \
+                            sha256  ec7d7d648ac77d8194a325ab4f32f5136b15a7a847f2e7b072fb12c9a7ce007c \
+                            size    45476011
     }
     default {
         known_fail yes
@@ -52,7 +52,7 @@ extract.mkdir       yes
 use_configure       no
 
 depends_run         port:dotnet-cli \
-                    port:dotnet-runtime-8
+                    port:dotnet-runtime-10
 
 build {}
 

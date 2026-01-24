@@ -4,8 +4,9 @@ PortSystem          1.0
 PortGroup           cmake 1.1
 
 name                di
-version             6.2.0
+version             6.2.2.1
 revision            0
+
 categories          sysutils
 maintainers         {mps @Schamschula} openmaintainer
 license             zlib
@@ -16,9 +17,9 @@ long_description    di is a disk information utility, displaying everything \
 homepage            https://diskinfo-di.sourceforge.io/
 master_sites        sourceforge:project/diskinfo-di
 
-checksums           rmd160  71a573a4a02c7824902610adb5cf9767444b0479 \
-                    sha256  65f7752988949c1186d368745ec1a2d9e1597cd8b20dee7d3cbed0da8ef4e4dc \
-                    size    137838
+checksums           rmd160  98f40c95cbceccc539a40725443f1829f7b023f2 \
+                    sha256  4bc92e7c99b15d700de1a5faa8159d6f854d257b9a32f17b2a9e834a19b1b3d4 \
+                    size    140640
 
 depends_build-append \
                     port:gettext
