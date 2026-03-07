@@ -3,12 +3,12 @@
 PortSystem          1.0
 
 name                claude-code
-version             2.1.19
+version             2.1.71
 revision            0
 
 categories          llm
 maintainers         {breun @breun} openmaintainer
-license             Restrictive
+license             Restrictive NoMirror
 supported_archs     x86_64 arm64
 
 description         Claude Code -- Anthropic's agentic coding tool that lives in your terminal
@@ -26,14 +26,14 @@ platforms           {darwin >= 22}
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  90be0a7e3f8d19a989c7518a3014b7ee38bfd9e4 \
-                 sha256  be266b3a952f483d8358ad141e2afe661170386506f479ead992319e4fdc38ac \
-                 size    187149120
+    checksums    rmd160  fab30a65dd969824faaa4735cf93e7e3881ef035 \
+                 sha256  a8ff210022860b1567d35fba5822d9be4a74c422962e2e32c39f4116796d57c8 \
+                 size    198519888
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier arm64
-    checksums    rmd160  c691acb1a56cec0341254aac13ba0711c5bd5bfb \
-                 sha256  d386ac8f6d1479f85d31f369421c824135c10249c32087017d05a5f428852c41 \
-                 size    180852080
+    checksums    rmd160  e91ca6b27e4546271cc9121fac23f31977b913a8 \
+                 sha256  f3d8129ec7ddaf158c10e193df546421499d69b7f44ec2f0b67c3fe54f601cb9 \
+                 size    192377712
 } else {
     set arch_classifier unsupported_arch
     distfiles

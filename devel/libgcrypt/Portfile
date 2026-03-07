@@ -6,8 +6,9 @@ PortGroup       legacysupport 1.1
 PortGroup       muniversal 1.0
 
 name            libgcrypt
-version         1.11.2
+version         1.12.1
 revision        0
+
 categories      devel security
 # libs are LGPL, executables and docs are GPL
 license         {GPL-2+ LGPL-2.1+}
@@ -24,9 +25,9 @@ homepage        https://www.gnupg.org/
 master_sites    gnupg
 use_bzip2       yes
 
-checksums       rmd160  2dc6bf349c1ff899e0a0bac43dbcf595da8ee4a3 \
-                sha256  6ba59dd192270e8c1d22ddb41a07d95dcdbc1f0fb02d03c4b54b235814330aac \
-                size    4237802
+checksums       rmd160  cacc9771f132cfe7dc3471a574d9d6aeceb5baf9 \
+                sha256  7df5c08d952ba33f9b6bdabdb06a61a78b2cf62d2122c2d1d03a91a79832aa3c \
+                size    4441330
 
 depends_lib     port:libgpg-error
 

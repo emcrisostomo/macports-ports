@@ -4,7 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-arviz
-version             0.23.1
+# do not update to a newer version (i.e., v1.x.y) until py-pymc supports it
+version             0.23.4
 revision            0
 
 platforms           {darwin any}
@@ -17,9 +18,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/arviz-devs/arviz
 
-checksums           rmd160  af7e42e090a7b9098b4e779d9733b2b35bbe7ae6 \
-                    sha256  2a91f4c84a85ef6b41d62fa337aa059a6c83ba10db4603e359a95981eb69c10d \
-                    size    1592841
+checksums           rmd160  e025507efacb605be434d69b835223dde2f7e948 \
+                    sha256  611be826995066036c9443ea98d11486c279ef3da3b6cdc5c0816fab434115b9 \
+                    size    1592968
 
 python.versions     310 311 312 313 314
 

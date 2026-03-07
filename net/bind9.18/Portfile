@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       legacysupport 1.0
 
 name            bind9.18
-version         9.18.44
+version         9.18.46
 categories      net
 maintainers     {jmr @jmroot}
 platforms       darwin freebsd sunos
@@ -31,8 +31,8 @@ distname        bind-${version}
 dist_subdir     bind9
 master_sites    isc:bind/${version}
 
-checksums       rmd160 d5775939593fe725ec9840c363cf859b76be580d \
-                sha256 81f5035a25c576af1a93f0061cf70bde6d00a0c7bd1274abf73f5b5389a6f82d
+checksums       rmd160 ad58a6c788d63bb858c1a00952de2882f31ecedb \
+                sha256 6b59f0de30c6901cce783007d06f7dd717ec3aa74b5bb5cc5159f93f0be4fc1d
 
 use_xz          yes
 
@@ -141,4 +141,4 @@ notes "******************************************************
 
 livecheck.type   regex
 livecheck.url    ${homepage}downloads/
-livecheck.regex  {BIND(9\.18\.\d+(?:-P\d+)?)\.tar\.[gx]z</a>}
+livecheck.regex  {BIND 9 - (9\.18\.\d+(?:-P\d+)?)</a>}

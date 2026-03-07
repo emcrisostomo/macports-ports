@@ -4,8 +4,9 @@ PortSystem          1.0
 PortGroup           muniversal 1.0
 
 name                nss
-version             3.120
+version             3.121
 revision            0
+
 set NSS_VMAJOR      [lindex [split ${version} .] 0]
 set NSS_VMINOR      [lindex [split ${version} .] 1]
 set NSS_VPATCH      [lindex [split ${version} .] 2]
@@ -26,9 +27,9 @@ set my_release      NSS_[string map {. _} ${version}]_RTM
 master_sites        https://ftp.mozilla.org/pub/security/nss/releases/${my_release}/src/ \
                     ftp://ftp.mozilla.org/pub/security/nss/releases/${my_release}/src/
 
-checksums           rmd160  41ab87547ade6dac466b7abe343941c40a536391 \
-                    sha256  7ce5f5b3a172a41539ffc118d8ef4834974d0a6a782743e4a05a4e208dd6d22f \
-                    size    77634611
+checksums           rmd160  d51471fb232fca5465b64e7c6216a29a72be17a7 \
+                    sha256  cb3a8f8781bea78b7b8edd3afb7a2cb58e4881bb0160d189a39b98216ba7632e \
+                    size    77644546
 
 use_configure       no
 
@@ -125,11 +126,6 @@ use_parallel_build  no
 # tls13esni.c:72: error: 'for' loop initial declaration used outside C99 mode
 compiler.c_standard 1999
 configure.cflags-append -std=c99
-
-# mimic nss/coreconf/Darwin.mk
-#   Revert for the next release
-#   See: https://bugzilla.mozilla.org/show_bug.cgi?id=2005516
-patchfiles-append   patch-nss-coreconf-Darwin.mk.diff
 
 array set cpu_arch_map [list \
     arm64   aarch64 \

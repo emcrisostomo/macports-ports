@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/TomWright/dasel 3.2.0 v
+go.setup            github.com/TomWright/dasel 3.2.3 v
 go.package          github.com/tomwright/dasel
 go.offline_build    no
 revision            0
@@ -24,9 +24,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  7d51c10ff573a30a93b2337d7dbbf7f32b7db535 \
-                    sha256  8e0c20898ccf24ac9ca2217dec21bc4e0f6a17949431756ea0bce94d55d0cd43 \
-                    size    3107838
+checksums           rmd160  6b0d73da70c66d2066eb6b86cd1019085e507215 \
+                    sha256  45351c07993e6c472eaa1231f30b61e927b1295f34063e4228d8dd7ff75ce538 \
+                    size    3113167
 
 build.pre_args-append \
     -ldflags \" \

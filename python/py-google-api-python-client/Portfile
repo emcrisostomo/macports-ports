@@ -5,9 +5,9 @@ PortGroup           python 1.0
 
 name                py-google-api-python-client
 python.rootname     google_api_python_client
-version             2.188.0
-
+version             2.192.0
 revision            0
+
 license             Apache-2
 maintainers         {mps @Schamschula} openmaintainer
 description         This is the Google API Python client library for Google's discovery \
@@ -18,9 +18,9 @@ homepage            https://github.com/googleapis/google-api-python-client/
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  f3d26a88feacd438f10a587bc55e0634750a4e3c \
-                    sha256  5c469db6614f071009e3e5bb8b6aeeccae3beb3647fa9c6cd97f0d551edde0b6 \
-                    size    14302906
+checksums           rmd160  6a7e04b799eb40ae374c6092046f69e0b4abb92e \
+                    sha256  d48cfa6078fadea788425481b007af33fe0ab6537b78f37da914fb6fc112eb27 \
+                    size    14209505
 
 python.versions     310 311 312 313 314
 

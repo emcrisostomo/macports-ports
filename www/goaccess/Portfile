@@ -5,8 +5,9 @@ PortGroup           legacysupport 1.1
 PortGroup           openssl 1.0
 
 name                goaccess
-version             1.9.4
+version             1.10.1
 revision            0
+
 categories          www
 license             MIT
 maintainers         {mps @Schamschula} openmaintainer
@@ -16,9 +17,9 @@ long_description    {*}${description} Its core idea is to quickly analyze and vi
 homepage            https://goaccess.io/
 master_sites        https://tar.goaccess.io/
 
-checksums           rmd160  c370b82ef7503ed028603c7bd343491c47ab79d3 \
-                    sha256  107d5a3cb186e6e7a8ac684a88d21a17884f128cb0bc4a4a53696145bb39373d \
-                    size    856461
+checksums           rmd160  0f1b28c9f93d2e584858d483080b1620657a883e \
+                    sha256  32293bc6bc5f6d113e8490c8ff78a10bbc629aa23b0fb428534f53cc0c9a756e \
+                    size    1118613
 
 # strndup
 legacysupport.newest_darwin_requires_legacy 10

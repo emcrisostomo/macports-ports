@@ -7,7 +7,7 @@ PortGroup openssl 1.0
 
 #remember to update the -doc and -server as well
 name                postgresql15
-version             15.15
+version             15.17
 revision            0
 
 categories          databases
@@ -27,9 +27,9 @@ master_sites        http://ftp3.de.postgresql.org/pub/Mirrors/ftp.postgresql.org
                     postgresql:source/v${version}/
 distname            postgresql-${version}
 
-checksums           rmd160  7f0be35d2532351f1ed28d6752e2c12c8df4f51a \
-                    sha256  5753aaeb8b09cbf61016f78aa69bf5cbdf01b43263f010cbf168c82896213aaa \
-                    size    23246368
+checksums           rmd160  a8b89c835d9b43a62a2e37b09a3316d13c14928d \
+                    sha256  ae14f24c14727e0b2ded1c5553031666099bd1054db3ef44bfa6e2bd6d554a56 \
+                    size    23357238
 
 use_bzip2           yes
 

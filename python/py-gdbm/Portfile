@@ -141,21 +141,19 @@ subport py312-gdbm {
 }
 subport py313-gdbm {
     maintainers     {jmr @jmroot}
-    version         3.13.11
+    version         3.13.12
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
-    checksums       md5 4c3517dd8b1fd76377dcb3e5e8f71ad6 \
-                    rmd160 b6e602d57d27cb81d85fe76a1428b19ec38d01c2 \
-                    sha256 16ede7bb7cdbfa895d11b0642fa0e523f291e6487194d53cf6d3b338c3a17ea2
+    checksums       rmd160 35e8b5f1ded615c8f204d29262368a5a5f762416 \
+                    sha256 2a84cd31dd8d8ea8aaff75de66fc1b4b0127dd5799aa50a64ae9a313885b4593
 }
 subport py314-gdbm {
     maintainers     {jmr @jmroot}
-    version         3.14.2
+    version         3.14.3
     revision        0
     homepage        https://docs.python.org/release/${version}/library/dbm.html
-    checksums       md5 19a31b2838db3b53f9f2db8782bf8773 \
-                    rmd160 5bb5b81a65976f36e4d5c1f8ccebaa6d694ea990 \
-                    sha256 ce543ab854bc256b61b71e9b27f831ffd1bfd60a479d639f8be7f9757cf573e9
+    checksums       rmd160 85131b0641e7dd390c8f580f925c1743e532a718 \
+                    sha256 a97d5549e9ad81fe17159ed02c68774ad5d266c72f8d9a0b5a9c371fe85d902b
 }
 
 

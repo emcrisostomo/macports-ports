@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-jaraco.text
-version             4.0.0
+version             4.2.0
 revision            0
 
 categories-append   devel
@@ -20,9 +20,9 @@ homepage            https://github.com/jaraco/jaraco.text
 
 distname            jaraco_text-${version}
 
-checksums           rmd160  3ad855d4d8cfcfe32044c9da786970a13b8f0ba7 \
-                    sha256  5b71fecea69ab6f939d4c906c04fee1eda76500d1641117df6ec45b865f10db0 \
-                    size    17009
+checksums           rmd160  fd4bf29a746175f60a568ea735d9393aa1f3018e \
+                    sha256  194e386aa5b15a6616019df87a6b29c00fd3c9c8b0475731b64633ca7afd495b \
+                    size    20077
 
 python.versions     310 311 312 313 314
 

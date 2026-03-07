@@ -2,7 +2,7 @@
 
 PortSystem          1.0
 
-version             2.85.0
+version             2.87.3
 revision            0
 
 # Github CLI is failing to build on 10.12 and below.
@@ -54,9 +54,9 @@ if ${source_build} {
 
     use_parallel_build  no
 
-    checksums           rmd160  57495911737842bdcc3d7e039d7ec68ed6b00e14 \
-                        sha256  5fa457376a343b022dd8e881228c7b33290940f6289a7f3342dff0c914980461 \
-                        size    14514918
+    checksums           rmd160  e8d53ee8c7970f6b6b61211025cf9ec5f47b8889 \
+                        sha256  8aa3458df7204c8b788e3d05c1363fefd899f8a53de22b067d924f24a8ae75ea \
+                        size    14450780
 
     dist_subdir         ${name}
 
@@ -74,9 +74,9 @@ if ${source_build} {
 
     distname        gh_${version}_macOS_amd64
 
-    checksums       rmd160  6fd933b7b26820267a7c2a0421de29d23b0b9cee \
-                    sha256  e58bdb7da9cf4c5254f6b847198d18af7c07c486c2a3af94ad957a48c1051c1c \
-                    size    14180004
+    checksums       rmd160  15397a09f9f6918f7ef40db373e054b11038129f \
+                    sha256  7b8d5495fe9689494b1c69559c0d28209bc057bb028008e903ec4b3e19bd8c75 \
+                    size    14323161
 
     use_configure   no
     use_zip         yes

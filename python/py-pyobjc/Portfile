@@ -7,7 +7,7 @@ PortGroup           github 1.0
 name                py-pyobjc
 github.setup        ronaldoussoren pyobjc 12.1 v
 github.tarball_from archive
-revision            1
+revision            3
 
 checksums           rmd160  cbdc2f1196550902a9b5baf722d9ce637627e973 \
                     sha256  a2fccda7d919be66df07b3150a1510bf6d0091be920f2c81715ab4a6431265a4 \
@@ -31,8 +31,6 @@ long_description    The PyObjC project aims to provide a bridge between \
 
 homepage            https://pyobjc.readthedocs.io
 
-use_parallel_build  no
-
 python.versions     310 311 312 313 314
 
 if {${name} ne ${subport}} {
@@ -41,7 +39,8 @@ if {${name} ne ${subport}} {
 
     patchfiles-append \
                     patch-pybojc_setup.py.diff \
-                    patch-pyobjc-core_setup.py.diff
+                    patch-pyobjc-core_setup.py.diff \
+                    patch-skip-unsupported-frameworks.diff
 
     # use system libffi on Catalina and Big Sur until upstream merges
     # and releases Apple's changes

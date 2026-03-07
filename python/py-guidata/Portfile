@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-guidata
-version             3.13.4
+version             3.14.2
 revision            0
 
 platforms           {darwin any}
@@ -18,9 +18,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/PlotPyStack/guidata
 
-checksums           rmd160  953da0c6a20a4f761c703b1da3f1cab19a2e92bc \
-                    sha256  c01b886486be3fa10985c251cb8ebb4f7fb486a835de85c9a39e791a888c3ab9 \
-                    size    783773
+checksums           rmd160  08f9c640d5292b4601353babb8d9932e9b924e1a \
+                    sha256  9aba9b30f4cd9bbff7e815b98262b08377e51be24679c94288cfa2d586a362f1 \
+                    size    869891
 
 python.versions     313 314
 

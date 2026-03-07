@@ -12,7 +12,7 @@ legacysupport.newest_darwin_requires_legacy 16
 legacysupport.use_mp_libcxx yes
 
 name                ecCodes
-version             2.44.0
+version             2.46.0
 revision            0
 maintainers         {takeshi @tenomoto} \
                     {me.com:remko.scharroo @remkos} \
@@ -24,9 +24,9 @@ homepage            https://confluence.ecmwf.int/display/ECC
 master_sites        https://confluence.ecmwf.int/download/attachments/45757960
 distname            eccodes-${version}-Source
 
-checksums           rmd160  d898dee9cc378479346048fbca13c89855f8eda8 \
-                    sha256  c75fb1f91b765b6b8b4774632a8a6fbcec96934db015fb63c2ad2560aedd443b \
-                    size    12374133
+checksums           rmd160  09dbce16c5172d8f2e26df1884a2a125d61c865f \
+                    sha256  7d959253d5e34aeb16caa14d4889ac06486d19821216743142733a32ee7b4935 \
+                    size    12673280
 
 patchfiles          patch-pkg-config.diff
 
@@ -69,9 +69,8 @@ configure.args-append \
                     -DENABLE_FORTRAN=OFF \
                     -DENABLE_NETCDF=ON \
                     -DENABLE_PNG=ON \
-                    -DENABLE_AEC=ON \
-                    -DAEC_PATH=${prefix}/lib/libaec \
                     -DENABLE_TESTS=OFF \
+                    -Dlibaec_DIR=${prefix}/lib/libaec/lib/cmake/libaec \
                     -DNETCDF_CONFIG_EXECUTABLE=${prefix}/bin/nc-config \
                     -DENABLE_JPG_LIBJASPER=OFF \
                     -DOPENJPEG_INCLUDE_DIR=${prefix}/include/openjpeg-1.5 \

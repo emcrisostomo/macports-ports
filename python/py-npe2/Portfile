@@ -4,8 +4,9 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-npe2
-version             0.7.9
+version             0.8.1
 revision            0
+
 license             BSD
 maintainers         {mps @Schamschula} openmaintainer
 description         napari plugin refactor
@@ -15,11 +16,11 @@ homepage            https://github.com/napari/npe2
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  d3020e821db5da78bb6f684164b6f90929e4c025 \
-                    sha256  b6d2f20c87c12bcf60294cab9b1645889c12d68c5338ff7abd66f2742e675ad4 \
-                    size    121045
+checksums           rmd160  2f6516e7a25fe4bc3687c7d9f36418a20f25b21d \
+                    sha256  51afd432e5b0b2833d5e7506205f1d54411d5e00c5c94bf75c368c10bb7dd3eb \
+                    size    122747
 
-python.versions     310 311 312 313
+python.versions     310 311 312 313 314
 
 python.pep517_backend \
                     hatch
@@ -30,12 +31,17 @@ if {${name} ne ${subport}} {
 
     depends_lib-append  \
                     port:py${python.version}-appdirs \
-                    port:py${python.version}-magicgui \
+                    port:py${python.version}-platformdirs \
                     port:py${python.version}-psygnal \
                     port:py${python.version}-pydantic \
-                    port:py${python.version}-pydantic-compat \
-                    port:py${python.version}-pytomlpp \
+                    port:py${python.version}-pydantic-extra-types \
+                    port:py${python.version}-tomli-w \
                     port:py${python.version}-rich \
                     port:py${python.version}-typer \
                     port:py${python.version}-yaml
+
+    if {${python.version} <= 310} {
+        depends_lib-append  \
+                    port:py${python.version}-tomli
+    }
 }

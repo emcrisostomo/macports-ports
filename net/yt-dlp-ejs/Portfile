@@ -7,7 +7,7 @@ PortGroup           github 1.0
 name                yt-dlp-ejs
 homepage            https://github.com/yt-dlp/ejs
 
-github.setup        yt-dlp ejs 0.3.2
+github.setup        yt-dlp ejs 0.5.0
 github.tarball_from releases
 distname            yt_dlp_ejs-${version}-py3-none-any
 extract.suffix      .whl
@@ -20,9 +20,9 @@ license             public-domain ISC MIT
 maintainers         {@akierig fastmail.de:akierig} \
                     {@ryandesign ryandesign}
 
-checksums           rmd160  1c5e807e63cf98ff9137e6559f58a87794861417 \
-                    sha256  f2dc6b3d1b909af1f13e021621b0af048056fca5fb07c4db6aa9bbb37a4f66a9 \
-                    size    53252
+checksums           rmd160  3f5c82e0c7735da66f420734e450f4439516cd9e \
+                    sha256  674fc0efea741d3100cdf3f0f9e123150715ee41edf47ea7a62fbdeda204bdec \
+                    size    54032
 
 description         ${name} is an external JavaScript utility for \
                     yt-dlp that supports multiple JS runtimes.
@@ -32,13 +32,15 @@ long_description    {*}${description} It enables yt-dlp to solve \
 supported_archs     noarch
 platforms           {darwin any}
 
-variant python310 conflicts python311 python312 python313 description {Use Python 3.10} {}
-variant python311 conflicts python310 python312 python313 description {Use Python 3.11} {}
-variant python312 conflicts python310 python311 python313 description {Use Python 3.12} {}
-variant python313 conflicts python310 python311 python312 description {Use Python 3.13} {}
+variant python310 conflicts python311 python312 python313 python314 description {Use Python 3.10} {}
+variant python311 conflicts python310 python312 python313 python314 description {Use Python 3.11} {}
+variant python312 conflicts python310 python311 python313 python314 description {Use Python 3.12} {}
+variant python313 conflicts python310 python311 python312 python314 description {Use Python 3.13} {}
+variant python314 conflicts python310 python311 python312 python313 description {Use Python 3.14} {}
 
-if {![variant_isset python310] && ![variant_isset python311] && ![variant_isset python312] && ![variant_isset python313]} {
-    default_variants +python313
+if {![variant_isset python310] && ![variant_isset python311] && ![variant_isset python312] && ![variant_isset python313] && ![variant_isset python314
+]} {
+    default_variants +python314
 }
 
 if {[variant_isset python310]} {
@@ -49,6 +51,8 @@ if {[variant_isset python310]} {
     python.default_version  312
 } elseif {[variant_isset python313]} {
     python.default_version  313
+} elseif {[variant_isset python314]} {
+    python.default_version  314
 }
 
 depends_run-append  port:deno

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/carvel-dev/ytt 0.52.2 v
+go.setup            github.com/carvel-dev/ytt 0.53.2 v
 go.package          carvel.dev/ytt
 revision            0
 
@@ -53,9 +53,9 @@ destroot {
 }
 
 checksums           ${distname}${extract.suffix} \
-                        rmd160  ebcc654b31bf29a5879f13d1201dccfa0bea4528 \
-                        sha256  ce442e6dfd26cc0fe2504b16f7aa93d33bd6f8279a757b86b37cfc37dc228d2d \
-                        size    1349744
+                        rmd160  840d28a8beb173a3decbc2190c4fb75052da51d0 \
+                        sha256  cae3f16c1b2c97e795a1aa3eee6362a2887eb78f71e4458be8fc8fceb0f68451 \
+                        size    1350151
 
 go.vendors          gopkg.in/yaml.v3 \
                         lock    v3.0.1 \

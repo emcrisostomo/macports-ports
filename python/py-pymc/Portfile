@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-pymc
-version             5.27.0
+version             5.28.1
 revision            0
 
 supported_archs     noarch
@@ -22,9 +22,9 @@ long_description    PyMC (formerly PyMC3) is a Python package for Bayesian \
 
 homepage            https://github.com/pymc-devs/pymc
 
-checksums           rmd160  2a318552cd98feeead49dd26aa3798fcd25f0896 \
-                    sha256  f31e05af4566b301e94d5e7d050d45cd9f9033abcfc40e306cf4926457d937fd \
-                    size    491599
+checksums           rmd160  3d9ec6ab93977c72d29886b75e2a462492ac2350 \
+                    sha256  4debd7e3ac34f81f870ecdd11fcba516781d8300c8b0a0380303ee9dc4522549 \
+                    size    507255
 
 python.versions     311 312 313 314
 

@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                npm11
-version             11.8.0
+version             11.11.0
 revision            0
 categories          devel
 platforms           any
@@ -25,9 +25,9 @@ distname            npm-${version}
 
 extract.suffix      .tgz
 
-checksums           rmd160  6d7b8090185394fe1cc0ca786428e9ba9753dec1 \
-                    sha256  5a219dd7d4e71d7d289ed45097182cedaf93370223b143108f6dcb8eccac1375 \
-                    size    2710490
+checksums           rmd160  3a13baacfc29a66dd597b88abe43edd956ba6fdf \
+                    sha256  cbcf4cc03148ccdb586a8bf2093c952f093fb43d5cbc97593c98b67ef8c003b0 \
+                    size    2835959
 
 worksrcdir          package
 
@@ -39,8 +39,6 @@ platform darwin {
     }
 }
 
-use_configure       no
-
 patchfiles          patch-lib-commands-update.js.diff \
                     patch-package.json.diff
 
@@ -50,12 +48,12 @@ post-patch {
         ${worksrcpath}/bin/npx-cli.js
 }
 
-build {
-    system -W ${worksrcpath} "${prefix}/bin/node bin/npm-cli.js pack"
-}
+use_configure       no
+
+build {}
 
 destroot.cmd        ${prefix}/bin/node ./bin/npm-cli.js
-destroot.args       --location global ${distname}.tgz
+destroot.args       --location global --install-links ${worksrcpath}
 destroot.destdir    --prefix=${destroot}${prefix}
 
 set root            ${prefix}/lib/node_modules/npm

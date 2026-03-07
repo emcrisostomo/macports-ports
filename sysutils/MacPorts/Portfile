@@ -1,7 +1,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        macports macports-base 2.12.0-beta1 v
+github.setup        macports macports-base 2.12.2 v
 name                MacPorts
 
 categories          sysutils macports
@@ -21,11 +21,11 @@ homepage            https://www.macports.org/
 distname            ${name}-${version}
 github.tarball_from releases
 # testing subdir is for non-final releases only
-dist_subdir         ${name}/testing
+#dist_subdir         ${name}/testing
 use_bzip2           yes
 
-checksums           rmd160 fb73a18de8c51636293e14825885dc5d307653e2 \
-                    sha256 0a7a82864c4ba7cc2ba08458cdb9fe05d322b96eb3b3007680170f84c0e72bed
+checksums           rmd160 9bdbff5f49abbcd7442a6063f16caa002868fff2 \
+                    sha256 b8e62e60b201cd31538c9834cdf6bd25c720b049703d3494727e638e980a8a8e
 
 variant keep_prefix description "Use configured prefix instead of enforcing /opt/local" {}
 if {![variant_isset keep_prefix]} {

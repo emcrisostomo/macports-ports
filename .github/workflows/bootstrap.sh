@@ -17,7 +17,7 @@ endgroup() {
     printtag "endgroup"
 }
 
-MACPORTS_VERSION=${MP_CI_RELEASE:-2.11.6}
+MACPORTS_VERSION=${MP_CI_RELEASE:-2.12.2}
 
 OS_MAJOR=$(uname -r | cut -f 1 -d .)
 OS_ARCH=$(uname -m)
@@ -84,9 +84,7 @@ endgroup
 
 begingroup "Selecting Xcode version"
 case "$OS_MAJOR" in
-    22) sudo xcode-select --switch /Applications/Xcode_14.3.1.app/Contents/Developer
-        ;;
-    23) sudo xcode-select --switch /Applications/Xcode_15.4.app/Contents/Developer
+    23) sudo xcode-select --switch /Applications/Xcode_16.2.app/Contents/Developer
         ;;
 esac
 endgroup

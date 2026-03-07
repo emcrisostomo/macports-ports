@@ -7,7 +7,7 @@ PortGroup           legacysupport 1.1
 PortGroup           openssl 1.0
 
 name                postgresql18
-version             18.1
+version             18.3
 revision            0
 
 categories          databases
@@ -28,9 +28,9 @@ homepage            https://www.postgresql.org/
 master_sites        postgresql:source/v${version}/
 distname            postgresql-${version}
 
-checksums           rmd160  60cd391cab1a7ceffdff7e51d2eaafc4b6a3e36a \
-                    sha256  ff86675c336c46e98ac991ebb306d1b67621ece1d06787beaade312c2c915d54 \
-                    size    22423920
+checksums           rmd160  1277059461bbb338517e54a0b6b8e4d62fc3a951 \
+                    sha256  d95663fbbf3a80f81a9d98d895266bdcb74ba274bcc04ef6d76630a72dee016f \
+                    size    22497924
 
 use_bzip2           yes
 

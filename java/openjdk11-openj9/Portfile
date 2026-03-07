@@ -6,7 +6,12 @@ set feature 11
 name             openjdk${feature}-openj9
 categories       java devel
 maintainers      {breun @breun} openmaintainer
-platforms        {darwin any}
+
+# JVMMinimumSystemVersion in Contents/Info.plist is set to macOS 10.11 for x86_64:
+# /usr/libexec/PlistBuddy -c "Print :JavaVM:JVMMinimumSystemVersion" Contents/Info.plist
+# Mapping to Darwin version: https://trac.macports.org/wiki/PortfileRecipes#compare-osx-darwin-version
+platforms        { darwin any >= 15 }
+
 # This port uses prebuilt binaries; 'NoMirror' makes sure MacPorts doesn't mirror/distribute these third-party binaries
 license          GPL-2 NoMirror
 # This port uses prebuilt binaries for a particular architecture; they are not universal binaries
@@ -15,33 +20,33 @@ universal_variant no
 # https://developer.ibm.com/languages/java/semeru-runtimes/downloads?os=macOS
 supported_archs  x86_64 arm64
 
-version      ${feature}.0.29
-revision     0
+version      ${feature}.0.30
+revision     1
 
 set build    7
-set openj9_version 0.56.0
+set openj9_version 0.57.0
 
 description  IBM Semeru with Eclipse OpenJ9 VM distribution, based on OpenJDK ${feature} (Long Term Support)
 long_description The IBM Semeru Runtimes are free production-ready open source binaries to run your Java applications\
                  built with the OpenJDK class libraries and the Eclipse OpenJ9 JVM.
 
-master_sites https://github.com/ibmruntimes/semeru${feature}-binaries/releases/download/jdk-${version}%2B${build}_openj9-${openj9_version}/
+master_sites https://github.com/ibmruntimes/semeru${feature}-binaries/releases/download/jdk-${version}%2B${build}.${revision}_openj9-${openj9_version}/
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  a1403216f3cb3ba5df12262894396bc2b4b6ba43 \
-                 sha256  44888aa24272f191ea979e0b2e7b29071fcab102d80945c78fa60bf45a8e8aff \
-                 size    212292636
+    checksums    rmd160  7a50ff4e8e68a967f3ea9a0fe0125628257cd15c \
+                 sha256  12b34c8b358597c9eb3bdd283ac8e5a4957814a55983ab99a7b147ad6d0f463b \
+                 size    212462631
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier aarch64
-    checksums    rmd160  a8b44948d8b8cd8e1f155e0017e0cb49821913f7 \
-                 sha256  1e0224884a0679e8eb6a2a39b00fdf1b58999385d9867dbba8bb5f039d408957 \
-                 size    206804429
+    checksums    rmd160  9577871b154eaf6139633b746dd36c3c4fc0c12e \
+                 sha256  1853ce7e090f1fbfa45ad984afe74a92d45f08de5629f97af20766943a671959 \
+                 size    207037434
 } else {
     set arch_classifier unsupported_arch
 }
 
-distname     ibm-semeru-open-jdk_${arch_classifier}_mac_${version}_${build}_openj9-${openj9_version}
+distname     ibm-semeru-open-jdk_${arch_classifier}_mac_${version}.${revision}
 
 worksrcdir   jdk-${version}+${build}
 

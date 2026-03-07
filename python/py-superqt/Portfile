@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-superqt
-version             0.7.7
+version             0.8.0
 revision            0
 
 categories-append   graphics
@@ -19,9 +19,9 @@ homepage            https://github.com/pyapp-kit/superqt
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  ceaa7c1d4cca244a2830726be635db367baa3d5a \
-                    sha256  09945c56cc9e2d1fc46196da3e8a39e855eb8303563a12893fcb992299d35f1d \
-                    size    107544
+checksums           rmd160  c2d9c32412f8ea7e13732d01ecdfc6d349d03143 \
+                    sha256  f3a8f51996862a13c9cb37d053065e3aad32a340fe9cd0cc23d5256b809b0a57 \
+                    size    108560
 
 python.versions     310 311 312 313 314
 

@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       legacysupport 1.0
 
 name            bind9
-version         9.20.18
+version         9.20.20
 revision        0
 categories      net
 maintainers     {geeklair.net:dluke @danielluke} {jmr @jmroot}
@@ -30,9 +30,9 @@ homepage        https://www.isc.org/bind/
 distname        bind-${version}
 master_sites    isc:${name}/${version}
 
-checksums       rmd160    15c4bf67366329bce54d467eb130fe30a7e3c14c \
-                sha256    dfc546c990ac4515529cd45c4dd995862b18ae8a2d0cb29208e8896a5d325331 \
-                size      5775248
+checksums       rmd160    593f5613837e3591f3e31833f76f3c26343f4a10 \
+                sha256    19b8335d25305231d5eb8f7d924240d1ac97c4da7c93eaa6273503133aa6106a \
+                size      5802548
 
 use_xz          yes
 
@@ -147,4 +147,4 @@ notes "******************************************************
 
 livecheck.type   regex
 livecheck.url    https://www.isc.org/downloads/
-livecheck.regex  {BIND(\d+\.\d*[02468]\.\d+(?:-P\d+)?)\.tar\.[gx]z</a>}
+livecheck.regex  {BIND 9 - (\d+\.\d*[02468]\.\d+(?:-P\d+)?)</a>}

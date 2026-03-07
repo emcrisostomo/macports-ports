@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                google-cloud-sdk
-version             553.0.0
+version             559.0.0
 revision            0
 categories          devel python
 license             Apache-2
@@ -21,19 +21,19 @@ supported_archs     i386 x86_64 arm64
 
 if { ${configure.build_arch} eq "i386" } {
     set arch_classifier x86
-    checksums       rmd160  dcc83d4ff4e071e32f9dc45d19dd1f1efa97a2b4 \
-                    sha256  15396952526d201481a273f2c83e7faa89aa5408b3bd2cd09e8bbe542a27fb34 \
-                    size    56737532
+    checksums       rmd160  aef8139771dbf2040c3e632c31d81fa6bc17f9e6 \
+                    sha256  899871d869ebfd38382e60a8d97a57132fee4d6c22bbdddf65b395e849a5cc82 \
+                    size    57279072
 } elseif { ${configure.build_arch} eq "x86_64" } {
     set arch_classifier x86_64
-    checksums       rmd160  7c1743043b0d9716c7814531ec97dccba604ff64 \
-                    sha256  34d07c78af4fda7576fed00034b248a10019b6c93587bc8c63ba41b5f23b13b7 \
-                    size    58307029
+    checksums       rmd160  0be3b7c4fb899f14921f0e3d5f7597ddf2dcc013 \
+                    sha256  25d31c662174c8ce405114f25c4238950cf2bd05c9b84dfa792240e9d40711b8 \
+                    size    58929321
 } elseif { ${configure.build_arch} eq "arm64" } {
     set arch_classifier arm
-    checksums       rmd160  af4160b76275fa467fbc06793cdd8fa22dbdd871 \
-                    sha256  769db9b201dca34d9c19935db8dc3f0c1b1cde1b5ff1bb06d6ce3623dd29c68e \
-                    size    58234434
+    checksums       rmd160  7307a34874cba00fee49d51576263f7dbe584dfe \
+                    sha256  01993302580d224f72973300207777261cee2da33b3d60d05af03907593a039c \
+                    size    58835256
 } else {
     set arch_classifier invalid
 }
@@ -46,8 +46,8 @@ master_sites        https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/
 worksrcdir          ${name}
 
 # Most recent Python version that is compatible with both
-# glcoud (https://cloud.google.com/sdk/docs/install#mac) and
-# gsutil (https://cloud.google.com/storage/docs/gsutil_install#before_you_begin)
+# glcoud (https://docs.cloud.google.com/sdk/docs/install-sdk#mac) and
+# gsutil (https://docs.cloud.google.com/storage/docs/gsutil_install#specifications)
 python.default_version 313
 
 post-patch {
@@ -108,6 +108,7 @@ variant package_go_module description {Add Artifact Registry Go Module Package H
 variant pkg description {Add pkg} { dict set variant_to_component pkg pkg }
 variant pubsub_emulator description {Add Cloud Pub/Sub Emulator} { dict set variant_to_component pubsub_emulator pubsub-emulator }
 variant spanner_cli description {Add Spanner CLI} { dict set variant_to_component spanner_cli spanner-cli }
+variant spanner_migration_tool description {Add Spanner migration tool} { dict set variant_to_component spanner_migration_tool spanner-migration-tool }
 variant skaffold description {Add Skaffold} { dict set variant_to_component skaffold skaffold }
 variant terraform_tools description {Add Terraform Tools} { dict set variant_to_component terraform_tools terraform-tools }
 

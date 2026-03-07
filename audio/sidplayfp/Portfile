@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        libsidplayfp sidplayfp 2.16.0 v
+github.setup        libsidplayfp sidplayfp 2.16.2 v
 github.tarball_from releases
 revision            0
 categories          audio
@@ -16,9 +16,9 @@ long_description    sidplayfp is a console C64 music player which uses the \
                     libsidplayfp engine to provide the best SID listening \
                     experience.
 
-checksums           rmd160  609c3f44c2bdad0359d3a6b8365a592af123747c \
-                    sha256  56090eb193e603e67ac9fbeb1d89c52730b8c853e78c3e5f103427f1003e496f \
-                    size    248530
+checksums           rmd160  4fa31d2b2a9857d6fd99ed6a8ac3754a02d33b90 \
+                    sha256  887edcf2d8f9707a65e9ff9af3c33de18da85fcd9d7ac6f3ddc170f9588299a4 \
+                    size    248755
 
 depends_build       path:bin/pkg-config:pkgconfig
 
