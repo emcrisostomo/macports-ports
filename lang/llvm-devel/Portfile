@@ -50,16 +50,15 @@ checksums               rmd160  e1583512e285b4d0127351ba85500f3cc3bbd04c \
 
 name                    llvm-${llvm_version}
 subport                 mlir-${llvm_version}  { revision 0 }
-subport                 clang-${llvm_version} { revision [ expr ${revision} + 0 ] }
+subport                 clang-${llvm_version} { revision 2 }
 subport                 lldb-${llvm_version}  { revision 0 }
-subport                 flang-${llvm_version} { revision 0 }
+subport                 flang-${llvm_version} { revision 1 }
 
 dist_subdir             llvm
 set suffix              mp-${llvm_version}
 set sub_prefix          ${prefix}/libexec/llvm-${llvm_version}
 
 worksrcdir              ${worksrcdir}/llvm
-patch.dir               ${workpath}/${distname}
 
 # https://github.com/macports/macports-ports/commit/a83a493bc21cbe7e14b1f5884379649ec8f31bae#commitcomment-132530885
 conflicts_build-append  libunwind libunwind-headers
@@ -131,6 +130,7 @@ platform darwin {
     supported_archs arm64 x86_64
 }
 
+patch.dir               ${workpath}/${distname}
 patch.pre_args-replace  -p0 -p1
 
 patchfiles-append \
@@ -145,7 +145,8 @@ patchfiles-append \
     0012-compiler-rt-add-some-defs-missing-in-older-SDKs.patch \
     0019-10.6-and-less-use-emulated-TLS-before-10.7.patch \
     0025-lldb-add-defines-needed-for-older-SDKs.patch \
-    0032-Add-Missing-Fortran-Features-includes.patch
+    0032-Add-Missing-Fortran-Features-includes.patch \
+    1234-stop-on-linker-error.patch
 
 # patches that longer apply when cloned from llvm-17. To be seen if needed still.
 # 0010-compiler-rt-cmake-config-ix.cmake-was-Leopard-No-ASA.patch
@@ -227,7 +228,9 @@ if {${subport} eq "llvm-${llvm_version}"} {
                         around a well specified code representation known as \
                         the LLVM intermediate representation ("LLVM IR").
 
-    depends_lib-append  port:libedit port:libffi port:ncurses path:lib/libxar.dylib:xar port:zlib port:zstd
+    depends_lib-append  port:libedit port:libffi port:libxml2 \
+                        port:ncurses path:lib/libxar.dylib:xar \
+                        port:zlib port:zstd
     depends_run-append  port:llvm_select-${llvm_version}
 
     configure.args-append \

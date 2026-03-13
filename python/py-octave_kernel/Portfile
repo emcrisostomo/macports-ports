@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-octave_kernel
-version             0.37.0
+version             0.39.0
 revision            0
 
 categories-append   devel science
@@ -17,9 +17,9 @@ homepage            https://github.com/Calysto/octave_kernel
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  7382838f3e4dbf538c04c7ff06cee51958008ab5 \
-                    sha256  1e1a53ddd1d822ac5513667847566d757930b27f67cc46e226b3c4a2f5231826 \
-                    size    265086
+checksums           rmd160  0e440db2a0f98a9a564d7b11a3477283f0eac937 \
+                    sha256  384390c28c5911c78aeb746e6e2eeefc6492f4878356c75ef5c0cc99c0e719f4 \
+                    size    265903
 
 python.versions     310 311 312 313 314
 
