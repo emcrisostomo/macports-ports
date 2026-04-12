@@ -4,11 +4,14 @@ PORT_INDEX_SENTINEL:=   $(LOCAL_PORTS_DIR)/.port-index.sentinel
 
 .PHONY: pull-upstream
 pull-upstream:
+	git diff --quiet
+	git diff --cached --quiet
+	test "$$(git branch --show-current)" = "master"
 	git fetch --all -p
-	git merge --no-edit origin/master
-	git merge --no-edit upstream/master
-	git push
-	portindex
+	git merge --ff-only origin/master
+	git merge --ff-only upstream/master
+	$(MAKE) port-index
+	git push origin master
 
 .PHONY: all
 all: create-missing-ports $(PORT_INDEX_SENTINEL)
