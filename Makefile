@@ -1,5 +1,5 @@
 PORTS_FILE:=            ports.txt
-LOCAL_PORTS_DIR:=       ~/repos/github/macports-ports
+LOCAL_PORTS_DIR:=       /opt/macports-ports
 PORT_INDEX_SENTINEL:=   $(LOCAL_PORTS_DIR)/.port-index.sentinel
 
 .PHONY: pull-upstream
