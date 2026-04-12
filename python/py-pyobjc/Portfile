@@ -33,6 +33,8 @@ homepage            https://pyobjc.readthedocs.io
 
 python.versions     310 311 312 313 314
 
+use_parallel_build  no
+
 if {${name} ne ${subport}} {
     depends_patch-append \
                     port:python${python.version}
@@ -50,7 +52,7 @@ if {${name} ne ${subport}} {
                     port:libffi
     }
 
-    compiler.blacklist-append  {clang < 900}
+    compiler.blacklist-append  {clang < 1700}
 
     # Quartz module uses CGWindowListCreateImageFromArray which is no longer available on macOS 15
     # See https://trac.macports.org/ticket/71103

@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-google-api-python-client
 python.rootname     google_api_python_client
-version             2.192.0
+version             2.194.0
 revision            0
 
 license             Apache-2
@@ -18,9 +18,9 @@ homepage            https://github.com/googleapis/google-api-python-client/
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  6a7e04b799eb40ae374c6092046f69e0b4abb92e \
-                    sha256  d48cfa6078fadea788425481b007af33fe0ab6537b78f37da914fb6fc112eb27 \
-                    size    14209505
+checksums           rmd160  1e9e48072287fe8283a81961504b5fd8bd7d9547 \
+                    sha256  db92647bd1a90f40b79c9618461553c2b20b6a43ce7395fa6de07132dc14f023 \
+                    size    14443469
 
 python.versions     310 311 312 313 314
 

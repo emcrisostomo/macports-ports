@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           muniversal 1.0
 
 name                nss
-version             3.121
+version             3.122
 revision            0
 
 set NSS_VMAJOR      [lindex [split ${version} .] 0]
@@ -27,9 +27,9 @@ set my_release      NSS_[string map {. _} ${version}]_RTM
 master_sites        https://ftp.mozilla.org/pub/security/nss/releases/${my_release}/src/ \
                     ftp://ftp.mozilla.org/pub/security/nss/releases/${my_release}/src/
 
-checksums           rmd160  d51471fb232fca5465b64e7c6216a29a72be17a7 \
-                    sha256  cb3a8f8781bea78b7b8edd3afb7a2cb58e4881bb0160d189a39b98216ba7632e \
-                    size    77644546
+checksums           rmd160  3b385f81f6ac2ff38044951b1eea9e64912ae809 \
+                    sha256  2699478b843b9f09c61f85341578df514463a0069447c816bef0d59bd800d777 \
+                    size    77654239
 
 use_configure       no
 
@@ -131,7 +131,7 @@ array set cpu_arch_map [list \
     arm64   aarch64 \
     ppc     ppc \
     ppc64   ppc64 \
-    i386    x86 \
+    i386    i386 \
     x86_64  x86_64]
 
 if {!${universal_possible} || ![variant_isset universal]} {
@@ -147,7 +147,7 @@ if {!${universal_possible} || ![variant_isset universal]} {
         CCC="${configure.cxx} ${configure.cxxflags} [get_canonical_archflags cxx]"
 } else {
     lappend merger_build_args(arm64)  USE_64=1 CPU_ARCH=aarch64
-    lappend merger_build_args(i386)   CPU_ARCH=x86
+    lappend merger_build_args(i386)   CPU_ARCH=i386
     lappend merger_build_args(ppc64)  USE_64=1
     lappend merger_build_args(x86_64) USE_64=1 CPU_ARCH=x86_64
 
@@ -194,11 +194,6 @@ if {${universal_possible} && [variant_isset universal]} {
             system "env DYLD_LIBRARY_PATH=${destroot}${prefix}/lib/nss ${destroot}${prefix}/bin/shlibsign -i ${base}.dylib -o ${chk}"
         }
     }
-}
-
-platform darwin 8 {
-    depends_build-append port:gmake-apple
-    build.cmd ${prefix}/bin/gmake-apple
 }
 
 livecheck.type    regex

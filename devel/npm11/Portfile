@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                npm11
-version             11.11.0
+version             11.12.1
 revision            0
 categories          devel
 platforms           any
@@ -25,9 +25,9 @@ distname            npm-${version}
 
 extract.suffix      .tgz
 
-checksums           rmd160  3a13baacfc29a66dd597b88abe43edd956ba6fdf \
-                    sha256  cbcf4cc03148ccdb586a8bf2093c952f093fb43d5cbc97593c98b67ef8c003b0 \
-                    size    2835959
+checksums           rmd160  331806b475b1e93ea42f7bc228dc8f515a75af81 \
+                    sha256  e679850e663b16f5f146ee425d0eb0e3442c1d2bda3d513bbfd7c81f5ee5db38 \
+                    size    2833345
 
 worksrcdir          package
 

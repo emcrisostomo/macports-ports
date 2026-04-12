@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/ollama/ollama 0.17.6 v
+go.setup            github.com/ollama/ollama 0.20.5 v
 github.tarball_from archive
 revision            0
 
@@ -17,9 +17,9 @@ description         ${name} runs and manages LLMs
 long_description    Get up and running with large language models easily
 homepage            https://ollama.com
 
-checksums           rmd160  fadfca30a36fa69adef5d70fc530e61b57360889 \
-                    sha256  71ec42221f360667a0214fc0024b2164ef7fcc418624cde1ae0f6ecae2226067 \
-                    size    23220560
+checksums           rmd160  e8a8f21857db3aefba9b16687410afaa35f5ac08 \
+                    sha256  5bc50226f3cd3a29861fe1af6f007be27d2bdfa3ec002788189364b774fec291 \
+                    size    26470263
 
 # See https://github.com/ollama/ollama/pull/6854
 patchfiles-append   patch-NO_MMAP_ENV.diff
@@ -61,6 +61,7 @@ destroot {
     reinplace "s|@@ENV_FILE@@|${env_file}|g" ${destroot}${prefix}/libexec/${name}/${wrapper_script}
     reinplace "s|@@HOME@@|${ol_data_path}|g" ${destroot}${config_path}/${env_file}.example
     reinplace "s|@@MODELS_PATH@@|${ol_models_path}|g" ${destroot}${config_path}/${env_file}.example
+    reinplace "s|@@PREFIX@@|${prefix}|g" ${destroot}${config_path}/${env_file}.example
 
     system -W ${destroot}${prefix}/etc/LaunchDaemons/${startupitem.uniquename} \
          "/usr/libexec/PlistBuddy -c \"Add :SessionCreate bool true\" ${startupitem.plist} &&\
@@ -92,6 +93,15 @@ variant completion description "Install bash completion for ${name}" {
     # Use this until upstream has implemented proper shell completions
     depends_run-append \
                     port:ollama-bash-completion-plugin
+}
+
+variant mlx description "Support acceleration with Apple's MLX library" {
+    depends_lib-append  port:mlx-c
+}
+
+platform darwin arm {
+    default_variants-append \
+        +mlx
 }
 
 default_variants-append \

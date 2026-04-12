@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Test2-Harness 1.000163 ../../authors/id/E/EX/EXODIST
+perl5.setup         Test2-Harness 1.000170 ../../authors/id/E/EX/EXODIST
 revision            0
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -14,9 +14,9 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  a074ec01f7a5d76df90e6f9c95acd0c4373f0aab \
-                    sha256  168aa744f7ef380c51d8cdd7b9fe0de2b75fc6d25d061f88354108c7de5edabd \
-                    size    393653
+checksums           rmd160  b1af0e738a1d9824dde8f70343b76ee55a97f14f \
+                    sha256  c22510e626fce2980c9018eb5e99f63f40f61ec4ed22daa28a229b0b9f5931ab \
+                    size    410905
 
 if {${perl5.major} != ""} {
     depends_lib-append \

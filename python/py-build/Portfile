@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-build
 
-version             1.4.0
+version             1.4.3
 revision            0
 categories-append   devel
 license             MIT
@@ -25,9 +25,9 @@ long_description    {*}${description} which will invoke the PEP 517 \
 
 homepage            https://pypa-build.readthedocs.io/
 
-checksums           md5 dc81be0bed3eaef5a6865784182a7487 \
-                    rmd160 1b4b43f4b2c80afe2b0dd839996416ac03a49fc9 \
-                    sha256 f1b91b925aa322be454f8330c6fb48b465da993d1e7e7e6fa35027ec49f3c936
+checksums           md5 6f2494e6c11bfefa483d04b9b1ac640b \
+                    rmd160 c463b0f021139e2a5221e970c1248f8dbcdf5020 \
+                    sha256 5aa4231ae0e807efdf1fd0623e07366eca2ab215921345a2e38acdd5d0fa0a74
 
 if {${name} ne ${subport}} {
     # don't depend on ourself

@@ -5,7 +5,7 @@ PortGroup               active_variants 1.1
 
 name                    couchdb
 version                 3.5.1
-revision                0
+revision                1
 
 categories              databases
 license                 Apache-2
@@ -75,7 +75,7 @@ destroot.keepdirs       ${destroot}${dbdir} \
 post-destroot {
     xinstall -d ${destroot}${dest}
 
-    copy ${root}/bin ${root}/lib ${root}/releases ${root}/erts-16.1.1 \
+    copy ${root}/bin ${root}/lib ${root}/releases {*}[glob ${root}/erts-*] \
         ${destroot}${dest}
     delete ${destroot}${dest}/bin/couchdb.cmd
     ln -s ${dest}/bin/couchdb ${dest}/bin/remsh ${dest}/bin/weatherreport \

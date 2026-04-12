@@ -22,7 +22,7 @@ maintainers             nomaintainer
 
 set llvm_version        22
 set clang_exe_version   ${llvm_version}
-version                 ${llvm_version}.1.1
+version                 ${llvm_version}.1.3
 
 name                    llvm-${llvm_version}
 revision                0
@@ -30,14 +30,17 @@ subport                 mlir-${llvm_version}  { revision 0 }
 subport                 clang-${llvm_version} { revision 0 }
 subport                 lldb-${llvm_version}  { revision 0 }
 subport                 flang-${llvm_version} { revision 0 }
-
-checksums               rmd160  259cda5e2f0b2dcc3687270b0004080ceeb86525 \
-                        sha256  9c6f37f6f5f68d38f435d25f770fc48c62d92b2412205767a16dac2c942f0c95 \
-                        size    167029452
+subport                 libclc-${llvm_version} { revision 0 }
+subport                 spirv-llvm-translator-${llvm_version} { revision 0 }
 
 master_sites            https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}
 distname                llvm-project-${version}.src
 use_xz                  yes
+
+checksums               ${distname}${extract.suffix} \
+                        rmd160  eac0a6f3db0734c4b9951176a6879727f24543c5 \
+                        sha256  2488c33a959eafba1c44f253e5bbe7ac958eb53fa626298a3a5f4b87373767cd \
+                        size    167045212
 
 dist_subdir             llvm
 set suffix              mp-${llvm_version}
@@ -63,9 +66,6 @@ if {${os.major} >= 17 || ${os.platform} ne "darwin"} {
 cmake.generator         Ninja
 cmake.install_prefix    ${sub_prefix}
 cmake.build_type        Release
-
-# clean up some cmake-PG added values we don't want to use, because we want @rpaths
-cmake.install_rpath
 
 configure.pre_args-delete \
     -DCMAKE_INSTALL_NAME_DIR="${cmake.install_prefix}/lib"
@@ -216,6 +216,10 @@ post-patch {
         ${patch.dir}/clang/tools/clang-format/clang-format.py
 }
 
+livecheck.type      regex
+livecheck.url       https://github.com/llvm/llvm-project/tags
+livecheck.regex     llvmorg-([quotemeta ${llvm_version}.]\[\\d.\]+)\\.tar\\.gz
+
 # libc++ link step fails on OSX10.10 and older to correctly use static legacy support lib.
 if {${os.platform} eq "darwin" && ${os.major} <= [option legacysupport.newest_darwin_requires_legacy] } {
     post-patch {
@@ -224,7 +228,6 @@ if {${os.platform} eq "darwin" && ${os.major} <= [option legacysupport.newest_da
 }
 
 if {${subport} eq "llvm-${llvm_version}"} {
-
     homepage            https://llvm.org/
     description         llvm is a next generation compiler infrastructure
     long_description    The LLVM Core libraries provide a modern source- and \
@@ -311,7 +314,6 @@ if { ${subport} eq "flang-${llvm_version}" } {
 }
 
 if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "flang-${llvm_version}" } {
-
     depends_lib-append  port:libxml2 port:libomp port:llvm-${llvm_version} port:ld64
     depends_skip_archcheck-append ld64
 
@@ -360,7 +362,6 @@ if { ${subport} eq "clang-${llvm_version}" || ${subport} eq "flang-${llvm_versio
 }
 
 if {${subport} eq "lldb-${llvm_version}"} {
-
     homepage            https://lldb.llvm.org/
     description         the LLVM debugger
     long_description    lldb is the "LLVM native" debugger.
@@ -386,6 +387,48 @@ if {${subport} eq "lldb-${llvm_version}"} {
     } else {
         notes-append "sudo codesign --force --deep --preserve-metadata=identifier,entitlements,resource-rules,requirements --sign lldb_codesign ${sub_prefix}/bin/lldb-server"
     }
+}
+
+if {${subport} eq "libclc-${llvm_version}"} {
+    homepage            https://libclc.llvm.org/
+    description         OpenCL library
+    long_description    libclc is an implementation of the library requirements \
+                        of the OpenCL C programming language
+    depends_build-append \
+                        port:llvm-${llvm_version} \
+                        port:clang-${llvm_version} \
+                        port:spirv-llvm-translator-${llvm_version}
+    worksrcdir          ${distname}/libclc
+}
+
+if {${subport} eq "spirv-llvm-translator-${llvm_version}"} {
+    version             ${llvm_version}.1.1
+    homepage            https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+    description         LLVM/SPIR-V Bi-Directional Translator
+    long_description    A library and tool for translation between LLVM IR and \
+                        SPIR-V.
+    master_sites-append https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v${version}
+    set dist            SPIRV-LLVM-Translator-${version}
+    distfiles-append    $dist.tar.gz
+    checksums-append    $dist.tar.gz \
+                        rmd160  a1f0f4c94021230237ba6a2082f47dd726e8c344 \
+                        sha256  83e7007b8b9b5536b30991661738a98e9cd607d4a203e9342b628aaea5ea32d7 \
+                        size    1866828
+    depends_build-append \
+                        port:llvm-${llvm_version} \
+                        port:spirv-headers \
+                        port:spirv-tools
+    extract.cmd         gzip
+    # Out-of-tree build
+    worksrcdir          ${worksrcdir}/projects/SPIRV-LLVM-Translator
+    post-extract {
+        move ${workpath}/$dist ${worksrcpath}
+    }
+    configure.args-append   -DLLVM_SPIRV_INCLUDE_TESTS=OFF \
+                            -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${prefix}
+    build.target        llvm-spirv
+    livecheck.url       ${homepage}/tags
+    livecheck.regex     v([quotemeta ${llvm_version}.]\[\\d.\]+)\\.tar\\.gz
 }
 
 variant tests description {Enable building of test code} {
@@ -422,7 +465,7 @@ post-destroot {
             file delete ${destroot}${sub_prefix}/bin/flang-new
         }
     }
-    
+
     # Move flang-N to flang
     if {[file exists ${destroot}${sub_prefix}/bin/flang-${llvm_version}]} {
         file delete ${destroot}${sub_prefix}/bin/flang
@@ -430,7 +473,7 @@ post-destroot {
     }
 
     # generate a versioned wrapper script for each file in the bin directory
-    foreach bin [glob ${destroot}${sub_prefix}/bin/*] {
+    foreach bin [glob -nocomplain ${destroot}${sub_prefix}/bin/*] {
         set bin_filename [string map "${sub_prefix} ${prefix}" ${bin}]-${suffix}
         set exec_path    [string map "${destroot}${sub_prefix} ${sub_prefix}" ${bin}]
 
@@ -491,7 +534,6 @@ post-destroot {
 }
 
 if {${subport} eq "clang-${llvm_version}"} {
-
     variant analyzer description {Install clang static analyzer} {
         # these have to be switched on or off together
         configure.args-replace -DCLANG_ENABLE_STATIC_ANALYZER=OFF \
@@ -560,7 +602,3 @@ if {${subport} eq "clang-${llvm_version}"} {
         default_variants-append +libstdcxx
     }
 }
-
-livecheck.type      regex
-livecheck.url       https://github.com/llvm/llvm-project/tags
-livecheck.regex     llvmorg-(${llvm_version}.\[\\d.\]+).tar.gz

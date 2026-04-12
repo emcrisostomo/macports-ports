@@ -4,13 +4,13 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           qmake5 1.0
 
-github.setup        tumic0 GPXSee 15.11
+github.setup        tumic0 GPXSee 16.1
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  0de090d19ddc58edcbe63bfc2f9d1382e33fb95c \
-                    sha256  5f8386d7bc3b3711f0985aa3b592e2900a772fefcd89e919ce5c43e71118f111 \
-                    size    6574388
+checksums           rmd160  fb94b8f036f812e435598cdb033745ec430bb6c1 \
+                    sha256  39924a5ed1dd45cce3b286b569cbf071166a3e92cab0a9cdcb246bfd89d94181 \
+                    size    6575257
 
 categories          gis graphics
 license             GPL-3
@@ -24,7 +24,7 @@ homepage            https://www.gpxsee.org/
 
 patchfiles          patch-src_GUI_app_cpp.diff
 
-qt5.depends_component           qtlocation
+qt5.depends_component           qtlocation qtmultimedia
 qt5.depends_build_component     qttools
 qt5.depends_runtime_component   qtimageformats qttranslations
 

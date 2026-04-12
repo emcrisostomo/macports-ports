@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                nginx
-version             1.28.2
+version             1.28.3
 revision            0
 
 categories          www mail
@@ -22,7 +22,6 @@ master_sites        https://nginx.org/download:nginx \
                     https://github.com/vkholodkov/nginx-upload-module/archive/:upload_module \
                     https://github.com/evanmiller/mod_zip/archive/:zip_module \
                     https://github.com/openresty/ngx_http_redis/archive/:redis_module \
-                    https://github.com/masterzen/nginx-upload-progress-module/archive/:uploadprogress_module \
                     https://github.com/openresty/echo-nginx-module/archive/:echo_module \
                     https://github.com/arut/nginx-dav-ext-module/archive/:davext_module \
                     https://github.com/leev/ngx_http_geoip2_module/archive/:geoip2_module \
@@ -37,9 +36,9 @@ master_sites        https://nginx.org/download:nginx \
 
 distfiles           ${name}-${version}${extract.suffix}:nginx
 checksums           ${name}-${version}${extract.suffix} \
-                    rmd160  c999e9728c7e95ec05ef19b86b99b40b0acb7b21 \
-                    sha256  20e5e0f2c917acfb51120eec2fba9a4ba4e1e10fd28465067cc87a7d81a829a3 \
-                    size    1282351
+                    rmd160  987521602364b987d8a918c66d12f079213d7289 \
+                    sha256  2c96a946bfb0882a21744ed429770a2123ae1828c7c48665092993ddee91a918 \
+                    size    1284562
 
 depends_lib         port:pcre2 \
                     port:zlib
@@ -294,14 +293,14 @@ variant upload description {Enable Valery Kholodkov's upload module (http://grid
 }
 
 variant upload_progress description {Enable Brice Figureau's upload progress module (https://github.com/masterzen/nginx-upload-progress-module)} {
-    set uploadprg_filename  nginx_uploadprogress_module
     set uploadprg_version   0.9.4
-    set uploadprg_distname  v${uploadprg_version}
+    set uploadprg_distname  nginx_uploadprogress_module-${uploadprg_version}
     distfiles-append        ${uploadprg_distname}.tar.gz:uploadprogress_module
     checksums-append        ${uploadprg_distname}.tar.gz \
-                            rmd160  de575cab290eda9331a87cabd35b9a3d12049578 \
-                            sha256  7d810069f6f3e26f3b00989448fceb891a934c2a2f7eb55e0358b70291c23942 \
-                            size    17303
+                            rmd160  50ae02c44bdea98596d3357747f4796aed2d813d \
+                            sha256  6793c006bf57b06155eb50f35356d30a357c4b1727435c3578f08a820a7d13f7 \
+                            size    17299
+    master_sites-append     https://github.com/masterzen/nginx-upload-progress-module/archive/refs/tags/v${uploadprg_version}:uploadprogress_module
 
     configure.args-append   --add-module=${workpath}/nginx-upload-progress-module-${uploadprg_version}
 }
@@ -352,13 +351,13 @@ variant rtmp description {Enable Ngx RTMP module (https://github.com/arut/nginx-
 
 variant http_push description {Enable Ngx HTTP Push module (https://github.com/slact/nchan)} {
     set http_push_filename  nchan
-    set http_push_version   1.3.7
+    set http_push_version   1.3.8
     set http_push_distname  ${http_push_filename}-${http_push_version}
     distfiles-append        v${http_push_version}.tar.gz:http_push_module
     checksums-append        v${http_push_version}.tar.gz \
-                            rmd160  63c4fa33120df4b813c1e28c81a9755abba805cc \
-                            sha256  6e82c673cedc7d33ee48ea1c198964fdcf6853bf851de797002199a496f08263 \
-                            size    665133
+                            rmd160  728ec614bd27e3ca3cb4afddbc1db9869191d5be \
+                            sha256  86e40f97bf380cb81d62c279aa0f992c2d8c93ebcfe242cf0be95e5b6ade9a98 \
+                            size    665683
 
      configure.args-append   --add-module=${workpath}/${http_push_distname}
 }
@@ -435,13 +434,13 @@ variant headers_more description {Enable headers-more module (https://github.com
 
 variant fancyindex description {Add fancy index support; file listings, like the built-in autoindex module does, but with a touch of style} {
     set fancyindex_filename        ngx-fancyindex
-    set fancyindex_version         0.5.2
+    set fancyindex_version         0.6.0
     set fancyindex_distname        ${fancyindex_filename}-${fancyindex_version}
     distfiles-append        v${fancyindex_version}.tar.gz:fancyindex_module
     checksums-append        v${fancyindex_version}.tar.gz \
-                            rmd160  71a2e8ab3d07396a7f55b8134a30916d6e0f5ed3 \
-                            sha256  c3dd84d8ba0b8daeace3041ef5987e3fb96e9c7c17df30c9ffe2fe3aa2a0ca31 \
-                            size    29052
+                            rmd160  47474084bea3cf66afaa210195e099c21d1e2d2d \
+                            sha256  d212fdc1393261612126def3e091c376adeda5646130b4240093f47b550bc5ef \
+                            size    30980
 
     configure.args-append   --add-module=${workpath}/${fancyindex_distname}
 }

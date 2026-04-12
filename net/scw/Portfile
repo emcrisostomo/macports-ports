@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/scaleway/scaleway-cli 2.52.0 v
+go.setup            github.com/scaleway/scaleway-cli 2.54.0 v
 go.offline_build    no
 revision            0
 name                scw
@@ -22,9 +22,9 @@ description         Command Line Interface for Scaleway
 long_description    Scaleway CLI is a tool to help you pilot your Scaleway \
                     infrastructure directly from your terminal.
 
-checksums           rmd160  1f5724b1679750d152805945d380b16edddcf25c \
-                    sha256  f0bafb8b4715ae012c671305f60e3128763963fe31d0dd50c3fb602f3327e586 \
-                    size    3870253
+checksums           rmd160  d88b53c735168bb64e40e8b00a66911003fd0e96 \
+                    sha256  ae7c0fa5512dfc0ccb9ad7223cc6a92bae40df1a4d58ed6816097715e7759a9f \
+                    size    3942370
 
 build.pre_args-append \
     -ldflags \" -X main.Version=${github.tag_prefix}${version} \"

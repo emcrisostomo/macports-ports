@@ -23,7 +23,7 @@ long_description    Git is a fast, scalable, distributed open source version \
 subport ${name}-devel {
     PortGroup           github  1.0
 
-    github.setup        git git 2.53.0 v
+    github.setup        git git 2.54.0-rc1 v
     github.tarball_from archive
     revision            0
 
@@ -91,9 +91,9 @@ if {${name} eq ${subport}} {
     # DEVELOPMENT VERSION
 
     checksums       ${distname}${extract.suffix} \
-                    rmd160  9258a60ba265f4dda389fcde643e9970e508fa42 \
-                    sha256  0492bcd8a9fc99bedca75dbec7c8c15b24dd1501c82d4518294ee0850f91f219 \
-                    size    11944641
+                    rmd160  1957cdbdf27c11a6ab8a00a0690d8a537a37df11 \
+                    sha256  b3b980dcdb6b95e6cce47501063fe9c0b100c3f7a6f172897eab7a76f1b31de9 \
+                    size    12063561
 
     depends_build-append \
                     port:asciidoc \
@@ -108,11 +108,6 @@ if {${name} eq ${subport}} {
     # TODO: consider convising upstream to restore fallback code.
     if {${os.platform} eq "darwin" && ${os.major} < 11} {
         patchfiles-append patch-git-devel-Revert-breaking-osxkeychain.diff
-    } else {
-        # fatal error: 'git-compat-util.h' file not found
-        # The fix in upstream does not work as intended
-        # use this until the issue is finally resolved
-        patchfiles-append patch-osxkeychain-top-level-makefile.diff
     }
 }
 
@@ -445,4 +440,3 @@ platform darwin 8 {
     build.args-append   NO_APPLE_COMMON_CRYPTO=1
     build.args-append   CC_LD_DYNPATH=-R
 }
-

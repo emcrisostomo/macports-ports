@@ -4,8 +4,7 @@ PortSystem      1.0
 PortGroup       legacysupport 1.0
 
 name            bind9.18
-version         9.18.46
-revision        1
+version         9.18.48
 categories      net
 maintainers     {jmr @jmroot}
 platforms       darwin freebsd sunos
@@ -32,8 +31,8 @@ distname        bind-${version}
 dist_subdir     bind9
 master_sites    isc:bind/${version}
 
-checksums       rmd160 ad58a6c788d63bb858c1a00952de2882f31ecedb \
-                sha256 6b59f0de30c6901cce783007d06f7dd717ec3aa74b5bb5cc5159f93f0be4fc1d
+checksums       rmd160 ad88f81bfcd7ae36e0439e550c112d45617490f9 \
+                sha256 c742a69bff2561c23099d7c70c6984c145bcca1c1e3c67fac1f68a8132e8e7c5
 
 use_xz          yes
 

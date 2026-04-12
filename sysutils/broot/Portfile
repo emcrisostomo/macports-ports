@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        Canop broot 1.55.0 v
+github.setup        Canop broot 1.56.2 v
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  a07b5f7e9d1eb058d4321bb2686a3c838164f388 \
-                    sha256  3049d055f37bfdc3b2057a3e2186cfdb58b596e1586b6b129698b350a80cfda3 \
-                    size    14593279
+                    rmd160  5749c88f67558c28c68bb0b6a73a77f2578b4786 \
+                    sha256  3e7be4252c76565f6d71b34bd07d26e1444b9ac2e1c8271c724f6e866fe75565 \
+                    size    14601624
 
 depends_lib-append  path:lib/pkgconfig/libgit2.pc:libgit2 \
                     port:zlib

@@ -3,8 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/filebrowser/filebrowser 2.61.1 v
-set git-commit      c950a57  
+go.setup            github.com/filebrowser/filebrowser 2.62.2 v
+set git-commit      860c19d
 # This line is for displaying commit in CLI only
 revision            0
 categories          net sysutils
@@ -19,10 +19,9 @@ long_description    ${name} provides a file managing interface within a specifie
 
 homepage            https://filebrowser.org
 
-checksums           ${distname}${extract.suffix} \
-                        rmd160  09c0cc74885948f8278a38f65b4ecccb860b4811 \
-                        sha256  fe82a03b4420eefcbd070c271f11ff07b6e6905f385c7c1f7688f34bb16e0804 \
-                        size    5396149
+checksums           rmd160  d87948018051afae52a348a5c9a9523f751a4d4e \
+                    sha256  a10551b6f319d90862980c1def9aff81d6dfdc3065e4df9b3534a1203b6d897f \
+                    size    5411446
 
 go.offline_build    no
 
