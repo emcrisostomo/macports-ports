@@ -9,9 +9,9 @@ pull-upstream:
 	test "$$(git branch --show-current)" = "master"
 	git fetch --all -p
 	git merge --ff-only origin/master
-	git merge --ff-only upstream/master
-	$(MAKE) port-index
+	git merge --no-edit upstream/master
 	git push origin master
+	$(MAKE) port-index
 
 .PHONY: all
 all: create-missing-ports $(PORT_INDEX_SENTINEL)
