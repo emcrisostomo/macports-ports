@@ -109,7 +109,13 @@ checksums           ${distname}${extract.suffix} \
                     sha256  0b40e4598d68d3dbd8cab90b249e18f1363ecc694c38f727851f4db34b6887ec \
                     size    216350
 
+set py_ver          3.14
+set py_ver_nodot    [string map {. {}} ${py_ver}]
+
+configure.python    ${prefix}/bin/python${py_ver}
+
 depends_build       port:gn \
+                    port:python${py_ver_nodot} \
                     port:ninja \
                     port:rapidjson
 
@@ -168,10 +174,11 @@ post-patch {
 
 compiler.cxx_standard   2020
 
-configure.cmd       gn
+configure.cmd       gn --script-executable=${configure.python}
 configure.pre_args  gen out
 configure.args      --args='\
-                    mac_sdk_min=\"0\" \
+                    mac_sdk_min=\"${macosx_deployment_target}\" \
+                    mac_deployment_target=\"${macosx_deployment_target}\" \
                     install_prefix=\"${destroot}${prefix}\" \
                     is_official_build=true \
                     is_clang=false \
@@ -183,6 +190,16 @@ configure.args      --args='\
                     angle_enable_metal=false \
                     angle_enable_vulkan=false'
 
+configure.cppflags
+if {${os.platform} eq "darwin" && ${os.major} < 19} {
+    configure.cppflags-append   -DTARGET_OS_MACCATALYST=0 \
+                                -DMTLGPUFamilyMac2=2002
+}
+if {${os.platform} eq "darwin" && ${os.major} < 21} {
+    configure.cppflags-append   -DkIOMainPortDefault=kIOMasterPortDefault
+}
+configure.cxx       ${configure.cxx} {*}${configure.cppflags}
+
 build.cmd           ninja
 build.target        angle
 build.args          -C out
@@ -193,8 +210,22 @@ destroot.target     install_angle
 destroot.args       -C out
 destroot.destdir
 
-platform darwin {
-    post-destroot {
+post-destroot {
+    reinplace "s|^prefix=.*$|prefix=${prefix}|" \
+        {*}[glob ${destroot}${prefix}/lib/pkgconfig/*.pc]
+
+    delete \
+        ${destroot}${prefix}/include/CL \
+        ${destroot}${prefix}/include/GLX \
+        ${destroot}${prefix}/include/WGL \
+        ${destroot}${prefix}/include/GLSLANG \
+        ${destroot}${prefix}/include/vulkan \
+        ${destroot}${prefix}/include/platform \
+        {*}[glob ${destroot}${prefix}/include/*.h] \
+        {*}[glob ${destroot}${prefix}/include/*/README.md] \
+        {*}[glob ${destroot}${prefix}/include/*/.clang-format]
+
+    platform darwin {
         foreach f [glob -tails -directory ${destroot} ${prefix}/lib/*.dylib] {
             system "install_name_tool -id /$f ${destroot}/$f"
         }
@@ -202,23 +233,10 @@ platform darwin {
         system "install_name_tool -change ./libGLESv2.dylib \
             ${prefix}/lib/libGLESv2.dylib \
             ${destroot}${prefix}/lib/libGLESv1_CM.dylib"
-
-        reinplace "s|^prefix=.*$|prefix=${prefix}|" \
-            {*}[glob ${destroot}${prefix}/lib/pkgconfig/*.pc]
-
-        delete \
-            ${destroot}${prefix}/include/CL \
-            ${destroot}${prefix}/include/GLX \
-            ${destroot}${prefix}/include/WGL \
-            ${destroot}${prefix}/include/GLSLANG \
-            ${destroot}${prefix}/include/vulkan \
-            ${destroot}${prefix}/include/platform \
-            {*}[glob ${destroot}${prefix}/include/*.h] \
-            {*}[glob ${destroot}${prefix}/include/*/README.md] \
-            {*}[glob ${destroot}${prefix}/include/*/.clang-format]
     }
 }
 
 livecheck.url       https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Mac
+livecheck.type      regex
 livecheck.regex     {"angle":"([0-9a-f]+)"}
 livecheck.version   $rev

@@ -42,6 +42,9 @@ configure.args      --with-blas=blas \
                     --with-mpi=no \
                     --with-metis=yes
 
+configure.cxxflags-append \
+                    -std=c++11
+
 # workaround for Type mismatch in argument 't' at (1); passed REAL(4) to INTEGER(4)
 # See FreeBSD Makefile
 configure.env       FFLAGS=-fallow-argument-mismatch             
