@@ -87,16 +87,6 @@ destroot.keepdirs   ${destroot}${prefix}/var/db/redis
 installs_libs       no
 makefile.has_destdir    no
 
-# Post-patch tweaks that are safe for both versions (guard hiredis file)
-post-patch {
-    if {[file exists ${worksrcpath}/redis.conf]} {
-        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/redis.conf
-    }
-    if {[file exists ${worksrcpath}/deps/hiredis/Makefile]} {
-        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/deps/hiredis/Makefile
-    }
-}
-
 post-destroot {
     foreach conffile {redis.conf sentinel.conf} {
         if {[file exists ${worksrcpath}/${conffile}]} {

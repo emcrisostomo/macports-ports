@@ -6,7 +6,7 @@ PortGroup           codeberg 1.0
 PortGroup           legacysupport 1.1
 
 codeberg.setup      ziglang zig 0.16.0
-revision            0
+revision            1
 
 categories          lang
 license             MIT
@@ -28,6 +28,7 @@ checksums           rmd160  ecede6fbf52ee0e8adc5e72ae51678c7f5452b22 \
                     size    35262315
 
 # macos stage3: add link support for system libc++: https://github.com/ziglang/zig/pull/23264
+# improved patch from https://github.com/Homebrew/homebrew-core/pull/278854
 # stop zig from refusing to build on 7GB of RAM, that's all a macOS github runner has.
 patchfiles-append   patch-macos-libc++-dynamic-link.diff \
                     patch-7gb-rss.diff

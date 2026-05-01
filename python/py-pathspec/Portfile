@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-pathspec
-version             1.0.4
+version             1.1.1
 revision            0
 
 supported_archs     noarch
@@ -21,9 +21,9 @@ long_description \
 
 homepage            https://github.com/cpburnz/python-pathspec
 
-checksums           rmd160  c365523014c312a54526ac800723d52df12b58ee \
-                    sha256  0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645 \
-                    size    131200
+checksums           rmd160  ee7a70f18d7f7775a4d9ace4283920510e8ae8f6 \
+                    sha256  17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a \
+                    size    135180
 
 python.versions     310 311 312 313 314
 python.pep517_backend   flit

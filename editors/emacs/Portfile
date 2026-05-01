@@ -124,7 +124,7 @@ platform darwin {
 
 if {$subport eq $name || $subport eq "emacs-app"} {
     version         30.2
-    revision        4
+    revision        5
     checksums       rmd160  fefdd3fcd453d733114f609a3e122b2529cc7410 \
                     sha256  1d79a4ba4d6596f302a7146843fe59cf5caec798190bcc07c907e7ba244b076d \
                     size    83059014
@@ -137,17 +137,17 @@ if {$subport eq "emacs-devel" || $subport eq "emacs-app-devel"} {
 
     # do not forget to check that configure hasn't introduce some suprises via
     # git diff [old]..[new] -- '**/configure.ac'
-    github.setup    emacs-mirror emacs 7ce60be53e7ffbc1972dd8e98744adf6103eee9e
+    github.setup    emacs-mirror emacs 4477ade0fa4a95de981e25c48a548ca22c232057
     github.tarball_from archive
     epoch           5
-    version         20260406
+    version         20260428
     revision        0
 
     master_sites    ${github.master_sites}
 
-    checksums       rmd160  6496eb0f56b2250840049c249dea73310feb9244 \
-                    sha256  4dc00f6615292c0d6fccd330260bf2b06abbe84d4a27c469be8a914c0faa1ed5 \
-                    size    53052187
+    checksums       rmd160  01c85cd45feb531b74588367dea8e73a40689860 \
+                    sha256  91fe2f56403f9b6abafafba019af346663c2ccd78c1d8d1ebfbf742fd9a308e5 \
+                    size    53091340
 
     livecheck.type none
 
@@ -312,6 +312,7 @@ variant treesitter description {Builds emacs with tree-sitter support} {
     # TODO: This will become unnecessary in Emacs 31
     if {$subport eq $name || $subport eq "emacs-app"} {
         configure.cflags-append -Dts_language_version=ts_language_abi_version
+        patchfiles-append   patch-tree-sitter-0.26.diff
     }
 
     if {$subport eq "emacs-app" || $subport eq "emacs-app-devel"} {

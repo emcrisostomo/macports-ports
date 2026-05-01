@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        atuinsh atuin 18.15.2 v
+github.setup        atuinsh atuin 18.16.0 v
 github.tarball_from archive
 revision            0
 
@@ -25,9 +25,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  e598ae6ef922a406cd30db748285d173a87c29b2 \
-                    sha256  9f0c9f1b52e42a805da6b448375c7cf38978510bd421e1f3e042c12652a12e54 \
-                    size    2804431
+                    rmd160  34ae45c71be184a5eb5d5108be0e276d6ee75607 \
+                    sha256  433a6ee912d84b2aa4b59b329775a7ee1a1cdc3094412c2f185ac5ce681a64f0 \
+                    size    2983921
 
 set atuin_bin       ${worksrcpath}/target/[cargo.rust_platform]/release/${name}
 
@@ -97,6 +97,7 @@ cargo.crates \
     approx                           0.5.1  cab112f0a86d568ea0e627cc1d6be74a1e9cd55214684db5561995f6dad897c6 \
     arboard                          3.6.1  0348a1c054491f4bfe6ab86a7b6ab1e44e45d899005de92f58b3df180b36ddaf \
     argon2                           0.5.3  3c3610892ee6e0cbce8ae2700349fcf8f98adb0dbfbee85aec3c9179d29cc072 \
+    arraydeque                       0.5.1  7d902e3d592a523def97af8f317b08ce16b7ab854c1985a0c671e6f15cebc236 \
     arrayvec                         0.7.6  7c02d123df017efcdfbd739ef81735b36c5ba83ec3c59c80a9d7ecc718f92e50 \
     async-stream                     0.3.6  0b5a71a6f37880a80d1d7f19efd781e4b5de42c88f0722cc13bcb6cc2cfe8476 \
     async-stream-impl                0.3.6  c7c24de15d275a1ecfd47a380fb4d5ec9bfe0933f309ed5e705b775596a3574d \
@@ -194,6 +195,7 @@ cargo.crates \
     ed25519-dalek                    2.2.0  70e796c081cee67dc755e1a36a0a172b897fab85fc3f6bc48307991f64e4eca9 \
     either                          1.15.0  48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719 \
     encode_unicode                   1.0.0  34aa73646ffb006b8f5147f3dc182bd4bcb190227ce861fc4a4844bf8e3cb2c0 \
+    encoding_rs                     0.8.35  75030f3c4f45dafd7586dd6780965a8c7e8e285a5ecb86713e63a79c5b2766f3 \
     equivalent                       1.0.2  877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f \
     errno                           0.3.14  39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb \
     error-code                       3.3.2  dea2df4cf52843e0452895c455a1a2cfbb842a1e7329671acf418fdc53ed4c59 \
@@ -201,8 +203,8 @@ cargo.crates \
     euclid                         0.22.13  df61bf483e837f88d5c2291dcf55c67be7e676b3a51acc48db3a7b163b91ed63 \
     event-listener                   5.4.1  e13b66accf52311f30a0db42147dadea9850cb48cd070028831ae5f5d4b856ab \
     eventsource-stream               0.2.3  74fef4569247a5f429d9156b9d0a2599914385dd189c539334c625d8099d90ab \
-    eye_declare                      0.4.3  fa99f9efa03c7fae32abd0b2e77d22dac5c2a137d1267c3496b44a711d139bd6 \
-    eye_declare_macros               0.4.3  a285ad61e123dad4c505e2d96818b0378d9facecdee074a02c525719a1db2f9b \
+    eye_declare                      0.5.1  1e4caff9f5574315258489ecb2d27aad2cc057521f4b0bc6819a1cd82a648f40 \
+    eye_declare_macros               0.5.1  cb8ac27b19f79b61a8afc0a55a3148eb2dafc2aaec66c1103432e3e76e7c25af \
     eyre                            0.6.12  7cd915d99f24784cdc19fd37ef22b97e3ff0ae756c7e492e9fbfe897d61e2aec \
     fancy-regex                     0.11.0  b95f7c0680e4142284cf8b22c14a476e87d61b004a3a0861872b32ef7ead40a2 \
     fast-srgb8                       1.0.0  dd2e7510819d6fbf51a5545c8f922716ecfb14df168a3242f7d33e0239efe6a1 \
@@ -246,6 +248,7 @@ cargo.crates \
     hashbrown                       0.15.5  9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1 \
     hashbrown                       0.16.1  841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100 \
     hashlink                        0.10.0  7382cf6263419f2d8df38c55d7da83da5c18aef87fc7a7fc1fb1e344edfe14c1 \
+    hashlink                        0.11.0  ea0b22561a9c04a7cb1a302c013e0259cd3b4bb619f145b32f72b8b4bcbed230 \
     heck                             0.5.0  2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea \
     hex                              0.4.3  7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70 \
     hkdf                            0.12.4  7b5f8eb2ad728638ea2c7d47a21db23b7b58a72ed6a38256b8a1849f15fbbdf7 \
@@ -274,6 +277,7 @@ cargo.crates \
     ident_case                       1.0.1  b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39 \
     idna                             1.1.0  3b0875f23caa03898994f6ddc501886a45c7d3d62d04d2d90788d47be1b1e4de \
     idna_adapter                     1.2.1  3acae9609540aa318d1bc588455225fb2085b9ed0c4f6bd0d9d5bcd86f1a0344 \
+    imara-diff                       0.2.0  2f01d462f766df78ab820dd06f5eb700233c51f0f4c2e846520eaf4ba6aa5c5c \
     indenter                         0.3.4  964de6e86d545b246d84badc0fef527924ace5134f30641c203ef52ba83f58d5 \
     indexmap                         1.9.3  bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99 \
     indexmap                        2.13.0  7714e70437a7dc3ac8eb7e6f8df75fd8eb422675fc7678aff7364301092b1017 \
@@ -708,6 +712,8 @@ cargo.crates \
     writeable                        0.6.2  9edde0db4769d2dc68579893f2306b26c6ecfbe0ef499b013d731b7b9247e0b9 \
     x11rb                           0.13.2  9993aa5be5a26815fe2c3eacfc1fde061fc1a1f094bf1ad2a18bf9c495dd7414 \
     x11rb-protocol                  0.13.2  ea6fc2961e4ef194dcbfe56bb845534d0dc8098940c7e5c012a258bfec6701bd \
+    xxhash-rust                     0.8.15  fdd20c5420375476fbd4394763288da7eb0cc0b8c11deed431a91562af7335d3 \
+    yaml-rust2                      0.11.0  631a50d867fafb7093e709d75aaee9e0e0d5deb934021fcea25ac2fe09edc51e \
     yansi                            1.0.1  cfe53a6657fd280eaa890a3bc59152892ffa3e30101319d168b781ed6529b049 \
     yoke                             0.8.1  72d6e5c6afb84d73944e5cedb052c4680d5657337201555f9f2a16b7406d4954 \
     yoke-derive                      0.8.1  b659052874eb698efe5b9e8cf382204678a0086ebf46982b79d6ca3182927e5d \

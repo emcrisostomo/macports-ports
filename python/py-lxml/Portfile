@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-lxml
-version             6.0.4
+version             6.1.0
 revision            0
 
 categories-append   devel
@@ -21,10 +21,10 @@ long_description    lxml is a Pythonic binding for the libxml2 and \
 
 homepage            https://lxml.de/
 
-checksums           md5 559d1e971113fc887e28945c29a3817f \
-                    rmd160 277d233590ecd7fb319ddc5bb64be7786063a1d1 \
-                    sha256 4137516be2a90775f99d8ef80ec0283f8d78b5d8bd4630ff20163b72e7e9abf2 \
-                    size   4237780
+checksums           md5 31d8b15cdee087ef63b3f2dde600af8d \
+                    rmd160 01a1a59a8bce30c46cda4343998ed01965d90bb5 \
+                    sha256 bfd57d8008c4965709a919c3e9a98f76c2c7cb319086b3d26858250620023b13 \
+                    size   4197006
 
 python.versions     27 37 310 311 312 313 314
 

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/Tufin/oasdiff 1.13.1 v
+go.setup            github.com/Tufin/oasdiff 1.15.0 v
 go.offline_build    no
 revision            0
 
@@ -20,9 +20,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  e03380f217ec142368f60e80b7cbda05fc9f63ef \
-                    sha256  e693862cf4af9c6063e4b422e50d94cbabb3e4c464afa077f3205dc93872115d \
-                    size    432477
+                    rmd160  df8fd649ad92e01ce870b2817828537040f539cc \
+                    sha256  536614f37d0f5595717842283d7e9d7381de9dc1f4eaddbedfa3f964282000ea \
+                    size    496538
 
 post-build {
     system -W ${worksrcpath} "./${name} completion bash > ${name}.bash"

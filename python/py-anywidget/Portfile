@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-anywidget
-version             0.10.0
+version             0.11.0
 revision            0
 
 license             MIT
@@ -14,9 +14,9 @@ description         anywidget is both a specification and toolkit for authoring 
 long_description    {*}${description}
 homepage            https://github.com/manzt/anywidget
 
-checksums           rmd160  de21be5ea1044978b766bb681ad303320705cf9c \
-                    sha256  4ec7cba129613af8d210654d6297c5c3fb5d76fcd2efea829fd58050d8b28802 \
-                    size    391132
+checksums           rmd160  8176b91e902619cf540326ef78342511945cd581 \
+                    sha256  6695fbef9449cf8c27f421b96c5837aa37f909ec1f60cfa33add333e1b70b169 \
+                    size    426999
 
 python.versions     310 311 312 313 314
 
