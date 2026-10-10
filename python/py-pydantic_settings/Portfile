@@ -4,23 +4,23 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-pydantic_settings
-version             2.14.0
+version             2.15.0
 revision            0
 
 categories-append   devel
 license             MIT
-supported_archs     noarch
-platforms           {darwin any}
 maintainers         nomaintainer
-
 description         Settings management using Pydantic
-long_description    {*}${description}, this is the new official home of Pydantic's BaseSettings.
-
+long_description    {*}${description}, this is the new official home of Pydantic's \
+                    BaseSettings.
 homepage            https://github.com/pydantic/pydantic-settings
 
-checksums           rmd160  73701659c84614a405ccb4685d734e42a371644f \
-                    sha256  24285fd4b0e0c06507dd9fdfd331ee23794305352aaec8fc4eb92d4047aeb67d \
-                    size    235709
+supported_archs     noarch
+platforms           {darwin any}
+
+checksums           rmd160  88de8e1098b087a46c68d5fa0720b77beb05a198 \
+                    sha256  694b793e84f766ba76a90ebdefc01d0a9a045dab0382bee70393da93712ad117 \
+                    size    261253
 
 python.versions     310 311 312 313 314
 

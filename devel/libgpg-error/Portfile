@@ -15,7 +15,7 @@ if {${os.platform} eq "darwin" && ${os.major} < 18} {
 }
 
 name            libgpg-error
-version         1.60
+version         1.61
 revision        0
 
 categories      devel
@@ -32,9 +32,9 @@ master_sites    gnupg
 
 use_bzip2       yes
 
-checksums       rmd160  858bd519ab4d5d4afd673b5fa165c76a0e08bb8f \
-                sha256  11b2a738e212f3eab0fe8637bc341d3181ca964e97bb2654de91aab7dae4ce09 \
-                size    1125272
+checksums       rmd160  2c751e85af92b893dc3f53d0e3c3ba04f52561fe \
+                sha256  7a85413f2bc354f4f8aa832b718af122e48965e9e0eb9012ee659c13c6385c93 \
+                size    1124751
 
 depends_build   port:gettext \
                 port:pkgconfig

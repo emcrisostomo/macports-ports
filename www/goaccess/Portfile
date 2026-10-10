@@ -5,7 +5,7 @@ PortGroup           legacysupport 1.1
 PortGroup           openssl 1.0
 
 name                goaccess
-version             1.10.2
+version             1.12
 revision            0
 
 categories          www
@@ -17,12 +17,15 @@ long_description    {*}${description} Its core idea is to quickly analyze and vi
 homepage            https://goaccess.io/
 master_sites        https://tar.goaccess.io/
 
-checksums           rmd160  6d75a552d1ee9ce0e61f4b3fbeb5487994642275 \
-                    sha256  b9b7484a413279863c7d92dc7dd4c19dcb55c0a2d138735efc18570bcc4eaa0e \
-                    size    1135947
+checksums           rmd160  00801be895879deff79deeda4cce2e4092ebae4b \
+                    sha256  3aef5f6d5061decc6fc4946339b3a61b170bd256f80b4e861194b095df83ec86 \
+                    size    1198446
 
 # strndup
 legacysupport.newest_darwin_requires_legacy 10
+
+# src/parser.h:56:10: fatal error: 'stdatomic.h' file not found
+compiler.blacklist-append {clang < 700}
 
 compiler.cxx_standard   2011
 

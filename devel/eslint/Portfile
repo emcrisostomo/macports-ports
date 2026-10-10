@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           npm 1.0
+
+name                eslint
+version             10.12.0
+revision            0
+
+categories          devel
+license             MIT
+platforms           any
+supported_archs     noarch
+maintainers         {@oakimov} openmaintainer
+
+description         Statically analyzes JavaScript and TypeScript to find problems
+
+long_description    ESLint statically analyzes JavaScript and TypeScript code \
+                    to find problems and fix them. Rules are configurable, and \
+                    plugins can add rules, processors, and formatters for \
+                    project-specific conventions.
+
+homepage            https://eslint.org
+
+checksums           rmd160  ba141c65d05c04b82ac7cffc9f03ae13b12afa20 \
+                    sha256  f70175878e41dcf89205c1fa885202c8cbfdf943210e8494c7d65b115b9d2db1 \
+                    size    628464
+
+# jiti is an optional peer dependency, needed to load a TypeScript
+# eslint.config.ts. It resolves as a sibling in ${prefix}/lib/node_modules.
+depends_lib-append  port:jiti

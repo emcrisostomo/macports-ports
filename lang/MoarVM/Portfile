@@ -8,7 +8,7 @@ PortGroup           legacysupport 1.1
 # strnlen, arc4random_buf, clock_gettime, utimensat
 legacysupport.newest_darwin_requires_legacy 16
 
-github.setup        MoarVM MoarVM 2026.02
+github.setup        MoarVM MoarVM 2026.06
 github.tarball_from releases
 revision            0
 categories          lang devel
@@ -21,9 +21,9 @@ long_description    MoarVM is a modern virtual machine built for the Rakudo \
 
 homepage            https://moarvm.org/
 
-checksums           rmd160  7ede1e87b40eedf86aad8863c76a31cb9fcd918c \
-                    sha256  7c07f509fefeb8e9682e44e24a4f65bb401b6628444c39f1a8e6c7f4782b944c \
-                    size    15405708
+checksums           rmd160  a7f3df7ff16ed6063563a335d4558edbdb0b3a26 \
+                    sha256  4d0735e1ca1f4a34869599370eec6fc12dae8bdf2d719a9cbbc940c9fc3b75d9 \
+                    size    15611292
 
 depends_build-append \
                     path:bin/perl:perl5 \
@@ -114,10 +114,9 @@ variant mimalloc description "Build with mimalloc support" {
 
 # stats.c:569:31: error: variable has incomplete type 'struct mach_task_basic_info'
 # mimalloc code uses the API available on macOS 10.8+
-# not enabled at will by the maintainer, possibly to be fixed on older systems
-#if {${os.platform} eq "darwin" && ${os.major} > 11} {
-#    default_variants    +mimalloc
-#}
+if {${os.platform} eq "darwin" && ${os.major} > 11} {
+    default_variants    +mimalloc
+}
 
 # This can be enabled once libuv port is updated.
 # See: https://trac.macports.org/ticket/68464

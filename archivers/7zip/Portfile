@@ -6,7 +6,7 @@ PortGroup           makefile 1.0
 PortGroup           muniversal 1.1
 
 name                7zip
-version             26.01
+version             26.03
 revision            0
 
 categories          archivers
@@ -33,9 +33,9 @@ distname            7z[string map {. {}} ${version}]-src
 legacysupport.newest_darwin_requires_legacy \
                     16
 
-checksums           rmd160  bff3ff6636fe35a17450197c7205ae649e0a175b \
-                    sha256  b2389e0e930b2f9a348cf0fe7d9870a46482a8ec044ee0bdf42e2136db31c3d6 \
-                    size    1543032
+checksums           rmd160  482ef5fd1e5ea7c122851ecf95e865ba17e259b8 \
+                    sha256  9cbde5099c6deb73691b0579063da5827522ccbbcba3f0020fd04e8c8c16c0d4 \
+                    size    1552200
 
 extract.mkdir       yes
 patchfiles          patch-7zip_gcc_mak.diff

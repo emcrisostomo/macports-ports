@@ -8,7 +8,7 @@ PortGroup           qt6 1.0
 name                avogadro
 github.setup        OpenChemistry avogadroapp 2.0.0
 github.tarball_from archive
-revision            0
+revision            2
 
 categories          science
 license             BSD
@@ -32,11 +32,7 @@ set python_pkgd     ${python_prefix}/lib/python${py_ver}/site-packages
 
 compiler.cxx_standard 2017
 
-cmake.module_path-append \
-                    ${prefix}/libexec/eigen3/share/eigen3/cmake \
-                    ${qt6.dir}/lib/cmake/Qt6OpenGLWidgets \
-                    ${qt6.dir}/lib/cmake/Qt6Network \
-                    ${qt6.dir}/lib/cmake/Qt6Concurrent
+qt6.find_method     prefix_path
 
 depends_build-append \
                     path:share/pkgconfig/eigen3.pc:eigen3
@@ -60,14 +56,14 @@ subport ${name}libs {
     boost.version       1.76
 
     github.setup    OpenChemistry avogadrolibs 2.0.0
-    revision        0
+    revision        2
     checksums       rmd160  29ca5b3d248a40e2c28a48115399e45250d2e447 \
                     sha256  08adefeb8122cf018587fc12872ed470bbf92b72fb73f0af1861ab58031cadfd \
                     size    5218137
 
 
-    cmake.module_path-append \
-                    ${python_pkgd}/pybind11/share/cmake/pybind11
+    cmake.prefix_path-append \
+                    ${python_pkgd}/pybind11
 
     depends_build-append \
                     port:nlohmann-json \

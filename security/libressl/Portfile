@@ -8,7 +8,7 @@ PortGroup           legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 15
 
 name                libressl
-version             4.2.1
+version             4.3.3
 revision            0
 categories          security devel
 license             OpenSSL SSLeay
@@ -26,9 +26,9 @@ homepage            https://www.libressl.org
 conflicts           openssl libressl-devel
 
 master_sites        openbsd:LibreSSL
-checksums           rmd160  bf6b44fa4451915718e8ac8d6c85c427db08e8e9 \
-                    sha256  6d5c2f58583588ea791f4c8645004071d00dfa554a5bf788a006ca1eb5abd70b \
-                    size    9147769
+checksums           rmd160  275bff180fc39e23d4b085ed51219ad5428189bc \
+                    sha256  ff97c432457f349e6ba3d416ab903bc7468f1436f0f32efe5fff808de292c7b8 \
+                    size    9306635
 
 configure.args \
     --disable-silent-rules \

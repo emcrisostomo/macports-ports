@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-pylint
-version             4.0.5
+version             4.0.9
 revision            0
 
 categories-append   devel
@@ -29,9 +29,9 @@ long_description    Pylint is a tool that checks for errors in python code, \
 
 homepage            https://pylint.org
 
-checksums           rmd160  87967c1e51bba6cde18815323934b079294be975 \
-                    sha256  8cd6a618df75deb013bd7eb98327a95f02a6fb839205a6bbf5456ef96afb317c \
-                    size    1572474
+checksums           rmd160  194f099142c2354c517ba60b77b2031bac00a260 \
+                    sha256  6f1305780229ae720e89b8aff2b3ff857cbb268fbab98c8b586960267667ad34 \
+                    size    1604187
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-dill \

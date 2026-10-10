@@ -6,7 +6,7 @@ PortGroup           python 1.0
 # Note: keep in sync with py-arro3-compute and py-arro3-io
 name                py-arro3-core
 python.rootname     arro3_core
-version             0.8.0
+version             0.9.0
 revision            0
 
 license             Apache-2
@@ -16,9 +16,9 @@ description         A minimal Python library for Apache Arrow, binding to the Ru
 long_description    {*}${description}
 homepage            https://github.com/kylebarron/arro3
 
-checksums           rmd160  eeedc6e0a702f9a73615261daab6b05503ea7b76 \
-                    sha256  b75d8281b87a87d3b66836bab89951ae06421970e5f880717723a93e38743f40 \
-                    size    93557
+checksums           rmd160  b492b9f7e671f2b055d4bbc2b8f3472adaccf726 \
+                    sha256  6dfd09bf617d3f5c5e37a97fac024a360add4b7f6572ee9d7020833f4c743f32 \
+                    size    95176
 
 python.versions     310 311 312 313 314
 

@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                dotnet-runtime-10
-version             10.0.7
+version             10.0.12
 revision            0
 categories          dotnet
 license             MIT
@@ -24,15 +24,15 @@ supported_archs     x86_64 arm64
 switch ${build_arch} {
     x86_64 {
         distname            dotnet-runtime-${version}-osx-x64
-        checksums           rmd160  6ae02ca0e972fd1cf12089549513b1353edb0a2b \
-                            sha256  a144a1ac9fa1ba2b7c56eb975c3c7099216f90d9015db9a9fa38ad6849f556c6 \
-                            size    35625232
+        checksums           rmd160  140a6496b97c6657b53ee6df59c112ba1f15031b \
+                            sha256  6c92a95f32ac75139b16c1de0bbea7df776dd710360ee3980239d9026cd53e71 \
+                            size    35596837
     }
     arm64 {
         distname            dotnet-runtime-${version}-osx-arm64
-        checksums           rmd160  fe72544e5060bb4ce508cd61af7755cd7c33bce6 \
-                            sha256  eb07b63df812699ebdcba28c0a883659d41ab70a0aa1056ff2aaa3264778f63c \
-                            size    33283652
+        checksums           rmd160  6f5ebd774c16462119953659b03255686ca39b71 \
+                            sha256  5519e3889dd69674b7dce57930a46bb22789f180d95574562bab23f7638ccc53 \
+                            size    33249724
     }
     default {
         known_fail yes

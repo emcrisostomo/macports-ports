@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-llvmlite
-version             0.47.0
+version             0.50.0
 categories-append   devel science
 license             BSD
 
@@ -17,9 +17,9 @@ long_description    {*}${description}
 
 homepage            https://llvmlite.pydata.org/
 
-checksums           rmd160  d23dc028c25a762765d06467d33759167f0b2565 \
-                    sha256  62031ce968ec74e95092184d4b0e857e444f8fdff0b8f9213707699570c33ccc \
-                    size    193614
+checksums           rmd160  9bcd9547974153eacedf79a29d34445d558356ed \
+                    sha256  f2a2cd6ec9ffcc1b7147dea0d7a49efebf17a2b434e0c2844fe175999d571eb4 \
+                    size    194522
 
 if {${name} ne ${subport}} {
     PortGroup           legacysupport 1.1
@@ -29,7 +29,7 @@ if {${name} ne ${subport}} {
                         17
     legacysupport.use_mp_libcxx yes
 
-    set llvmver         "20"
+    set llvmver         22
 
     build.env-append    LLVM_DIR=${prefix}/libexec/llvm-${llvmver}/lib/cmake/
     depends_build-append \

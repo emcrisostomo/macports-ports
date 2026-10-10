@@ -23,13 +23,15 @@ subport OpenBLAS-devel {}
 
 if {[string first "-devel" $subport] > 0} {
 
-    github.setup    OpenMathLib OpenBLAS 9b3cc7835bd98439924cd6b9d1bf5e951b950bc0
+    github.setup    OpenMathLib OpenBLAS d9f362aae842bfc4949ea2c786341e0332822239
     github.tarball_from archive
-    version         20260402-[string range ${github.version} 0 7]
-    checksums       rmd160  bd861aab88b42eece021ac94846228bb3681ee7c \
-                    sha256  dbd477ad6cc88f650f99d7820dd6202eed322df6afb96072f32ed4c313146b7c \
-                    size    25282237
+    version         20260816-[string range ${github.version} 0 7]
+    checksums       rmd160  5028afdd2edf5b3ce2e005ada1c78d7a9217a839 \
+                    sha256  6f189c7c7cccd768194b9dd251ee7239123217ae44fcff31170f432494b7eb85 \
+                    size    25567148
     revision        0
+
+    patchfiles
 
     conflicts       OpenBLAS
 
@@ -40,14 +42,19 @@ if {[string first "-devel" $subport] > 0} {
 
 } else {
 
-    github.setup    OpenMathLib OpenBLAS 0.3.32 v
+    github.setup    OpenMathLib OpenBLAS 0.3.34 v
     github.tarball_from releases
-    checksums       rmd160  03a6a562c6b688d41442035ee4d5cbf194481d9d \
-                    sha256  f8a1138e01fddca9e4c29f9684fd570ba39dedc9ca76055e1425d5d4b1a4a766 \
-                    size    25221171
+    checksums       rmd160  42cb58f64d65a2ba1a55a94d0585bc17f01d588c \
+                    sha256  cd7e129868320cc2d033afa920e31202dfe0b8066a5b66661900ccc0f197dfed \
+                    size    25326686
     revision        0
 
     conflicts       OpenBLAS-devel
+
+    # Upstream patch for failure: collect2: fatal error: posix_spawnp: argument list too long
+    # Issue: https://github.com/OpenMathLib/OpenBLAS/issues/5943
+    # Patch: https://github.com/OpenMathLib/OpenBLAS/pull/5994
+    patchfiles-append openblas-patch-5994.diff
 
     if {![variant_isset native]} {
         notes "
@@ -180,7 +187,6 @@ configure.pre_args-delete   -DCMAKE_INSTALL_RPATH=${prefix}/lib
 configure.pre_args-replace  -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON \
                             -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=OFF
 
-cmake.install_rpath
 compilers.add_gcc_rpath_support no
 
 post-destroot {

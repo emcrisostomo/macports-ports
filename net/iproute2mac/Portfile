@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        brona iproute2mac 1.7.4 v
+github.setup        brona iproute2mac 1.7.6 v
 revision            0
 supported_archs     noarch
 categories          net python
@@ -18,9 +18,9 @@ long_description    {*}${description} \
 
 github.tarball_from releases
 
-checksums           rmd160  2e37841b5e41ce296fbd87812071473dec393155 \
-                    sha256  8850fb1e0e18f525bd4f4b43d9e2a072a730b8f19e9a24b00713f8e43c1e1392 \
-                    size    21364
+checksums           rmd160  96fc19f37aa3b4c635ccf40a36c160378a062f25 \
+                    sha256  a5b8e4ec28e38232d5b9b149d824598fd561336e5456af39dfa21a75d707dfde \
+                    size    21758
 
 pre-configure {
     if {![variant_isset python310] && ![variant_isset python311] && ![variant_isset python312] && \

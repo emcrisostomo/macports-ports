@@ -3,9 +3,10 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/mozilla/sops 3.12.2 v
+go.setup            github.com/mozilla/sops 3.13.3 v
 go.package          go.mozilla.org/sops/v3
 go.offline_build    no
+go.toolchain_min    1.25.8
 revision            0
 
 description         Simple and flexible tool for managing secrets
@@ -20,9 +21,9 @@ license             MPL-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  7d501bffe28752cb78937d9dd40ff9cf428bcb00 \
-                    sha256  24b1f23a677535d1e06b63f8b4f7793d4f325b86c5454724fac90f5e73903e26 \
-                    size    288329
+checksums           rmd160  4876396bf90eb861aa3e2d2f3df7a4ca5afd28ca \
+                    sha256  49811c5ed80f6b4d4e98cef98e3f7378406aa692fd773dfb72ad1b4dfb940448 \
+                    size    272777
 
 build.target        ./cmd/sops
 

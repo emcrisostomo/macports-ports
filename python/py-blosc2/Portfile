@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-blosc2
-version             4.1.2
+version             4.13.1
 revision            0
 
 categories-append   archivers devel
@@ -17,9 +17,9 @@ long_description    A Python wrapper for the extremely fast Blosc2 \
 
 homepage            https://pypi.python.org/pypi/blosc2/
 
-checksums           rmd160 733c89366fd4e4d780d1648c704b1e818383897a \
-                    sha256 c127342d976de44fee242137e83660097e0b072779f4164a34e149ac9f693c8a \
-                    size 4341120
+checksums           rmd160  6bd92516272680fbcc6689e20d6686142b2319c0 \
+                    sha256  4a867b0b177363ce43fea792b92723122966ff0ea99b5ab458268362cb1c411d \
+                    size    7254067
 
 python.versions     310 311 312 313 314
 

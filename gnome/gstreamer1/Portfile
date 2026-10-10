@@ -15,8 +15,7 @@ legacysupport.newest_darwin_requires_legacy 10
 name                gstreamer1
 set my_name         gstreamer
 # please only commit stable updates (even numbered releases)
-version             1.28.2
-revision            0
+version             1.28.8
 description         GStreamer is a library for constructing graphs of media-handling components.
 long_description    The applications it supports range from simple Ogg/Vorbis playback, audio/video \
                     streaming to complex audio (mixing) and video (non-linear editing) processing.
@@ -28,9 +27,9 @@ master_sites        https://gstreamer.freedesktop.org/src/${my_name}/
 distname            ${my_name}-${version}
 use_xz              yes
 
-checksums           rmd160  3bc676639e28448fca8b86019d1de49f4e1facf9 \
-                    sha256  ce5cd44d4ffeafdcc3dddaa072b2179c0b7cb1abf4e6c5d18d4375f8a39fe491 \
-                    size    1932984
+checksums           rmd160  c99fb431dda484c21817d22246cfb828eb609667 \
+                    sha256  baa8e86985ad6417cc0ad6e7b79ff2884c6779c8b1c7a6240e7121822c86e524 \
+                    size    1965000
 
 set py_ver          3.14
 set py_ver_nodot    [string map {. {}} ${py_ver}]
@@ -72,8 +71,10 @@ gobject_introspection   yes
 
 # Match blacklist used in gstreamer1-gst-plugins-base
 # error: redefinition of typedef ‘GstHarness’
+# fatal error: 'stdatomic.h' file not found
+compiler.c_standard 2011
 compiler.blacklist-append \
-                    *gcc-3.* *gcc-4.* {clang < 212}
+                    *gcc-3.* *gcc-4.* {clang < 700}
 
 configure.args-append \
                     -Dexamples=disabled \
@@ -82,7 +83,7 @@ configure.args-append \
                     -Dbash-completion=disabled
 
 test.run            yes
-test.target         check
+test.target         test
 
 livecheck.type      regex
 livecheck.url       ${master_sites}

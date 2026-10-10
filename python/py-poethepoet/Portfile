@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-poethepoet
-version             0.45.0
+version             0.48.0
 revision            0
 
 categories-append   devel
@@ -14,9 +14,12 @@ description         A batteries included task runner that works well with poetry
 long_description    {*}${description}
 homepage            https://poethepoet.natn.io
 
-checksums           rmd160  f29ccc2e1d5102cb7163ee88867c592a4c27ba5b \
-                    sha256  cf2c2df4c185d33b619c2771de2b28c2b81c733f072226030c7fa4c273c040f8 \
-                    size    97150
+supported_archs     noarch
+platforms           {darwin any}
+
+checksums           rmd160  00623f612f7d684459fa31b7b7c3e87afcc2417d \
+                    sha256  a06f49d244fadfc2e2e7faa78b54e64a9694727e4ce1d50e08f23cea3ded74f1 \
+                    size    148679
 
 python.versions     310 311 312 313 314
 

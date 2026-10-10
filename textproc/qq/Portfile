@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/JFryy/qq 0.3.3 v
+go.setup            github.com/JFryy/qq 0.4.0 v
 go.offline_build    no
+go.toolchain_min    1.25.0
 revision            0
 
 description         \
@@ -23,9 +24,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  078170d07c27315b96d574b327d5e8c9eb042ec4 \
-                    sha256  ea705de059cd7b2af7fadbf5c812d5928dcf0f17209045cc6e062e9623915c9b \
-                    size    2103503
+checksums           rmd160  74d3ad643b000260f62912e036a7d7c5216b7e1c \
+                    sha256  143834abb5d4052ed92a2f048be0be758edef70ec35c7d5c0b8e105d14df85d7 \
+                    size    2133824
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/

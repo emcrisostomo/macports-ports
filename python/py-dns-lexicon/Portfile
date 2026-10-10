@@ -6,7 +6,7 @@ PortGroup           select 1.0
 
 name                py-dns-lexicon
 python.rootname     dns_lexicon
-version             3.25.1
+version             3.25.2
 epoch               1
 revision            0
 
@@ -21,9 +21,9 @@ homepage            https://github.com/dns-lexicon/dns-lexicon
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  340b9c67ad52e45b36bd98e6fcd979462e30afd2 \
-                    sha256  7093f8b7c2919547cdaae419a6da674ab768427728948bf8eefa661c8e4984f1 \
-                    size    164141
+checksums           rmd160  fc1e0745d4b4c441bd45ff40002827cc765c4a2b \
+                    sha256  a377bf2b4017ee46de8d5515cf2c204bfda74b49032dc5420bd3100993f28deb \
+                    size    164305
 
 python.versions     310 311 312 313 314
 

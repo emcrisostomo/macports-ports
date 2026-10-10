@@ -164,7 +164,7 @@ array set modules {
         {"Qt Multimedia"}
         ""
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: "
     }
     qttools {
@@ -284,7 +284,7 @@ array set modules {
         {"Qt 3D"}
         "status = deprecated"
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: "
     }
     qtimageformats {
@@ -541,7 +541,7 @@ array set modules {
         {"Qt Quick 3D"}
         "GPLv3 license only"
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: {GPL-3 OpenSSLException}"
     }
     qtshadertools {
@@ -631,7 +631,7 @@ array set modules {
         {"Qt GRPC"}
         "GPLv3 license only"
         "variant overrides: "
-        "revision 1"
+        "revision 2"
         "License: {GPL-3 OpenSSLException}"
     }
     qtquickeffectmaker {
@@ -1131,15 +1131,11 @@ subport ${name}-qtmultimedia {
     # see
     #     https://code.qt.io/cgit/qt/qtmultimedia.git/tree/src/plugins/multimedia/gstreamer/CMakeLists.txt
     #     https://code.qt.io/cgit/qt/qtmultimedia.git/tree/src/multimedia/configure.cmake
+    set ffmpeg_ver                  8
     configure.args-append           -no-gstreamer
-
-    configure.post_args-append      -DFFMPEG_DIR=${prefix}/libexec/ffmpeg8 \
-                                    -DAVCODEC_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include \
-                                    -DAVCODEC_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavcodec.dylib \
-                                    -DAVFORMAT_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include \
-                                    -DAVFORMAT_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavformat.dylib \
-                                    -DAVUTIL_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include\
-                                    -DAVUTIL_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavutil.dylib
+    configure.post_args-append      -DFFMPEG_DIR=${prefix}/libexec/ffmpeg${ffmpeg_ver}
+    configure.cflags-prepend        -I${prefix}/libexec/ffmpeg${ffmpeg_ver}/include
+    configure.ldflags-prepend       -L${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib
 }
 
 subport ${name}-qt5compat {
@@ -1231,6 +1227,9 @@ if { ${subport} eq "${name}-qtbase" || ${subport} eq "${name}-qtbase-docs" } {
 subport ${name}-qtbase {
     # this subport uses configure script
     PortGroup                       openssl 1.0
+    PortGroup                       conflicts_build 1.0
+
+    conflicts_build                 wayland
 
     build.cmd                       ninja
     build.post_args-append          -v
@@ -1438,6 +1437,17 @@ post-destroot {
     foreach app [glob -nocomplain -tails -directory ${destroot}${qt6.dir}/bin *.app] {
         ln -s                       ${qt6.dir}/bin/${app} \
                                     ${destroot}${applications_dir}/Qt6
+    }
+
+    # put configuration files in places they will be found automatically
+    set qt_libs_dir ${qt6.dir}/lib
+    if { ${qt_libs_dir} ne "${prefix}/lib" } {
+
+        # put link to pkgconfig files in place where pkgconfig will find it
+        xinstall -d -m 0755 ${destroot}${prefix}/lib/pkgconfig
+        foreach pcfile [glob -nocomplain -tails -directory ${destroot}${qt_libs_dir}/pkgconfig *.pc] {
+            ln -s ${qt_libs_dir}/pkgconfig/${pcfile} ${destroot}${prefix}/lib/pkgconfig
+        }
     }
 }
 

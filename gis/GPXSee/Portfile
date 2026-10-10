@@ -2,15 +2,15 @@
 
 PortSystem          1.0
 PortGroup           github 1.0
-PortGroup           qmake5 1.0
+PortGroup           qmake6 1.0
 
-github.setup        tumic0 GPXSee 16.3
+github.setup        tumic0 GPXSee 16.16
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  525159e2ed4eceddd6b4b446d8c3f11531caa5b5 \
-                    sha256  7625907c1eaf108e02b235f406b2b124274f9b80c9716b92cc8ffd1f287a1437 \
-                    size    6575831
+checksums           rmd160  0b39d780fbec0e3a4c2c4cacb3b8b1f13cf3097b \
+                    sha256  e7955c23df5aa733648ba6094501f294af0e46c9d3f845adb20a2459447d5070 \
+                    size    6471839
 
 categories          gis graphics
 license             GPL-3
@@ -24,16 +24,16 @@ homepage            https://www.gpxsee.org/
 
 patchfiles          patch-src_GUI_app_cpp.diff
 
-qt5.depends_component           qtlocation qtmultimedia
-qt5.depends_build_component     qttools
-qt5.depends_runtime_component   qtimageformats qttranslations
+qt6.depends_lib    qtlocation qtmultimedia qt5compat
+qt6.depends_build  qttools
+qt6.depends_run    qtimageformats qttranslations
 
 compiler.cxx_standard 2011
 
 depends_lib-append  port:zlib
 
 post-configure {
-    system -W ${worksrcpath} "${qt_lrelease_cmd} gpxsee.pro"
+    system -W ${worksrcpath} "${prefix}/libexec/qt6/bin/lrelease gpxsee.pro"
 }
 
 destroot {

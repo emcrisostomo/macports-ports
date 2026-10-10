@@ -5,7 +5,7 @@ PortGroup           active_variants 1.1
 PortGroup           python 1.0
 
 name                maigret
-version             0.6.0
+version             0.6.6
 revision            0
 
 license             MIT
@@ -20,9 +20,9 @@ homepage            https://github.com/soxoj/maigret
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  dbdfafbdf1777f591af77d9c69170cef7ebbcd36 \
-                    sha256  2cb6d11f874edaebf5007a4a28a48263f188fa5f9cf7a94efa5fb6bf75d8d764 \
-                    size    247536
+checksums           rmd160  ada583557bc567d0ba8338929c541c9a8bb4162c \
+                    sha256  8a364955d6272ac7a7c719fba59b4218fb23839f343a776ff783ed2c432f21b8 \
+                    size    381522
 
 variant python310 conflicts python311 python312 python313 python314 description {Use Python 3.10} {}
 variant python311 conflicts python310 python312 python313 python314 description {Use Python 3.11} {}

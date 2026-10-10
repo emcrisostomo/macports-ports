@@ -2,8 +2,8 @@
 
 PortSystem                  1.0
 PortGroup                   active_variants 1.1
-PortGroup                   qt6_info 1.0
 PortGroup                   conflicts_build 1.0
+PortGroup                   qt6_info 1.0
 
 name                        qt6
 
@@ -18,7 +18,7 @@ license                     {LGPL-3 GPL-3 OpenSSLException}
 
 homepage                    https://www.qt.io
 
-version                     6.11.0
+version                     6.11.2
 
 # get Qt's version numbers
 set branch                  [join [lrange [split ${version} .] 0 1] .]
@@ -57,7 +57,7 @@ if {${os.platform} eq "darwin" && [vercmp ${macosx_deployment_target} >= 15.0]} 
 use_xcode                   yes
 
 # MacPorts LLVM/Clang version to use when required
-set llvm_version            19
+set llvm_version            20
 
 # MacPorts Python branch & version to use when required
 set python_branch           3.14
@@ -104,9 +104,9 @@ conflicts_build zstdConfig.cmake
 array set modules {
     qtbase {
         {
-            efc6d9d05509ab6207b9bfd0f0c1c8eed48bbd07 \
-            231ad85979864d914dc9568a1b71c91d6cf20d7b2021d059103bf0eb51cb755e \
-            50502456
+            f3afbef114793ae44b854d595016e09b71176530 \
+            5b2e00eccaf5a4d8c14134ffa0ea8dfd0a35ae1ffc7f8d87fa4305a1ed23cf22 \
+            50582668
         }
         ""
         "port:brotli port:dbus port:double-conversion port:freetype
@@ -119,14 +119,14 @@ array set modules {
          "Qt OpenGL" "Qt Platform Headers" "Qt Print Support" "Qt XML"}
         ""
         "variant overrides: "
-        "revision 1"
+        "revision 0"
         "License: "
     }
     qtsvg {
         {
-            04d56eeba469922cdf54cde0682b93a8379e2fd5 \
-            dfa8d653be07087d9407ed4a4ebae847f8953e0b7abd829f089803ab652a30e6 \
-            2334724
+            db019234f5a5db2fee0fbb2ca0d2c55b42ab192b \
+            d594337feca84c26fb67fe87b85e6a5c12fda404b611d905f9d138210c311876 \
+            2341860
         }
         ""
         "port:zlib"
@@ -139,9 +139,9 @@ array set modules {
     }
     qtdeclarative {
         {
-            690be4ca3aeb4e53fcbc3dd2e12d5d41b35c2c63 \
-            4eece569431ddf8324e7d322fa27001916570b23df535f8fb28aba445eedfde9 \
-            38694812
+            f98b915e1080762641241a3f98da1373b01030f5 \
+            215b7b70517e380123eabc6b92243f3c47b6f016a91d126057dbe53551c6b430 \
+            38780392
         }
         ""
         ""
@@ -154,9 +154,9 @@ array set modules {
     }
     qtmultimedia {
         {
-            b8a03e68f997508aec843837b0669a682aa81fa5 \
-            90c4cac0a7a983b68d1b0873d0714e7873b9a493403fa8593e8a4eea3ea26040 \
-            10231880
+            4659a40a35582a175e4a621a847dd557627cc40b \
+            967b5e02ec6b793cdb360622cd6e703132836af983208d678dae4b50f109cd9f \
+            10255120
         }
         ""
         "port:ffmpeg8 port:pulseaudio"
@@ -169,9 +169,9 @@ array set modules {
     }
     qttools {
         {
-            6d694b8bcd470c39d7459b7dab602b204d81ab2a \
-            cfb1993d7a10848965b01b9cf33a54b8a4ba4e5e3a6d28d59483e73f10d9fc76 \
-            10223892
+            b7528f3728c8f63ba8b305f23fded2094fe2dd8b \
+            9ea75af35c512f7e09e61c8c3af3997f13b4d43bb099cf43fcec470126b4041e \
+            10226452
         }
         ""
         "port:clang-${llvm_version} path:lib/pkgconfig/libzstd.pc:zstd"
@@ -184,9 +184,9 @@ array set modules {
     }
     qttranslations {
         {
-            11f6cb5953f149592afb5796155150a11eee872f \
-            54f48b2fe4316892ff930195f170a5385644acc7393505f3155c066b8e1ffe56 \
-            1680372
+            42c3d9afc46cdfd1e6f2b53936b51ed299c76c69 \
+            021684c1a7937a9fabc3b056a6698ad5978794caf9ac190fd6cc11399e67c014 \
+            1691056
         }
         ""
         ""
@@ -199,9 +199,9 @@ array set modules {
     }
     qtdoc {
         {
-            6da5e2abf78d07ddf754091f8afdf5d975fddea4 \
-            7d1dc08ef61ac5cbcb9ae057f73d78275ddce79f17c7427ec554681cf21694f3 \
-            49943524
+            cf8d02167037c028b1d255f00a239b497c3868ae \
+            56271793257323f3caba4ea6aa2c427af4a4fcf2d957eb4af9304e3035b54eb7 \
+            49992084
         }
         ""
         ""
@@ -214,9 +214,9 @@ array set modules {
     }
     qtlocation {
         {
-            4a430baac11d0d86acaa17de7e05e9c8f0bd1221 \
-            89b8386a8ae9e0b40a43fad398ac344f93a3b0d22f09bec4631f25d79135abef \
-            3151816
+            46ab4e2dcb374c0570fa1599418bdb07f7df1254 \
+            4d50a7ece01fbd76f6ec17c650236cb56ea60f987c52fc391dac72f13f65c23a \
+            3152216
         }
         ""
         ""
@@ -229,9 +229,9 @@ array set modules {
     }
     qtpositioning {
         {
-            47e73a2563e2e20c9003516fa327f17edc27ef26 \
-            d61fd0985ede513ec34d2d1c1e92f383eb8eb46678ca9da805cf795cccb796e9 \
-            652312
+            bf3ddeb54e8857dbc3622a4139e8cdf8ddb72cbe \
+            d8cf15ad43a3b1520adac64cec5900028525cf75f01a4c82a0002e7ac1ae7499 \
+            655468
         }
         ""
         "port:gconf port:gettext-runtime path:lib/pkgconfig/glib-2.0.pc:glib2"
@@ -244,9 +244,9 @@ array set modules {
     }
     qtsensors {
         {
-            f578b91172c28e728d11818a3727c32408319b3e \
-            412829258bc9f42766ed13a4b9d66604f184d349510b3248ec065cf90e1fc3c7 \
-            1485684
+            a627ea24b33f95dce2b0cfcb69a2862f36256bd6 \
+            68c8e44dfb32e8e2182f63f5544c2f462089b1bb049574f1d504ee2648903119 \
+            1486076
         }
         ""
         ""
@@ -259,9 +259,9 @@ array set modules {
     }
     qtconnectivity {
         {
-            2d814e34a932360b2697ec56ff021a7ab544cfb8 \
-            c0f0c124c849ef811a873bf1a0123e3feabac6e9ca3ea7e7ac7a40543ec6193a \
-            1058372
+            63611105ca37b7d09ad13997250d6fd9d240399c \
+            85b01a57bd059583ab520a857990dfdf4021447507ff5b9498f036b7295e6037 \
+            1064168
         }
         ""
         ""
@@ -274,9 +274,9 @@ array set modules {
     }
     qt3d {
         {
-            5851b99cab4f47dbb1e0dbdeab6c65a77ecdcf4e \
-            40cf234d39e6a799ba0807489fc7bd63df79196d03519f43a171c1a875bcdd20 \
-            141865972
+            3a8b1a8856c449dda2d4cac25b628ca835a6e0dc \
+            411185a4795a711472c8f72ff7d6b13a0a9082a5f2c3c3d1ca9556727efbac29 \
+            141876916
         }
         ""
         "port:assimp port:zlib port:minizip port:pugixml"
@@ -284,14 +284,14 @@ array set modules {
         {"Qt 3D"}
         "status = deprecated"
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: "
     }
     qtimageformats {
         {
-            3addedcb52aac3b201dd5a3c4f91256569ae7050 \
-            d3adb02ac5e2fe24068dbdaee0d7cc68cc3fa8553291c1bfce77c9fe8e940cc8 \
-            2028232
+            096196eebe214a0565852bd312b4ed1e85a476a4 \
+            cecd8900f34b6550076309bc94f62f828008b633a4239e0a08c86788f41001f8 \
+            2050424
         }
         ""
         "path:lib/pkgconfig/jasper.pc:jasper port:libmng port:tiff port:webp
@@ -305,9 +305,9 @@ array set modules {
     }
     qtserialbus {
         {
-            4265f17f96bca6a48835735dfe1c2b75a59ff352 \
-            b06e6c0fe16cc2a59a00ba5d438a385f9bcd3aa7d6bc87b8090e8ebff14fdae1 \
-            535528
+            398072e94f694c745bf996a87db4f092c783b8a0 \
+            8f06c9ba95f6b045ec43f011094e35a4116047310aa24280966541b720df36c1 \
+            535820
         }
         ""
         ""
@@ -320,9 +320,9 @@ array set modules {
     }
     qtserialport {
         {
-            abd8e3f97c22f4d8d0eec15256a45375375175fe \
-            264692b7eb7e5d0056249d7b2193ded10d90d90b50e00430748e5570d4ae3784 \
-            263980
+            b6dc30c823fdac7ca6b02ffc9a9043d148a5f441 \
+            df3a733616444f31b2ecb689218ea1444be91d8628aa3ab8e464c5eb1b17ad8e \
+            264044
         }
         ""
         ""
@@ -335,9 +335,9 @@ array set modules {
     }
     qtwebsockets {
         {
-            18bb90f2edd8b9cd48347a82aeb1e5d19c1fbabb \
-            569f10d1fb35195869576004f5b5ff09735d2f0319e2e8f0dd0f40c7ec31d032 \
-            451968
+            a92852e4cee573d483db3dd02434cfedb8f4d42b \
+            2bfe25c383c37f7690e3c59b02c9907d2744cf8527b1f3f1fc2c785b2ff3c9a3 \
+            452352
         }
         ""
         ""
@@ -350,9 +350,9 @@ array set modules {
     }
     qtwebchannel {
         {
-            5cb38815937e66c4cb547358caacc608f5c1c6aa \
-            e946143a8b015e2c9d5cc6110515f43618b441799da546138d0b05d8afa9fb24 \
-            193340
+            a6591c3fb5bf7262c6880d04e8eb87e146fddd37 \
+            feb3149758bda887f0c292656194812dd2c227595badc8fbdeb2fb2311c5575f \
+            193460
         }
         ""
         ""
@@ -365,9 +365,9 @@ array set modules {
     }
     qtwebengine {
         {
-            3c86f295fc2c1ed310bb758e65792d0c5bdb6654 \
-            63b921c8b2dd59152ced9a796676010166df044588ee00ef9429dc2fd2146736 \
-            578861916
+            f4ddbf85de0e0ec4b1ff5959595d92bce339b581 \
+            6101c1aa00ff933d1b65ee5d167f76e8d71b9ac5b378b0111277723ebda7c163 \
+            580351104
         }
         "path:bin/node:nodejs22 port:python${python_version} port:py${python_version}-html5lib port:py${python_version}-ply"
         "port:libpng port:zlib"
@@ -380,9 +380,9 @@ array set modules {
     }
     qtwebview {
         {
-            4b232a97fb9baf88ebb1c32c7bc4111ebb90ad43 \
-            cb0eaed94a12d5f650863d346c423e9f4383dbce1d05866869c40118c6e8c4b3 \
-            128544
+            9ad835e8cd619d944790ddf956b0b8497d889fad \
+            7e21e109ee89dadeef2d3edd786bcb9d64a5562ea546f89dcc79b3f52f881f4c \
+            116556
         }
         ""
         ""
@@ -395,9 +395,9 @@ array set modules {
     }
     qtcharts {
         {
-            2030f062a2556002b21bfb4bda374ad4a75c50e7 \
-            ac409bd4085772f7f091438cce05213b2a88a6edbab16e3dd7a96122386d94b5 \
-            4651880
+            da77345a40f29c037cbb848a21a15b515156db5e \
+            5069e53b81d125509e937c6379cba6d664c562d5a1e5ed28dd383690d4b6fb29 \
+            4652744
         }
         ""
         ""
@@ -410,9 +410,9 @@ array set modules {
     }
     qtdatavis3d {
         {
-            25f47bd4f199c983c24ceb3521a0bb27de39d3c5 \
-            eebd8cef3f790a0e70250d6833a5517e7595098e9f18e65493417272f75c23cb \
-            3939328
+            e60fbd4403dd7b3b36109be5a9d0379b267505ba \
+            d24e6919c5d6f8a16dd19ce3c7c8f47689d39a72dbe4a31c1c1bcedfa60b661d \
+            3939712
         }
         ""
         ""
@@ -425,9 +425,9 @@ array set modules {
     }
     qtvirtualkeyboard {
         {
-            70cd8a142f75cf56633bb260de5200e906cb52e3 \
-            d88a4b1713a313e3ac06c32837b5d00724d1dcf7b44c2594f1029f7c74a8e686 \
-            3282444
+            da93dcca652aff96ef510b1b9a360a529452a31d \
+            4c6a26734a5c4e4acd5ff9ae5f192a5b883bc4514118f9df2fcf12064e647c2f \
+            3284068
         }
         ""
         "port:hunspell"
@@ -440,9 +440,9 @@ array set modules {
     }
     qtscxml {
         {
-            a1e7049eb458f5316c3ae1385958adc50135e35f \
-            6c383a53c0c3668fcc80d89f00193f0e928a784199c591213cbed1bf2f64d4e7 \
-            549348
+            0d9b8cd9323a84d310d22b48e95eced210d1bf2c \
+            f594c4bba7f8bffb20857973c72895669d6e54df08c8d897f50d15251cec35ff \
+            550868
         }
         ""
         ""
@@ -455,9 +455,9 @@ array set modules {
     }
     qtspeech {
         {
-            1ee723d1d9213deca5a9a15fe862f97809dc4a62 \
-            a9c585d1a65a19686dd4d39432fdc8f2b22c9415798a928dba60b39dcd46db21 \
-            249120
+            e36c7b8ed846af3824b505e34e47e24a5f7f8cbd \
+            9c1d05dc9d710049f20a67680fc6b4293c9b584a90f04f4cf6cc36e758c5cb98 \
+            249288
         }
         ""
         "port:flite"
@@ -470,9 +470,9 @@ array set modules {
     }
     qtnetworkauth {
         {
-            f532b856e8f728e31f677dea7985dbeeffd031f8 \
-            828c17d3b4a9e3a3415e597022c98e4e0206b214043e4f1b292e9da620f214d7 \
-            435056
+            c9ca59ac479d08da1607ff95312237cd6451a8c4 \
+            0c83c23077ab7824393fa15bb0015c3c5acaf5678544aa789e3fcbb4d41fa05b \
+            435820
         }
         ""
         ""
@@ -485,9 +485,9 @@ array set modules {
     }
     qtremoteobjects {
         {
-            380232a6b0dccc056d3be3e59c93d5a7f98e30aa \
-            e19420aae8f142c7ba9c9d91d78040713bfe0e17c96ef9a813db30dcd59ade97 \
-            529140
+            6ed4ab00fb81c449014cdb2ea297729279717ca0 \
+            5e0c9681799ec2b1179a712506266fb01fb2491e94bd2dba942b72fdef797cfd \
+            530156
         }
         ""
         ""
@@ -500,9 +500,9 @@ array set modules {
     }
     qtlottie {
         {
-            b665de39dd1b5447199aa00c6ad3d27838e4d714 \
-            2f23ae6879bc652e194f3a7ba5972d13ec04f8f48226e8c00a002f3227bdcd0a \
-            663348
+            157a4f0b6f0c623863de397f8a2dfaab1240ece1 \
+            f53c712716d9eba9a7ccb405b8cd2d30652097828fcfeb152f46b4ec40524852 \
+            663696
         }
         ""
         ""
@@ -515,9 +515,9 @@ array set modules {
     }
     qtquicktimeline {
         {
-            454ca2dc7283fda45bb889d281cb10997bf160af \
-            06dbe1cc541431fa321023992ca4ccf83c76b25d07bbf516e0af887a38f32cd6 \
-            97300
+            80482df4fd80002dec5b88b19cda21831ab5d131 \
+            250af10500a0c4045dde74e107448a69a44d58af8b7e9a91704a808d5f881d17 \
+            97312
         }
         ""
         ""
@@ -530,9 +530,9 @@ array set modules {
     }
     qtquick3d {
         {
-            7f142e5c27bd37bb6438d1099f0af00d3910fc9e \
-            b42000bb33e55b6c642657eb7022ee1f74f9e19cf64d52e85d41763f567b8994 \
-            69602528
+            54d59f9e3fa0b7ae187bd298b99478a6c769f322 \
+            3ab8e1f08edb26373a37cf9d42c23e7d092c1334566b953fbb51cb1b936737b4 \
+            69948340
         }
         ""
         "port:assimp"
@@ -540,14 +540,14 @@ array set modules {
         {"Qt Quick 3D"}
         "GPLv3 license only"
         "variant overrides: "
-        "revision 0"
+        "revision 1"
         "License: {GPL-3 OpenSSLException}"
     }
     qtshadertools {
         {
-            db56f0e94935f506a1ff16b3eec1eec11ce3a021 \
-            e43cb1ae8809b2a858281ee269f98da59d0fc1bcf958ca5510c81f7ad3d2e14a \
-            1216672
+            0d3db008bb5fbc299efc7114c82255a3f80a4690 \
+            805046b8b7757665586890b375940047e874ae3ab00adb6d3f2b38fc6b200b1c \
+            1216816
         }
         ""
         ""
@@ -560,9 +560,9 @@ array set modules {
     }
     qt5compat {
         {
-            1f828897633a7c0890c18b9007dc6542849f3651 \
-            e62954646b2749723aa5c7db32faab407358734075590058a01e793382d4c63e \
-            14616240
+            26abc7688c4c80b2ef17705d364345636a97f6b5 \
+            68c320fe3391096a9f2d870170edf1b67dac8af1d0e51c0c9e5343807f114287 \
+            14620928
         }
         ""
         "path:lib/pkgconfig/icu-uc.pc:icu port:libiconv"
@@ -570,14 +570,14 @@ array set modules {
         {"Qt 5 Core Compatibility APIs"}
         "status = deprecated"
         "variant overrides: "
-        "revision 1"
+        "revision 0"
         "License: "
     }
     qtlanguageserver {
         {
-            d2909b96fd6db5c39862cc6277b56eaf2c13534a \
-            1bc8e443f561f9086d40943e7bd685e9536c4658b3df770d30cf4733b7f405bf \
-            137240
+            c970299ba50365dfd8b9b4584a9e282417e55848 \
+            38bc4272ecf4ca0eb1927227053e52be6b2e05733f46d03422306aace511fc5e \
+            138104
         }
         ""
         ""
@@ -590,9 +590,9 @@ array set modules {
     }
     qthttpserver {
         {
-            fd6b4569605a7c80e00567171ded875d0618ec61 \
-            2b9095a327ede86be111dc4978fe848b3fbf48f23d99138fc6c3688e2a7d989b \
-            184968
+            b56d52c3dd8dd46c50862f87f4c874f3e3fc217b \
+            f0f5763b2ba58f20f5cffdfbedb97e62e32b5c639df6d9a6378905028be7bd8e \
+            186532
         }
         ""
         ""
@@ -605,9 +605,9 @@ array set modules {
     }
     qtquick3dphysics {
         {
-            66af5297957482034881fd0809a4cd6b34202958 \
-            a57a6c8ef631a6ed1fe8390d66a2c3c658bd27fbab7419591944eb3e424a9d35 \
-            4670044
+            312088b02fb00bfed75c46df913ff9b77143f639 \
+            1c5a24cf4285fc48481d7c7ae65bd6e80ed98b10964ea6e8530c608c4cdeb86e \
+            4669820
         }
         ""
         ""
@@ -620,9 +620,9 @@ array set modules {
     }
     qtgrpc {
         {
-            20289afc6caf548526878bfb28e80934076e3fcc \
-            9dedcb51836cd0e8703764f0c89ef5a7da414e0c9a0d67d0d8d6ab17bb94a879 \
-            639044
+            af9e867c3552ab73d7641c2b7846927340ca2c00 \
+            44414617f0058ff34965fa852027bfcc7e4f71eefca8cd4406c96af22c64ad93 \
+            754012
         }
         ""
         "port:abseil port:protobuf3-cpp"
@@ -630,14 +630,14 @@ array set modules {
         {"Qt GRPC"}
         "GPLv3 license only"
         "variant overrides: "
-        "revision 1"
+        "revision 0"
         "License: {GPL-3 OpenSSLException}"
     }
     qtquickeffectmaker {
         {
-            04f075c179bf4bc1ddb1d0c7ab9c795c55d84bd4 \
-            ac02813fee62de71b8857fdab51cc20f752ebbefba80fe0ea7a2d77c12d9d715 \
-            4342928
+            609b7e397432a3fa4fe98652c43c6b93fa0c665f \
+            7923dc7284e933a5e36ae24a427564f04e0b27af8dfa38eee8092c01c2835cb7 \
+            4343516
         }
         ""
         ""
@@ -650,9 +650,9 @@ array set modules {
     }
     qtgraphs {
         {
-            b2fef78910c152f634e4c2b4f14183dd3f795c38 \
-            df6fcb48c0a558fdf964a7d4b52e740760fd7bbd0f7a5d9aff571050f476b15b \
-            9264460
+            9608699da751a77abddb9f6c08946524a8fecbef \
+            9f2109854afa45dd144116c11461989c411a17065c63da5068441a1200fb8b21 \
+            9287464
         }
         ""
         ""
@@ -665,9 +665,9 @@ array set modules {
     }
     qttasktree {
         {
-            349f9bf5a9a526b2a4265e57018078be9010c70d \
-            597aa25e7c4d6f4f82c9d57e5d855d509b8ffe9ddae8a6442fb1f0bff1a8b34f \
-            257204
+            1a8254b8e877a9f7a7cc2c188c894924b3f69e4e \
+            c0762992f01616a6cd15efea2658ace1984fb290723aab5406d813cd21c23ed8 \
+            257492
         }
         ""
         ""
@@ -680,9 +680,9 @@ array set modules {
     }
     qtcanvaspainter {
         {
-            b0a081e9977b89b6707607c6129fa6da330c7dcf \
-            545affe9cd65672a11e735a4b7959067f3c020c73456dd039236f38060fdafbe \
-            710880
+            a8ad2cf316c15a03e0486754cdad47577b98aba8 \
+            8a90a27250ceef5ff659744e035ef4f5d3cd7392e027d5f953765b3f1083e760 \
+            718488
         }
         ""
         ""
@@ -735,6 +735,14 @@ array set sql_plugins {
         "revision 0"
         {sql-psql}
         {
+            postgresql18 {
+                "port:postgresql18"
+                {
+                    -DPostgreSQL_INCLUDE_DIR=${prefix}/include/postgresql18
+                    -DPostgreSQL_TYPE_INCLUDE_DIR=${prefix}/include/postgresql18
+                    -DCMAKE_LIBRARY_PATH=${prefix}/lib/postgresql18
+                }
+            }
             postgresql17 {
                 "port:postgresql17"
                 {
@@ -767,30 +775,6 @@ array set sql_plugins {
                     -DCMAKE_LIBRARY_PATH=${prefix}/lib/postgresql14
                 }
             }
-            postgresql13 {
-                "port:postgresql13"
-                {
-                    -DPostgreSQL_INCLUDE_DIR=${prefix}/include/postgresql13
-                    -DPostgreSQL_TYPE_INCLUDE_DIR=${prefix}/include/postgresql13
-                    -DCMAKE_LIBRARY_PATH=${prefix}/lib/postgresql13
-                }
-            }
-            postgresql12 {
-                "port:postgresql12"
-                {
-                    -DPostgreSQL_INCLUDE_DIR=${prefix}/include/postgresql12
-                    -DPostgreSQL_TYPE_INCLUDE_DIR=${prefix}/include/postgresql12
-                    -DCMAKE_LIBRARY_PATH=${prefix}/lib/postgresql12
-                }
-            }
-            postgresql11 {
-                "port:postgresql11"
-                {
-                    -DPostgreSQL_INCLUDE_DIR=${prefix}/include/postgresql11
-                    -DPostgreSQL_TYPE_INCLUDE_DIR=${prefix}/include/postgresql11
-                    -DCMAKE_LIBRARY_PATH=${prefix}/lib/postgresql11
-                }
-            }
         }
     }
     mysql {
@@ -798,39 +782,32 @@ array set sql_plugins {
         "revision 0"
         {sql-mysql}
         {
+            mariadb12_3 {
+                "port:mariadb-12.3"
+                {
+                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-12.3/mysql
+                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-12.3/mysql/libmariadb.dylib
+                }
+            }
+            mariadb11_8 {
+                "port:mariadb-11.8"
+                {
+                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-11.8/mysql
+                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-11.8/mysql/libmariadb.dylib
+                }
+            }
+            mariadb11_4 {
+                "port:mariadb-11.4"
+                {
+                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-11.4/mysql
+                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-11.4/mysql/libmariadb.dylib
+                }
+            }
             mariadb10_11 {
                 "port:mariadb-10.11"
                 {
                     -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-10.11/mysql
                     -DMySQL_LIBRARY=${prefix}/lib/mariadb-10.11/mysql/libmariadb.dylib
-                }
-            }
-            mariadb10_10 {
-                "port:mariadb-10.10"
-                {
-                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-10.10/mysql
-                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-10.10/mysql/libmariadb.dylib
-                }
-            }
-            mariadb10_9 {
-                "port:mariadb-10.9"
-                {
-                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-10.9/mysql
-                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-10.9/mysql/libmariadb.dylib
-                }
-            }
-            mariadb10_8 {
-                "port:mariadb-10.8"
-                {
-                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-10.8/mysql
-                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-10.8/mysql/libmariadb.dylib
-                }
-            }
-            mariadb10_7 {
-                "port:mariadb-10.7"
-                {
-                    -DMySQL_INCLUDE_DIR=${prefix}/include/mariadb-10.7/mysql
-                    -DMySQL_LIBRARY=${prefix}/lib/mariadb-10.7/mysql/libmariadb.dylib
                 }
             }
             mariadb10_6 {
@@ -1116,6 +1093,8 @@ subport ${name}-qttools {
 }
 
 if { ${subport} in [list "${name}-qtwebengine" "${name}-qtwebengine-docs"] } {
+    PortGroup                       metal 1.0
+
     compiler.cxx_standard           2020
     compiler.blacklist-append       {clang < 1700}
 
@@ -1144,6 +1123,9 @@ if { ${subport} in [list "${name}-qtwebengine" "${name}-qtwebengine-docs"] } {
     # Fix build with Xcode 26, metal and metallib have moved
     # see: https://trac.macports.org/ticket/73037
     patchfiles-append               patch-qtwebengine-metal-toolchain.diff
+
+    # Fix build on macOS 27 Golden Gate
+    patchfiles-append               patch-qtwebengine-goldengate.diff
 }
 
 subport ${name}-qtwebengine {
@@ -1160,15 +1142,11 @@ subport ${name}-qtmultimedia {
     # see
     #     https://code.qt.io/cgit/qt/qtmultimedia.git/tree/src/plugins/multimedia/gstreamer/CMakeLists.txt
     #     https://code.qt.io/cgit/qt/qtmultimedia.git/tree/src/multimedia/configure.cmake
+    set ffmpeg_ver                  8
     configure.args-append           -no-gstreamer
-
-    configure.post_args-append      -DFFMPEG_DIR=${prefix}/libexec/ffmpeg8 \
-                                    -DAVCODEC_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include \
-                                    -DAVCODEC_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavcodec.dylib \
-                                    -DAVFORMAT_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include \
-                                    -DAVFORMAT_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavformat.dylib \
-                                    -DAVUTIL_INCLUDE_DIR=${prefix}/libexec/ffmpeg8/include\
-                                    -DAVUTIL_LIBRARY=${prefix}/libexec/ffmpeg8/lib/libavutil.dylib
+    configure.post_args-append      -DFFMPEG_DIR=${prefix}/libexec/ffmpeg${ffmpeg_ver}
+    configure.cflags-prepend        -I${prefix}/libexec/ffmpeg${ffmpeg_ver}/include
+    configure.ldflags-prepend       -L${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib
 }
 
 subport ${name}-qt5compat {
@@ -1261,7 +1239,7 @@ subport ${name}-qtbase {
     # this subport uses configure script
     PortGroup                       openssl 1.0
 
-    patchfiles-append               patch-fix-macos-26.4.diff
+    conflicts_build                 wayland
 
     build.cmd                       ninja
     build.post_args-append          -v
@@ -1469,6 +1447,17 @@ post-destroot {
     foreach app [glob -nocomplain -tails -directory ${destroot}${qt6.dir}/bin *.app] {
         ln -s                       ${qt6.dir}/bin/${app} \
                                     ${destroot}${applications_dir}/Qt6
+    }
+
+    # put configuration files in places they will be found automatically
+    set qt_libs_dir ${qt6.dir}/lib
+    if { ${qt_libs_dir} ne "${prefix}/lib" } {
+
+        # put link to pkgconfig files in place where pkgconfig will find it
+        xinstall -d -m 0755 ${destroot}${prefix}/lib/pkgconfig
+        foreach pcfile [glob -nocomplain -tails -directory ${destroot}${qt_libs_dir}/pkgconfig *.pc] {
+            ln -s ${qt_libs_dir}/pkgconfig/${pcfile} ${destroot}${prefix}/lib/pkgconfig
+        }
     }
 }
 

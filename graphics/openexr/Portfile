@@ -5,17 +5,18 @@ PortGroup                       cmake           1.1
 PortGroup                       github          1.0
 PortGroup                       legacysupport   1.1
 
-github.setup                    AcademySoftwareFoundation openexr 3.4.10 v
+github.setup                    AcademySoftwareFoundation openexr 3.5.2 v
 github.tarball_from             releases
 revision                        0
 
-checksums                       rmd160  17d4cc31c53ea035cbbc853efc52f1ace6fb7cd4 \
-                                sha256  2e054a8f5030c25d1585cbfa537feaaf86d69388b75c00d96c3a91f676e88cbe \
-                                size    25750984
+checksums                       rmd160  c0bc2a81777802246ce26eb57570f77bb445800e \
+                                sha256  e5750af57bbed556b462cbf0c39550d9063b2028c0184ec65fe42fdae458cdea \
+                                size    26404212
 
 categories                      graphics
 license                         BSD
-maintainers                     {mcalhoun @MarcusCalhoun-Lopez} {mascguy @mascguy} openmaintainer
+maintainers                     {mascguy @mascguy} \
+                                openmaintainer
 
 description                     OpenEXR Graphics Library
 long_description                OpenEXR is the professional-grade high dynamic range image \
@@ -38,10 +39,17 @@ if { (!(${universal_possible} && [variant_isset universal]) && ${configure.build
     patchfiles-append           patch-ensure_pack.diff
 }
 
+# https://trac.macports.org/ticket/74524
+# aligned_alloc is missing on macOS <= 10.14
+if {${os.platform} eq "darwin" && ${os.major} <= 18} {
+    patchfiles-append           patch-src-lib-OpenEXRCore-internal_zstd.c.diff
+}
+
 depends_build-append            port:pkgconfig
 depends_lib-append              port:imath \
                                 port:libdeflate \
-                                port:OpenJPH
+                                port:OpenJPH \
+                                port:zstd
 
 compiler.cxx_standard           2017
 

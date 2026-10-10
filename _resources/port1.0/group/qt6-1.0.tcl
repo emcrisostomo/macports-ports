@@ -11,7 +11,7 @@ PortGroup       qt6_info 1.0
 # possible values:
 #     qt_dirs:        set the Q{...}_DIR environment variables
 #     toolchain_file: set the CMAKE_TOOLCHAIN_FILE environment variable
-#     module_path:    use cmake.module_path from cmake PG
+#     prefix_path:    use cmake.prefix_path from cmake PG
 #     qt-cmake:       attempt to use the Qt version of cmake
 #     none:           do not attempt to find Qt (useful for variants)
 options         qt6.find_method
@@ -88,17 +88,17 @@ proc qt6::callback {} {
     switch -exact [option qt6.find_method] {
         qt_dirs {
             configure.env-append            QT_DIR=[option qt6.dir]
-            foreach module {"" CoreTools GuiTools} {
+            foreach module {"" CoreTools GuiTools LinguistTools} {
                 configure.env-append        Qt6${module}_DIR=[option qt6.dir]
             }
         }
         toolchain_file {
             configure.env-append            CMAKE_TOOLCHAIN_FILE=[option qt6.dir]/lib/cmake/Qt6/qt.toolchain.cmake
         }
-        module_path {
-            global cmake.module_path
-            if { [info exists cmake.module_path] } {
-                cmake.module_path-append    [option qt6.dir]/lib/cmake
+        prefix_path {
+            global cmake.prefix_path
+            if { [info exists cmake.prefix_path] } {
+                cmake.prefix_path-append    [option qt6.dir]
             } else {
                 ui_warn                     "[option qt6.find_method] as qt6.find_method only work if cmake PG is used"
             }

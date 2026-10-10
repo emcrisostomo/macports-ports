@@ -3,9 +3,9 @@
 PortSystem          1.0
 PortGroup           octave 1.0
 
-octave.setup        github gnu-octave pkg-apa 1.1.1 v
+octave.setup        github gnu-octave pkg-apa 1.2.2 v
 octave.module       apa
-revision            0
+revision            1
 
 license             GPL-3+
 maintainers         {mps @Schamschula} openmaintainer
@@ -17,16 +17,9 @@ long_description    {*}${description} This package is a wrapper around the MPFR 
                     applications that require high precision, such as numerical \
                     analysis and scientific computing.
 
-checksums           rmd160  65a2042e6ff110c8a36dc44b0466962e94832831 \
-                    sha256  3961d6091fc26ba60e9d46e49d8ae5acf497178255e7d9f5e015bed6d03c3499 \
-                    size    168567
+checksums           rmd160  a03de48b3cbbc96e33b2693c16fd8f737182e5cc \
+                    sha256  1df4afc7db1a3f425c22d9d50f864f75f6bff4d3d7dbccce0b6622b29b13bb96 \
+                    size    173045
 
 depends_lib         port:libomp \
                     port:mpfr
-
-patchfiles          patch-inst-install_apa.m.diff \
-                    patch-inst-mex-mex_apa_interface.h.diff
-
-post-patch {
-    reinplace "s|%PREFIX%|${prefix}|g" ${worksrcpath}/inst/install_apa.m
-}

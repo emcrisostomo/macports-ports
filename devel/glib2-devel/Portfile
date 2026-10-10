@@ -12,13 +12,13 @@ PortGroup                   muniversal 1.0
 name                        glib2-devel
 conflicts                   glib2
 set my_name                 glib
-version                     2.88.0
-revision                    0
+version                     2.88.3
+revision                    2
 epoch                       1
 
-checksums                   rmd160  d7ca9af28e6c74efd91e883b6a01c4102af2f4d4 \
-                            sha256  3546251ccbb3744d4bc4eb48354540e1f6200846572bab68e3a2b7b2b64dfd07 \
-                            size    5788396
+checksums                   rmd160  5237604ee7a76cbbd8e7dd6c7b2b4715a8f56a52 \
+                            sha256  ab24d24e698dfa1e408b7bcdb508f4aafc906185a8b8ce72fdf79bbbdc9b383b \
+                            size    5794356
 
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  devel
@@ -63,6 +63,10 @@ platform darwin {
         patchfiles-append   patch-gio_gcredentialsprivate.h.diff
         patchfiles-append   patch-gio_gcredentials.c.diff
         patchfiles-append   patch-gio_gsocket.h.diff
+
+        # see: https://github.com/macos-powerpc/powerpc-ports/issues/102
+        # needed on 10.5, possibly relevant for 10a190, safe for 10.6.8:
+        patchfiles-append   patch-gio_gipv6tclassmessage.diff
     }
 }
 
@@ -128,6 +132,10 @@ if {${universal_possible} && [variant_isset universal]} {
         # strip the automatic setting of host, meson does not accept
         set merger_host(${my_arch}) ""
     }
+
+    # dbus is used for specific tests but isn't a hard build/library requirement. The build fails with +universal
+    # because dbus isn't guaranteed to be install with +universal
+    configure.args-append   -Dtests=false
 }
 
 post-patch {
@@ -224,13 +232,26 @@ if {![variant_isset quartz] && ![variant_isset x11]} {
     }
 }
 
+variant dbus description {Build with dbus support} {
+    depends_lib-append      port:dbus
+}
+
+default_variants-append     +dbus
+
+if {![variant_isset dbus]} {
+    # Need to disable dbus to avoid crashes when dbus is installed
+    # https://gitlab.gnome.org/GNOME/gimp/-/issues/13672
+    depends_lib-delete      port:dbus
+    patchfiles-append       patch-gapplicationimpl-dbus.c.diff
+    configure.args-append   -Dtests=false
+}
+
 subport glib2-bootstrap-devel {
+    conflicts
     description             Glib2 build with introspection disabled, used to build gobject-introspection \
                             and avoid circular dependency.
     long_description        {*}${description} \nSee \
                             https://discourse.gnome.org/t/dealing-with-glib-and-gobject-introspection-circular-dependency/18701
-
-    conflicts
 
     depends_build-delete    port:gobject-introspection-bootstrap-devel
 
@@ -241,3 +262,20 @@ subport glib2-bootstrap-devel {
 
 livecheck.type              gnome
 livecheck.name              ${my_name}
+
+pre-activate {
+    # the new glib2 port now installs files that were previously in gobject-introspection({,-devel} ports
+    if {![catch {lindex [registry_active gobject-introspection] 0} installed]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 1.86.0] < 0} {
+            registry_deactivate_composite gobject-introspection "" [list ports_nodepcheck 1]
+        }
+    }
+
+    if {![catch {lindex [registry_active gobject-introspection-devel] 0} installed]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 1.86.0] < 0} {
+            registry_deactivate_composite gobject-introspection-devel "" [list ports_nodepcheck 1]
+        }
+    }
+}

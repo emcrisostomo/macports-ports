@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/go-delve/delve 1.26.3 v
+go.setup            github.com/go-delve/delve 1.27.2 v
 go.offline_build    no
+go.toolchain_min    1.25.0
 revision            0
 
 description         \
@@ -23,9 +24,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  548f3a532d254e12c6420bdc3bed9419a6d52a78 \
-                    sha256  c5abd02033d7601a41bb6748589c0be42080dc4f91c7e48fc8cbb7f558cc8748 \
-                    size    9407805
+checksums           rmd160  451c6edb3bd02a7d67f1adbb2910ca3a9e1fd5ee \
+                    sha256  8ea5979dfc5978c9690dc1dd533a830815441dd33617f4a61bcdff7d2c3c7e90 \
+                    size    9610147
 
 post-extract {
     reinplace -E s|@go|@${go.bin}| ${worksrcpath}/Makefile

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-idna
-version             3.11
+version             3.20
 revision            0
 categories-append   devel
 license             BSD
@@ -17,16 +17,25 @@ python.pep517_backend flit
 maintainers         {stromnov @stromnov} openmaintainer
 
 description         Internationalized Domain Names in Applications (IDNA).
-long_description    ${description}
+long_description    {*}${description}
 
 homepage            https://github.com/kjd/idna/
 
-checksums           rmd160  eb73a6ffd25c9b30b8efdaf0e5ea43e5130d7098 \
-                    sha256  795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902 \
-                    size    194582
+checksums           rmd160  d25594ddbd97e7025704c0f3649860e798ecc3e1 \
+                    sha256  a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44 \
+                    size    216463
 
 if {${name} ne ${subport}} {
-    if {${python.version} < 36} {
+    if {${python.version} < 310 && ${python.version} > 36} {
+        version             3.11
+        revision            0
+        distname            ${python.rootname}-${version}
+        checksums           rmd160  eb73a6ffd25c9b30b8efdaf0e5ea43e5130d7098 \
+                            sha256  795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902 \
+                            size    194582
+        depends_build-append \
+                            port:py${python.version}-setuptools
+    } elseif {${python.version} < 36} {
         version             2.10
         revision            0
         distname            ${python.rootname}-${version}

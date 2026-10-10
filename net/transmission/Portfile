@@ -2,10 +2,10 @@
 
 PortSystem              1.0
 PortGroup               github 1.0
-PortGroup              xcode 1.0
+PortGroup               xcode 1.0
 
-github.setup            transmission transmission 4.1.1
-revision                0
+github.setup            transmission transmission 4.1.3
+revision                1
 categories              net aqua
 maintainers             {khindenburg @kurthindenburg} {i0ntempest @i0ntempest} openmaintainer
 license                 MIT GPL-2
@@ -24,9 +24,9 @@ homepage                https://transmissionbt.com
 github.tarball_from     releases
 use_xz                  yes
 
-checksums               rmd160  0c949391b21175684330c7691ac45a85a11be614 \
-                        sha256  e743283ee03a42c4d0b08fed2bd52b554aa6c9f65b4d4d45b795c32d98762a79 \
-                        size    11876904
+checksums               rmd160  5e3a1af36cb50b42253424ba2d1fd7e757a62e0b \
+                        sha256  ce7d2d8b101f7eb54bc3cf0bc55f52f7ebd4a25fa48e00bdca9a7e0fc02617da \
+                        size    11845312
 
 platforms               macosx
 
@@ -36,16 +36,18 @@ depends_lib-append      port:gettext-runtime \
                         port:curl \
                         path:lib/libssl.dylib:openssl
 
-xcode.target            Transmission
+xcode.scheme            Transmission
 xcode.configuration     Release
 xcode.build.settings-append \
                         ENABLE_USER_SCRIPT_SANDBOXING=NO
 
+build.pre_args-append   -derivedDataPath ${worksrcpath}/DerivedData
+
 compiler.cxx_standard   2020
 
 # Hardened Runtime on 10.14 is not compatible with AdHoc signing
-# Hardened Runtime on 10.15 causes crash when loading unsigned libs
-if {${os.major} == 18 || ${os.major} == 19} {
+# Hardened Runtime on 10.15, 27, possibly others causes crash when loading unsigned libs
+if {[vercmp ${xcodeversion} >= 10]} {
     xcode.build.settings-append \
                         ENABLE_HARDENED_RUNTIME=NO \
                         CODE_SIGN_IDENTITY=-
@@ -71,7 +73,7 @@ post-patch {
 }
 
 variant daemon description {Builds headless daemon} {
-    xcode.target-append transmission-daemon \
+    xcode.scheme-append transmission-daemon \
                         transmission-remote \
                         transmission-create \
                         transmission-edit \

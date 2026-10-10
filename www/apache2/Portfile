@@ -4,11 +4,12 @@ PortSystem          1.0
 PortGroup           apache2 1.0
 
 name                apache2
-version             2.4.66
-revision            1
-checksums           rmd160  659d1ed23924d94a6e5d2f7cb595a568cff7b514 \
-                    sha256  94d7ff2b42acbb828e870ba29e4cbad48e558a79c623ad3596e4116efcfea25a \
-                    size    7504564
+version             2.4.69
+revision            0
+
+checksums           rmd160  62e4ece2bc7b4b1ce122b8a266fc99cb5bc99e56 \
+                    sha256  c5e6ebc66e349b87d7fc6916ae7cc2a808ed348003de134cf9e9d89d3e2cc73d \
+                    size    8513053
 
 categories          www
 maintainers         {ryandesign @ryandesign} {mps @Schamschula} openmaintainer

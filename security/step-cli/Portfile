@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/smallstep/cli 0.30.2 v
+go.setup            github.com/smallstep/cli 0.31.0 v
 go.offline_build    no
+go.toolchain_min    1.26.0
 name                step-cli
 revision            0
 
@@ -27,9 +28,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 # already present.
 dist_subdir         ${name}
 
-checksums           rmd160  5ed971608f982ab84f65044c5e087f6bf421bf17 \
-                    sha256  0def585a03b9f1dd3e72df33baf38016ba15e198f8532d538a236d65b10bac7f \
-                    size    1653362
+checksums           rmd160  1a0ffe5e76607b9978e015d67ce0f35ba6f0dbbf \
+                    sha256  7eb9ba3d1d8edc07fe6e3bae0ee5a3b6fc7a60bbd850d334ccc74d02b5e4f0fe \
+                    size    1655040
 
 build.cmd           make
 build.target        binary-${goos}-${goarch}

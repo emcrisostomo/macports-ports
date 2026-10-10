@@ -5,21 +5,21 @@ PortGroup           python 1.0
 
 name                py-hanko
 python.rootname     pyhanko
-version             0.34.1
+version             0.37.0
 revision            0
 
 license             MIT
 maintainers         nomaintainer
 description         Tools for stamping and signing PDF files
 long_description    {*}${description}
-homepage            https://pypi.org/project/pyHanko
+homepage            https://github.com/MatthiasValvekens/pyHanko
 
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  35f5c3b64e942f8892a8e400ec9670c61860ec70 \
-                    sha256  a4c288552f61607e031aa93f22f834759a3f5201107f80c2d5d266161ad11216 \
-                    size    8868035
+checksums           rmd160  5aa4f0f742b3cb79253796a8543ee938a5931872 \
+                    sha256  86a2647720ac798d7e5e1bca8f7a11959b0a13034a74cdb3357f6f40b2fd1e43 \
+                    size    7988521
 
 python.versions     310 311 312 313 314
 
@@ -29,14 +29,24 @@ if {${name} ne ${subport}} {
     }
 
     depends_lib-append \
+                    port:py${python.version}-aiohttp \
                     port:py${python.version}-asn1crypto \
+                    port:py${python.version}-barcode \
                     port:py${python.version}-click \
                     port:py${python.version}-cryptography \
                     port:py${python.version}-fonttools \
                     port:py${python.version}-hanko-certvalidator \
+                    port:py${python.version}-lxml \
+                    port:py${python.version}-mypy \
+                    port:py${python.version}-oscrypto \
+                    port:py${python.version}-Pillow \
+                    port:py${python.version}-pkcs11 \
                     port:py${python.version}-pytest-asyncio \
                     port:py${python.version}-qrcode \
                     port:py${python.version}-requests \
+                    port:py${python.version}-signxml \
                     port:py${python.version}-tzlocal \
-                    port:py${python.version}-yaml
+                    port:py${python.version}-uharfbuzz \
+                    port:py${python.version}-uritools \
+                    port:py${python.version}-xsdata
 }

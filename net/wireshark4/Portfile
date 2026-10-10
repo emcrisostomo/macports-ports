@@ -29,13 +29,13 @@ if { ${os.platform} eq "darwin" && ${os.major} < 16 } {
     }
 }
 
-version         4.6.4
+version         4.6.9
 revision        0
 
-checksums       sha256  fbeab3d85c6c8a5763c8d9b7fe20b5c69ca9f9e7f2b824bedc73135bdca332e2 \
-                sha1    694a28aedceef0061736d13c7fdff0ebddc46e77 \
-                rmd160  650922619eb2a91855ca5152f50cf356d5636f6a \
-                size    50566640
+checksums       sha256  d062d416a1ab3a49975aafe3a671c882dde0562ccd71b078808ceb59d465fc0f \
+                sha1    8287d01d50fa1269dcfd4e01c5dfd8d00ef652f4 \
+                rmd160  f4be5a4b677e2e14470ff706c0fc29159716bbc5 \
+                size    56477044
 
 livecheck.type  regex
 livecheck.url   ${homepage}download/src/

@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-async-geotiff
 python.rootname     async_geotiff
-version             0.4.0
+version             0.5.1
 revision            0
 
 license             MIT
@@ -15,9 +15,9 @@ description         Fast, async GeoTIFF and Cloud-Optimized GeoTIFF (COG) reader
 long_description    {*}${description}
 homepage            https://github.com/developmentseed/async-geotiff
 
-checksums           rmd160  af7dc3cb2ada57a90893c736b5fb83a33a0da6ca \
-                    sha256  2386cc72e1e66cb36fdb296c6ef3100ba4c5e086950f0ce691f1a86d164fda7b \
-                    size    26058
+checksums           rmd160  2e27bc6247ec68f5753d50b2d139c039ac137974 \
+                    sha256  673e7694a6d8a39a863215e9b1b1761b2b54e2555217c65f53d0042e8eda3e30 \
+                    size    26691
 
 python.versions     311 312 313 314
 

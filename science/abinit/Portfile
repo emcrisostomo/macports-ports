@@ -5,7 +5,7 @@ PortGroup           github 1.0
 PortGroup           linear_algebra 1.0
 PortGroup           mpi 1.0
 
-github.setup        abinit abinit 10.6.5
+github.setup        abinit abinit 10.8.3
 github.tarball_from archive
 revision            0
 
@@ -33,9 +33,9 @@ long_description    ABINIT is a package whose main program allows one to find th
 
 homepage            https://www.abinit.org
 
-checksums           rmd160  8fa6ee8b41972f72bc7cd08c332eaf2012b96f8e \
-                    sha256  c04a9e154cc04617488dcdcd3c302ebff5dfc35d11d72592575d7f5da8205dc8 \
-                    size    172196558
+checksums           rmd160  39b39705c2e068a271ea328bd3235b92da2287ae \
+                    sha256  dc33fbb11726f44094858f67000832cf28f7c0695d79a7eb84302195296f2c09 \
+                    size    176120689
 
 depends_lib-append      port:libxc6 \
                         port:hdf5\
@@ -57,8 +57,20 @@ post-patch {
     reinplace "s|%%WORKSRCPATH%%|${worksrcpath}|g" ${worksrcpath}/autogen.sh
 }
 
-# configure scripts are looking for env python, rather then env python3
-patchfiles-append       patch-python3.diff
+# configure scripts are looking for env python, rather then MacPorts python3
+set py_ver              3.14
+configure.python        ${prefix}/bin/python${py_ver}
+post-patch {
+    reinplace "s|/usr/bin/env python|${configure.python}|" \
+        ${worksrcpath}/abisrc.py \
+        ${worksrcpath}/change_source.py
+    fs-traverse f ${worksrcpath}/config/scripts {
+        if {[string match * ${f}]} {
+            ui_info "patching: ${f}"
+            reinplace -q "s|/usr/bin/env python|${configure.python}|" ${f}
+        }
+    }
+}
 
 configure.args-append   --enable-gw-dpc
 configure.fcflags-append \

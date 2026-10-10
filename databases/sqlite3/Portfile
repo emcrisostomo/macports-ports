@@ -5,16 +5,14 @@ PortGroup           clang_dependency 1.0
 
 name                sqlite3
 # don't forget to update the checksums for sqlite3-tools when updating sqlite3
-version             3.53.0
-epoch               1
+version             3.54.0
 revision            0
+epoch               1
+
 categories          databases
 license             public-domain
-
 maintainers         {mps @Schamschula} openmaintainer
-
 description         an embedded SQL database engine
-
 long_description    SQLite3 is an SQL database engine in a C library. \
                     Programs that link the SQLite3 library can have SQL \
                     database access without running a separate RDBMS \
@@ -22,16 +20,15 @@ long_description    SQLite3 is an SQL database engine in a C library. \
                     command-line access program (sqlite3) that can be used \
                     to administer an SQLite3 database and which serves as \
                     an example of how to use the SQLite3 library.
-
 homepage            https://www.sqlite.org
 master_sites        ${homepage}/2026
 
 set padded_ver      [string range [subst [regsub -all {\.([0-9]+)} "${version}.0.0" {[format %02d \1]}]] 0 6]
 distname            sqlite-autoconf-${padded_ver}
 
-checksums           rmd160  0c89d3825e055f9b775158a65598455290e21a8b \
-                    sha256  851e9b38192fe2ceaa65e0baa665e7fa06230c3d9bd1a6a9662d02380d73365a \
-                    size    3274709
+checksums           rmd160  c18a5e17a0213f2ab75770845daf83bff7088b9f \
+                    sha256  134ec0802dda5795816e25d25872d20b312cb3973438c49b30bc40b7705ea9ed \
+                    size    3332512
 
 depends_lib         port:libedit \
                     port:ncurses \
@@ -46,9 +43,15 @@ if {!${configure.ccache}} {
     configure.env    CCACHE=none
 }
  
-configure.args      --enable-threadsafe \
-                    --disable-readline \
+configure.args      --disable-readline \
+                    --enable-column-metadata \
                     --enable-editline \
+                    --enable-fts3 \
+                    --enable-fts4 \
+                    --enable-fts5 \
+                    --enable-rtree \
+                    --enable-session \
+                    --enable-threadsafe \
                     AWK=/usr/bin/awk
 
 build.type          gnu
@@ -57,23 +60,13 @@ livecheck.type      regex
 livecheck.url       ${homepage}/news.html
 livecheck.regex     {>Version (3(?:\.\d+)+)<}
 
-platform darwin 8 {
-    # See http://trac.macports.org/ticket/32930 for why this is needed.
-    configure.cppflags-append -DSQLITE_WITHOUT_ZONEMALLOC
-}
-
 if {${subport} eq ${name}} {
     patchfiles      no-rpath.patch \
                     patch-sqlite3_fix-atomic-clang-4.diff
 
     # search in worksrcpath for sqlite3.h first -- don't pick up an installed one!
     configure.cppflags-prepend  -DSQLITE_DISABLE_INTRINSIC \
-                                -DSQLITE_ENABLE_COLUMN_METADATA \
                                 -DSQLITE_ENABLE_FTS3_PARENTHESIS \
-                                -DSQLITE_ENABLE_FTS4 \
-                                -DSQLITE_ENABLE_FTS5 \
-                                -DSQLITE_ENABLE_JSON1 \
-                                -DSQLITE_ENABLE_RTREE \
                                 -DSQLITE_SECURE_DELETE \
                                 -DSQLITE_ENABLE_STAT4 \
                                 -DSQLITE_ENABLE_UNLOCK_NOTIFY \
@@ -90,7 +83,18 @@ if {${subport} eq ${name}} {
 }
 
 subport ${name}-tcl {
-    depends_lib             port:tcl \
+    PortGroup obsolete 1.0
+    version     3.53.3
+    revision    1
+    replaced_by ${name}-tcl8
+    # Can be removed after 2027-07-07
+}
+subport ${name}-tcl8 {}
+subport ${name}-tcl9 {}
+if {[string match *-tcl? $subport]} {
+    set tclport tcl[string index $subport end]
+    set tclshver [expr {$tclport eq "tcl8" ? "8.6" : "9.0"}]
+    depends_lib             port:${tclport} \
                             port:zlib
 
     configure.dir           ${worksrcpath}/tea
@@ -99,10 +103,15 @@ subport ${name}-tcl {
 
     configure.args          --exec-prefix=${prefix} \
                             --tcl-stubs \
-                            --with-tcl=${prefix}/lib 
+                            --with-tcl=${prefix}/lib/${tclport} \
+                            --with-tclsh=${prefix}/bin/tclsh${tclshver}
+    configure.env-append    autosetup_tclsh=${prefix}/bin/tclsh${tclshver}
 
-    configure.cppflags-prepend \
-                            -I${worksrcpath}
+    configure.cppflags      -I${worksrcpath} \
+                            -I${prefix}/include/${tclport} \
+                            -I${prefix}/include
+    configure.ldflags       -L${prefix}/lib/${tclport} \
+                            -L${prefix}/lib
 }
 
 subport ${name}-tools {
@@ -115,9 +124,9 @@ subport ${name}-tools {
 
     conflicts               sqlcipher-tools
 
-    checksums       rmd160  3c878d8014537fcc88336ede328c6f9acecb0d57 \
-                    sha256  fbc30cdbfcfa42c78fe7bddd3fd37ab8995369a31d39097a5d0633296c0b6e65 \
-                    size    14513779
+    checksums       rmd160  e976334d14a1582af7fd61bb3a2567a45933236f \
+                    sha256  8847659821e0c5116bd14a94644c82ba932b2d9a05ac81af2e34af814aad7c58 \
+                    size    14881448
 
     use_zip                 yes
 

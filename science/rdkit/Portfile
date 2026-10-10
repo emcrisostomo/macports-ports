@@ -7,7 +7,7 @@ PortGroup           github 1.0
 PortGroup           legacysupport 1.1
 PortGroup           conflicts_build 1.0
 
-github.setup        rdkit rdkit 2025_09_6 Release_
+github.setup        rdkit rdkit 2026_09_1 Release_
 github.tarball_from archive
 version             [join [split ${github.version} _] .]
 revision            0
@@ -22,9 +22,9 @@ long_description    RDKit is a collection of cheminformatics and \
 
 homepage            https://www.rdkit.org/
 
-checksums           rmd160  47220b6ac93ea87d50683ff42f9c89b1b52fffae \
-                    sha256  57b92e8f47d9dbd559bd808d5cf6c48a628bc36118bc35b832a35e2ca8a0c7a1 \
-                    size    82903102
+checksums           rmd160  64df17d191ddc1c141f8793c33fedb9b469b8305 \
+                    sha256  86711e340759a3a0678a2e62f54f26f7ff564c3a02de0460f60b1ce89ac1bfe9 \
+                    size    84507361
 
 # some of the vendored dependencies in the "External" directory fail to build
 # when the "boost" port is installed; likely because they pick up libraries in ${prefix}/lib
@@ -45,10 +45,19 @@ set py_ver_nodot    [string map {. {}} ${py_ver}]
 set mypydir         ${frameworks_dir}/Python.framework/Versions/${py_ver}
 
 # avoid errors for 'TARGET_OS_*' is not defined in External/ChemDraw
+# upstream patched only the case for AppleClang as compiler, older OSes use
+# macports-clang-XY still experience the issue
 patchfiles-append   patch-ChemDraw-CMakeLists.txt
 
 depends_build-append \
                     path:bin/pkg-config:pkgconfig
+
+# during the build a git repository is cloned, on older systems this
+# fails with an "SSL certificate problem: Invalid certificate chain"
+if {${os.platform} eq "darwin" && ${os.major} < 15} {
+    depends_build-append \
+                    path:bin/git:git
+}
 
 depends_lib-append  port:catch2 \
                     port:coordgen \
@@ -61,11 +70,6 @@ depends_lib-append  port:catch2 \
                     port:python${py_ver_nodot} \
                     port:py${py_ver_nodot}-numpy \
                     port:py${py_ver_nodot}-cairo
-
-cmake.module_path-append \
-                    [boost::lib_dir]/cmake \
-                    [boost::lib_dir]/cmake/Boost-${boost.version} \
-                    ${prefix}/lib/cmake
 
 configure.args-append \
                     -DRDK_INSTALL_INTREE=OFF \
@@ -86,13 +90,15 @@ configure.args-append \
                     -DRDK_INSTALL_PYTHON_TESTS=OFF \
                     -DPYTHON_INSTDIR=${mypydir}/lib/python${py_ver}/site-packages
 
-if {${os.platform} eq "darwin" && ${os.major} <= 19} {
-    # error: implicit instantiation of undefined template 'std::vector<double>'
-    configure.args-append \
-                    -DRDK_BUILD_CHEMDRAW_SUPPORT=OFF
+# https://trac.macports.org/ticket/73463
+if {[string match *gcc* ${configure.compiler}] && ${configure.build_arch} in [list arm i386 ppc]} {
+    configure.ldflags-append \
+                    -latomic
 }
 
 post-destroot {
     # conflicts with the file isntalled by the "expat" port
     file delete ${destroot}${prefix}/lib/libexpat.a
 }
+
+github.livecheck.regex {([0-9_]+)}

@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           makefile 1.0
 
-github.setup        crystal-lang crystal 1.20.0
+github.setup        crystal-lang crystal 1.21.1
 github.tarball_from archive
-revision            1
+revision            0
 categories          lang
 supported_archs     x86_64 arm64
 license             Apache-2
@@ -19,9 +19,10 @@ long_description    Crystal is a fast, compiled programming language with a \
 
 homepage            https://crystal-lang.org
 
-set llvm_version    22
+set llvm_version    23
 
-depends_build       path:bin/pkg-config:pkgconfig
+depends_build       path:bin/pkg-config:pkgconfig \
+                    port:asciidoctor
 
 depends_lib         port:boehmgc \
                     port:libffi \
@@ -52,13 +53,13 @@ master_sites-append https://github.com/crystal-lang/${name}/releases/download/${
 distfiles-append    ${name}-${cr_full_ver}-${os.platform}-universal${extract.suffix}:bootstrap
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  13fc48ff57b1fbbac21405113005eac7eab02e8b \
-                    sha256  2eb511167d9545331e472920c1ec89c4ab6807aadc74afddb020b2630843cf2d \
-                    size    4197814 \
+                    rmd160  7fccae0ee23c3d72b4f35cda555c8320e870f249 \
+                    sha256  174ad41131a155d0407fb9f66fac4e4baabc5b5d7d030fef9c631a43f553e112 \
+                    size    4229673 \
                     ${name}-${cr_full_ver}-${os.platform}-universal${extract.suffix} \
-                    rmd160  b73ca0c6f87c228be402091795a98128ceebd05a \
-                    sha256  d852706dc1c58bd9abc68756f6eceb88f5ac10b01f2bd0d9a3b93e1f26b5036c \
-                    size    59155128
+                    rmd160  dead8a1a24394c196e47fc71d6f2fc5b7abbc208 \
+                    sha256  ba34fa7fb8bc8b951f12d17e12f69c9d7ccce38900caa4b8a17f1b4f29d37605 \
+                    size    59333512
 
 patchfiles          patch-static.diff
 

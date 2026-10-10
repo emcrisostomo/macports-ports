@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       github 1.0
 
 name            libsdl2_image
-github.setup    libsdl-org SDL_image 2.8.10 release-
+github.setup    libsdl-org SDL_image 2.8.12 release-
 categories      devel graphics
 license         zlib
 maintainers     {jmr @jmroot} openmaintainer
@@ -17,8 +17,8 @@ long_description \
 github.tarball_from releases
 distname        SDL2_image-${version}
 
-checksums       rmd160 9febdb65eff461265d7325a249a0e2f40c1f8d96 \
-                sha256 ebc059d01c007a62f4b04f10cf858527c875062532296943174df9a80264fd65
+checksums       rmd160 15ca6b35de0a22c80653c08c54ecfe9819260e8d \
+                sha256 393f5efb50536ec13ca4f4affb69cc9966d3c3f969e6c5e701faddf9f9785381
 
 depends_build   path:bin/pkg-config:pkgconfig
 depends_lib     port:libsdl2 \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           fuse 1.0
 PortGroup           github 1.0
 
-github.setup        tuxera ntfs-3g 2026.2.25
+github.setup        tuxera ntfs-3g 2026.9.28
 github.tarball_from archive
 revision            0
 categories          fuse
@@ -26,9 +26,9 @@ extract.suffix      .tgz
 
 master_sites        https://tuxera.com/opensource/
 
-checksums           rmd160  47a39919ac37b286c1aa38da2094f2e92eb08c2a \
-                    sha256  7754f3b32e8baf9c472459b4e9c981e3ae0f5039107cdd8d8201aed0a949008a \
-                    size    1337883
+checksums           rmd160  c9287bfc3ee5c6cf827f767c8004eb9fea218d6d \
+                    sha256  350d9415c59f7c3fa74e23985ad2d56423c6a168337368f672e2e362d8f295c8 \
+                    size    1343029
 
 depends_lib-append  port:ossp-uuid
 

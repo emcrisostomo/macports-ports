@@ -7,8 +7,8 @@ set feature 11
 name                openjdk${feature}
 
 # See https://github.com/openjdk/jdk11u/tags for the version and build number that matches the latest tag that ends with '-ga'
-set openjdk_version ${feature}.0.31
-set build 11
+set openjdk_version ${feature}.0.32.1
+set build 1
 revision            0
 
 github.setup        openjdk jdk${feature}u ${openjdk_version}+${build} jdk-
@@ -25,9 +25,9 @@ long_description    {*}${description} \
     of the Java Platform, Standard Edition, and related projects.
 homepage            https://openjdk.org/projects/jdk/${feature}/
 
-checksums           rmd160  47c8d67e7445a9f6ceae2f6a764f98a2ae610924 \
-                    sha256  d409a47d58b5ab9deb344b185d48395b4cce8ab84ec4229aa4589b4f65ff59b4 \
-                    size    116728518
+checksums           rmd160  238a310e327ed7a4beaa858bcca9583539c43e49 \
+                    sha256  d9a11caf637121ac7a034d882443da4119ae32c4d5b192a2350d51167ad98008 \
+                    size    116738269
 
 depends_lib         port:freetype \
                     port:libiconv
@@ -55,7 +55,7 @@ configure.args      --with-debug-level=release \
                     --with-native-debug-symbols=none \
                     --with-version-string=${version}+${build} \
                     --with-target-bits=64 \
-                    --with-sysroot=`xcrun --sdk macosx --show-sdk-path` \
+                    --with-sysroot=`xcrun --show-sdk-path` \
                     --with-extra-cflags="${configure.cflags}" \
                     --with-extra-cxxflags="${configure.cxxflags}" \
                     --with-extra-ldflags="${configure.ldflags}" \

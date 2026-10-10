@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-gradio
-version             6.13.0
+version             6.26.0
 revision            0
 categories-append   devel
 license             Apache-2
@@ -23,9 +23,9 @@ long_description    Gradio is the fastest way to demo your machine \
 
 homepage            https://gradio.app
 
-checksums           rmd160  1c7451d41c1bb65df9089ba73afd67731a720c90 \
-                    sha256  23457dde02202d97f636a5c170967a846297e20f40c3152b41aa4c3460245e3b \
-                    size    36016802
+checksums           rmd160  e9568775bcd54a78f964920c671c55784b1241f0 \
+                    sha256  f2a6a65580ce480ed51c0caacf79f159da000a954c54b1518716826f78bfb558 \
+                    size    45131873
 
 if {${name} ne ${subport}} {
     depends_build-append \
@@ -33,13 +33,12 @@ if {${name} ne ${subport}} {
                     port:py${python.version}-hatch-requirements-txt
 
     depends_lib-append \
-                    port:py${python.version}-aiofiles \
                     port:py${python.version}-anyio \
                     port:py${python.version}-brotli \
                     port:py${python.version}-fastapi \
-                    port:py${python.version}-ffmpy \
                     port:py${python.version}-gradio-client \
                     port:py${python.version}-groovy \
+                    port:py${python.version}-hf-gradio \
                     port:py${python.version}-httpx \
                     port:py${python.version}-huggingface_hub \
                     port:py${python.version}-Jinja2 \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           conflicts_build 1.0
 
 name                suricata
-version             8.0.4
+version             8.0.7
 revision            0
 
 categories          net security
@@ -20,9 +20,9 @@ long_description    Suricata is a high performance Network IDS, IPS \
 homepage            https://suricata.io
 master_sites        https://www.openinfosecfoundation.org/download/
 
-checksums           rmd160  7de1a81bd7285dfea250b3ab2419f32c82cc1ed7 \
-                    sha256  81cee7bae69848a9751b2ce0867620eefa52b192e79c20b5eac897600b28b191 \
-                    size    44353651
+checksums           rmd160  f650db117a3e67a2d2eed0926c8fc634fd544f07 \
+                    sha256  a9d46a9c8f40e81f8a6df3ecc2c5a9a8e8da985876299108d92da547c013ba8c \
+                    size    44520405
 
 # https://redmine.openinfosecfoundation.org/issues/7804
 conflicts_build     lua

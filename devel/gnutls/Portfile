@@ -9,7 +9,7 @@ PortGroup       muniversal 1.0
 
 name            gnutls
 version         3.8.13
-revision        0
+revision        1
 
 categories      devel security
 # yes, some of the libs are GPL only

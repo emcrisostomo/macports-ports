@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-xyzgraph
-version             1.6.10
+version             1.6.16
 revision            0
 
 categories-append   science
@@ -18,9 +18,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/aligfellow/xyzgraph
 
-checksums           rmd160  a64f7cce0c9453f3114b70f47a38876573971682 \
-                    sha256  64f94e3ae126517cdbc4dad3ea9e60c2b6962f7d8b9d3ff657e6bb4d450e4671 \
-                    size    175181
+checksums           rmd160  95f6ba885e67969c2929d252ffaf1485ed625977 \
+                    sha256  f59dc2411b19f6fadaa610a8ca2b26ba1d5d1654db9035809b62178649767b11 \
+                    size    188217
 
 python.versions     314
 

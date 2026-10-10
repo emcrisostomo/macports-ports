@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-stevedore
-version             5.7.0
+version             5.9.1
 revision            0
 
 categories-append   devel
@@ -18,9 +18,9 @@ long_description    {*}${description}
 
 homepage            https://docs.openstack.org/stevedore
 
-checksums           rmd160  c88d92131f0e79b48514f2fb61caba3c6309733a \
-                    sha256  31dd6fe6b3cbe921e21dcefabc9a5f1cf848cf538a1f27543721b8ca09948aa3 \
-                    size    516200
+checksums           rmd160  a4668e79fc02dc308bedb86ba4fa2666864e2281 \
+                    sha256  e97a2667923efda926e8713fde6a73616df68210a3cbc6f02b48967b676fd8bf \
+                    size    518111
 
 python.versions     310 311 312 313 314
 

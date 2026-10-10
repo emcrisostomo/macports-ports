@@ -5,7 +5,7 @@ PortGroup           java 1.0
 
 name                NetBeans
 set name_lower      [string tolower ${name}]
-version             29
+version             31
 revision            0
 categories          aqua devel java
 # This port uses prebuilt binaries; 'NoMirror' makes sure MacPorts doesn't
@@ -29,9 +29,9 @@ platforms           {darwin any}
 distname            ${name_lower}-${version}-bin
 master_sites        apache:${name_lower}/${name_lower}/${version}
 
-checksums           rmd160  26f0c44b4e1661752fbf86564b2c56d0ace37d83 \
-                    sha256  5e8ca1a7c6797e21bb25b67c17c743068887c170b15bc983bebf704d7e51ec38 \
-                    size    516017676
+checksums           rmd160  1d837ec129db21aad91df85ae4bf21910b3c05b4 \
+                    sha256  1d5f3eb40f588c5a2df19569bc9d99fd0f8028eeb9e08bfc8c89c682c3a1b5fb \
+                    size    521032868
 
 worksrcdir          ${name_lower}
 

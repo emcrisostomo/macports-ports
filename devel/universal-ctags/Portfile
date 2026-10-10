@@ -4,11 +4,11 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           legacysupport 1.1
 
-github.setup        universal-ctags ctags 6.2.20260125.0 p
+github.setup        universal-ctags ctags 6.2.20260927.0 p
 github.tarball_from archive
 name                universal-ctags
 epoch               1
-revision            1
+revision            0
 
 categories          devel
 license             GPL-2+
@@ -24,9 +24,9 @@ long_description \
 
 homepage            https://ctags.io
 
-checksums           rmd160  fead9cff0cd55add36f3ae7784a42d1dc252d2e5 \
-                    sha256  ba5a4dbd4132f9e11f6e38fdbc3960874ebdb61af7ede074de0b8c23a4a8dd6e \
-                    size    3335824
+checksums           rmd160  4b734362ea1615e4857d86e973c02a877550a870 \
+                    sha256  fd34c91a2b705144a276ac822b9b113091028fe8278d0ebf55ad488e48711692 \
+                    size    3380813
 
 # LegacySupport is needed for strnlen before 10.7
 legacysupport.newest_darwin_requires_legacy 10

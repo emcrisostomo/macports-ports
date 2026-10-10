@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-async-tiff
 python.rootname     async_tiff
-version             0.7.1
+version             0.7.2
 revision            0
 
 license             MIT
@@ -14,9 +14,9 @@ description         Fast, low-level async TIFF reader for Python.
 long_description    {*}${description}
 homepage            https://github.com/developmentseed/async-tiff
 
-checksums           rmd160  ff7976e8116b29b31660cf822c034fea33ee1521 \
-                    sha256  dbef87b2696bea06161c5fd0d9546700b8a30c04d3033c9b68b4b162c4cfa2dc \
-                    size    5245929
+checksums           rmd160  5e63130120803e855b94950a6b5da38f3f930281 \
+                    sha256  b2eb1f2671de4e331d1eaef1fd5bb3670e1f26ec7465115be488e60349f2dbce \
+                    size    5249708
 
 python.versions     310 311 312 313 314
 

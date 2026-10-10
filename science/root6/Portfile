@@ -11,7 +11,7 @@ PortGroup           legacysupport                 1.1
 PortGroup           openssl                       1.0
 
 # Please also check if Gate needs a revbump after root6 update
-github.setup        root-project root 6-38-04 v
+github.setup        root-project root 6-40-04 v
 # Change github.tarball_from to 'releases' or 'archive' next update
 github.tarball_from tarball
 version             [string map {- .} ${github.version}]
@@ -25,9 +25,9 @@ livecheck.version   ${github.version}
 #livecheck.version   6-14-00
 #revision            0
 
-checksums           rmd160  3a6371493e3db6a92b3947256f1fda79122cdfdf \
-                    sha256  bb66acb360c164eaf556525fbcbe83dd397cf86c85bb82e7bc11263d05c205d2 \
-                    size    386689610
+checksums           rmd160  7e0b7c29cfcb6bee8ac3b9ab1e33423d50ed2732 \
+                    sha256  a2d07a95904f503071e1603b8b434a69886f5f5fdf6562c6b4f76bd6a8a14674 \
+                    size    343556632
 
 # extract major version
 set version_major   [lindex [split ${version} .] 0]

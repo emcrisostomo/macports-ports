@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        PowerShell PowerShell 7.6.1 v
+github.setup        PowerShell PowerShell 7.6.6 v
 github.tarball_from archive
 name                [string tolower ${github.project}]
 revision            0
@@ -20,9 +20,9 @@ long_description    ${github.project} is a cross-platform task automation soluti
 
 homepage            https://microsoft.com/PowerShell
 
-checksums           rmd160  ec851afe06f027fed664f7601ccd170209b56486 \
-                    sha256  2de13e22dbcdb3480d23ba2c45b6d19e7773db5ad1a663167fd5f24d15130c63 \
-                    size    10985942
+checksums           rmd160  b9efcf065ea648f0e01345a2bd6401230740b912 \
+                    sha256  8892eff9d937d1fcf7281b19fa6295bfa8bbc3c4427016a5ff5f4d94bdb2b034 \
+                    size    13236332
 
 universal_variant   no
 
@@ -140,7 +140,9 @@ build.args          --disable-build-servers \
                     -property:IsWindows=false \
                     -property:ReleaseTag=${version} \
                     -nodeReuse:false \
-                    -property:UseSharedCompilation=false
+                    -property:UseSharedCompilation=false \
+                    -property:DebugType=none \
+                    -property:DebugSymbols=false
 
 destroot {
     # install PsGallery modules (PackageManagement, PowerShellGet)

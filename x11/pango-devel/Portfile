@@ -9,15 +9,15 @@ name                    pango-devel
 conflicts               pango
 set my_name             pango
 epoch                   1
-version                 1.57.1
+version                 1.58.2
 revision                0
-checksums               rmd160  6ffafe7c40f77f49ac1ff3f67f5f18ed6f48086c \
-                        sha256  e65d6d117080dc3aeeb7d8b4b3b518f7383aa2e6cfce23117c623cd624764c2f \
-                        size    2588416
+checksums               rmd160  661279fb15449a108b1e496eeba04eb4e89e3b27 \
+                        sha256  342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a \
+                        size    1918112
 
 set branch              [join [lrange [split ${version} .] 0 1] .]
 categories              x11
-maintainers             {ryandesign @ryandesign} {mascguy @mascguy} openmaintainer
+maintainers             {mascguy @mascguy} openmaintainer
 license                 LGPL-2+
 homepage                https://www.pango.org/
 master_sites            gnome:sources/${my_name}/${branch}
@@ -60,6 +60,7 @@ if { [string match *clang* ${configure.compiler}] } {
                         -Wno-unknown-warning-option
 }
 
+compiler.c_standard     2011
 compiler.cxx_standard   2011
 configure.cxxflags-append \
                         -std=c++11
@@ -107,6 +108,11 @@ if {${os.platform} eq "darwin" && ${os.subplatform} eq "macosx"} {
     }
 }
 
+# viewer-cocoa.m fails to compile, uses features present in SDK 10.12 and above
+if {${os.platform} eq "darwin" && ${os.major} < 16} {
+    patchfiles-append   patch-no-viewer-cocoa.m-below-10.12.diff
+}
+
 variant x11 {
     depends_lib-append  port:Xft2
     configure.args-replace \
@@ -152,5 +158,8 @@ post-destroot {
         ${destroot}${docdir}
 }
 
-livecheck.type          gnome-with-unstable
-livecheck.name          ${my_name}
+#we use regex because `livecheck.type gnome` always returns 1.90
+#(also, unlike other gnome projects, there is no unstable/stable distinction)
+livecheck.type          regex
+livecheck.url           https://gitlab.gnome.org/GNOME/pango/-/tags
+livecheck.regex         {/-/tags/([0-9.]+)"}

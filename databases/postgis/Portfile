@@ -5,8 +5,8 @@ PortSystem          1.0
 name                postgis
 categories          databases gis
 license             GPL-2+
-version             3.6.2
-revision            1
+version             3.6.4
+revision            0
 maintainers         {yahoo.com:n_larsson @nilason} openmaintainer
 
 description         PostGIS is the spatial extension to the\
@@ -21,9 +21,9 @@ homepage            https://postgis.net/
 master_sites        https://download.osgeo.org/postgis/source
 distname            postgis-${version}
 
-checksums           rmd160  563f34307429515d449432b57f4344eb2d9b850e \
-                    sha256  d488089a64ee4060bce7dbba0291fcca358e7f7ac5230e2ee5b344e7485729c4 \
-                    size    16287110
+checksums           rmd160  e3535c1e833fe65d1c998102ae2e6960b43b6fef \
+                    sha256  ed8dc6679f1e06f7b113592b04cde2a7e00f1b1e681294c8ca2204058990cec6 \
+                    size    16289296
 
 patchfiles          patch-configure.diff
 
@@ -43,7 +43,7 @@ livecheck.url       ${master_sites}
 livecheck.regex     {postgis2?-(\d+(?:\.\d+)*)\.[tz]}
 
 # PostgreSQL subports
-set postgresql_suffixes {12 13 14 15 16 17}
+set postgresql_suffixes {12 13 14 15 16 17 18}
 set subport_names {}
 set docports {}
 foreach v ${postgresql_suffixes} {

@@ -11,7 +11,7 @@ legacysupport.newest_darwin_requires_legacy \
 legacysupport.use_mp_libcxx     yes
 
 github.setup                    complexlogic rsgain 3.7 v
-revision                        0
+revision                        2
 
 categories                      audio
 platforms                       {darwin all}
@@ -38,7 +38,7 @@ checksums                       rmd160  31c6af66dc0c922c7b15ebe86fed2671eda4acdd
 
 depends_build-append            path:bin/pkg-config:pkgconfig
 
-depends_lib-append              port:ffmpeg \
+depends_lib-append              path:lib/libavcodec.dylib:ffmpeg \
                                 port:inih \
                                 port:libebur128 \
                                 port:taglib

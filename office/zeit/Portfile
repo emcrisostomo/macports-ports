@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/mrusme/zeit 1.0.1 v
+go.setup            github.com/mrusme/zeit 1.1.0 v
 go.offline_build    no
+go.toolchain_min    1.25.1
 revision            0
 
 homepage            \
@@ -21,9 +22,9 @@ license             GPL-3
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  b49419cc2f4232cf2432c83f4e5daefaff9714ef \
-                    sha256  546859a5e35242e31053a9784084e9350d6ceed62b580ed662a8ab385acac76c \
-                    size    17369217
+checksums           rmd160  d409d336fbcbd1b07fed6210da06c97c19c7c96c \
+                    sha256  1c9bf93f9ba1a647ce9f32f04460d5ce12bbfee0ef1d1ed026d557f3dddbed5c \
+                    size    17497416
 
 build.pre_args-append \
     -ldflags \" -X ${go.package}/z.VERSION=${version} \"

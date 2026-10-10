@@ -10,8 +10,7 @@ PortGroup           muniversal 1.0
 name                gstreamer1-gst-plugins-good
 set my_name         gst-plugins-good
 # please only commit stable updates (even numbered releases)
-version             1.28.2
-revision            0
+version             1.28.8
 description         A set of good-quality plug-ins for GStreamer under GStreamer's preferred \
                     license, LGPL.
 long_description    GStreamer Good Plug-ins is a set of plug-ins that GStreamer's developers \
@@ -26,9 +25,9 @@ master_sites        https://gstreamer.freedesktop.org/src/${my_name}/
 use_xz              yes
 distname            ${my_name}-${version}
 
-checksums           rmd160  38d63e62774e12a6385eb94b7291dbdfa1925317 \
-                    sha256  1ace2d8ec74f632d82eab5006753a27fe0c2402db4ca94d63271e494b62f50bf \
-                    size    5980304
+checksums           rmd160  987183d6b38028c96b62a11b0b307aa0beab1e69 \
+                    sha256  a7670ed900d3d03be744d25c1873b239896e9a82ce6d17f8febc6fffbaee9521 \
+                    size    6014472
 
 set py_ver          3.14
 set py_ver_nodot    [string map {. {}} ${py_ver}]
@@ -90,6 +89,7 @@ post-patch {
 
 configure.args-append   -Dexamples=disabled \
                         -Dqt5=disabled \
+                        -Dqt6=disabled \
                         -Dgtk3=disabled \
                         -Dsoup-version=3
 

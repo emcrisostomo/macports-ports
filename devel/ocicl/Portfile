@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        ocicl ocicl 2.16.13 v
+github.setup        ocicl ocicl 2.20.0 v
 github.tarball_from archive
 revision            0
 
@@ -22,9 +22,9 @@ long_description    ${name} is a modern alternative to quicklisp. It is modern i
                     \n- All software packages are built and published transparently using hosted CI infrastructure \
                     \n- LLM-generated summaries of changes between versions are available for all packages.
 
-checksums           rmd160  d6f0690cff7091136e32b00e4fce5a2e81f75545 \
-                    sha256  067408f0443119a25c2b34a323a829fb953542e367bb039365bdcc0a0b388500 \
-                    size    34119527
+checksums           rmd160  5235d9381494b644f7e6caf0810d3348e5ef1eb0 \
+                    sha256  c93441daeb9772922af5f7b394d60bbe44c67ea061511648943db07d33b5abb0 \
+                    size    35171663
 
 depends_build       port:sbcl
 

@@ -6,7 +6,7 @@ PortGroup           cmake 1.1
 name                swi-prolog-devel
 conflicts           swi-prolog
 epoch               20051223
-version             10.1.6
+version             10.1.17
 revision            0
 
 categories          lang
@@ -31,12 +31,12 @@ master_sites        https://www.swi-prolog.org/download/devel/src/
 distname            swipl-${version}
 dist_subdir         swi-prolog
 
-checksums           rmd160  1baa56509b40943e78d0eb053415b762bb068032 \
-                    sha256  b669e6b6b83bffde209932d5e8f151be7a8cf7ec0963898c7a2a18b7fa598be2 \
-                    size    12712297
+checksums           rmd160  5108da8df9df1abdb03d137e9009d1f40679693f \
+                    sha256  fe71db9dac4a1b80a1caf01960978c1a0ee3351dd31ff18a72866beeea35e773 \
+                    size    15134171
 
 depends_build-append \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
 
 depends_lib-append  port:db62 \
                     port:gmp \
@@ -52,7 +52,7 @@ depends_lib-append  port:db62 \
                     path:lib/pkgconfig/pango.pc:pango \
                     port:libyaml \
                     port:zlib \
-                    port:python313
+                    port:python314
 
 compiler.c_standard 2011
 compiler.cxx_standard 2017
@@ -64,7 +64,7 @@ configure.pre_args  -DCMAKE_INSTALL_PREFIX=${prefix} \
                     -DCMAKE_BUILD_TYPE=Release \
                     -DCMAKE_INCLUDE_PATH=${prefix}/include \
                     -DCMAKE_LIBRARY_PATH=/usr/lib:${prefix}/lib \
-                    -DCPYTHON_VERSION="3.13\;EXACT"
+                    -DCPYTHON_VERSION="3.14\;EXACT"
 
 build.env-append    SDL_VIDEODRIVER=dummy
 

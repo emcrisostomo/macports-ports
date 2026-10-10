@@ -12,8 +12,8 @@ PortGroup           boost 1.0
 # See also: https://github.com/arvidn/libtorrent/issues/7042
 boost.version       1.88
 
-github.setup        arvidn libtorrent 2.0.12 v
-revision            1
+github.setup        arvidn libtorrent 2.0.15 v
+revision            0
 name                libtorrent-rasterbar
 license             BSD
 categories          net devel
@@ -29,9 +29,9 @@ description         A C++ bittorrent library (not the same as port libtorrent)
 long_description    A C++ bittorrent library designed to run on anything from embedded systems to large scale \
                     seed servers. It comes with python bindings and detailed documentation.
 
-checksums           rmd160  8e5103c20713df37fe725a9c22b62ae6ba0a51ae \
-                    sha256  25b898d02e02e43ee9a8ea5480c20007f129091b5754d0283f94e4d51d11a19e \
-                    size    4689934
+checksums           rmd160  8f5159f21aa78e71fead0bab2f8b25899c8487c8 \
+                    sha256  5e2e79129823b7ea48721164c32b5aaf83d3fd733b5502100f6705b29f27bb02 \
+                    size    4740499
 
 depends_lib-append  path:lib/libssl.dylib:openssl
 

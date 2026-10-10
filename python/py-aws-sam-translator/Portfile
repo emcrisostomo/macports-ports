@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           github 1.0
 
 name                py-aws-sam-translator
-github.setup        awslabs serverless-application-model 1.107.0 v
+github.setup        awslabs serverless-application-model 1.113.0 v
 github.tarball_from archive
 revision            0
 
@@ -17,9 +17,9 @@ maintainers         {judaew @judaew} openmaintainer
 description         AWS SAM Translator is a library that transform SAM templates into AWS CloudFormation templates
 long_description    {*}${description}
 
-checksums           sha256  5ac688ab337e8ed9dec932a61448b1ca2bb73b19de53deaeb4a08168729f91d2 \
-                    rmd160  69a14ad0b629deace6c5fc83184b0bfc360f166d \
-                    size    6828250
+checksums           sha256  1d7989f1a2fdff82d94772373dde09adf775f2562b56eb11a51b826c60381419 \
+                    rmd160  97f0b269a89e4b8973c73276d4aa2e7afdc01075 \
+                    size    8214345
 
 python.versions     310 311 312 313 314
 

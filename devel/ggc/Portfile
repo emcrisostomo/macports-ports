@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/bmf-san/ggc 8.4.0 v
+go.setup            github.com/bmf-san/ggc 8.7.4 v
 go.offline_build    no
+go.toolchain_min    1.25.0
 revision            0
 
 description         \
@@ -24,9 +25,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  bffe42bd16ce49f8b9e2f05010f9842c3cc69566 \
-                    sha256  d319caab311aa70f577ddf23773284f2ad3f3b34685275a2b24ca887fef02f2e \
-                    size    4844668
+checksums           rmd160  5472b042b2f6c9f8d435b7b7b4de17ec4134cfd5 \
+                    sha256  1ff5dd7cedc765f92bcc72f57bbeb5f77ab62daf9020e514ab87998994351059 \
+                    size    4888541
 
 build.args-append   \
     -ldflags \" -X main.version=${version} \"

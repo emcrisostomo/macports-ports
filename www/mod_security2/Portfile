@@ -6,7 +6,7 @@ PortGroup           lua 1.0
 
 name                mod_security2
 set name_package    modsecurity
-github.setup        owasp-modsecurity ${name_package} 2.9.13 v
+github.setup        owasp-modsecurity ${name_package} 2.9.15 v
 revision            0
 
 categories          www security
@@ -22,9 +22,9 @@ homepage            https://github.com/owasp-modsecurity/ModSecurity
 github.tarball_from releases
 distname            ${name_package}-v${version}
 
-checksums           rmd160  f06785f6fd300f99f5c5f231b43b70bef32836ff \
-                    sha256  7fa925289a2e0cb5415ba82626cf0495607a4ab09f78831ace5bbd8d81496cc2 \
-                    size    6513217
+checksums           rmd160  7e7503e6e7489ab3f44e04bc7dc0e4c703146bd0 \
+                    sha256  4fae2d684672a24541607cb0b563d88b88eb4543b88cd090345149bb47309477 \
+                    size    6533729
 
 worksrcdir          ${distname}
 

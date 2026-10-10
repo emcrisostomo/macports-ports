@@ -3,12 +3,11 @@
 PortSystem          1.0
 
 name                gpgme
-version             2.0.1
-revision            0
+version             2.2.0
 
-checksums           rmd160  b8bfb39dcb20b61f368a1ae40bfb2e46216aaf4f \
-                    sha256  821ab0695c842eab51752a81980c92b0410c7eadd04103f791d5d2a526784966 \
-                    size    1392080
+checksums           rmd160  4c8de201b8529ed9f706fb7809bd4e9382a8ff50 \
+                    sha256  7160e80e84dafd00d956c84891c533bb7ab16a6a54fbe1574b2f3acf0496977b \
+                    size    1422222
 
 categories          devel security crypto
 license             {LGPL-2.1+ GPL-3+}
@@ -32,8 +31,7 @@ depends_lib         port:pth \
                     port:libassuan \
                     path:bin/gpg:gnupg2
 
-patchfiles          patch-configure.ac.diff \
-                    patch-tests-gpg-Makefile.am.diff
+patchfiles          patch-configure.ac.diff
 
 post-patch {
     reinplace "s|@GPG@|${prefix}/bin/gpg2|" ${worksrcpath}/src/gpgme-config.in

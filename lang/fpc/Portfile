@@ -89,6 +89,29 @@ patchfiles-append   text.inc.patch
 # version 3.2.4 and up need to be checked, whether to include this patch or not.
 patchfiles-append   typefile.inc.patch
 
+# Apple's current linker rejects malformed Objective-C protocol/category
+# metadata emitted by FPC 3.2.2. Backport these upstream fixes:
+# https://gitlab.com/freepascal.org/fpc/source/-/commit/55b9954619b33f5cc3f6a10cf4918293ad97d7be
+# https://gitlab.com/freepascal.org/fpc/source/-/commit/42dc4eab412d0ac91be2965b9cc58b54a6308b60
+# Reported when Lazarus no longer could use the legacy linker:
+# https://gitlab.com/freepascal.org/lazarus/lazarus/-/issues/41570
+if {${os.platform} eq "darwin" && ${os.major} >= 24} { # macOS 15, Sequoia
+    patchfiles-append   xcode27-objc-metadata.patch
+}
+
+# Deployment targets of macOS 12 and later select chained fixups. Those
+# require naturally aligned pointer relocations, while FPC's packed threadvar
+# tables put 64-bit pointers at offsets congruent to 4 modulo 8.
+# Published-method tables have the same four-byte count followed by pointers;
+# use the target's normal record alignment in both their writer and reader.
+# https://developer.apple.com/documentation/xcode-release-notes/xcode-13-release-notes
+# A related Xcode 27 deployment-target failure is documented here:
+# https://github.com/rust-lang/rust/issues/157750
+if {${os.platform} eq "darwin" && ${os.major} >= 21} { # macOS 12, Monterey
+    patchfiles-append   darwin-threadvar-alignment.patch \
+                        darwin-published-method-alignment.patch
+}
+
 if {${os.platform} eq "darwin" && ${os.major} >= 22} { # macOS 13, Ventura
 # fix obsolete linker options
     patchfiles-append   t_darwin.pas.patch
@@ -232,6 +255,91 @@ subport "${name}-cross-arm-wince" {
     post-destroot   {
         file delete -force ${destroot}${prefix}/libexec/fpc/share
         file delete -force ${destroot}${prefix}/libexec/fpc/bin
+    }
+}
+
+foreach ostarget {linux android gba nds} {
+    subport "${name}-cross-arm-$ostarget" {
+        revision                0
+        categories-append       cross
+        worksrcdir              fpcbuild-${version}/fpcsrc
+        use_parallel_build      no
+        use_configure           no
+        depends_build-append    port:${name} port:${name}-cross
+        if {$ostarget eq "android"} {
+            depends_build-append    port:arm-linux-androideabi-binutils
+        } else {
+            depends_build-append    port:arm-${ostarget}-binutils
+        }
+        build.target            rtl packages
+        destroot.target         rtl_install packages_install
+        test.target
+
+# target specifics
+        description     FPC cross-compiler for arm-$ostarget
+        long_description \
+            This Pascal crosscompiler produces arm executables, \
+            which run natively on arm-$ostarget systems. \n \
+            Get help with: \n \
+            fpc -h \n \
+            Compile and link a Pascal file with: \n \
+            \n \
+            fpc -Parm -T$ostarget FILENAME
+
+        build.args      PP=ppcarm CPU_TARGET=arm OS_TARGET=$ostarget \
+                        OPT="-ap -v0"
+        destroot.args   CPU_TARGET=arm OS_TARGET=$ostarget CROSSINSTALL=1 \
+                        INSTALL_PREFIX=${destroot}${prefix}/libexec/fpc
+
+# remove duplicate doc and bin files
+        post-destroot   {
+            file delete -force ${destroot}${prefix}/libexec/fpc/share
+            file delete -force ${destroot}${prefix}/libexec/fpc/bin
+        }
+    }
+}
+
+foreach subarch {armv4 armv4t armv6m armv7a armv7em armv7m} {
+    subport "${name}-cross-${subarch}-embedded" {
+        revision                0
+        categories-append       cross
+        supported_archs         noarch
+        worksrcdir              fpcbuild-${version}/fpcsrc
+        use_parallel_build      no
+        use_configure           no
+        depends_build-append    port:${name} port:${name}-cross port:arm-embedded-binutils
+        build.target            rtl packages
+        destroot.target         rtl_install packages_install
+        test.target
+
+    # target specifics
+        description     FPC cross-compiler for ${subarch}-embedded
+        long_description \
+            This Pascal crosscompiler produces arm executables, \
+            which run natively on arm-embedded systems. \n \
+            Get help with: \n \
+            fpc -h \n \
+            Compile and link a Pascal file with: \n \
+            \n \
+            fpc -Parm -Tembedded -Cp${subarch} FILENAME
+
+        build.args      PP=ppcarm CPU_TARGET=arm OS_TARGET=embedded \
+                        OPT="-ap -v0" SUBARCH=${subarch}
+        destroot.args   CPU_TARGET=arm OS_TARGET=embedded CROSSINSTALL=1 \
+                        INSTALL_PREFIX=${destroot}${prefix}/libexec/fpc \
+                        SUBARCH=${subarch} \
+                        INSTALL_UNITDIR=/${destroot}${prefix}/libexec/fpc/lib/fpc/${version}/units/arm-embedded/${subarch}
+
+    # Capture loop variable immediately into a port-local variable for
+    # deferred use in destroot phase
+        set my_subarch  ${subarch}
+    # remove duplicate doc and bin files
+        post-destroot   {
+            file delete -force ${destroot}${prefix}/libexec/fpc/share
+            file delete -force ${destroot}${prefix}/libexec/fpc/bin
+            set fpmkinstPath ${destroot}${prefix}/libexec/fpc/lib/fpc/${version}/fpmkinst
+            file rename ${fpmkinstPath}/arm-embedded ${fpmkinstPath}/${my_subarch}-embedded
+        }
     }
 }
 
@@ -427,8 +535,52 @@ foreach ostarget {linux netbsd embedded} {
     }
 }
 
+foreach subarch {avr25 avr35 avr4 avr5 avr51 avr6} {
+    subport "${name}-cross-${subarch}-embedded" {
+        revision                1
+        categories-append       cross
+        supported_archs         noarch
+        worksrcdir              fpcbuild-${version}/fpcsrc
+        use_parallel_build      no
+        use_configure           no
+        depends_build-append    port:${name} port:${name}-cross port:avr-binutils
+        build.target            rtl packages
+        destroot.target         rtl_install packages_install
+        test.target
+
+    # target specifics
+        description     FPC cross-compiler for ${subarch}-embedded
+        long_description \
+            This Pascal crosscompiler produces avr executables, \
+            which run natively on avr-embedded systems. \n \
+            Get help with: \n \
+            fpc -h \n \
+            Compile and link a Pascal file with: \n \
+            \n \
+            fpc -Pavr -Tembedded -XPavr- -Cp${subarch} FILENAME
+
+        build.args      PP=ppcavr CPU_TARGET=avr OS_TARGET=embedded \
+                        BINUTILSPREFIX=avr- OPT="-ap -v0" SUBARCH=${subarch}
+        destroot.args   CPU_TARGET=avr OS_TARGET=embedded CROSSINSTALL=1 \
+                        INSTALL_PREFIX=${destroot}${prefix}/libexec/fpc \
+                        SUBARCH=${subarch} \
+                        INSTALL_UNITDIR=/${destroot}${prefix}/libexec/fpc/lib/fpc/${version}/units/avr-embedded/${subarch}
+
+    # Capture loop variable immediately into a port-local variable for
+    # deferred use in destroot phase
+        set my_subarch  ${subarch}
+    # remove duplicate doc and bin files
+        post-destroot   {
+            file delete -force ${destroot}${prefix}/libexec/fpc/share
+            file delete -force ${destroot}${prefix}/libexec/fpc/bin
+            set fpmkinstPath ${destroot}${prefix}/libexec/fpc/lib/fpc/${version}/fpmkinst
+            file rename ${fpmkinstPath}/avr-embedded ${fpmkinstPath}/${my_subarch}-embedded
+        }
+    }
+}
+
 if {${subport} eq "${name}"} {
-    revision            3
+    revision            7
 
     installs_libs       yes
 
@@ -593,6 +745,8 @@ if {${subport} eq "${name}"} {
             "bin/fpcmkcfg -d basepath=${fpcbasepath}/lib/${name}/${version} \
                     -o etc/fpc.cfg"
         ln -s ${fpcbasepath}/etc/fpc.cfg ${destroot}${prefix}/etc
+        reinplace "s|${version}|\$fpcversion|g" \
+                    ${destroot}${fpcbasepath}/etc/fpc.cfg
         system "patch ${destroot}${fpcbasepath}/etc/fpc.cfg \
                     ${filespath}/fpc.cfg.patch"
 

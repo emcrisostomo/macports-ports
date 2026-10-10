@@ -5,7 +5,7 @@ PortSystem 1.0
 name                python313
 
 # Remember to keep py313-tkinter and py313-gdbm's versions sync'd with this
-version             3.13.13
+version             3.13.16
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          lang
@@ -21,8 +21,8 @@ master_sites        ${homepage}ftp/python/${version}/
 
 distname            Python-${version}
 use_xz              yes
-checksums           rmd160 8dbbf88d3a65d93c43a44e430b440320ef409856 \
-                    sha256 2ab91ff401783ccca64f75d10c882e957bdfd60e2bf5a72f8421793729b78a71
+checksums           rmd160 1f7152e676d7bd7a1ded50aec24f2158fafc51b1 \
+                    sha256 f4b1bfb3c79b5bb11b8d228a12504163b4c0dab4d679828d8f5f26b6cb6ab35d
 
 patchfiles          patch-configure.diff \
                     Makefile.pre.in.patch \

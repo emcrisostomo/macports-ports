@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/ByteNess/aws-vault 7.10.2 v
+go.setup            github.com/ByteNess/aws-vault 7.16.2 v
 go.offline_build    no
+go.toolchain_min    1.26
 go.package          github.com/ByteNess/aws-vault
 revision            0
 
@@ -20,9 +21,9 @@ long_description    \
     designed to be complementary to the AWS CLI tools, and is aware of your \
     profiles and configuration in ~/.aws/config.
 
-checksums           rmd160  21b444f701cbcd8190713723502fba30d10afa2a \
-                    sha256  240c4ec2c96746d32e3e860b462daf92967d193a2b1dd1f526dd188a679386d9 \
-                    size    89094
+checksums           rmd160  e2d409981b082ec367c3225337721db5b988d93d \
+                    sha256  4d6b0f262294a6681c45dc743a628bc3854a5cc114160fcb19effccdf08eae99 \
+                    size    497317
 
 categories          security
 installs_libs       no

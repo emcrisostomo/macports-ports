@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem              1.0
+PortGroup               golang 1.0
+
+go.setup                github.com/mostlygeek/llama-swap 262 v
+go.offline_build        no
+go.toolchain_min        1.27.1
+revision                0
+set git-commit          079c35a
+
+checksums               ${distname}${extract.suffix} \
+                        rmd160  1143e68fc3594a7d1e0d00a8cf77de4cc0cc84ed \
+                        sha256  23d0f6e6aa5e9b3cc9c75e2c3f5b91f3362bd62e63040479a3f3d5db9a8a9f15 \
+                        size    4230830
+
+categories              llm
+license                 MIT
+maintainers             @oytech openmaintainer
+
+description             Reliable model swapping for any local OpenAI/Anthropic compatible server - llama.cpp, vllm etc
+long_description        Run multiple generative AI models on your machine and hot-swap between them on demand. \
+                        llama-swap works with any OpenAI and Anthropic API compatible server and is used \
+                        by thousands of people to power their local AI workflows.
+
+depends_build-append    \
+                        bin:npm:npm10
+
+build.args              GIT_HASH=${git-commit} \
+                        GIT_VERSION=v${version}
+build.cmd               make
+build.target            mac
+supported_archs         arm64
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/build/${name}-darwin-${build_arch} ${destroot}${prefix}/bin/${name}
+}
+
+notes {
+    Optionally install mactop to see full GPU performance data in web ui.
+}

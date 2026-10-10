@@ -4,8 +4,9 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-tqdm
-version             4.67.3
+version             4.70.1
 revision            0
+
 categories-append   devel
 license             MIT
 supported_archs     noarch
@@ -20,9 +21,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/tqdm/tqdm
 
-checksums           rmd160  d929fcd2aa81df4db97a5fccdd57861fb29a2226 \
-                    sha256  7d825f03f89244ef73f1d4ce193cb1774a8179fd96f31d7e1dcde62092b960bb \
-                    size    169598
+checksums           rmd160  35f77778b43f876a3eb82f0160d79c44340c35b3 \
+                    sha256  cefd0eca11b2a37a3aee776544d4f4ae913f02688135b5556b8788dfa474afc4 \
+                    size    171846
 
 if {${name} ne ${subport}} {
     depends_build-append \

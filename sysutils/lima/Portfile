@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/lima-vm/lima 2.1.1 v
+go.setup            github.com/lima-vm/lima 2.2.1 v
 go.offline_build    no
+go.toolchain_min    1.26.0
 revision            0
 
 homepage            https://lima-vm.io
@@ -28,9 +29,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     {macports.halostatue.ca:austin @halostatue} \
                     openmaintainer
 
-checksums           rmd160  b01c90ce75e3a08433f11852b224ea8b1cc56299 \
-                    sha256  c1cb9f2a5d35715937bbf21566d58f89fc221ab285a42ddcc30fd6fdaab2c15a \
-                    size    7795047
+checksums           rmd160  5a2df6371e24e69714d6afc655de4a4b18666a01 \
+                    sha256  d551efb52115ba006c1052d5c929e4d3afac363c78c9cfca6975af1f85c1426a \
+                    size    7887831
 
 build.cmd           make
 build.args-append   native

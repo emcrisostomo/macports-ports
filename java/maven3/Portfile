@@ -5,7 +5,7 @@ PortGroup select 1.0
 PortGroup java 1.0
 
 name            maven3
-version         3.9.15
+version         3.10.0
 revision        0
 
 categories      java devel
@@ -14,7 +14,7 @@ maintainers     {breun @breun} openmaintainer
 platforms       any
 supported_archs noarch
 
-description     A Java-based build and project management environment.
+description     Maven 3.x, a Java-based build and project management environment.
 long_description \
                 Maven is a Java project management and project \
                 comprehension tool.  Maven is based on the \
@@ -35,12 +35,12 @@ master_sites    apache:maven/maven-3/${version}/binaries
 distname        apache-maven-${version}-bin
 worksrcdir      apache-maven-${version}
 
-checksums       rmd160  53d78d74958a092d01bd5d6f02d74017f0c98173 \
-                sha256  36182f85e91128cd5c4608462ac92194e7a30638f65034de66f4e1b00600a6fc \
-                size    9236330
+checksums       rmd160  48b01c7c5076ea8248010366c7403eaf0f77909b \
+                sha256  a46cc51bc74fa23fd267c7a0b9132b146dcf526da60d31aa5174e565632e9e0e \
+                size    9979885
 
 java.version    1.8+
-java.fallback   openjdk21
+java.fallback   openjdk25
 
 depends_run     port:maven_select
 

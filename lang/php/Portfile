@@ -26,7 +26,7 @@ long_description        PHP is a widely-used general-purpose scripting \
 categories              lang php
 
 # The list of PHP branches this port provides.
-php.branches            5.2 5.3 5.4 5.5 5.6 7.0 7.1 7.2 7.3 7.4 8.0 8.1 8.2 8.3 8.4 8.5
+php.branches            5.2 5.3 5.4 5.5 5.6 7.0 7.1 7.2 7.3 7.4 8.0 8.1 8.2 8.3 8.4 8.5 8.6
 
 # Fix for users specifying the subport name with the wrong case.
 set subport             [string tolower ${subport}]
@@ -179,35 +179,51 @@ switch ${subport_branch} {
     }
     8.2 {
         epoch           2
-        version         8.2.30
+        version         8.2.34
         use_xz          yes
-        checksums       rmd160  d1af856433ac2b0fe44c0f24445ef98664800db9 \
-                        sha256  bc90523e17af4db46157e75d0c9ef0b9d0030b0514e62c26ba7b513b8c4eb015 \
-                        size    12153868
+        checksums       rmd160  b13d1c41dedbb1fe726b3c845cdf6eb9a7a48ae7 \
+                        sha256  5351330c54de240f54f7527c26ef292e239749e6fe11db0330acb5317e02bb39 \
+                        size    12174884
     }
     8.3 {
         epoch           2
-        version         8.3.30
+        version         8.3.35
         use_xz          yes
-        checksums       rmd160  ef6d0128279c6e40678c98bea3bb031ec3ebb667 \
-                        sha256  67f084d36852daab6809561a7c8023d130ca07fc6af8fb040684dd1414934d48 \
-                        size    12609216
+        checksums       rmd160  b51be7ccff8a5d4216d8ea6ea4fe3b53ca78c610 \
+                        sha256  ff4630fbbbd94359134b7d3c223db59329905bdc4f5a9ef93d257b48e358619a \
+                        size    12623068
     }
     8.4 {
         epoch           1
-        version         8.4.19
+        version         8.4.26
         use_xz          yes
-        checksums       rmd160  b9bbae30cb9a0b41a34c562a06a762d4ddcbbb7b \
-                        sha256  11f7164ab26d356c31f94d3d69cc0e0707d5d2d6494a221aaeae307c08eaaa1c \
-                        size    13684456
+        checksums       rmd160  8d16b6a918eb15eafaf5a0945dcf7eed363b6c7c \
+                        sha256  32a2de53862ad44ed4a5005244ce4f1b50c271e74dced215449a4443b40569f1 \
+                        size    13791528
     }
     8.5 {
         epoch           2
-        version         8.5.4
+        version         8.5.11
         use_xz          yes
-        checksums       rmd160  3b56d911b8cab4ea446469bc70aea21fe97f6e4e \
-                        sha256  c1569f1f543f6b025c583cdc0e730e5c5833c603618613f1aa8e75d1524b8c91 \
-                        size    14348800
+        checksums       rmd160  747b5ccf71590d3024a8a019ed210eaac9b0395b \
+                        sha256  d9be75c08e8c316f4c8f4194d8fbe1750a15f6a6d9d4e3fe72082abeeb800360 \
+                        size    14469364
+    }
+    8.6 {
+        # When this becomes a stable version, remove the overrides for homepage,
+        # master_sites and livecheck, and update php.latest_stable_branch in the
+        # php-1.1 portgroup.
+        epoch           0
+        version         8.6.0RC2
+        homepage        https://www.php.net/pre-release-builds.php
+        master_sites    https://downloads.php.net/~mbeccati/ \
+                        https://downloads.php.net/~svpernova09
+        use_xz          yes
+        checksums       rmd160  4313d53af94f60db0325a1a5ef699767e0386dad \
+                        sha256  ef3fba21c311e9bbace0e2102702446d322c275b8a10e6b33b28f2561299671c \
+                        size    14970672
+        livecheck.url   ${homepage}
+        livecheck.regex php-([strsed ${subport_branch} {g/\\./\\./}](?:\\.\[0-9.\]+)*(?:(?:alpha|beta|RC)\\d+|-latest))\\.tar
     }
 }
 #### RCstart template
@@ -217,8 +233,9 @@ switch ${subport_branch} {
 #        # php-1.1 portgroup.
 #        epoch           0
 #        version         RCversion
-#        homepage        https://www.php.net/release-candidates.php
-#        master_sites    https://downloads.php.net/~saki/
+#        homepage        https://www.php.net/pre-release-builds.php
+#        master_sites    https://downloads.php.net/~mbeccati/ \
+#                        https://downloads.php.net/~svpernova09
 #        use_xz          yes
 #        checksums       rmd160  d78af388868bc0a1ca36955971c21ad77da81cf4 \
 #                        sha256  5c42173cbde7d0add8249c2e8a0c19ae271f41d8c47d67d72bdf91a88dcc7e4b \
@@ -250,12 +267,15 @@ if {${major} > 5} {
 
 configure.checks.implicit_function_declaration.whitelist-append strchr
 
+if {[vercmp ${branch} <= 8.1]} {
+    configure.cflags-append -std=gnu99
+    compiler.c_standard 1999
+}
+
 if {[is_sapi_subport]} {
 
-    platform darwin {
-        if {${php.branch} in ${phpknownfails}} {
-            known_fail          yes
-        }
+    if {${php.branch} in ${phpknownfails}} {
+        known_fail          yes
     }
 
     platform darwin {
@@ -271,7 +291,7 @@ if {[is_sapi_subport]} {
         }
     }
 
-    if {[vercmp ${branch} >= 8.5]} {
+    if {[vercmp ${branch} >= 8.0]} {
         PortGroup       legacysupport 1.1
         # clock_gettime
         legacysupport.newest_darwin_requires_legacy 15
@@ -306,7 +326,7 @@ if {[is_sapi_subport]} {
     }
     if {[vercmp ${branch} >= 8.0]} {
         if {[vercmp ${branch} < 8.2]} {
-        patchfiles-append \
+            patchfiles-append \
                         patch-${php}-conditional-Wno-implicit-fallthrough.diff
         }
         use_autoreconf  yes
@@ -521,10 +541,11 @@ subport ${php} {
         7.4.33              {revision 3}
         8.0.30              {revision 2}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     depends_run             port:php_select
@@ -687,10 +708,11 @@ subport ${php}-apache2handler {
         7.4.33              {revision 2}
         8.0.30              {revision 2}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     description             ${php} Apache 2 Handler SAPI
@@ -758,10 +780,11 @@ subport ${php}-cgi {
         7.4.33              {revision 2}
         8.0.30              {revision 2}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     description             ${php} CGI SAPI
@@ -804,10 +827,11 @@ subport ${php}-fpm {
         7.4.33              {revision 2}
         8.0.30              {revision 2}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     description             ${php} FPM SAPI
@@ -879,10 +903,11 @@ subport ${php}-calendar {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     description             a PHP extension for converting between different \
@@ -905,10 +930,11 @@ subport ${php}-curl {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       net www
@@ -947,10 +973,11 @@ subport ${php}-dba {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       databases
@@ -985,10 +1012,11 @@ subport ${php}-enchant {
         7.4.33              {revision 0}
         8.0.30              {revision 1}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       textproc devel
@@ -1042,10 +1070,11 @@ subport ${php}-exif {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       graphics
@@ -1061,10 +1090,11 @@ subport ${php}-ffi {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       devel
@@ -1095,10 +1125,11 @@ subport ${php}-ftp {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       net
@@ -1135,10 +1166,11 @@ subport ${php}-gd {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       graphics
@@ -1211,10 +1243,11 @@ subport ${php}-gettext {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       devel
@@ -1243,10 +1276,11 @@ subport ${php}-gmp {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       devel math
@@ -1280,11 +1314,11 @@ subport ${php}-iconv {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.4.13              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       textproc
@@ -1316,7 +1350,7 @@ subport ${php}-imap {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
+        8.2.34              {revision 0}
     }
 
     categories-append       mail
@@ -1357,10 +1391,11 @@ subport ${php}-intl {
         7.4.33              {revision 4}
         8.0.30              {revision 3}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 1}
-        8.5.4               {revision 1}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       devel
@@ -1429,10 +1464,11 @@ subport ${php}-ipc {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          shmop sysvmsg sysvsem sysvshm
@@ -1457,10 +1493,11 @@ subport ${php}-ldap {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       databases
@@ -1499,10 +1536,11 @@ subport ${php}-mbstring {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       textproc
@@ -1592,10 +1630,11 @@ subport ${php}-mysql {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          mysqli pdo_mysql
@@ -1617,8 +1656,14 @@ subport ${php}-mysql {
 
     configure.args-append   --with-zlib-dir=${prefix}
 
+    set mysql_vers {57 8 9}
+    set mysql_names [lmap v ${mysql_vers} {string cat mysql ${v}}]
+    set mariadb_vers {10.11 11.8 12.3}
+    set mariadb_names [lmap v ${mariadb_vers} {string cat mariadb [lindex [split ${v} .] 0]}]
+    set db_vers [list {*}${mysql_names} {*}${mariadb_names} "mysqlnd"]
+
     if {[vercmp ${branch} >= 5.3]} {
-    variant mysqlnd conflicts mysql57 mysql8 mariadb10 mariadb11 mariadb12 description {Use MySQL Native Driver} {
+    variant mysqlnd conflicts {*}[ldelete ${db_vers} "mysqlnd"] description {Use MySQL Native Driver} {
         configure.args-append   --with-pdo-mysql=mysqlnd
 
         if {[vercmp ${branch} < 7.0]} {
@@ -1640,127 +1685,98 @@ mysql.default_socket, mysqli.default_socket and pdo_mysql.default_socket\
 to the path to your MySQL server's socket file.
 
 For mysql57, use ${prefix}/var/run/mysql57/mysqld.sock
-For mysql8, use ${prefix}/var/run/mysql8/mysqld.sock
-For mariadb10, use ${prefix}/var/run/mariadb-10.11/mysqld.sock
-For mariadb11, use ${prefix}/var/run/mariadb-11.8/mysqld.sock
-For mariadb12, use ${prefix}/var/run/mariadb-12.3/mysqld.sock
 "
+        if {[vercmp ${branch} >= 7.3]} {
+            notes-append "For mysql8, use ${prefix}/var/run/mysql8/mysqld.sock"
+        }
+        foreach v ${mariadb_vers} {
+            set mariadb_name [string cat mariadb [lindex [split ${v} .] 0]]
+            notes-append "For ${mariadb_name}, use ${prefix}/var/run/mariadb-${v}/mysqld.sock"
+        }
     }
     }
 
-    variant mysql57 conflicts mysqlnd mysql8 mariadb10 mariadb11 mariadb12 description {Use MySQL 5.7 libraries} {
-        depends_lib-append      port:mysql57
+    variant mysql57 conflicts {*}[ldelete ${db_vers} "mysql57"] description {Use MySQL 5.7 libraries} {
+        set my_db "mysql57"
+        depends_lib-append      port:${my_db}
 
-        configure.args-append   --with-mysql-sock=${prefix}/var/run/mysql57/mysqld.sock \
-                                --with-pdo-mysql=${prefix}/lib/mysql57/bin/mysql_config
+        configure.args-append   --with-mysql-sock=${prefix}/var/run/${my_db}/mysqld.sock \
+                                --with-pdo-mysql=${prefix}/lib/${my_db}/bin/mysql_config
 
         if {[vercmp ${branch} < 7.0]} {
             post-extract {
-                file mkdir ${workpath}/mysql57
-                file link -symbolic ${workpath}/mysql57/lib ${prefix}/lib/mysql57
-                file link -symbolic ${workpath}/mysql57/include ${prefix}/include/mysql57
+                file mkdir ${workpath}/${my_db}
+                file link -symbolic ${workpath}/${my_db}/lib ${prefix}/lib/${my_db}
+                file link -symbolic ${workpath}/${my_db}/include ${prefix}/include/${my_db}
             }
 
-            configure.args-append   --with-mysql=${workpath}/mysql57
+            configure.args-append   --with-mysql=${workpath}/${my_db}
         }
 
         if {[vercmp ${branch} < 8.2]} {
-            configure.args-append   --with-mysqli=${prefix}/lib/mysql57/bin/mysql_config
+            configure.args-append   --with-mysqli=${prefix}/lib/${my_db}/bin/mysql_config
         } else {
             configure.args-append   --with-mysqli
         }
     }
 
     if {[vercmp ${branch} >= 7.3]} {
-    variant mysql8 conflicts mysqlnd mysql57 mariadb10 mariadb11 mariadb12 description {Use MySQL 8 libraries} {
-        depends_lib-append      port:mysql8
+    foreach v [ldelete ${mysql_vers} [lindex ${mysql_vers} 0]] my_db [ldelete ${mysql_names} [lindex ${mysql_names} 0]] {
+        variant ${my_db} \
+                conflicts {*}[ldelete ${db_vers} ${my_db}] \
+                description "Use MySQL ${v} libraries" "
+            depends_lib-append      port:${my_db}
 
-        configure.args-append   --with-mysql-sock=${prefix}/var/run/mysql8/mysqld.sock \
-                                --with-pdo-mysql=${prefix}/lib/mysql8/bin/mysql_config
+            configure.args-append   --with-mysql-sock=${prefix}/var/run/${my_db}/mysqld.sock \
+                                    --with-pdo-mysql=${prefix}/lib/${my_db}/bin/mysql_config
 
-        if {[vercmp ${branch} < 8.2]} {
-            configure.args-append   --with-mysqli=${prefix}/lib/mysql8/bin/mysql_config
-        } else {
-            configure.args-append   --with-mysqli
-        }
+            if {[vercmp ${branch} < 8.2]} {
+                configure.args-append   --with-mysqli=${prefix}/lib/${my_db}/bin/mysql_config
+            } else {
+                configure.args-append   --with-mysqli
+            }
+        "
     }
     }
 
-    variant mariadb10 conflicts mysqlnd mysql57 mysql8 mariadb11 mariadb12 description {Use MariaDB 10 libraries} {
-        set my_db 10.11
-        depends_lib-append      port:mariadb-${my_db}
+    foreach v ${mariadb_vers} mariadb_name ${mariadb_names} {
+        variant ${mariadb_name} \
+                conflicts {*}[ldelete ${db_vers} ${mariadb_name}] \
+                description "Use MariaDB ${v} libraries" "
+            depends_lib-append      port:mariadb-${v}
 
-        configure.args-append   --with-mysql-sock=${prefix}/var/run/mariadb-${my_db}/mysqld.sock \
-                                --with-pdo-mysql=${prefix}/lib/mariadb-${my_db}/bin/mysql_config
+            configure.args-append   --with-mysql-sock=${prefix}/var/run/mariadb-${v}/mysqld.sock \
+                                    --with-pdo-mysql=${prefix}/lib/mariadb-${v}/bin/mysql_config
 
-        if {[vercmp ${branch} < 7.0]} {
-            post-extract {
-                file mkdir ${workpath}/mariadb
-                file link -symbolic ${workpath}/mariadb/lib ${prefix}/lib/mariadb-${my_db}
-                file link -symbolic ${workpath}/mariadb/include ${prefix}/include/mariadb-${my_db}
+            if {[vercmp ${branch} < 7.0]} {
+                post-extract {
+                    file mkdir ${workpath}/mariadb
+                    file link -symbolic ${workpath}/mariadb/lib ${prefix}/lib/mariadb-${v}
+                    file link -symbolic ${workpath}/mariadb/include ${prefix}/include/mariadb-${v}
+                }
+
+                configure.args-append   --with-mysql=${workpath}/mariadb
             }
 
-            configure.args-append   --with-mysql=${workpath}/mariadb
-        }
-
-        if {[vercmp ${branch} < 8.2]} {
-            configure.args-append   --with-mysqli=${prefix}/lib/mariadb/bin-${my_db}/mysql_config
-        } else {
-            configure.args-append   --with-mysqli
-        }
-    }
-
-    variant mariadb11 conflicts mysqlnd mysql57 mysql8 mariadb10 mariadb12 description {Use MariaDB 11 libraries} {
-        set my_db 11.8
-        depends_lib-append      port:mariadb-${my_db}
-
-        configure.args-append   --with-mysql-sock=${prefix}/var/run/mariadb-${my_db}/mysqld.sock \
-                                --with-pdo-mysql=${prefix}/lib/mariadb-${my_db}/bin/mysql_config
-
-        if {[vercmp ${branch} < 7.0]} {
-            post-extract {
-                file mkdir ${workpath}/mariadb
-                file link -symbolic ${workpath}/mariadb/lib ${prefix}/lib/mariadb-${my_db}
-                file link -symbolic ${workpath}/mariadb/include ${prefix}/include/mariadb-${my_db}
+            if {[vercmp ${branch} < 8.2]} {
+                configure.args-append   --with-mysqli=${prefix}/lib/mariadb/bin-${v}/mysql_config
+            } else {
+                configure.args-append   --with-mysqli
             }
+        "
+    }
 
-            configure.args-append   --with-mysql=${workpath}/mariadb
-        }
-
-        if {[vercmp ${branch} < 8.2]} {
-            configure.args-append   --with-mysqli=${prefix}/lib/mariadb/bin-${my_db}/mysql_config
-        } else {
-            configure.args-append   --with-mysqli
+    set none_selected 1
+    foreach db_ver ${db_vers} {
+        if {[variant_isset ${db_ver}]} {
+            set none_selected 0
+            break
         }
     }
 
-    variant mariadb12 conflicts mysqlnd mysql57 mysql8 mariadb10 mariadb11 description {Use MariaDB 12 libraries} {
-        set my_db 12.3
-        depends_lib-append      port:mariadb-${my_db}
-
-        configure.args-append   --with-mysql-sock=${prefix}/var/run/mariadb-${my_db}/mysqld.sock \
-                                --with-pdo-mysql=${prefix}/lib/mariadb-${my_db}/bin/mysql_config
-
-        if {[vercmp ${branch} < 7.0]} {
-            post-extract {
-                file mkdir ${workpath}/mariadb
-                file link -symbolic ${workpath}/mariadb/lib ${prefix}/lib/mariadb-${my_db}
-                file link -symbolic ${workpath}/mariadb/include ${prefix}/include/mariadb-${my_db}
-            }
-
-            configure.args-append   --with-mysql=${workpath}/mariadb
-        }
-
-        if {[vercmp ${branch} < 8.2]} {
-            configure.args-append   --with-mysqli=${prefix}/lib/mariadb/bin-${my_db}/mysql_config
-        } else {
-            configure.args-append   --with-mysqli
-        }
-    }
-
-    if {![variant_isset mysql57] && ![variant_isset mysql8] && ![variant_isset mariadb10] && ![variant_isset mariadb11] && ![variant_isset mariadb12]} {
+    if {${none_selected}} {
         if {[vercmp ${branch} < 5.3]} {
-            default_variants +mariadb10
+            default_variants +[lindex ${mariadb_names} 0]
         } else {
             default_variants +mysqlnd
         }
@@ -1781,15 +1797,21 @@ subport ${php}-odbc {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          odbc pdo_odbc
 
     categories-append       databases
+
+    if {[vercmp ${branch} <= 8.0]} {
+        patchfiles-append \
+                        patch-${php}-odbc-stmt_get_col.diff
+    }
 
     description             a PHP interface for accessing databases via Open \
                             DataBase Connectivity (ODBC)
@@ -1835,65 +1857,59 @@ subport ${php}-odbc {
     }
 }
 
+if {[vercmp ${branch} >= 5.5] && [vercmp ${branch} < 8.5]} {
 # OPcache is integrated in php >= 8.5
 # https://wiki.php.net/rfc/make_opcache_required
-if {[vercmp ${branch} >= 5.5] && [vercmp ${branch} < 8.5]} {
-    subport ${php}-opcache {
-        switch -- ${version} {
-            5.5.38              {revision 1}
-            5.6.40              {revision 1}
-            7.0.33              {revision 2}
-            7.1.33              {revision 2}
-            7.2.34              {revision 1}
-            7.3.33              {revision 1}
-            7.4.33              {revision 0}
-            8.0.30              {revision 0}
-            8.1.34              {revision 0}
-            8.2.30              {revision 0}
-            8.3.30              {revision 0}
-        8.4.19              {revision 0}
+subport ${php}-opcache {
+    switch -- ${version} {
+        5.5.38              {revision 1}
+        5.6.40              {revision 1}
+        7.0.33              {revision 2}
+        7.1.33              {revision 2}
+        7.2.34              {revision 1}
+        7.3.33              {revision 1}
+        7.4.33              {revision 0}
+        8.0.30              {revision 0}
+        8.1.34              {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+    }
+
+    php.extensions.zend opcache
+
+    description         OPcache improves PHP performance by storing precompiled \
+                        script bytecode in shared memory, thereby removing the \
+                        need for PHP to load and parse scripts on each request.
+
+    long_description    ${description}
+
+    configure.args-append   --enable-opcache
+
+    # File-based opcode cache was added in 7.0 (3abde432) and can no longer
+    # be disabled as of 7.4 (c32da66e).
+    if {[vercmp ${branch} >= 7.0] && [vercmp ${branch} < 7.4]} {
+        # Chained fixups cause this error at runtime on Ventura:
+        # symbol not found in flat namespace '_zend_file_cache_invalidate'
+        if {[vercmp ${macosx_deployment_target} >= 11]} {
+            configure.ldflags-append -Wl,-no_fixup_chains
         }
 
-        php.extensions.zend opcache
+        configure.args-append   --enable-opcache-file
+    }
 
-        description         OPcache improves PHP performance by storing precompiled \
-                            script bytecode in shared memory, thereby removing the \
-                            need for PHP to load and parse scripts on each request.
+    if {[vercmp ${branch} == 8.1]} {
+        patchfiles-append patch-${php}-opcache.diff
+    }
 
-        long_description    ${description}
-
-        configure.args-append   --enable-opcache
-
-        # File-based opcode cache was added in 7.0 (3abde432) and can no longer
-        # be disabled as of 7.4 (c32da66e).
-        if {[vercmp ${branch} >= 7.0] && [vercmp ${branch} < 7.4]} {
-            # Chained fixups cause this error at runtime on Ventura:
-            # symbol not found in flat namespace '_zend_file_cache_invalidate'
-            if {[vercmp ${macosx_deployment_target} >= 11]} {
-                configure.ldflags-append -Wl,-no_fixup_chains
-            }
-
-            configure.args-append   --enable-opcache-file
-        }
-
-        if {[vercmp ${branch} >= 8.0]} {
-            PortGroup       legacysupport 1.1
-            # clock_gettime
-            legacysupport.newest_darwin_requires_legacy 15
-        }
-
-        if {[vercmp ${branch} == 8.1]} {
-            patchfiles-append patch-${php}-opcache.diff
-        }
-
-        post-destroot {
-            set docdir ${destroot}${prefix}/share/doc/${subport}
-            xinstall -d ${docdir}
-            if {[vercmp ${branch} < 7.4]} {
-                xinstall -W ${destroot.dir} -m 644 README ${docdir}
-            }
+    post-destroot {
+        set docdir ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d ${docdir}
+        if {[vercmp ${branch} < 7.4]} {
+            xinstall -W ${destroot.dir} -m 644 README ${docdir}
         }
     }
+}
 }
 
 subport ${php}-openssl {
@@ -1910,10 +1926,11 @@ subport ${php}-openssl {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       devel security
@@ -1953,7 +1970,9 @@ subport ${php}-openssl {
     }
 }
 
-if {[vercmp ${branch} < 8.4]} {
+if {[vercmp ${branch} < 8.3]} {
+# oracle was evicted from PHP core in version 8.4;
+# php83-oracle and later subports are found in the separate php-oracle Portfile.
 subport ${php}-oracle {
     switch -- ${version} {
         5.2.17              {revision 0}
@@ -1968,10 +1987,7 @@ subport ${php}-oracle {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
     }
 
     php.extensions          oci8 pdo_oci
@@ -1983,8 +1999,14 @@ subport ${php}-oracle {
 
     long_description        ${description}
 
+    # port:oracle-instantclient has to be manually installed
+    known_fail              yes
     depends_lib-append      port:oracle-instantclient
 
+    patch.pre_args-replace  -p0 -p1
+    if {[vercmp ${branch} <= 7.4]} {
+        patchfiles-append   patch-${php}-ext-pdo_oci-oci_statement.c.diff
+    }
     if {[vercmp ${branch} <= 5.2]} {
         patchfiles-append   patch-${php}-ext-pdo_oci-config.m4.diff
     }
@@ -2013,10 +2035,11 @@ subport ${php}-pcntl {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       sysutils
@@ -2026,6 +2049,11 @@ subport ${php}-pcntl {
                             termination functions
 
     long_description        ${description}
+
+    patch.pre_args-replace  -p0 -p1
+    if {[vercmp ${branch} <= 8.0]} {
+        patchfiles-append   patch-${php}-ext-pcntl-pcntl.c.diff
+    }
 
     notes "
 ${subport} should not be enabled within a web server environment.\
@@ -2048,10 +2076,11 @@ subport ${php}-posix {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       sysutils
@@ -2077,10 +2106,11 @@ subport ${php}-postgresql {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          pgsql pdo_pgsql
@@ -2096,44 +2126,31 @@ subport ${php}-postgresql {
 
     variant postgresql13 requires postgresql14 description "Legacy compatibility variant" {}
 
-    variant postgresql14 conflicts postgresql15 postgresql16 postgresql17 postgresql18 description {Use PostgreSQL 14 libraries} {
-        set pg_ver 14
-        depends_lib-append      port:postgresql${pg_ver}
-        configure.args-append   --with-pgsql=${prefix}/lib/postgresql${pg_ver}/bin \
-                                --with-pdo-pgsql=${prefix}/lib/postgresql${pg_ver}/bin
+    set pg_vers {14 15 16 17 18}
+    set pg_names [lmap v $pg_vers {string cat postgresql ${v}}]
+    foreach v ${pg_vers} {
+        set pg_name [string cat postgresql ${v}]
+        variant ${pg_name} \
+                conflicts {*}[ldelete ${pg_names} ${pg_name}] \
+                description "Use PostgreSQL ${v} libraries" "
+            depends_lib-append      port:${pg_name}
+            configure.args-append   --with-pgsql=${prefix}/lib/${pg_name}/bin \
+                                    --with-pdo-pgsql=${prefix}/lib/${pg_name}/bin
+        "
     }
 
-    variant postgresql15 conflicts postgresql14 postgresql16 postgresql17 postgresql18 description {Use PostgreSQL 15 libraries} {
-        set pg_ver 15
-        depends_lib-append      port:postgresql${pg_ver}
-        configure.args-append   --with-pgsql=${prefix}/lib/postgresql${pg_ver}/bin \
-                                --with-pdo-pgsql=${prefix}/lib/postgresql${pg_ver}/bin
+    set none_selected 1
+    foreach pg_ver ${pg_names} {
+        if {[variant_isset ${pg_ver}]} {
+            set none_selected 0
+            break
+        }
     }
 
-    variant postgresql16 conflicts postgresql14 postgresql15 postgresql17 postgresql18 description {Use PostgreSQL 16 libraries} {
-        set pg_ver 16
-        depends_lib-append      port:postgresql${pg_ver}
-        configure.args-append   --with-pgsql=${prefix}/lib/postgresql${pg_ver}/bin \
-                                --with-pdo-pgsql=${prefix}/lib/postgresql${pg_ver}/bin
+    if {${none_selected}} {
+        default_variants +[lindex ${pg_names} end]
     }
 
-    variant postgresql17 conflicts postgresql14 postgresql15 postgresql16 postgresql18 description {Use PostgreSQL 17 libraries} {
-        set pg_ver 17
-        depends_lib-append      port:postgresql${pg_ver}
-        configure.args-append   --with-pgsql=${prefix}/lib/postgresql${pg_ver}/bin \
-                                --with-pdo-pgsql=${prefix}/lib/postgresql${pg_ver}/bin
-    }
-
-    variant postgresql18 conflicts postgresql14 postgresql15 postgresql16 postgresql17 description {Use PostgreSQL 18 libraries} {
-        set pg_ver 18
-        depends_lib-append      port:postgresql${pg_ver}
-        configure.args-append   --with-pgsql=${prefix}/lib/postgresql${pg_ver}/bin \
-                                --with-pdo-pgsql=${prefix}/lib/postgresql${pg_ver}/bin
-    }
-
-    if {![variant_isset postgresql14] && ![variant_isset postgresql15] && ![variant_isset postgresql16] && ![variant_isset postgresql17] && ![variant_isset postgresql18]} {
-        default_variants +postgresql18
-    }
 }
 
 if {[vercmp ${branch} < 8.1]} {
@@ -2182,10 +2199,11 @@ subport ${php}-snmp {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       sysutils
@@ -2214,10 +2232,11 @@ subport ${php}-soap {
         7.4.33              {revision 1}
         8.0.30              {revision 1}
         8.1.34              {revision 1}
-        8.2.30              {revision 1}
-        8.3.30              {revision 1}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       net
@@ -2254,10 +2273,11 @@ subport ${php}-sockets {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       net
@@ -2276,10 +2296,11 @@ subport ${php}-sodium {
         7.4.33              {revision 1}
         8.0.30              {revision 1}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          sodium
@@ -2317,10 +2338,11 @@ subport ${php}-sqlite {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     php.extensions          sqlite sqlite3 pdo_sqlite
@@ -2371,10 +2393,11 @@ subport ${php}-tidy {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       www
@@ -2478,10 +2501,11 @@ subport ${php}-xsl {
         7.4.33              {revision 0}
         8.0.30              {revision 0}
         8.1.34              {revision 0}
-        8.2.30              {revision 0}
-        8.3.30              {revision 0}
-        8.4.19              {revision 0}
-        8.5.4               {revision 0}
+        8.2.34              {revision 0}
+        8.3.35              {revision 0}
+        8.4.26              {revision 0}
+        8.5.11              {revision 0}
+        8.6.0RC2            {revision 0}
     }
 
     categories-append       textproc

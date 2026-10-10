@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-tornado
-version             6.5.5
+version             6.5.8
 revision            0
 categories-append   www
 license             Apache-2
@@ -24,9 +24,9 @@ long_description    \
 
 homepage            https://www.tornadoweb.org/
 
-checksums           rmd160  8741ebeb99b7c7268375a6bf6f220566f5300c52 \
-                    sha256  192b8f3ea91bd7f1f50c06955416ed76c6b72f96779b962f07f911b91e8d30e9 \
-                    size    516006
+checksums           rmd160  5be6d01b444a3ca340a5bd0db41ebccbd04eef7e \
+                    sha256  9452e1b208a8bd771e2cb1f2ff564985b9b214bdebbe622793e1799e0a6bd23f \
+                    size    520493
 
 if {${name} ne ${subport}} {
     if {${python.version} eq 27} {

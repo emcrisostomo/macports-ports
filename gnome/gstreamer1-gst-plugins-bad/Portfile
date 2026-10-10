@@ -11,8 +11,7 @@ PortGroup           muniversal 1.0
 name                gstreamer1-gst-plugins-bad
 set my_name         gst-plugins-bad
 # please only commit stable updates (even numbered releases)
-version             1.28.2
-revision            1
+version             1.28.8
 description         A set of plug-ins for GStreamer that need more quality.
 long_description    GStreamer Bad Plug-ins is a set of plug-ins that aren't up to par compared \
                     to the rest. They might be close to being good quality, but they're missing \
@@ -26,9 +25,9 @@ master_sites        https://gstreamer.freedesktop.org/src/${my_name}/
 distname            ${my_name}-${version}
 use_xz              yes
 
-checksums           rmd160  a0a4d24b3c7b502bb6ccc8690f93bba03a0c20dc \
-                    sha256  6467e3964828f4d7d08bfe1fbb4d76287a1c8fa76674e59e101a149c020fefd7 \
-                    size    7988892
+checksums           rmd160  efcd1c7dd5e6ac6e0e0b8cc3059df7a60edd7e95 \
+                    sha256  670d888bde8242579b0d8e91f60cf337aa7be20ca7c315ebfbdd6e5a9218d104 \
+                    size    8355328
 
 set py_ver          3.14
 set py_ver_nodot    [string map {. {}} ${py_ver}]
@@ -81,7 +80,6 @@ depends_lib-append  port:aom \
 
 patchfiles          modplug.patch \
                     libressl.patch \
-                    no_pqueue_size.patch \
                     gstdecklink.patch
 
 post-patch {
@@ -105,6 +103,7 @@ compiler.cxx_standard       2011
 
 configure.args-append \
                     -Dapplemedia=disabled \
+                    -Ddc1394=disabled \
                     -Dexamples=disabled \
                     -Dfaac=disabled \
                     -Dfdkaac=disabled \
@@ -112,8 +111,8 @@ configure.args-append \
                     -Dsctp=disabled \
                     -Dsrtp=disabled \
                     -Dsvtav1=disabled \
-                    -Dx11=disabled \
-                    -Dvulkan=disabled
+                    -Dvulkan=disabled \
+                    -Dx11=disabled
 
 configure.cflags-append     -std=c11
 configure.cxxflags-append   -std=gnu++11

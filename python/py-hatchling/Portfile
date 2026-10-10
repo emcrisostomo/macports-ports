@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-hatchling
-version             1.29.0
+version             1.32.4
 revision            0
 
 license             MIT
@@ -17,9 +17,9 @@ homepage            https://hatch.pypa.io/latest/
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  d4a3a053251e66d5ab1993e00e1eb5d6577a57c8 \
-                    sha256  793c31816d952cee405b83488ce001c719f325d9cda69f1fc4cd750527640ea6 \
-                    size    55656
+checksums           rmd160  ea859eaad73adb7a3d1d718da4edadb762b5d400 \
+                    sha256  c4468f73144c054d2aab4ef0f0378c43b9878bf07f8ffd6b79690e970d375f07 \
+                    size    58065
 
 python.versions     310 311 312 313 314
 
@@ -28,10 +28,10 @@ if {${name} ne ${subport}} {
     python.pep517_backend
 
     depends_lib-append  \
-                    port:py${python.version}-editables \
                     port:py${python.version}-packaging \
                     port:py${python.version}-pathspec \
                     port:py${python.version}-pluggy \
+                    port:py${python.version}-tomlkit \
                     port:py${python.version}-trove-classifiers
 
     depends_run-append \

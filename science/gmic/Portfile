@@ -5,7 +5,7 @@ PortSystem          1.0
 PortGroup           conflicts_build 1.0
 PortGroup           legacysupport 1.1
 
-# https://trac.macports.org/ticket/70676 
+# https://trac.macports.org/ticket/70676
 # fatal error: use of undeclared identifier 'AT_FDCWD'
 legacysupport.newest_darwin_requires_legacy 13
 
@@ -20,8 +20,11 @@ if {${subport} eq "gmic-gimp" || ${subport} eq "gmic-qt"} {
 }
 
 name                gmic
-version             3.7.5
-revision            0
+version             4.0.5
+revision            2
+
+# stealth update
+dist_subdir         ${name}/${version}_${revision}
 
 license             CeCILL
 categories          science graphics
@@ -39,9 +42,9 @@ long_description    G'MIC stands for GREYC's Magic Image Converter. It is \
 homepage            https://gmic.eu
 master_sites        https://gmic.eu/files/source/
 
-checksums           rmd160  d774f90a885a73a990db31df007c9ba6c0baa55f \
-                    sha256  159d15a5b6fcd6cf1da676ef971a3fd4ebeadc8d1c009c0f9275c2af4034e5e4 \
-                    size    20510702
+checksums           rmd160  d5c3263f60ba1978f59325e5694644f1ce2b07ae \
+                    sha256  c6771c48693ed615b2e85d1db7a9626358d4606eb2c75dcf009b2924f396da59 \
+                    size    20542249
 
 distfiles           ${name}_${version}${extract.suffix}
 
@@ -58,7 +61,7 @@ depends_lib         port:curl \
                     port:tiff \
                     port:zlib
 
-compiler.blacklist              {clang < 902}
+compiler.blacklist              {clang < 1700}
 compiler.cxx_standard           2011
 
 # Uses more memory per compile process than we can accommodate on our

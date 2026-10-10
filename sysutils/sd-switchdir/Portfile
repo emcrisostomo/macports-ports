@@ -3,24 +3,24 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        jghub sd-switchdir 3.2.1 v
+github.setup        jghub sd-switchdir 3.3.6 v
 revision            0
-checksums           rmd160  7b44ef17e7c4b341eb164d3fc3a3e930d6a13d87 \
-                    sha256  7caa560098ab4923d393a2e115a68c5f6379f15fb990b966f912247440cf2c40 \
-                    size    23536
+checksums           rmd160  78f399c0b6f4a8d5c17f986fab48636d13a1b952 \
+                    sha256  40f0f43353d8c891ee58d902f541b89034e20f28ba8b451bcc15f4ddd2395426 \
+                    size    27013
 
 description         cd replacement with pattern matching against a frecency-ranked directory stack
 
 long_description    SD provides two shell commands, sd and ds, for rapid navigation between \
                     previously visited directories. Directory ranking is derived from the full \
-                    sequence of recorded visits using a configurable power-law scoring model. \
+                    sequence of recorded visits using a configurable sliding window "frecency" model. \
                     sd acts as a drop-in replacement for the cd builtin\; ds exposes the ranked \
                     directory stack and provides inspection, management, and interactive \
                     selection via fzf if available.                    
 
 categories          sysutils
 license             MIT
-maintainers         nomaintainer
+maintainers         {gmail.com:veedeehjay @jghub} openmaintainer
 platforms           any
 supported_archs     noarch
 installs_libs       no

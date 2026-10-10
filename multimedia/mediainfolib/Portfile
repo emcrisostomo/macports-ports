@@ -4,10 +4,10 @@ PortSystem          1.0
 PortGroup           github 1.0
 
 # update along with mediainfo
-github.setup        MediaArea MediaInfoLib 26.01 v
+github.setup        MediaArea MediaInfoLib 26.10 v
 github.tarball_from archive
 name                mediainfolib
-revision            1
+revision            0
 categories          multimedia devel
 license             BSD
 maintainers         {makr @mohd-akram} openmaintainer
@@ -19,9 +19,9 @@ long_description    MediaInfo(Lib) is a convenient unified display of the most \
 
 homepage            https://mediaarea.net/en/MediaInfo
 
-checksums           rmd160  ba06cdbfe9f4d99fa76ea4c630fcaac570b862eb \
-                    sha256  941daa01fce4595bd7b56c4d2db166f58e2bb2362dcb9636b952ee29b64db986 \
-                    size    3222584
+checksums           rmd160  e9d262a33b516059293de312c5276b01aa3faa24 \
+                    sha256  3985db56d18d504b0852c1485cfa9dbaf2733876058e9b8dc1b1411ebeba225d \
+                    size    3322415
 
 depends_build       path:bin/pkg-config:pkgconfig
 

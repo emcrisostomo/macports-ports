@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-scp
-version             0.15.0
+version             0.16.1
 revision            0
 
 categories-append   net
@@ -20,9 +20,9 @@ long_description    The scp module extends paramiko to send and receive \
 
 homepage            https://github.com/jbardin/scp.py
 
-checksums           rmd160  6c0b335703604d6f1e1186c5bb76b7b25841f6b0 \
-                    sha256  f1b22e9932123ccf17eebf19e0953c6e9148f589f93d91b872941a696305c83f \
-                    size    13905
+checksums           rmd160  959dc8610a7af57248779da3aba55c12be99a63b \
+                    sha256  3f2b260bf9bd4c2b6857f697a1d7e8edc26fa569282b77027e849dfe1e48580a \
+                    size    13131
 
 python.versions     313 314
 

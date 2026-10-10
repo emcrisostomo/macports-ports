@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Finance-Quote 1.69 ../../authors/id/B/BP/BPSCHUCK
+perl5.setup         Finance-Quote 1.71 ../../authors/id/B/BP/BPSCHUCK
 revision            0
 license             GPL-2+
 maintainers         nomaintainer
@@ -14,9 +14,9 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  14ede1e81c4ba1c0e7492120dfd04c785f3adc50 \
-                    sha256  c29fa77696aa1dfac4dbf4f8b528aa21761c4b9dc1b823cca6b650904fe3f5ef \
-                    size    281705
+checksums           rmd160  c775e4b424b8f2b95268d79c501ba92351a860a3 \
+                    sha256  31130fe01a8866639075985fca99478c93c0d73bd411a69565b0d4783faf5fef \
+                    size    279152
 
 if {${perl5.major} != ""} {
     depends_build-append  \

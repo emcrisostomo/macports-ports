@@ -4,16 +4,12 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-hypothesis
-version             6.151.9
+version             6.168.0
 revision            0
 
 categories-append   devel
 platforms           {darwin any}
-supported_archs     noarch
 license             MPL-2
-
-python.versions     310 311 312 313 314
-
 maintainers         {khindenburg @kurthindenburg} \
                     openmaintainer
 
@@ -26,14 +22,25 @@ long_description \
 
 homepage            https://pypi.python.org/pypi/hypothesis
 
-checksums           md5     f7762839f7729657d47bf67e927c85a4 \
-                    rmd160  4c6c63b54c7e469223bbc47315825d655360bab7 \
-                    sha256  2f284428dda6c3c48c580de0e18470ff9c7f5ef628a647ee8002f38c3f9097ca \
-                    size    463534
+checksums           rmd160  4f6dfc1d7a14020e2adaf58740cd92a404ebf013 \
+                    sha256  72af51087b7b5ab21c49f0d502f803c20897678652835596bd2a8b169a39135e \
+                    size    510805
+
+python.versions     310 311 312 313 314
 
 if {${name} ne ${subport}} {
+    if {${os.platform} eq "darwin" && ${os.major} < 17} {
+        # Rust-free release:
+        version     6.155.7
+        revision    0
+        checksums   rmd160  50bc745f11506fa01622820ccaf47b7f18894a89 \
+                    sha256  d8d6091753d0669db3c90c5e5b346cb37c72f3dd9378c8413acb1fd5da63f7ea \
+                    size    478291
+    } else {
+        python.pep517_backend maturin
+    }
+
     depends_lib-append \
-                    port:py${python.version}-attrs \
                     port:py${python.version}-sortedcontainers
 
     if {${python.version} < 311} {

@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/syncthing/syncthing 2.0.16 v
+go.setup            github.com/syncthing/syncthing 2.1.6 v
 go.offline_build    no
+go.toolchain_min    1.26.2
 revision            0
 
 homepage            https://syncthing.net
@@ -17,9 +18,9 @@ long_description    Syncthing replaces proprietary sync and cloud services \
                     where it is stored, if it is shared with some third party \
                     and how it's transmitted over the Internet.
 
-checksums           rmd160  a1a9938ff61757e7ce6c3f05ef6b17321c632740 \
-                    sha256  30ab1917025de0d057ae53b3568e721bbea652b4b3d7bd96b04a6ef9bfb28bab \
-                    size    5410639
+checksums           rmd160  8fdc9e6cb78f8f266300cc1a212be024b3512625 \
+                    sha256  912cf0cf214a3cb68dedf88fbafc78bb842bfcdc857f5e26c4d3a6971f1a5c8e \
+                    size    5459643
 
 categories          net
 installs_libs       no
@@ -36,6 +37,9 @@ test.run            yes
 test.cmd            ${build.cmd}
 test.target         test
 
+set syncthing_label net.syncthing.syncthing
+set syncthing_plist ${syncthing_label}.plist
+
 destroot {
     xinstall -W ${worksrcpath}/bin syncthing ${destroot}${prefix}/bin
 
@@ -47,15 +51,32 @@ destroot {
     xinstall -d ${destroot}${prefix}/share/doc/${name}
     xinstall -W ${worksrcpath} AUTHORS LICENSE ${destroot}${prefix}/share/doc/${name}
     xinstall {*}[glob ${worksrcpath}/*.md] ${destroot}${prefix}/share/doc/${name}
+    # launchd plist
     xinstall -d ${destroot}${prefix}/share/examples/${name}
-    xinstall -W ${worksrcpath}/etc/macos-launchd syncthing.plist ${destroot}${prefix}/share/examples/${name}
-    reinplace "s|/Users/USERNAME/bin/|${prefix}/bin/|g" ${destroot}${prefix}/share/examples/${name}/syncthing.plist
+    xinstall -m 0644 -W ${worksrcpath}/etc/macos-launchd syncthing.plist ${destroot}${prefix}/share/examples/${name}
+    move ${destroot}${prefix}/share/examples/${name}/syncthing.plist \
+         ${destroot}${prefix}/share/examples/${name}/${syncthing_plist}
+    reinplace "s|/Users/USERNAME/bin/|${prefix}/bin/|g" ${destroot}${prefix}/share/examples/${name}/${syncthing_plist}
+    system -W ${destroot}${prefix}/share/examples/${name} \
+        "/usr/bin/plutil -insert UserName -string USERNAME ${syncthing_plist}"
+    system -W ${destroot}${prefix}/share/examples/${name} \
+        "/usr/bin/plutil -insert GroupName -string staff ${syncthing_plist}"
 }
 
 notes-append        \
     "Syncthing provides an example launchd plist. To use it:" \
-    "1. Copy ${prefix}/share/examples/${name}/syncthing.plist to ~/Library/LaunchAgents" \
+    "1. Copy ${prefix}/share/examples/${name}/${syncthing_plist} to ~/Library/LaunchAgents" \
     "2. Edit syncthing.plist by replacing USERNAME with your actual username" \
-    "3. Log out and in again, or run: launchctl load ~/Library/LaunchAgents/syncthing.plist"
+    "3. Log out and in again, or run:" \
+    "launchctl load ~/Library/LaunchAgents/${syncthing_plist}"
+
+if {${os.major} >= 14} {
+    notes-append    \
+        "" \
+        "The modern launchctl syntax to load/start/stop the daemon is:" \
+        "launchctl bootstrap \"gui/\$(id -u)\" ~/Library/LaunchAgents/${syncthing_plist}" \
+        "launchctl kickstart -k \"gui/\$(id -u)/${syncthing_label}\"" \
+        "launchctl bootout \"gui/\$(id -u)/${syncthing_label}\""
+}
 
 github.livecheck.regex  {([0-9.-]+)}

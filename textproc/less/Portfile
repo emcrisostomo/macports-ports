@@ -3,7 +3,7 @@
 PortSystem      1.0
 
 name            less
-version         692
+version         710
 revision        0
 categories      textproc
 license         {GPL-3+ BSD}
@@ -21,9 +21,9 @@ long_description \
 homepage        https://www.greenwoodsoftware.com/less/
 master_sites    ${homepage}
 
-checksums       rmd160  9d96b617d2baf34648d325a6521f01b6d6b60645 \
-                sha256  61300f603798ecf1d7786570789f0ff3f5a1acf075a6fb9f756837d166e37d14 \
-                size    987633
+checksums       rmd160  ae64da739dd1a39641748fabe5729c811cf223b5 \
+                sha256  d1008fb78dcae1323ddab664bcb352a61f022b1b131bd8018548e021d975ec7a \
+                size    1017103
 
 depends_lib     port:ncurses \
                 port:gettext

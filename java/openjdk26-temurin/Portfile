@@ -1,6 +1,9 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem       1.0
+PortGroup        deprecated 1.0
+
+deprecated.eol_version yes
 
 set feature      26
 name             openjdk${feature}-temurin
@@ -20,8 +23,8 @@ universal_variant no
 # https://adoptium.net/temurin/releases/?version=25&os=mac&arch=any&mode=filter
 supported_archs  x86_64 arm64
 
-version      ${feature}
-set build    35
+version      ${feature}.0.2.1
+set build    1
 revision     0
 
 # End of availability: https://adoptium.net/support
@@ -33,14 +36,14 @@ master_sites https://github.com/adoptium/temurin${feature}-binaries/releases/dow
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  3e591d8dc1fd3fef94d04b94095ef2090b1302b9 \
-                 sha256  a5cabec41a19e83e33fde381a978f93bc7f5bd5accadf5b7c34770f08f4b5504 \
-                 size    123145359
+    checksums    rmd160  345b2a0b075e538c0886cacbe65ba450b316eb4d \
+                 sha256  e1b58af4ef2089f6de66bdadd5c77a661adfad8340d5b8e19771a76ab5f02188 \
+                 size    123143867
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier aarch64
-    checksums    rmd160  2a33ae1c488d8f60ddca1632734d21bd61a93ad4 \
-                 sha256  596ba026474808b75e934aa8c32cf9b340fafc455d06f366ede4f2932f206eb1 \
-                 size    139617548
+    checksums    rmd160  12c3dca335f55229c9b27c3c924bec02cc056dad \
+                 sha256  8c77a069a150c5b1c80280269ba062463053ebb7619ddef38dcfe3921fc60bdd \
+                 size    139615274
 } else {
     set arch_classifier unsupported_arch
 }

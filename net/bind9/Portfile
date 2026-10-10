@@ -4,7 +4,8 @@ PortSystem      1.0
 PortGroup       legacysupport 1.0
 
 name            bind9
-version         9.20.22
+version         9.20.29
+revision	0
 categories      net
 maintainers     {geeklair.net:dluke @danielluke} {jmr @jmroot}
 platforms       {darwin >= 11} freebsd sunos
@@ -29,9 +30,9 @@ homepage        https://www.isc.org/bind/
 distname        bind-${version}
 master_sites    isc:${name}/${version}
 
-checksums       rmd160  c9332e8a3d2f4fc1690348d1a354643777254849 \
-                sha256  cba92ff631b949655f475fe4b54290f6860fd0070d399f2279f6437c0d383ec6 \
-                size    5817248
+checksums       rmd160  647257f0828595f09721064d1d477123815ec92d \
+                sha256  587029508b3b1b43229fae416c97e5543aba45809cefaca98a5004a02a5736c1 \
+                size    5966372
 
 use_xz          yes
 
@@ -135,9 +136,6 @@ notes "******************************************************
 * 
 * You may want to generate a key (for rndc):
 * $ sudo rndc-confgen -a
-*
-* Remember to secure your configuration:
-* http://www.cymru.com/Documents/secure-bind-template.html
 *
 * The bind9 port now sets up named to run as non-root, you may
 * need to adjust your named.conf to put the pidfile and any

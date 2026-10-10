@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                claude-code
-version             2.1.123
+version             2.1.296
 revision            0
 
 categories          llm
@@ -26,14 +26,14 @@ platforms           {darwin >= 22}
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  883818d9498d732bb0f7e8ec7f975912f5a9ee6c \
-                 sha256  ddea227d4c2b2602d650d2c5d5c812f7680701a1504bcaff81e42c165c583ef9 \
-                 size    217444560
+    checksums    rmd160  5347b86ef29ea8c10ed799e0e5fb81135e75754d \
+                 sha256  a6bf4f30be241053a923f3820ad23c5991d2f5ac2935b3a8dd64da218d9cc603 \
+                 size    249194752
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier arm64
-    checksums    rmd160  0284641c10338fe6a682609579213e59fc168ec9 \
-                 sha256  44597dff0f1c11e37c1954d4ac3965909be376e5961b558345723357253bcc90 \
-                 size    215880320
+    checksums    rmd160  f9ff16739111a54481ad412466b05d58f40d3c1e \
+                 sha256  c9b5341637becbd423ddffc5b254afb645682a3868cb708bbc6cc0e7bb419937 \
+                 size    240664432
 } else {
     set arch_classifier unsupported_arch
     distfiles
@@ -62,6 +62,8 @@ test.cmd    ./claude
 test.target
 test.args   --version
 
+variant telemetry description {Allow Claude Code to send anonymous usage telemetry to Anthropic} {}
+
 destroot {
     set binary_dir ${prefix}/share/${name}
     set binary ${binary_dir}/claude
@@ -73,7 +75,12 @@ destroot {
     # Create launch script
     set launch_script [open ${destroot}${prefix}/bin/claude w 0755]
     puts $launch_script "#!/bin/sh"
-    puts $launch_script "DISABLE_UPDATES=1 DISABLE_TELEMETRY=1 ${binary} $@"
+    set launch_command "DISABLE_UPDATES=1 DISABLE_INSTALLATION_CHECKS=1"
+    if {![variant_isset telemetry]} {
+        append launch_command " DISABLE_TELEMETRY=1"
+    }
+    append launch_command " exec ${binary} \"$@\""
+    puts $launch_script $launch_command
     close $launch_script
 }
 

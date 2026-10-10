@@ -7,15 +7,15 @@ PortGroup               compilers 1.0
 PortGroup               python 1.0
 
 name                    py-scipy
-version                 1.17.1
+version                 1.18.1
 revision                0
 
-checksums               rmd160  fe3552f46fd079218a8f057c81cfef2383c1a274 \
-                        sha256  95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0 \
-                        size    30573822
+checksums               rmd160  39680313ebb15f0ca4fca59446f45c3ff2d3ed54 \
+                        sha256  52c4b7422442aba924d03ad4019852b08a92e64ea187b933135687bfe2747307 \
+                        size    30781235
 
 license                 BSD
-maintainers             {michaelld @michaelld} {reneeotten @reneeotten} openmaintainer
+maintainers             {reneeotten @reneeotten} openmaintainer
 description             An opensource library of scientific tools for Python
 long_description        {*}${description}
 
@@ -31,14 +31,12 @@ if {${name} ne ${subport}} {
     compiler.c_standard 2017
     compiler.cxx_standard 2017
 
-    # SciPy requires GCC >= 9.1
+    # SciPy requires GCC >= 10.3
     compilers.setup     require_fortran -clang -gcc44 -gcc45 -gcc46 \
-                        -gcc47 -gcc48 -gcc5 -gcc6 -gcc7 -gcc8 -g95
+                        -gcc47 -gcc48 -gcc5 -gcc6 -gcc7 -gcc8 -gcc9 -g95
 
-    # and Clang >= 12.0 (for PY39 and PY310 subports)
+    # and Clang >= 12.0 (for PY310 subports)
     compiler.blacklist-append {clang < 1200}
-
-    patchfiles-append   patch-scipy_meson.build.diff
 
     boost.version       1.81
 
@@ -51,7 +49,7 @@ if {${name} ne ${subport}} {
 
     if {${python.version} == 310} {
         version         1.15.3
-        revision        0
+        revision        1
         checksums       rmd160  a29b8fe6ee1fb282c3e2a419d989fead98a80661 \
                         sha256  eae3cf522bc7df64b42cad3925c876e1b0b6c35c1337c93e12c0f366f55b0eaf \
                         size    59419214
@@ -72,9 +70,23 @@ if {${name} ne ${subport}} {
                             ${worksrcpath}/scipy/sparse/linalg/_propack/meson.build
             }
         }
+    } elseif {${python.version} == 311} {
+        version         1.17.1
+        revision        1
+        checksums       rmd160  fe3552f46fd079218a8f057c81cfef2383c1a274 \
+                        sha256  95d8e012d8cb8816c226aef832200b1d45109ed4464303e997c5b13122b297c0 \
+                        size    30573822
+
+        # Clang >= 15.0 since version 1.16.0
+        compiler.blacklist-append {clang < 1500}
+
+        patchfiles-append   patch-v1.17.1-version-caps-pyproject.toml.diff \
+                            patch-v1.17.1-scipy_meson.build.diff
     } else {
         # Clang >= 15.0 since version 1.16.0
         compiler.blacklist-append {clang < 1500}
+
+        patchfiles-append   patch-v1.18.1-cython_version.diff
     }
 
     configure.fflags-append -fno-second-underscore
@@ -82,13 +94,12 @@ if {${name} ne ${subport}} {
     depends_build-append \
                         port:py${python.version}-cython \
                         path:bin/pkg-config:pkgconfig \
+                        port:py${python.version}-pybind11 \
                         port:py${python.version}-pythran
 
     build.env-append    PATH=${python.prefix}/bin:$env(PATH)
 
-    depends_lib-append  port:py${python.version}-numpy \
-                        port:py${python.version}-pybind11 \
-                        port:py${python.version}-mypy
+    depends_lib-append  port:py${python.version}-numpy
 
     # SciPy (and NumPy) only support the Accelerate framework for macOS 13.3+
     # see: https://scipy.github.io/devdocs/building/blas_lapack.html

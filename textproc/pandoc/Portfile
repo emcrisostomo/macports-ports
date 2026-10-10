@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        jgm pandoc 3.9.0.2
+github.setup        jgm pandoc 3.10.1
 revision            0
 categories          textproc haskell
 license             GPL-3
@@ -30,9 +30,9 @@ installs_libs       no
 github.tarball_from archive
 
 # Note: When updating, please also update the checksums on legacy versions below
-checksums           rmd160  08a63a3c799b48575994bf57e94664071d181530 \
-                    sha256  c300c60ae4d47da6e5d265e93f89b896324cdc84ccbb504b88a9855bacd6b5d7 \
-                    size    8748348
+checksums           rmd160  5f0726c61cc6ba0fd10c225f7759e6c4078c2224 \
+                    sha256  faee98f42ed1592b2feb8da7fdfa87a23b679ca27ff883e06030f89c25c91ba9 \
+                    size    8890354
 
 depends_lib-append  port:libffi \
                     port:zlib
@@ -70,6 +70,10 @@ set minimum_major_version_for_source 20
 if {(${os.platform} eq {darwin}
         && ${os.major} >= ${minimum_major_version_for_source})
         || ${os.platform} ne {darwin}} {
+    if {${os.platform} eq {darwin}} {
+        compiler.blacklist-append \
+                   *gcc*
+    }
     compiler.blacklist-append \
                    {clang < 900}
 
@@ -125,8 +129,10 @@ if {(${os.platform} eq {darwin}
     test.run        yes
     test.pre_args   run
     test.args       test-${subport}
-    test.post_args-prepend \
+    if {![variant_isset "stack"]} {
+        test.post_args-prepend \
                     {*}${cabalopts}
+    }
     test.post_args-append \
                     {-- '-p markdown'}
 } else {
@@ -143,15 +149,15 @@ if {(${os.platform} eq {darwin}
     switch ${build_arch} {
         arm64 {
             checksums \
-                    rmd160  add9309a1f9c98aad9eed6ae7de70eb591217ee8 \
-                    sha256  6e9eca844076bcbb599bbeebbba78a70f93b5307782b85c2c272872812c88875 \
-                    size    36687858
+                    rmd160  8ab14a9039a7bbdd8718a20f6ec725a473194faf \
+                    sha256  8607160694a70ed9aa63776caa44acef3afb729c379c7c283724b7e27455bfda \
+                    size    41741911
         }
         x86_64 {
             checksums \
-                    rmd160  a0aabe6689bbdbc0485135910e008fe68494e6c0 \
-                    sha256  b9fbceabccbc8f34ac021a50483fc32f8160568d0b4b2c22d81bb29e3054fd82 \
-                    size    25764704
+                    rmd160  d1c04523aaa9ca3da2d25689773edff2d3dedfe2 \
+                    sha256  76430dd0ce5305fc4b91d8c0d5c22a00c8d2197ad3cef3937f65048f087164f7 \
+                    size    26096585
         }
         default {
             known_fail  yes

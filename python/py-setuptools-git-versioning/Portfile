@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                py-setuptools-git-versioning
 python.rootname     setuptools_git_versioning
-version             3.0.1
+version             3.2.0
 revision            0
 
 license             MIT
@@ -18,9 +18,9 @@ homepage            https://github.com/dolfinus/setuptools-git-versioning
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  0e264d267726f149d8806dce8a64cda0951bfc32 \
-                    sha256  c8a599bacf163b5d215552b5701faf5480ffc4d65426a5711a010b802e1590eb \
-                    size    13932
+checksums           rmd160  2180a370dcef2761b1c8f1a9070a3e646ce927ff \
+                    sha256  27aa1ad0409b632ee49947ea592cc27e16fbb2a1605cc22efeb7c353fd790b31 \
+                    size    18049
 
 python.versions     310 311 312 313 314
 

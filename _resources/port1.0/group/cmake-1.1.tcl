@@ -16,6 +16,7 @@ options                             cmake.build_dir \
                                     cmake.install_prefix \
                                     cmake.install_rpath \
                                     cmake.module_path \
+                                    cmake.prefix_path \
                                     cmake_share_module_dir \
                                     cmake.out_of_source \
                                     cmake.set_osx_architectures \
@@ -54,6 +55,9 @@ default cmake_share_module_dir      {${prefix}/share/cmake/Modules}
 # extra locations to search for modules can be specified with
 # cmake.module_path; they come after ${cmake_share_module_dir}
 default cmake.module_path           {}
+
+# additional prefixes to search for libraries
+default cmake.prefix_path           {}
 
 # Propagate c/c++ standards to the build
 default cmake.set_c_standard        no
@@ -120,14 +124,11 @@ proc cmake::system_prefix_path {} {
 }
 
 proc cmake::module_path {} {
-    if {[llength [option cmake.module_path]]} {
-        set modpath "[join [concat [option cmake_share_module_dir] [option cmake.module_path]] \;]"
-    } else {
-        set modpath [option cmake_share_module_dir]
-    }
+    set modpath "[join [concat [option cmake_share_module_dir] [option cmake.module_path]] \;]"
+    set prepath "[join [option cmake.prefix_path] \;]"
     return [list \
         -DCMAKE_MODULE_PATH="${modpath}" \
-        -DCMAKE_PREFIX_PATH="${modpath}"
+        -DCMAKE_PREFIX_PATH="${prepath}"
     ]
 }
 

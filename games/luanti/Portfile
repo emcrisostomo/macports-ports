@@ -5,13 +5,13 @@ PortGroup           cmake 1.1
 PortGroup           github 1.0
 PortGroup           openssl 1.0
 
-github.setup        luanti-org luanti 5.15.2
+github.setup        luanti-org luanti 5.17.0
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  7fa900016e3bac0b27dd1d4b59240e8de50c86bd \
-                    sha256  1fdfa8b973968f8fcf5a264ce3fb3a170c3882105f953498a64d6415eff83471 \
-                    size    12332073
+checksums           rmd160  b2c73cb7e2a100b4bce36ff220d756d85e867f10 \
+                    sha256  52e7dd315ae0e5c3868a23231e691578cd694bcca5af627fc57c03f32bdc846f \
+                    size    12672872
 
 compiler.cxx_standard 2017
 compiler.thread_local_storage yes

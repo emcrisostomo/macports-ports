@@ -37,11 +37,11 @@ if {${subport} eq ${name}} {
 }
 
 subport yt-dlp {
-    github.setup    yt-dlp ${subport} 2026.03.17
+    github.setup    yt-dlp ${subport} 2026.08.19
     revision        0
-    checksums       rmd160  3e4528e80d60d82c1212319a7c668b985c2a2756 \
-                    sha256  c74f56fc88a7f9b7c995646f30538974a03dd7609f55257b20594fdeeb1e13df \
-                    size    6209587
+    checksums       rmd160  fc330ff027af02a297750b351d516be0280d7334 \
+                    sha256  072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1 \
+                    size    6020567
     dist_subdir     ${subport}/${version}
     distname        ${subport}
 

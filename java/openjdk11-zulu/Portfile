@@ -20,10 +20,10 @@ universal_variant no
 # https://www.azul.com/downloads/?version=java-11-lts&os=macos&package=jdk
 supported_archs  x86_64 arm64
 
-version      ${feature}.88.17
+version      ${feature}.90.205
 revision     0
 
-set openjdk_version ${feature}.0.31
+set openjdk_version ${feature}.0.32.1
 
 # Support roadmap: https://www.azul.com/products/azul-support-roadmap/
 description Azul Zulu Community OpenJDK ${feature} (Long Term Support until January 2032)
@@ -34,14 +34,14 @@ master_sites https://cdn.azul.com/zulu/bin/
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  56f8a209ca024b7f8005f9d6284d9195899de017 \
-                 sha256  fb7382de640ea36b9c246d0e00293b209b53bd3c0f9f958f6dc1b9713f430007 \
-                 size    194720094
+    checksums    rmd160  a15f2f864eb0fa8b71cc2229fca0a946915d33f9 \
+                 sha256  a0309d26262328e4716b7cf65b70420444f054208ef769883f3aa245c5d894c2 \
+                 size    193703547
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier aarch64
-    checksums    rmd160  4a791593f10a068312ccbc1956b3273a802a8d99 \
-                 sha256  fe756215bc360cab0703c9c851f7e46d4762591dff33011420a710d4950e79b1 \
-                 size    192716379
+    checksums    rmd160  9959326b44502da4f18c148b502d513e145ecc13 \
+                 sha256  8d08d90f259a43a9b1a672fd6189eb8ee3c6a5e59d95f3cc5efe108e9cd7fd31 \
+                 size    191700990
 } else {
     set arch_classifier unsupported_arch
 }

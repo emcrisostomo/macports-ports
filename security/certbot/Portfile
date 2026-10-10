@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        certbot certbot 5.5.0 v
+github.setup        certbot certbot 5.8.0 v
 github.tarball_from archive
-revision            1
+revision            0
 
 categories          security
 license             Apache-2
@@ -19,9 +19,9 @@ homepage            https://certbot.eff.org/
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  bf3261d704a40f2319c769f40d21eaff4929589e \
-                    sha256  caba9441c6d3f02de1ba378cb3e0e93ad4d78addcf3b60ef729a7d794dee16fb \
-                    size    2339278
+checksums           rmd160  28bd264517640829de661eef827d5e77ae6d8c78 \
+                    sha256  84eed9f149b6dd9f43174b4c2cfaf93105a74b58b0eadc82946b65edfde8045b \
+                    size    2353559
 
 variant python310 conflicts python311 python312 python313 python314 description {Use Python 3.10} {}
 variant python311 conflicts python310 python312 python313 python314 description {Use Python 3.11} {}
@@ -129,7 +129,7 @@ subport ${name}-dns-cloudflare {
                         TXT records using the Cloudflare API. \
                         https://certbot-dns-cloudflare.readthedocs.io/
 
-    depends_lib-append  port:py${python.version}-cloudflare2
+    depends_lib-append  port:py${python.version}-cloudflare
 }
 
 subport ${name}-dns-digitalocean {

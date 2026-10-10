@@ -4,16 +4,15 @@ PortSystem          1.0
 PortGroup           codeberg 1.0
 PortGroup           python 1.0
 
-codeberg.setup      mikf gallery-dl 1.32.0 v
+codeberg.setup      mikf gallery-dl 1.32.15 v
 
 categories          net
-maintainers         {@akierig fastmail.de:akierig} openmaintainer
+maintainers         {sub-pop.net:link @subpop} openmaintainer
 revision            0
 
-
-checksums           rmd160  5f5d2f2adddd476e84981ada6e80aee00689ee7d \
-                    sha256  caa5bd59d32eb91547f151336f230bd6d070edd1ea56dd461969ae08f0b6e9e8 \
-                    size    1188314
+checksums           rmd160  a8671af7115417dc0f5dbe258c8d71a370ed0d77 \
+                    sha256  d974367e378fa7b28e8d12a8fc20b4cd1d33e18e5dd7535d7638b8fc3ccdcb17 \
+                    size    1298178
 
 description         command-line program to download image galleries and \
                     collections from several image hosting sites
@@ -26,9 +25,11 @@ platforms           {darwin any}
 license             GPL-2
 
 # python version should be kept in sync with yt-dlp
-python.default_version 314
+python.default_version \
+                    314
 
-depends_build-append port:py${python.version}-setuptools
+depends_build-append \
+                    port:py${python.version}-setuptools
 
 depends_lib-append  port:py${python.version}-brotli \
                     port:py${python.version}-requests \
@@ -37,11 +38,13 @@ depends_lib-append  port:py${python.version}-brotli \
 default_variants    +yt-dlp
 
 variant ffmpeg description {Add ffmpeg dependency to enable Pixiv Ugoira to WebM conversion} {
-    depends_run-append path:bin/ffmpeg8:ffmpeg8
+    PortGroup       ffmpeg 1.0
+    ffmpeg.version  8
 }
 
 variant ytdlp description {Add yt-dlp dependency to enable video downloads} {
-     depends_run-append port:yt-dlp
+    depends_run-append \
+                    port:yt-dlp
 }
 
 post-destroot {

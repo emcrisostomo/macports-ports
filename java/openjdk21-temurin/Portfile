@@ -20,8 +20,8 @@ universal_variant no
 # https://adoptium.net/temurin/releases/?version=21&os=mac
 supported_archs  x86_64 arm64
 
-version      ${feature}.0.11
-set build    10
+version      ${feature}.0.12.1
+set build    1
 revision     0
 
 description  Eclipse Temurin, based on OpenJDK ${feature} (Long Term Support until at least December 2029)
@@ -31,14 +31,14 @@ master_sites https://github.com/adoptium/temurin${feature}-binaries/releases/dow
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  5cf073ec8efca8df7c837bac1cd15b82307aaefd \
-                 sha256  34180eb03e6d207c388cce3da668f6cc7cd7508c185c24782fadac2c9c0e66f9 \
-                 size    194283642
+    checksums    rmd160  bab123c017a9164d4c9a954964f7f76b259092c0 \
+                 sha256  44db0f08196daf19a47f90d13388b0c943b67663cb537f998fe29e836fa842ce \
+                 size    194316575
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier aarch64
-    checksums    rmd160  9f6fafcdf98cd1fbea497b597a5da2e7049b1e73 \
-                 sha256  6ebcf221c9b41507b14c098e93c6ead6440b8d9bd154f8ec666c4c73abbdb201 \
-                 size    200030394
+    checksums    rmd160  47d2a0ed11e801eb3c125f5e42d059b6d429d1a6 \
+                 sha256  3623232f33a9c3baadf304480b2535f9a3cba8a58d42ecbb438ba267315d9998 \
+                 size    200073404
 } else {
     set arch_classifier unsupported_arch
 }

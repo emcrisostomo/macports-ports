@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           npm 1.0
 
 name                vega
-version             6.2.0
+version             6.4.0
 revision            0
 
 npm.rootname        vega-cli
@@ -25,9 +25,9 @@ long_description    Vega is a visualization grammar, a declarative language for 
 
 homepage            https://vega.github.io/vega/
 
-checksums           rmd160  628ebd2ffc088f9eb97cc67b0acbd0bb01087383 \
-                    sha256  b6007efa43e3b8fe8d5ad941a4283affeec3f07770c1dcb4ed50cbe70dbce802 \
-                    size    4080
+checksums           rmd160  4a39e995cd5609f2fa68d701306b9e619f6f1343 \
+                    sha256  73c6b758a222298dba1319a2d9408e85e09a65083e214801d1f6674029c2eb2f \
+                    size    4361
 
 platform darwin {
     if {${os.major} >= 22} {

@@ -4,11 +4,14 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cargo 1.0
 
-github.setup        M-Igashi mp3rgain 2.3.0 v
+github.setup        M-Igashi mp3rgain 3.11.0 v
 github.tarball_from archive
 revision            0
 
+homepage            https://mp3rgain.tyna.ninja/
+
 categories          audio
+platforms           {darwin >= 17}
 installs_libs       no
 license             MIT
 maintainers         {@M-Igashi users.noreply.github.com:M-Igashi} \
@@ -25,13 +28,13 @@ long_description    ${name} is a modern Rust reimplementation of the classic \
                     aacgain port.
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  970684ad3b930c6e7a9c55842476840eed26763b \
-                    sha256  d8c8be39ccec2817f11efba2506541c45b98f56a6492d5f2f65130c3e0297b21 \
-                    size    267279
+                    rmd160  0072aec998e7fac9db8927138960a75ec760b186 \
+                    sha256  49879e899f6cbb6a8213bf264d338d46181ee40b805601ff6333868450538470 \
+                    size    733806
 
 cargo.crates \
     adler2                       2.0.1            320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa \
-    anyhow                       1.0.102          7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c \
+    anyhow                       1.0.104          330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470 \
     autocfg                      1.5.0            c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8 \
     bitflags                     2.11.0           843867be96c8daad0d758b57df9392b6d8d271134fce549de6ce169ff98a92af \
     bumpalo                      3.20.2           5d20789868f4b01b2f2caec9f5c4e0213b41e3e5702a50157d699ae31ced2fcb \
@@ -39,12 +42,16 @@ cargo.crates \
     byteorder                    1.5.0            1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b \
     cfg-if                       1.0.4            9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801 \
     colored                      3.1.1            faf9468729b8cbcea668e36183cb69d317348c2e08e994829fb56ebfdfbaac34 \
-    console                      0.16.3           d64e8af5551369d19cf50138de61f1c42074ab970f74e99be916646777f8fc87 \
+    console                      0.16.4           4fe5f465a4f6fee88fad41b85d990f84c835335e85b5d9e6e63e0d06d28cba7c \
     crc32fast                    1.5.0            9481c1c90cbf2ac953f07c8d4a58aa3945c425b7185c9154d67a65e4230da511 \
+    crossbeam-deque              0.8.6            9dd111b7b7f7d55b72c0a6ae361660ee5853c9af73f70c3c2ef6858b950e2e51 \
+    crossbeam-epoch              0.9.20           2d6914041f254d6e9176c01941b21115dcfb7089e55135a35411081bd106ef3f \
+    crossbeam-utils              0.8.21           d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28 \
+    either                       1.15.0           48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719 \
     encode_unicode               1.0.0            34aa73646ffb006b8f5147f3dc182bd4bcb190227ce861fc4a4844bf8e3cb2c0 \
     flate2                       1.1.9            843fba2746e448b37e26a819579957415c8cef339bf08564fe8b7ddbd959573c \
-    id3                          1.16.4           965c5e6a62a241f2f673df956ea5f52c27780bc1031855890a551ed9b869e2d1 \
-    indicatif                    0.18.4           25470f23803092da7d239834776d653104d551bc4d7eacaf31e6837854b8e9eb \
+    id3                          1.17.2           ef8be496a46468ba3d43690775aa3a79102ce4daf7d99e8072589aae1a3cd955 \
+    indicatif                    0.18.6           9433806cd6b4ec1aba79c021c7e4c58fb4c3b9977c085062e611ac929998fb0c \
     itoa                         1.0.18           8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682 \
     js-sys                       0.3.94           2e04e2ef80ce82e13552136fabeef8a5ed1f985a96805761cbb9a2c34e7664d9 \
     lazy_static                  1.5.0            bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe \
@@ -58,24 +65,27 @@ cargo.crates \
     portable-atomic              1.13.1           c33a9471896f1c69cecef8d20cbe2f7accd12527ce60845ff44c153bb2a21b49 \
     proc-macro2                  1.0.106          8fd00f0bb2e90d81d1044c2b32617f68fcb9fa3bb7640c23e9c748e53fb30934 \
     quote                        1.0.45           41f2619966050689382d2b44f664f4bc593e129785a36d6ee376ddf37259b924 \
+    rayon                        1.12.0           fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d \
+    rayon-core                   1.13.0           22e18b0f0062d30d4230b2e85ff77fdfe4326feb054b9783a3460d8435c8ab91 \
     regex-lite                   0.1.9            cab834c73d247e67f4fae452806d17d3c7501756d98c8808d7c9c7aa7d18f973 \
     rustversion                  1.0.22           b39cdef0fa800fc44525c84ccb54a029961a8215f9619753635a9c0d2538d46d \
-    serde                        1.0.228          9a8e94ea7f378bd32cbbd37198a4a91436180c5bb472411e48b5ec2e2124ae9e \
-    serde_core                   1.0.228          41d385c7d4ca58e59fc732af25c3983b67ac852c1a25000afe1175de458b67ad \
-    serde_derive                 1.0.228          d540f220d3187173da220f885ab66608367b6574e925011a9353e4badda91d79 \
-    serde_json                   1.0.149          83fc039473c5595ace860d8c4fafa220ff474b3fc6bfdb4293327f1a37e94d86 \
+    serde                        1.0.229          4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba \
+    serde_core                   1.0.229          67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48 \
+    serde_derive                 1.0.229          e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348 \
+    serde_json                   1.0.151          c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14 \
     simd-adler32                 0.3.9            703d5c7ef118737c72f1af64ad2f6f8c5e1921f818cdcb97b8fe6fc69bf66214 \
     smallvec                     1.15.1           67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03 \
-    symphonia                    0.6.0-alpha.2    b38c0b8e99ce52271da0f3fec5780a8566edd703b181211dd0ff725efeaaae38 \
-    symphonia-bundle-mp3         0.6.0-alpha.2    08e64864167bd6cb39e743c19036cad4486ba4dcf299336b695249ea3cfd31ff \
-    symphonia-codec-aac          0.6.0-alpha.2    7139b6baf2f6df9877395d70bf16edc0860d72ff35eefbf51d083b10b36f7949 \
-    symphonia-common             0.6.0-alpha.2    0c029b5a948c81fd3a46647a151b959109d1d16b05a1d7c7eca1fdac0ace0a27 \
-    symphonia-core               0.6.0-alpha.2    3be2e760147497d7f939f18b7739387c7e6b5322d9ce0cf10cd93cf96f4d815c \
-    symphonia-format-isomp4      0.6.0-alpha.2    0a0c9c23912250e33b40c0d36deded5c03aef33299e03c39f78e6125d492da61 \
-    symphonia-metadata           0.6.0-alpha.2    eea744eea37a3336aeb2919b5632a5b79dc12695e60cac15adf3422814c0f32c \
+    symphonia                    0.6.1            a7edef6a96b696d4e0cab5ee9ebb7ca155ed95f30a6b45bbb8b97d2727f02424 \
+    symphonia-bundle-mp3         0.6.1            98ea5ffc8716bff677dfb3b01b420c7b758de901a72b8c330bf2040ab74b4add \
+    symphonia-codec-aac          0.6.1            f5bf8e39552d34a3c4c98333370e62f48c92456d2e814f273b5c3ad7c4a5f45c \
+    symphonia-common             0.6.1            2acc3fcc18ec9b8cdd48614e259c4cf0d27b71d41e5d9b120b42c5adab12d7c4 \
+    symphonia-core               0.6.1            01c412864d599d4750d0c3d684d7e093ec05e5309681ef5252cc1096a437f6e0 \
+    symphonia-format-isomp4      0.6.1            0e681a70e1870d34e02abf1dbc51e4267c3f1827801474e8870be8c689fc4dc3 \
+    symphonia-metadata           0.6.1            83713a97705d77bdef7cdbc0768fd6e5a54e4cd7e48d60a806ae85639e2c87c6 \
     syn                          2.0.117          e665b8803e7b1d2a727f4023456bbbbe74da67099c585258af0ad9c5013b9b99 \
-    thiserror                    2.0.18           4288b5bcbc7920c07a1149a35cf9590a2aa808e0bc1eafaade0b80947865fbc4 \
-    thiserror-impl               2.0.18           ebc4ee7f67670e9b64d05fa4253e753e016c6c95ff35b89b7941d6b856dec1d5 \
+    syn                          3.0.3            53e9bae58849f64dfa4f5d5ae372c8341f7305f82a3868709269343628b659a3 \
+    thiserror                    2.0.21           09e52cb86a36cede5cb101bf8908837b3e4c6e5e59fe7fd85c23fb56200d189e \
+    thiserror-impl               2.0.21           fe5197923287db20a58125f0bc85c062f7f2c892de97b18c356f9efb14b28524 \
     unicode-ident                1.0.24           e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75 \
     unicode-width                0.2.2            b4ac048d71ede7ee76d585517add45da530660ef4390e49b098733c6e897f254 \
     unit-prefix                  0.5.2            81e544489bf3d8ef66c953931f56617f423cd4b5494be343d9b9d3dda037b9a3 \

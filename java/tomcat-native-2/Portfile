@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           java 1.0
 
 name                tomcat-native-2
-version             2.0.14
+version             2.0.16
 revision            0
 categories          java www
 maintainers         nomaintainer
@@ -17,9 +17,9 @@ long_description    This port provides access to native apr and other \
 homepage            https://tomcat.apache.org/
 master_sites        apache:tomcat/tomcat-connectors/native/${version}/source/
 
-checksums           rmd160  4ef853a14798ea719160455cd229937d22249fd0 \
-                    sha256  51ca50295c8005e6bb4a32a0cdc7ee5bc224406ae402075b031f5b3073bf2bdb \
-                    size    474739
+checksums           rmd160  8d74625bfda0951a9333264240f51c028aad1645 \
+                    sha256  785fdd99a202f442b085bc718d2fbeb393b85979aa4a2943302118c4acd68630 \
+                    size    471965
 
 distname            tomcat-native-${version}-src
 worksrcdir          ${distname}/native

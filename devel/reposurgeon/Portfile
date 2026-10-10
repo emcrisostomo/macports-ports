@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            gitlab.com/esr/reposurgeon 5.6
+go.setup            gitlab.com/esr/reposurgeon 5.12
+go.toolchain_min    1.24.0
 go.offline_build    no
 revision            0
 
@@ -28,9 +29,9 @@ license             BSD
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  f7f63c755a7551d2422adcd317baf93562b91b61 \
-                    sha256  22aa566c3378b7660c14f11ff4519b142271736900e331605eb91b816eff7b01 \
-                    size    1597171
+checksums           rmd160  ab9eab6e3126fd19cf20a1a0b64c2833785d9efd \
+                    sha256  d2d471a26f33250710910d3b9692ccccfeb3030cec64ccd01d91052b5a7e7c0d \
+                    size    1643370
 
 depends_build-append \
                     port:gawk \

@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-superqt
-version             0.8.1
-revision            0
+version             0.8.2
+revision            1
 
 categories-append   graphics
 license             BSD
@@ -19,9 +19,9 @@ homepage            https://github.com/pyapp-kit/superqt
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  f79720073dc4843cbe52afe19891e8d43e51cacf \
-                    sha256  d9a567e621c2dea0ce4c6c2f7e2237c09c52255e9848ca1594c9a957e2ecb08a \
-                    size    109177
+checksums           rmd160  05d93a2eb1e6b6dbfea0687d507c531057f56af3 \
+                    sha256  faa3bd00ef1c9b209b1f31b154dd41c596fec3824f61a70c251fb5569acd7ba6 \
+                    size    110190
 
 python.versions     310 311 312 313 314
 
@@ -34,7 +34,7 @@ if {${name} ne ${subport}} {
 
     depends_lib-append  \
                     port:py${python.version}-pygments \
-                    port:py${python.version}-pyqt5 \
+                    port:py${python.version}-pyqt6 \
                     port:py${python.version}-qtpy \
                     port:py${python.version}-typing_extensions
 }

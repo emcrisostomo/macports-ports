@@ -11,12 +11,11 @@ legacysupport.newest_darwin_requires_legacy \
                     16
 
 name                gpgmepp
-version             2.0.0
-revision            1
+version             2.2.0
 
-checksums           rmd160  170e6d2fb3250991c2591c855f2b7e77311da2ef \
-                    sha256  d4796049c06708a26f3096f748ef095347e1a3c1e570561701fe952c3f565382 \
-                    size    118304
+checksums           rmd160  0ab46fcac8813948705b4dbbde0596249205cc7c \
+                    sha256  6651c5f7f801543d5b676719df9fec8053b0a6f5aba40b98ca0d2bee11136f30 \
+                    size    123940
 
 categories          devel security crypto
 license             {LGPL-2.1+ GPL-3+}

@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                dotnet-sdk-10
-version             10.0.203
+version             10.0.401
 revision            0
 categories          dotnet devel
 license             MIT
@@ -26,16 +26,16 @@ switch ${build_arch} {
     x86_64 {
         set dotnet_rid osx-x64
         distname            dotnet-sdk-${version}-osx-x64
-        checksums           rmd160  f6a9e846de360c3d8f0ca25d4bfe5a61668ada1b \
-                            sha256  233da86dc0b50464b7108371aefc9c94b1561b41539fbaa49d2d8b6295c1148d \
-                            size    240628351
+        checksums           rmd160  3ec5da8b3b0226ef1c9eec03f2bfb380d143a247 \
+                            sha256  0616332aa0b5edfa19443a9d217d14d086d2e9605d7c72979cf8ebbb494ac792 \
+                            size    238641497
     }
     arm64 {
         set dotnet_rid osx-arm64
         distname            dotnet-sdk-${version}-osx-arm64
-        checksums           rmd160  a69e3f631fc959818686b4eccd495487eb00e7d9 \
-                            sha256  cbf1c5066ff2083a6f21bd1b2aaee6c51567d084e2f1dd90dfcd558541144f20 \
-                            size    232926048
+        checksums           rmd160  993f66012d093f534ec6b1c9cf5eff8e2629b591 \
+                            sha256  d143ccec4474dce17d7b778854598137a2599b81828bce51e809897fe8bdf035 \
+                            size    230753980
     }
     default {
         known_fail yes
@@ -61,7 +61,7 @@ build {}
 
 destroot {
     set dotnet_home ${prefix}/share/dotnet
-    set dotnet_runtime_version 10.0.7
+    set dotnet_runtime_version 10.0.12
 
     # ASP.NET Core Targeting Pack
     set aspnet_target_dir /packs/Microsoft.AspNetCore.App.Ref

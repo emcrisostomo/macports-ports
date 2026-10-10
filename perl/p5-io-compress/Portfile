@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         IO-Compress 2.219 ../../authors/id/P/PM/PMQS
+perl5.setup         IO-Compress 2.225 ../../authors/id/P/PM/PMQS
 revision            0
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -16,9 +16,9 @@ homepage            https://metacpan.org/release/${perl5.module}/
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  65831891ed975e2c7444e54ab6f922c8cb83d64d \
-                    sha256  d3f509c4ec2f75d3ea6621b96aef61329a23711c11efb2222c837db1370433e9 \
-                    size    334850
+checksums           rmd160  4fdce93293aaeea6b1ce5b13e32f0e10fe8e0435 \
+                    sha256  5244279bc5aa29637e4c77f45b5e54d9bc8c29e2f07d22180783cc7b06e58b5f \
+                    size    338248
 
 if {${perl5.major} ne ""} {
     depends_lib-append \

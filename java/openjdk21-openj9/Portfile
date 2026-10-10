@@ -20,34 +20,32 @@ universal_variant no
 # https://developer.ibm.com/languages/java/semeru-runtimes/downloads?os=macOS
 supported_archs  x86_64 arm64
 
-version      ${feature}.0.11
+version      ${feature}.0.12.15
 revision     0
-
-set build    10
 
 description  IBM Semeru with Eclipse OpenJ9 VM distribution, based on OpenJDK ${feature} (Long Term Support)
 long_description The IBM Semeru Runtimes are free production-ready open source binaries to run your Java applications\
                  built with the OpenJDK class libraries and the Eclipse OpenJ9 JVM.
 
-master_sites https://github.com/ibmruntimes/semeru${feature}-binaries/releases/download/jdk-${version}.${revision}/
+master_sites https://github.com/ibmruntimes/semeru${feature}-binaries/releases/download/jdk-${version}/
 
 if {${configure.build_arch} eq "x86_64"} {
     set arch_classifier x64
-    checksums    rmd160  92e6541cb187a13df1efa32b5e9cb10143e96009 \
-                 sha256  801f7731660bdd81a311504c16a2e89541a648f1ac09f74624a82856f2aa60f1 \
-                 size    232047827
+    checksums    rmd160  b348d0fa63a11d250792a3378770887806d8e425 \
+                 sha256  6a2d60fed77039d813c8bcf631c38d4be78eab6d79d2c92bde6c66b842c9dc34 \
+                 size    232722401
 } elseif {${configure.build_arch} eq "arm64"} {
     set arch_classifier aarch64
-    checksums    rmd160  5904485b848836588628a0493c427ec890748756 \
-                 sha256  3eadaf09b075321c13fc3c494ad50033614b3119810b15f2547ebed678a9d2ef \
-                 size    226270093
+    checksums    rmd160  445106a985e24b8fb791ae21150c3a09e2953f2c \
+                 sha256  62e1e06c25c1614a168a9b16ce359d22f226831b26cebd8f51dea308ca6770c6 \
+                 size    226694506
 } else {
     set arch_classifier unsupported_arch
 }
 
-distname     ibm-semeru-open-jdk_${arch_classifier}_mac_${version}.${revision}
+distname     ibm-semeru-open-jdk_${arch_classifier}_mac_${version}
 
-worksrcdir   jdk-${version}+${build}
+worksrcdir   jdk-${version}
 
 homepage     https://developer.ibm.com/languages/java/semeru-runtimes/
 

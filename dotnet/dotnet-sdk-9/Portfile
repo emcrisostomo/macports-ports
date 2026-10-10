@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                dotnet-sdk-9
-version             9.0.313
+version             9.0.318
 revision            0
 categories          dotnet devel
 license             MIT
@@ -26,16 +26,16 @@ switch ${build_arch} {
     x86_64 {
         set dotnet_rid osx-x64
         distname            dotnet-sdk-${version}-osx-x64
-        checksums           rmd160  6f14ea5b1e4cfc23cea5fb207f0c8690dfbed740 \
-                            sha256  40205d0c50366eaffd05460d081e3f6bfb656a5a5b58afe181139598af99a9ab \
-                            size    215928767
+        checksums           rmd160  c510bb75ec6d9aa7537b3db40bdfceeb23b43be0 \
+                            sha256  ae98d5ee5992271cc510b90d8b5bb4f292f5364f6ab9183390d6e384ffae202c \
+                            size    215926279
     }
     arm64 {
         set dotnet_rid osx-arm64
         distname            dotnet-sdk-${version}-osx-arm64
-        checksums           rmd160  fdd694f6345c40e6fb1dd5fe806e07908f727cd5 \
-                            sha256  41e0767c8fa2ca8bbf46fc1ccdd76a33deb68fe812e6651f34a9f088a523792d \
-                            size    210479728
+        checksums           rmd160  0aedecef636be0dd91ea8202c61c104a9a4a438d \
+                            sha256  60a441b5b92bccbdf269c46f76b43ca12331caf34c6dc73fb11d6fc62cfea467 \
+                            size    210486069
     }
     default {
         known_fail yes
@@ -61,7 +61,7 @@ build {}
 
 destroot {
     set dotnet_home ${prefix}/share/dotnet
-    set dotnet_runtime_version 9.0.15
+    set dotnet_runtime_version 9.0.20
 
     # ASP.NET Core Targeting Pack
     set aspnet_target_dir /packs/Microsoft.AspNetCore.App.Ref

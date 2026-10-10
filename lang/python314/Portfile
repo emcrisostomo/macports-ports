@@ -5,7 +5,7 @@ PortSystem 1.0
 name                python314
 
 # Remember to keep py314-tkinter and py314-gdbm's versions sync'd with this
-version             3.14.4
+version             3.14.8
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          lang
@@ -21,8 +21,8 @@ master_sites        ${homepage}ftp/python/${version}/
 
 distname            Python-${version}
 use_xz              yes
-checksums           rmd160 5f7949e9ae43e221307d55a3c8f922dd4175020e \
-                    sha256 d923c51303e38e249136fc1bdf3568d56ecb03214efdef48516176d3d7faaef8
+checksums           rmd160 20fd3ad63f537cc826182237b503720ce8ceb0ad \
+                    sha256 c2215904f02b175596dc49351585104f4bc20341e1c47378b26a2c274360ce73
 
 patchfiles          patch-configure.diff \
                     Makefile.pre.in.patch \
@@ -205,6 +205,7 @@ post-destroot {
 }
 
 variant universal {
+    patchfiles-append   hacl_universal2.patch
     post-patch {
         set universal_arch_flags {}
         set arch_run_32bit {}
